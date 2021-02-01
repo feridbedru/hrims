@@ -8,7 +8,7 @@
     </ul>
 
     <ul class="navbar-nav ml-auto">
-        <form class="form-inline mr-3" id="language" id="language">
+        <form class="form-inline mr-3" id="language">
             <div class="input-group input-group-sm">
                 <select name="lang" id="lang" class="form-control ">
                     <option value="en">English</option>

@@ -22,7 +22,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link active">
+                            <a href="{{ route('organizations.organization.index') }}" class="nav-link active">
                                 <i class="fas fa-building nav-icon"></i>
                                 <p>Organization</p>
                             </a>
@@ -97,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('cafe_student_preference') }}" class="nav-link">
+                            <a href="#" class="nav-link">
                                 <i class="fas fa-plus-circle nav-icon"></i>
                                 <p>New</p>
                             </a>
@@ -297,6 +297,15 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('settings.setting.index') }}" class="nav-link">
+                        <i class="nav-icon fa fa-cog"></i>
+                        <p>
+                            Setting
+                        </p>
+                    </a>
                 </li>
         </nav>
     </div>
