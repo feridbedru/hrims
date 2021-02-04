@@ -462,3 +462,80 @@ Route::group([
          ->name('helps.help.destroy')->where('id', '[0-9]+');
 });
 
+
+Route::group([
+    'prefix' => 'salary_scales',
+], function () {
+    Route::get('/', 'App\Http\Controllers\SalaryScalesController@index')
+         ->name('salary_scales.salary_scale.index');
+    Route::get('/create','App\Http\Controllers\SalaryScalesController@create')
+         ->name('salary_scales.salary_scale.create');
+    Route::get('/show/{salaryScale}','App\Http\Controllers\SalaryScalesController@show')
+         ->name('salary_scales.salary_scale.show')->where('id', '[0-9]+');
+    Route::get('/{salaryScale}/edit','App\Http\Controllers\SalaryScalesController@edit')
+         ->name('salary_scales.salary_scale.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\SalaryScalesController@store')
+         ->name('salary_scales.salary_scale.store');
+    Route::put('salary_scale/{salaryScale}', 'App\Http\Controllers\SalaryScalesController@update')
+         ->name('salary_scales.salary_scale.update')->where('id', '[0-9]+');
+    Route::delete('/salary_scale/{salaryScale}','App\Http\Controllers\SalaryScalesController@destroy')
+         ->name('salary_scales.salary_scale.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'salary_steps',
+], function () {
+    Route::get('/', 'App\Http\Controllers\SalaryStepsController@index')
+         ->name('salary_steps.salary_step.index');
+    Route::get('/create','App\Http\Controllers\SalaryStepsController@create')
+         ->name('salary_steps.salary_step.create');
+    Route::get('/show/{salaryStep}','App\Http\Controllers\SalaryStepsController@show')
+         ->name('salary_steps.salary_step.show')->where('id', '[0-9]+');
+    Route::get('/{salaryStep}/edit','App\Http\Controllers\SalaryStepsController@edit')
+         ->name('salary_steps.salary_step.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\SalaryStepsController@store')
+         ->name('salary_steps.salary_step.store');
+    Route::put('salary_step/{salaryStep}', 'App\Http\Controllers\SalaryStepsController@update')
+         ->name('salary_steps.salary_step.update')->where('id', '[0-9]+');
+    Route::delete('/salary_step/{salaryStep}','App\Http\Controllers\SalaryStepsController@destroy')
+         ->name('salary_steps.salary_step.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'salary_heights',
+], function () {
+    Route::get('/', 'App\Http\Controllers\SalaryHeightsController@index')
+         ->name('salary_heights.salary_height.index');
+    Route::get('/create','App\Http\Controllers\SalaryHeightsController@create')
+         ->name('salary_heights.salary_height.create');
+    Route::get('/show/{salaryHeight}','App\Http\Controllers\SalaryHeightsController@show')
+         ->name('salary_heights.salary_height.show')->where('id', '[0-9]+');
+    Route::get('/{salaryHeight}/edit','App\Http\Controllers\SalaryHeightsController@edit')
+         ->name('salary_heights.salary_height.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\SalaryHeightsController@store')
+         ->name('salary_heights.salary_height.store');
+    Route::put('salary_height/{salaryHeight}', 'App\Http\Controllers\SalaryHeightsController@update')
+         ->name('salary_heights.salary_height.update')->where('id', '[0-9]+');
+    Route::delete('/salary_height/{salaryHeight}','App\Http\Controllers\SalaryHeightsController@destroy')
+         ->name('salary_heights.salary_height.destroy')->where('id', '[0-9]+');
+});
+
+
+Route::group([
+    'prefix' => 'salaries',
+], function () {
+    Route::get('/', 'App\Http\Controllers\SalariesController@index')
+         ->name('salaries.salary.index');
+    Route::get('/create','App\Http\Controllers\SalariesController@create')
+         ->name('salaries.salary.create');
+    Route::get('/show/{salary}','App\Http\Controllers\SalariesController@show')
+         ->name('salaries.salary.show')->where('id', '[0-9]+');
+    Route::get('/{salary}/edit','App\Http\Controllers\SalariesController@edit')
+         ->name('salaries.salary.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\SalariesController@store')
+         ->name('salaries.salary.store');
+    Route::put('salary/{salary}', 'App\Http\Controllers\SalariesController@update')
+         ->name('salaries.salary.update')->where('id', '[0-9]+');
+    Route::delete('/salary/{salary}','App\Http\Controllers\SalariesController@destroy')
+         ->name('salaries.salary.destroy')->where('id', '[0-9]+');
+});
