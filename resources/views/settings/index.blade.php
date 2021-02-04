@@ -264,14 +264,14 @@
   </div>
 </div>
 
-{{-- <div class="row">
+<div class="row">
 <div class="col-12 col-sm-6 col-md-3">
     <div class="info-box">
         <span class="info-box-icon bg-info elevation-1"></span>
         <div class="info-box-content">
-            <span class="info-box-text"></span>
+            <span class="info-box-text">Sex</span>
             <span class="info-box-number">
-                <a href="{{route('address_types.address_type.index')}}">Configure</a>
+                <a href="{{route('sexes.sex.index')}}">Configure</a>
             </span>
         </div>
     </div>
@@ -281,9 +281,9 @@
     <div class="info-box mb-3">
         <span class="info-box-icon bg-danger elevation-1"></span>
         <div class="info-box-content">
-            <span class="info-box-text"></span>
+            <span class="info-box-text">Template Type</span>
             <span class="info-box-number">
-                <a href="{{route('experience_types.experience_type.index')}}">Configure</a>
+                <a href="{{route('template_types.template_type.index')}}">Configure</a>
             </span>
         </div>
     </div>
@@ -314,5 +314,5 @@
         </div>
     </div>
 </div>
-</div> --}}
+</div>
 @endsection

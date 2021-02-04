@@ -421,6 +421,40 @@ Route::group([
 });
 
 Route::group([
+     'prefix' => 'settings/sexes',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\SexesController@index')
+          ->name('sexes.sex.index');
+     Route::get('/create','App\Http\Controllers\Setting\SexesController@create')
+          ->name('sexes.sex.create');
+     Route::get('/{sex}/edit','App\Http\Controllers\Setting\SexesController@edit')
+          ->name('sexes.sex.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\SexesController@store')
+          ->name('sexes.sex.store');
+     Route::put('sex/{sex}', 'App\Http\Controllers\Setting\SexesController@update')
+          ->name('sexes.sex.update')->where('id', '[0-9]+');
+     Route::delete('/sex/{sex}','App\Http\Controllers\Setting\SexesController@destroy')
+          ->name('sexes.sex.destroy')->where('id', '[0-9]+');
+ });
+
+ Route::group([
+     'prefix' => 'settings/template_types',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\TemplateTypesController@index')
+          ->name('template_types.template_type.index');
+     Route::get('/create','App\Http\Controllers\Setting\TemplateTypesController@create')
+          ->name('template_types.template_type.create');
+     Route::get('/{templateType}/edit','App\Http\Controllers\Setting\TemplateTypesController@edit')
+          ->name('template_types.template_type.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\TemplateTypesController@store')
+          ->name('template_types.template_type.store');
+     Route::put('template_type/{templateType}', 'App\Http\Controllers\Setting\TemplateTypesController@update')
+          ->name('template_types.template_type.update')->where('id', '[0-9]+');
+     Route::delete('/template_type/{templateType}','App\Http\Controllers\Setting\TemplateTypesController@destroy')
+          ->name('template_types.template_type.destroy')->where('id', '[0-9]+');
+ });
+ 
+Route::group([
     'prefix' => 'organization_units',
 ], function () {
     Route::get('/', 'App\Http\Controllers\OrganizationUnitsController@index')
@@ -538,4 +572,26 @@ Route::group([
          ->name('salaries.salary.update')->where('id', '[0-9]+');
     Route::delete('/salary/{salary}','App\Http\Controllers\SalariesController@destroy')
          ->name('salaries.salary.destroy')->where('id', '[0-9]+');
+});
+
+
+Route::group([
+    'prefix' => 'job_positions',
+], function () {
+    Route::get('/', 'App\Http\Controllers\JobPositionsController@index')
+         ->name('job_positions.job_position.index');
+    Route::get('/benefits','App\Http\Controllers\JobPositionsController@benefits')
+         ->name('job_positions.job_position.benefits');
+         Route::get('/create','App\Http\Controllers\JobPositionsController@create')
+              ->name('job_positions.job_position.create');
+    Route::get('/show/{jobPosition}','App\Http\Controllers\JobPositionsController@show')
+         ->name('job_positions.job_position.show')->where('id', '[0-9]+');
+    Route::get('/{jobPosition}/edit','App\Http\Controllers\JobPositionsController@edit')
+         ->name('job_positions.job_position.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\JobPositionsController@store')
+         ->name('job_positions.job_position.store');
+    Route::put('job_position/{jobPosition}', 'App\Http\Controllers\JobPositionsController@update')
+         ->name('job_positions.job_position.update')->where('id', '[0-9]+');
+    Route::delete('/job_position/{jobPosition}','App\Http\Controllers\JobPositionsController@destroy')
+         ->name('job_positions.job_position.destroy')->where('id', '[0-9]+');
 });
