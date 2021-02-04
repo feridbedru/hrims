@@ -3,7 +3,7 @@
     Edit Organization
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ url('organizations') }}">Organization</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('organizations.organization.index') }}">Organization</a></li>
     <li class="breadcrumb-item active">Edit</li>
 @endsection
 @section('content')

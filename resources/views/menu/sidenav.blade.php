@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link ">
+                            <a href="{{ route('organization_units.organization_unit.index') }}" class="nav-link ">
                                 <i class="fas fa-laptop-house nav-icon"></i>
                                 <p>Units</p>
                             </a>
@@ -304,6 +304,15 @@
                         <i class="nav-icon fa fa-cog"></i>
                         <p>
                             Setting
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('helps.help.index') }}" class="nav-link">
+                        <i class="nav-icon fa fa-question"></i>
+                        <p>
+                            Help
                         </p>
                     </a>
                 </li>

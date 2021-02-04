@@ -383,3 +383,45 @@ Route::group([
     Route::delete('/disaster_cause/{disasterCause}','App\Http\Controllers\Setting\DisasterCausesController@destroy')
          ->name('disaster_causes.disaster_cause.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'organization_units',
+], function () {
+    Route::get('/', 'App\Http\Controllers\OrganizationUnitsController@index')
+         ->name('organization_units.organization_unit.index');
+    Route::get('/create','App\Http\Controllers\OrganizationUnitsController@create')
+         ->name('organization_units.organization_unit.create');
+    Route::get('/show/{organizationUnit}','App\Http\Controllers\OrganizationUnitsController@show')
+         ->name('organization_units.organization_unit.show')->where('id', '[0-9]+');
+    Route::get('/{organizationUnit}/edit','App\Http\Controllers\OrganizationUnitsController@edit')
+         ->name('organization_units.organization_unit.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\OrganizationUnitsController@store')
+         ->name('organization_units.organization_unit.store');
+    Route::post('/filter', 'App\Http\Controllers\OrganizationUnitsController@filter')
+          ->name('organization_units.organization_unit.filter');
+    Route::put('organization_unit/{organizationUnit}', 'App\Http\Controllers\OrganizationUnitsController@update')
+         ->name('organization_units.organization_unit.update')->where('id', '[0-9]+');
+    Route::delete('/organization_unit/{organizationUnit}','App\Http\Controllers\OrganizationUnitsController@destroy')
+         ->name('organization_units.organization_unit.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'help',
+], function () {
+    Route::get('/', 'App\Http\Controllers\HelpsController@index')
+         ->name('helps.help.index');
+    Route::get('/create','App\Http\Controllers\HelpsController@create')
+         ->name('helps.help.create');
+    Route::get('/show/{help}','App\Http\Controllers\HelpsController@show')
+         ->name('helps.help.show')->where('id', '[0-9]+');
+    Route::get('/{help}/edit','App\Http\Controllers\HelpsController@edit')
+         ->name('helps.help.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\HelpsController@store')
+         ->name('helps.help.store');
+    Route::post('/filter', 'App\Http\Controllers\HelpsController@filter')
+         ->name('helps.help.filter');
+    Route::put('help/{help}', 'App\Http\Controllers\HelpsController@update')
+         ->name('helps.help.update')->where('id', '[0-9]+');
+    Route::delete('/help/{help}','App\Http\Controllers\HelpsController@destroy')
+         ->name('helps.help.destroy')->where('id', '[0-9]+');
+});
