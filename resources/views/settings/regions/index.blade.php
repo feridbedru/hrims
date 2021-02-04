@@ -40,7 +40,7 @@
                                         <input name="_method" value="DELETE" type="hidden">
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('regions.region.show', $region->id) }}"
+                                            <a href="{{ route('zones.zone.index', $region->id) }}"
                                                 class="btn btn-outline-success" title="Show Zones">
                                                 Zones
                                             </a>

@@ -202,6 +202,8 @@ Route::group([
          ->name('regions.region.index');
     Route::get('/create','App\Http\Controllers\Setting\RegionsController@create')
          ->name('regions.region.create');
+    Route::get('/show/{region}','App\Http\Controllers\Setting\RegionsController@show')
+         ->name('regions.region.show')->where('id', '[0-9]+');
     Route::get('/{region}/edit','App\Http\Controllers\Setting\RegionsController@edit')
          ->name('regions.region.edit')->where('id', '[0-9]+');
     Route::post('/', 'App\Http\Controllers\Setting\RegionsController@store')
@@ -213,9 +215,9 @@ Route::group([
 });
 
 Route::group([
-     'prefix' => 'settings/zones',
+     'prefix' => 'zones',
  ], function () {
-     Route::get('/{region}', 'App\Http\Controllers\Setting\ZonesController@index')
+     Route::get('/', 'App\Http\Controllers\Setting\ZonesController@index')
           ->name('zones.zone.index');
      Route::get('/create','App\Http\Controllers\Setting\ZonesController@create')
           ->name('zones.zone.create');
@@ -232,7 +234,7 @@ Route::group([
  });
  
  Route::group([
-     'prefix' => 'settings/woredas',
+     'prefix' => 'woredas',
  ], function () {
      Route::get('/', 'App\Http\Controllers\Setting\WoredasController@index')
           ->name('woredas.woreda.index');
@@ -249,7 +251,7 @@ Route::group([
      Route::delete('/woreda/{woreda}','App\Http\Controllers\Setting\WoredasController@destroy')
           ->name('woredas.woreda.destroy')->where('id', '[0-9]+');
  });
-
+ 
 Route::group([
     'prefix' => 'settings/skill_categories',
 ], function () {
