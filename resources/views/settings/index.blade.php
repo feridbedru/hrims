@@ -296,9 +296,9 @@
     <div class="info-box mb-3">
         <span class="info-box-icon bg-success elevation-1"></span>
         <div class="info-box-content">
-            <span class="info-box-text"></span>
+            <span class="info-box-text">Templates</span>
             <span class="info-box-number">
-                <a href="{{route('license_types.license_type.index')}}">Configure</a>
+                <a href="{{route('templates.template.index')}}">Configure</a>
             </span>
         </div>
     </div>
@@ -307,9 +307,9 @@
     <div class="info-box mb-3">
         <span class="info-box-icon bg-warning elevation-1"></span>
         <div class="info-box-content">
-            <span class="info-box-text"></span>
+            <span class="info-box-text">Employee Titles</span>
             <span class="info-box-number">
-                <a href="{{ route('education_levels.education_level.index') }}">Configure</a>
+                <a href="{{ route('titles.title.index') }}">Configure</a>
             </span>
         </div>
     </div>

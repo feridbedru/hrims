@@ -453,6 +453,42 @@ Route::group([
      Route::delete('/template_type/{templateType}','App\Http\Controllers\Setting\TemplateTypesController@destroy')
           ->name('template_types.template_type.destroy')->where('id', '[0-9]+');
  });
+
+ Route::group([
+     'prefix' => 'settings/templates',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\TemplatesController@index')
+          ->name('templates.template.index');
+     Route::get('/create','App\Http\Controllers\Setting\TemplatesController@create')
+          ->name('templates.template.create');
+     Route::get('/show/{template}','App\Http\Controllers\Setting\TemplatesController@show')
+          ->name('templates.template.show')->where('id', '[0-9]+');
+     Route::get('/{template}/edit','App\Http\Controllers\Setting\TemplatesController@edit')
+          ->name('templates.template.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\TemplatesController@store')
+          ->name('templates.template.store');
+     Route::put('template/{template}', 'App\Http\Controllers\Setting\TemplatesController@update')
+          ->name('templates.template.update')->where('id', '[0-9]+');
+     Route::delete('/template/{template}','App\Http\Controllers\Setting\TemplatesController@destroy')
+          ->name('templates.template.destroy')->where('id', '[0-9]+');
+ });
+
+ Route::group([
+     'prefix' => 'settings/titles',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\TitlesController@index')
+          ->name('titles.title.index');
+     Route::get('/create','App\Http\Controllers\Setting\TitlesController@create')
+          ->name('titles.title.create');
+     Route::get('/{title}/edit','App\Http\Controllers\Setting\TitlesController@edit')
+          ->name('titles.title.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\TitlesController@store')
+          ->name('titles.title.store');
+     Route::put('title/{title}', 'App\Http\Controllers\Setting\TitlesController@update')
+          ->name('titles.title.update')->where('id', '[0-9]+');
+     Route::delete('/title/{title}','App\Http\Controllers\Setting\TitlesController@destroy')
+          ->name('titles.title.destroy')->where('id', '[0-9]+');
+ });
  
 Route::group([
     'prefix' => 'organization_units',
@@ -595,3 +631,5 @@ Route::group([
     Route::delete('/job_position/{jobPosition}','App\Http\Controllers\JobPositionsController@destroy')
          ->name('job_positions.job_position.destroy')->where('id', '[0-9]+');
 });
+
+
