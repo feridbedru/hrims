@@ -45,13 +45,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
+                            <a href="{{ route('employees.employee.index') }}" class="nav-link">
                                 <i class="fas fa-list-alt nav-icon"></i>
                                 <p>List</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
+                            <a href="{{ route('employees.employee.create') }}" class="nav-link">
                                 <i class="fas fa-plus-circle nav-icon"></i>
                                 <p>New</p>
                             </a>
@@ -81,7 +81,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
+                {{-- <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-clipboard-list"></i>
                         <p>
@@ -244,7 +244,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <li class="nav-item has-treeview ">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon  fas fa-money-check-alt"></i>
@@ -267,7 +267,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('salary_steps.salary_step.index') }}" class="nav-link">
+                            <a href="{{ route('salary_heights.salary_height.index') }}" class="nav-link">
                                 <i class="fas fa-sort nav-icon"></i>
                                 <p>Salary Height</p>
                             </a>
@@ -280,7 +280,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview ">
+                {{-- <li class="nav-item has-treeview ">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
@@ -302,9 +302,9 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a href="{{ url('#') }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
@@ -332,7 +332,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <li class="nav-item">
                     <a href="{{ route('settings.setting.index') }}" class="nav-link">

@@ -632,4 +632,25 @@ Route::group([
          ->name('job_positions.job_position.destroy')->where('id', '[0-9]+');
 });
 
-
+Route::group([
+    'prefix' => 'employees',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeesController@index')
+         ->name('employees.employee.index');
+    Route::get('/filter','App\Http\Controllers\EmployeesController@filter')
+          ->name('employees.employee.filter');
+    Route::get('/{employee}/success','App\Http\Controllers\EmployeesController@success')
+               ->name('employees.employee.success');
+    Route::get('/create','App\Http\Controllers\EmployeesController@create')
+         ->name('employees.employee.create');
+    Route::get('/show/{employee}','App\Http\Controllers\EmployeesController@show')
+         ->name('employees.employee.show')->where('id', '[0-9]+');
+    Route::get('/{employee}/edit','App\Http\Controllers\EmployeesController@edit')
+         ->name('employees.employee.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeesController@store')
+         ->name('employees.employee.store');
+    Route::put('employee/{employee}', 'App\Http\Controllers\EmployeesController@update')
+         ->name('employees.employee.update')->where('id', '[0-9]+');
+    Route::delete('/employee/{employee}','App\Http\Controllers\EmployeesController@destroy')
+         ->name('employees.employee.destroy')->where('id', '[0-9]+');
+});
