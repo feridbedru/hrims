@@ -654,3 +654,23 @@ Route::group([
     Route::delete('/employee/{employee}','App\Http\Controllers\EmployeesController@destroy')
          ->name('employees.employee.destroy')->where('id', '[0-9]+');
 });
+
+
+Route::group([
+    'prefix' => 'employee_addresses',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeAddressesController@index')
+         ->name('employee_addresses.employee_address.index');
+    Route::get('/create','App\Http\Controllers\EmployeeAddressesController@create')
+         ->name('employee_addresses.employee_address.create');
+    Route::get('/show/{employeeAddress}','App\Http\Controllers\EmployeeAddressesController@show')
+         ->name('employee_addresses.employee_address.show')->where('id', '[0-9]+');
+    Route::get('/{employeeAddress}/edit','App\Http\Controllers\EmployeeAddressesController@edit')
+         ->name('employee_addresses.employee_address.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeAddressesController@store')
+         ->name('employee_addresses.employee_address.store');
+    Route::put('employee_address/{employeeAddress}', 'App\Http\Controllers\EmployeeAddressesController@update')
+         ->name('employee_addresses.employee_address.update')->where('id', '[0-9]+');
+    Route::delete('/employee_address/{employeeAddress}','App\Http\Controllers\EmployeeAddressesController@destroy')
+         ->name('employee_addresses.employee_address.destroy')->where('id', '[0-9]+');
+});
