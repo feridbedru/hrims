@@ -7,19 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('pagetitle') | HRMS</title>
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
-    <link rel="stylesheet"
-        href="{{ asset('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/plugins/daterangepicker/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/pace-progress/themes/black/pace-theme-minimal.css') }}">
     @yield('stylesheets')
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed pace-primary">
+<body class="hold-transition sidebar-mini">
     <div class="wrapper">
         @include('menu.mainnav')
-        @include('menu.sidenav')
         <div class="content-wrapper px-3">
             <div class="content-header">
                 <div class="container-fluid">
@@ -79,31 +74,26 @@
 
             <section class="content">
                 <div class="container-fluid">
-
                     @yield('content')
                 </div>
             </section>
         </div>
 
         <footer class="main-footer">
-            <strong>Copyright &copy; {{ date('Y') }} <a href="http://techin.gov.et">TECHIN</a>.</strong> All rights
-            reserved.
-            <div class="float-right d-none d-sm-inline-block">
+            <div class="float-right d-none d-sm-block">
                 <b>Version</b> 2.0
-            </div>
+              </div>
+            <strong>Copyright &copy; {{ date('Y') }} <a href="http://techin.gov.et">TECHIN_2</a>.</strong>
         </footer>
 
-        <aside class="control-sidebar control-sidebar-dark">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        @include('menu.sidenav')
         </aside>
     </div>
 
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/daterangepicker/daterangepicker.js') }}"></script>
-    <script src="{{ asset('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}">
-    </script>
-    <script src="{{ asset('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('assets/plugins/pace-progress/pace.min.js') }}"></script>
     <script>
