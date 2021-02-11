@@ -489,7 +489,111 @@ Route::group([
      Route::delete('/title/{title}','App\Http\Controllers\Setting\TitlesController@destroy')
           ->name('titles.title.destroy')->where('id', '[0-9]+');
  });
- 
+
+ Route::group([
+     'prefix' => 'settings/banks',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\BanksController@index')
+          ->name('banks.bank.index');
+     Route::get('/create','App\Http\Controllers\Setting\BanksController@create')
+          ->name('banks.bank.create');
+     Route::get('/{bank}/edit','App\Http\Controllers\Setting\BanksController@edit')
+          ->name('banks.bank.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\BanksController@store')
+          ->name('banks.bank.store');
+     Route::put('bank/{bank}', 'App\Http\Controllers\Setting\BanksController@update')
+          ->name('banks.bank.update')->where('id', '[0-9]+');
+     Route::delete('/bank/{bank}','App\Http\Controllers\Setting\BanksController@destroy')
+          ->name('banks.bank.destroy')->where('id', '[0-9]+');
+ }); 
+
+
+Route::group([
+     'prefix' => 'settings/bank_account_types',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\BankAccountTypesController@index')
+          ->name('bank_account_types.bank_account_type.index');
+     Route::get('/create','App\Http\Controllers\Setting\BankAccountTypesController@create')
+          ->name('bank_account_types.bank_account_type.create');
+     Route::get('/{bankAccountType}/edit','App\Http\Controllers\Setting\BankAccountTypesController@edit')
+          ->name('bank_account_types.bank_account_type.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\BankAccountTypesController@store')
+          ->name('bank_account_types.bank_account_type.store');
+     Route::put('bank_account_type/{bankAccountType}', 'App\Http\Controllers\Setting\BankAccountTypesController@update')
+          ->name('bank_account_types.bank_account_type.update')->where('id', '[0-9]+');
+     Route::delete('/bank_account_type/{bankAccountType}','App\Http\Controllers\Setting\BankAccountTypesController@destroy')
+          ->name('bank_account_types.bank_account_type.destroy')->where('id', '[0-9]+');
+ });
+
+ Route::group([
+     'prefix' => 'settings/disability_types',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\DisabilityTypesController@index')
+          ->name('disability_types.disability_type.index');
+     Route::get('/create','App\Http\Controllers\Setting\DisabilityTypesController@create')
+          ->name('disability_types.disability_type.create');
+     Route::get('/{disabilityType}/edit','App\Http\Controllers\Setting\DisabilityTypesController@edit')
+          ->name('disability_types.disability_type.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\DisabilityTypesController@store')
+          ->name('disability_types.disability_type.store');
+     Route::put('disability_type/{disabilityType}', 'App\Http\Controllers\Setting\DisabilityTypesController@update')
+          ->name('disability_types.disability_type.update')->where('id', '[0-9]+');
+     Route::delete('/disability_type/{disabilityType}','App\Http\Controllers\Setting\DisabilityTypesController@destroy')
+          ->name('disability_types.disability_type.destroy')->where('id', '[0-9]+');
+ });
+
+
+Route::group([
+     'prefix' => 'settings/gpa_scales',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\GPAScalesController@index')
+          ->name('gpa_scales.gpa_scale.index');
+     Route::get('/create','App\Http\Controllers\Setting\GPAScalesController@create')
+          ->name('gpa_scales.gpa_scale.create');
+     Route::get('/{gPAScale}/edit','App\Http\Controllers\Setting\GPAScalesController@edit')
+          ->name('gpa_scales.gpa_scale.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\GPAScalesController@store')
+          ->name('gpa_scales.gpa_scale.store');
+     Route::put('gpa_scale/{gPAScale}', 'App\Http\Controllers\Setting\GPAScalesController@update')
+          ->name('gpa_scales.gpa_scale.update')->where('id', '[0-9]+');
+     Route::delete('/gpa_scale/{gPAScale}','App\Http\Controllers\Setting\GPAScalesController@destroy')
+          ->name('gpa_scales.gpa_scale.destroy')->where('id', '[0-9]+');
+ });
+
+ Route::group([
+     'prefix' => 'settings/award_types',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\AwardTypesController@index')
+          ->name('award_types.award_type.index');
+     Route::get('/create','App\Http\Controllers\Setting\AwardTypesController@create')
+          ->name('award_types.award_type.create');
+     Route::get('/{awardType}/edit','App\Http\Controllers\Setting\AwardTypesController@edit')
+          ->name('award_types.award_type.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\AwardTypesController@store')
+          ->name('award_types.award_type.store');
+     Route::put('award_type/{awardType}', 'App\Http\Controllers\Setting\AwardTypesController@update')
+          ->name('award_types.award_type.update')->where('id', '[0-9]+');
+     Route::delete('/award_type/{awardType}','App\Http\Controllers\Setting\AwardTypesController@destroy')
+          ->name('award_types.award_type.destroy')->where('id', '[0-9]+');
+ });
+
+ Route::group([
+     'prefix' => 'settings/commitment_fors',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\CommitmentForsController@index')
+          ->name('commitment_fors.commitment_for.index');
+     Route::get('/create','App\Http\Controllers\Setting\CommitmentForsController@create')
+          ->name('commitment_fors.commitment_for.create');
+     Route::get('/{commitmentFor}/edit','App\Http\Controllers\Setting\CommitmentForsController@edit')
+          ->name('commitment_fors.commitment_for.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\CommitmentForsController@store')
+          ->name('commitment_fors.commitment_for.store');
+     Route::put('commitment_for/{commitmentFor}', 'App\Http\Controllers\Setting\CommitmentForsController@update')
+          ->name('commitment_fors.commitment_for.update')->where('id', '[0-9]+');
+     Route::delete('/commitment_for/{commitmentFor}','App\Http\Controllers\Setting\CommitmentForsController@destroy')
+          ->name('commitment_fors.commitment_for.destroy')->where('id', '[0-9]+');
+ });
+
 Route::group([
     'prefix' => 'organization_units',
 ], function () {

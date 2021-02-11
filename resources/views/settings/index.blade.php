@@ -335,4 +335,124 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h4>Banks</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('banks.bank.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h4>Bank Account Type</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('bank_account_types.bank_account_type.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h4>Disability Type</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('disability_types.disability_type.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h4>GPA Scales</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('gpa_scales.gpa_scale.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h4>Award Type</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('award_types.award_type.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h4>Commitment For</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('commitment_fors.commitment_for.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h4></h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('disability_types.disability_type.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h4></h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('gpa_scales.gpa_scale.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 @endsection
