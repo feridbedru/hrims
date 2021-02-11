@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('pagetitle') | HRMS</title>
+    <title>@yield('pagetitle') | Employee | HRMS</title>
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/pace-progress/themes/black/pace-theme-minimal.css') }}">
@@ -14,7 +14,40 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        @include('menu.mainnav')
+        <div class="clearfix bg-dark">
+            <div class="float-left">
+                <div class="row ">
+                    <div class="col-md-6">
+                @if (isset($employee->photo))
+                    image
+                @else
+                    <span class="fas fa-5x fa-user-circle m-2 ml-5"></span>
+                @endif
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li>Name</li>
+                            <li>Position</li>
+                            <li>Contacts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="float-right mt-5">
+                    <a href="#"
+                        class="btn btn-success mr-3" title="Make CV">
+                        Make CV
+                    </a>
+                    <a href="#"
+                        class="btn btn-primary mr-3" title="Print ID Card">
+                        Print ID
+                    </a>
+                    <a href="#"
+                        class="btn btn-warning mr-3" title="Print this employee data">
+                        Print All Data
+                    </a>
+            </div>
+        </div>
         <div class="content-wrapper px-3">
             <div class="content-header">
                 <div class="container-fluid">
@@ -44,6 +77,9 @@
                         <div class="col-sm-6 pt-3 pb-2">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a
+                                        href="{{ route('employees.employee.index') }}">Employee</a>
+                                </li>
                                 @yield('breadcrumb')
                             </ol>
                         </div>
@@ -78,16 +114,8 @@
                 </div>
             </section>
         </div>
-
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 2.0
-              </div>
-            <strong>Copyright &copy; {{ date('Y') }} <a href="http://techin.gov.et">TECHIN<sup>2</sup></a></strong>
-        </footer>
-
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        @include('menu.sidenav')
+        <aside class="main-sidebar sidebar-light elevation-4 pt-3" style="margin-top:90px;">
+            @include('menu.empsidenav')
         </aside>
     </div>
 

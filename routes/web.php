@@ -663,6 +663,10 @@ Route::group([
          ->name('employee_addresses.employee_address.index');
     Route::get('/create','App\Http\Controllers\EmployeeAddressesController@create')
          ->name('employee_addresses.employee_address.create');
+     Route::get('/approve/{employeeAddress}','App\Http\Controllers\EmployeeAddressesController@approve')
+          ->name('employee_addresses.employee_address.approve');
+     Route::post('/reject/{employeeAddress}','App\Http\Controllers\EmployeeAddressesController@reject')
+          ->name('employee_addresses.employee_address.reject');
     Route::get('/show/{employeeAddress}','App\Http\Controllers\EmployeeAddressesController@show')
          ->name('employee_addresses.employee_address.show')->where('id', '[0-9]+');
     Route::get('/{employeeAddress}/edit','App\Http\Controllers\EmployeeAddressesController@edit')

@@ -73,6 +73,51 @@ report($exception);
     }
 
     /**
+     * Approve the specified employee address.
+     *
+     * @param int $id
+     *
+     * @return Illuminate\View\View
+     */
+    public function approve($id)
+    {
+        try {
+            $employeeAddress = EmployeeAddress::findOrFail($id);
+            $employeeAddress->status = '3';
+            $employeeAddress->approved_by = '1';
+            $employeeAddress->approved_at = now();
+            $employeeAddress->save();
+            return redirect()->route('employee_addresses.employee_address.index')
+                ->with('success_message', 'Employee Address was successfully accepted.');
+        } catch (Exception $exception) {
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        } 
+    }
+
+    /**
+     * reject the specified employee address.
+     *
+     * @param int $id
+     *
+     * @return Illuminate\View\View
+     */
+    public function reject($id, Request $request)
+    {
+        try {
+            $employeeAddress = EmployeeAddress::findOrFail($id);
+            $employeeAddress->status = '2';
+            $employeeAddress->note = '1';
+            $employeeAddress->save();
+            return redirect()->route('employee_addresses.employee_address.index')
+                ->with('success_message', 'Employee Address was successfully rejected.');
+        } catch (Exception $exception) {
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        } 
+    }
+
+    /**
      * Display the specified employee address.
      *
      * @param int $id

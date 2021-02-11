@@ -1,87 +1,86 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <a href="#" class="brand-link text-center">
-        <span class="brand-text font-weight-light">TECHIN</span>
-    </a>
-    <div class="sidebar">
-        <div class=" mt-3 pb-3 mb-3 d-flex">
-            <div class="info bg-light">
-                <img src="{{ asset('logo.png') }}" width="100%" alt="Logo">
-            </div>
+<a href="#" class="brand-link text-center">
+    <span class="brand-text font-weight-light">TECHIN</span>
+</a>
+<div class="sidebar">
+    <div class=" mt-3 pb-3 mb-3 d-flex">
+        <div class="info bg-light">
+            <img src="{{ asset('logo.png') }}" width="100%" alt="Logo">
         </div>
-        <hr>
+    </div>
+    <hr>
 
-        <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-sitemap"></i>
-                        <p>
-                            Structure
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('organizations.organization.index') }}" class="nav-link active">
-                                <i class="fas fa-building nav-icon"></i>
-                                <p>Organization</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('organization_units.organization_unit.index') }}" class="nav-link ">
-                                <i class="fas fa-laptop-house nav-icon"></i>
-                                <p>Units</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-tie"></i>
-                        <p>
-                            Employees
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('employees.employee.index') }}" class="nav-link">
-                                <i class="fas fa-list-alt nav-icon"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('employees.employee.create') }}" class="nav-link">
-                                <i class="fas fa-plus-circle nav-icon"></i>
-                                <p>New</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview ">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon  fas fa-suitcase"></i>
-                        <p>
-                            Jobs
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('job_positions.job_position.index') }}" class="nav-link">
-                                <i class="fas fa-list-alt nav-icon"></i>
-                                <p>List</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('job_positions.job_position.create') }}" class="nav-link">
-                                <i class="fas fa-plus-circle nav-icon"></i>
-                                <p>New</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- <li class="nav-item has-treeview">
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-sitemap"></i>
+                    <p>
+                        Structure
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('organizations.organization.index') }}" class="nav-link active">
+                            <i class="fas fa-building nav-icon"></i>
+                            <p>Organization</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('organization_units.organization_unit.index') }}" class="nav-link ">
+                            <i class="fas fa-laptop-house nav-icon"></i>
+                            <p>Units</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-user-tie"></i>
+                    <p>
+                        Employees
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('employees.employee.index') }}" class="nav-link">
+                            <i class="fas fa-list-alt nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('employees.employee.create') }}" class="nav-link">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>New</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item has-treeview ">
+                <a href="#" class="nav-link ">
+                    <i class="nav-icon  fas fa-suitcase"></i>
+                    <p>
+                        Jobs
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('job_positions.job_position.index') }}" class="nav-link">
+                            <i class="fas fa-list-alt nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('job_positions.job_position.create') }}" class="nav-link">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>New</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            {{-- <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-clipboard-list"></i>
                         <p>
@@ -245,42 +244,42 @@
                         </li>
                     </ul>
                 </li> --}}
-                <li class="nav-item has-treeview ">
-                    <a href="#" class="nav-link ">
-                        <i class="nav-icon  fas fa-money-check-alt"></i>
-                        <p>
-                            Payment
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{route('salaries.salary.index') }}" class="nav-link">
-                                <i class="fas fa-file-invoice nav-icon"></i>
-                                <p>Salary</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('salary_scales.salary_scale.index') }}" class="nav-link">
-                                <i class="fas fa-balance-scale nav-icon"></i>
-                                <p>Salary Scale</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('salary_heights.salary_height.index') }}" class="nav-link">
-                                <i class="fas fa-sort nav-icon"></i>
-                                <p>Salary Height</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
-                                <i class="fas fa-receipt nav-icon"></i>
-                                <p>PayRoll</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                {{-- <li class="nav-item has-treeview ">
+            <li class="nav-item has-treeview ">
+                <a href="#" class="nav-link ">
+                    <i class="nav-icon  fas fa-money-check-alt"></i>
+                    <p>
+                        Payment
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('salaries.salary.index') }}" class="nav-link">
+                            <i class="fas fa-file-invoice nav-icon"></i>
+                            <p>Salary</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('salary_scales.salary_scale.index') }}" class="nav-link">
+                            <i class="fas fa-balance-scale nav-icon"></i>
+                            <p>Salary Scale</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('salary_heights.salary_height.index') }}" class="nav-link">
+                            <i class="fas fa-sort nav-icon"></i>
+                            <p>Salary Height</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ url('#') }}" class="nav-link">
+                            <i class="fas fa-receipt nav-icon"></i>
+                            <p>PayRoll</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            {{-- <li class="nav-item has-treeview ">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
@@ -304,7 +303,7 @@
                     </ul>
                 </li> --}}
 
-                {{-- <li class="nav-item">
+            {{-- <li class="nav-item">
                     <a href="{{ url('#') }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
@@ -334,23 +333,23 @@
                     </ul>
                 </li> --}}
 
-                <li class="nav-item">
-                    <a href="{{ route('settings.setting.index') }}" class="nav-link">
-                        <i class="nav-icon fa fa-cog"></i>
-                        <p>
-                            Setting
-                        </p>
-                    </a>
-                </li>
+            <li class="nav-item">
+                <a href="{{ route('settings.setting.index') }}" class="nav-link">
+                    <i class="nav-icon fa fa-cog"></i>
+                    <p>
+                        Setting
+                    </p>
+                </a>
+            </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('helps.help.index') }}" class="nav-link">
-                        <i class="nav-icon fa fa-question"></i>
-                        <p>
-                            Help
-                        </p>
-                    </a>
-                </li>
-        </nav>
-    </div>
-</aside>
+            <li class="nav-item">
+                <a href="{{ route('helps.help.index') }}" class="nav-link">
+                    <i class="nav-icon fa fa-question"></i>
+                    <p>
+                        Help
+                    </p>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
