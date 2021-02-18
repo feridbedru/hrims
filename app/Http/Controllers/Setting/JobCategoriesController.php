@@ -103,17 +103,25 @@ class JobCategoriesController extends Controller
      * Remove the specified job category from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $jobCategory = JobCategory::findOrFail($id);
-            $jobCategory->delete();
+            $delete = $jobCategory->delete();
 
-            return redirect()->route('job_categories.job_category.index')
-                ->with('success_message', 'Job Category was successfully deleted.');
+        if ($delete == 1) {
+            $success = true;
+            $message = "Job Category deleted successfully";
+        } else {
+            $success = true;
+            $message = "Job Category not found";
+        }
+                //  return response
+                return response()->json([
+                    'success' => $success,
+                    'message' => $message,
+                ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

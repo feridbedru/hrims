@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @yield('meta')
     <title>@yield('pagetitle') | HRMS</title>
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/pace-progress/themes/black/pace-theme-minimal.css') }}">
     @yield('stylesheets')
+    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
+    @yield('js')
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -91,7 +94,6 @@
         </aside>
     </div>
 
-    <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>

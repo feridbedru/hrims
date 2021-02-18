@@ -65,8 +65,8 @@ class EmployeeAddressesController extends Controller
 
             return redirect()->route('employee_addresses.employee_address.index')
                 ->with('success_message', 'Employee Address was successfully added.');
-        } catch (Throwable $exception) {
-report($exception);
+        } catch (Exception $exception) {
+
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -76,8 +76,6 @@ report($exception);
      * Approve the specified employee address.
      *
      * @param int $id
-     *
-     * @return Illuminate\View\View
      */
     public function approve($id)
     {
@@ -88,7 +86,7 @@ report($exception);
             $employeeAddress->approved_at = now();
             $employeeAddress->save();
             return redirect()->route('employee_addresses.employee_address.index')
-                ->with('success_message', 'Employee Address was successfully accepted.');
+                ->with('success_message', 'Employee Address was successfully approved.');
         } catch (Exception $exception) {
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
@@ -99,8 +97,6 @@ report($exception);
      * reject the specified employee address.
      *
      * @param int $id
-     *
-     * @return Illuminate\View\View
      */
     public function reject($id, Request $request)
     {
@@ -115,20 +111,6 @@ report($exception);
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         } 
-    }
-
-    /**
-     * Display the specified employee address.
-     *
-     * @param int $id
-     *
-     * @return Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $employeeAddress = EmployeeAddress::with('employee','addresstype','woreda','creator','approvedby')->findOrFail($id);
-
-        return view('employee_addresses.show', compact('employeeAddress'));
     }
 
     /**

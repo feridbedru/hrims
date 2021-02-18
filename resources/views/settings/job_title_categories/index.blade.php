@@ -1,10 +1,61 @@
 @extends('layouts.app')
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('pagetitle')
     Job Title Category
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
     <li class="breadcrumb-item active">Job Title Category</li>
+@endsection
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+@endsection
+@section('js')
+    <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            swal.fire({
+                title: "Delete?",
+                type: 'question',
+                text: "Are you sure you want to delete this job title category?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: '<span class="fa fa-trash"></span> Yes, delete it!',
+                cancelButtonText: "No, cancel!",
+                confirmButtonColor: '#d33',
+                reverseButtons: !0
+            }).then(function(e) {
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('settings/job_title_categories/delete') }}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                swal.fire("Done!", results.message, "success");
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 5000);
+                            } else {
+                                swal.fire("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function(dismiss) {
+                return false;
+            })
+        }
+
+    </script>
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -37,22 +88,14 @@
                                 <td>{{ $jobTitleCategory->description }}</td>
                                 <td>{{ optional($jobTitleCategory->jobTitleCategory)->name }}</td>
                                 <td>
-                                    <form method="POST"
-                                        action="{!!  route('job_title_categories.job_title_category.destroy', $jobTitleCategory->id) !!}"
-                                        accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
-                                        {{ csrf_field() }}
-                                        <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('job_title_categories.job_title_category.edit', $jobTitleCategory->id) }}"
-                                                class="btn btn-primary" title="Edit Job Title Category">
-                                                <span class="fa fa-edit" aria-hidden="true"></span>
-                                            </a>
-                                            <button type="submit" class="btn btn-danger" title="Delete Job Title Category"
-                                                onclick="return confirm(&quot;Click Ok to delete Job Title Category.&quot;)">
-                                                <span class="fa fa-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </form>
+                                    <a href="{{ route('job_title_categories.job_title_category.edit', $jobTitleCategory->id) }}"
+                                        class="btn btn-warning mr-4" title="Edit Job Title Category">
+                                        <span class="fa fa-edit text-white" aria-hidden="true"></span>
+                                    </a>
+                                    <button class="btn btn-danger remove-data"
+                                        onclick="deleteConfirmation({{ $jobTitleCategory->id }})">
+                                        <span class="fa fa-trash" ></span>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
