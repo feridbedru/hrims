@@ -469,17 +469,17 @@
             </div>
         </div>
         <!-- fix for small devices only -->
-        {{-- <div class="clearfix hidden-md-up"></div>
+        <div class="clearfix hidden-md-up"></div>
         <div class="col-12 col-sm-6 col-md-3">
             <div class="small-box bg-success">
                 <div class="inner">
-                    <h4></h4>
+                    <h4>Left Reasons</h4>
                     <p>&nbsp;</p>
                 </div>
                 <div class="icon">
-                    <i class="fas">12</i>
+                    <i class="fas">{{ $leftReason }}</i>
                 </div>
-                <a href="{{ route('disability_types.disability_type.index') }}" class="small-box-footer">
+                <a href="{{ route('left_reasons.left_reason.index') }}" class="small-box-footer">
                     Configure <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>
@@ -487,13 +487,73 @@
         <div class="col-12 col-sm-6 col-md-3">
             <div class="small-box bg-warning">
                 <div class="inner">
-                    <h4></h4>
+                    <h4>Disaster Severities</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">{{ $disasterSeverity}}</i>
+                </div>
+                <a href="{{ route('disaster_severities.disaster_severity.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h4>Certification Vendors</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">{{ $certificationVendor }}</i>
+                </div>
+                <a href="{{ route('certification_vendors.certification_vendor.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        {{-- <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h4>Commitment For</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">{{ $commitmentFor }}</i>
+                </div>
+                <a href="{{ route('commitment_fors.commitment_for.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <!-- fix for small devices only -->
+        <div class="clearfix hidden-md-up"></div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h4>Left Reasons</h4>
                     <p>&nbsp;</p>
                 </div>
                 <div class="icon">
                     <i class="fas">12</i>
                 </div>
-                <a href="{{ route('gpa_scales.gpa_scale.index') }}" class="small-box-footer">
+                <a href="{{ route('left_reasons.left_reason.index') }}" class="small-box-footer">
+                    Configure <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-3">
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h4>Disaster Severities</h4>
+                    <p>&nbsp;</p>
+                </div>
+                <div class="icon">
+                    <i class="fas">12</i>
+                </div>
+                <a href="{{ route('disaster_severities.disaster_severity.index') }}" class="small-box-footer">
                     Configure <i class="fas fa-arrow-circle-right"></i>
                 </a>
             </div>

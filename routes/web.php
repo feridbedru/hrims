@@ -594,6 +594,57 @@ Route::group([
           ->name('commitment_fors.commitment_for.destroy')->where('id', '[0-9]+');
  });
 
+ Route::group([
+     'prefix' => 'settings/left_reasons',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\LeftReasonsController@index')
+          ->name('left_reasons.left_reason.index');
+     Route::get('/create','App\Http\Controllers\Setting\LeftReasonsController@create')
+          ->name('left_reasons.left_reason.create');
+     Route::get('/{leftReason}/edit','App\Http\Controllers\Setting\LeftReasonsController@edit')
+          ->name('left_reasons.left_reason.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\LeftReasonsController@store')
+          ->name('left_reasons.left_reason.store');
+     Route::put('left_reason/{leftReason}', 'App\Http\Controllers\Setting\LeftReasonsController@update')
+          ->name('left_reasons.left_reason.update')->where('id', '[0-9]+');
+     Route::delete('/left_reason/{leftReason}','App\Http\Controllers\Setting\LeftReasonsController@destroy')
+          ->name('left_reasons.left_reason.destroy')->where('id', '[0-9]+');
+ });
+ 
+ Route::group([
+     'prefix' => 'settings/disaster_severities',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\DisasterSeveritiesController@index')
+          ->name('disaster_severities.disaster_severity.index');
+     Route::get('/create','App\Http\Controllers\Setting\DisasterSeveritiesController@create')
+          ->name('disaster_severities.disaster_severity.create');
+     Route::get('/{disasterSeverity}/edit','App\Http\Controllers\Setting\DisasterSeveritiesController@edit')
+          ->name('disaster_severities.disaster_severity.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\DisasterSeveritiesController@store')
+          ->name('disaster_severities.disaster_severity.store');
+     Route::put('disaster_severity/{disasterSeverity}', 'App\Http\Controllers\Setting\DisasterSeveritiesController@update')
+          ->name('disaster_severities.disaster_severity.update')->where('id', '[0-9]+');
+     Route::delete('/disaster_severity/{disasterSeverity}','App\Http\Controllers\Setting\DisasterSeveritiesController@destroy')
+          ->name('disaster_severities.disaster_severity.destroy')->where('id', '[0-9]+');
+ });
+ 
+ Route::group([
+     'prefix' => 'settings/certification_vendors',
+ ], function () {
+     Route::get('/', 'App\Http\Controllers\Setting\CertificationVendorsController@index')
+          ->name('certification_vendors.certification_vendor.index');
+     Route::get('/create','App\Http\Controllers\Setting\CertificationVendorsController@create')
+          ->name('certification_vendors.certification_vendor.create');
+     Route::get('/{certificationVendor}/edit','App\Http\Controllers\Setting\CertificationVendorsController@edit')
+          ->name('certification_vendors.certification_vendor.edit')->where('id', '[0-9]+');
+     Route::post('/', 'App\Http\Controllers\Setting\CertificationVendorsController@store')
+          ->name('certification_vendors.certification_vendor.store');
+     Route::put('certification_vendor/{certificationVendor}', 'App\Http\Controllers\Setting\CertificationVendorsController@update')
+          ->name('certification_vendors.certification_vendor.update')->where('id', '[0-9]+');
+     Route::delete('/certification_vendor/{certificationVendor}','App\Http\Controllers\Setting\CertificationVendorsController@destroy')
+          ->name('certification_vendors.certification_vendor.destroy')->where('id', '[0-9]+');
+ });
+ 
 Route::group([
     'prefix' => 'organization_units',
 ], function () {
@@ -830,8 +881,10 @@ Route::group([
          ->name('employee_educations.employee_education.index');
     Route::get('/create','App\Http\Controllers\EmployeeEducationsController@create')
          ->name('employee_educations.employee_education.create');
-    Route::get('/show/{employeeEducation}','App\Http\Controllers\EmployeeEducationsController@show')
-         ->name('employee_educations.employee_education.show')->where('id', '[0-9]+');
+    Route::get('/approve/{employeeEducation}','App\Http\Controllers\EmployeeEducationsController@approve')
+     ->name('employee_educations.employee_education.approve')->where('id', '[0-9]+');
+     Route::post('/reject/{employeeEducation}','App\Http\Controllers\EmployeeEducationsController@reject')
+              ->name('employee_educations.employee_education.reject')->where('id', '[0-9]+');
     Route::get('/{employeeEducation}/edit','App\Http\Controllers\EmployeeEducationsController@edit')
          ->name('employee_educations.employee_education.edit')->where('id', '[0-9]+');
     Route::post('/', 'App\Http\Controllers\EmployeeEducationsController@store')
@@ -841,3 +894,86 @@ Route::group([
     Route::delete('/employee_education/{employeeEducation}','App\Http\Controllers\EmployeeEducationsController@destroy')
          ->name('employee_educations.employee_education.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'employee_emergencies',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeEmergenciesController@index')
+         ->name('employee_emergencies.employee_emergency.index');
+    Route::get('/create','App\Http\Controllers\EmployeeEmergenciesController@create')
+         ->name('employee_emergencies.employee_emergency.create');
+    Route::get('/approve/{employeeEmergency}','App\Http\Controllers\EmployeeEmergenciesController@approve')
+         ->name('employee_emergencies.employee_emergency.approve')->where('id', '[0-9]+');
+     Route::post('/reject/{employeeEmergency}','App\Http\Controllers\EmployeeEmergenciesController@reject')
+          ->name('employee_emergencies.employee_emergency.reject')->where('id', '[0-9]+');
+    Route::get('/{employeeEmergency}/edit','App\Http\Controllers\EmployeeEmergenciesController@edit')
+         ->name('employee_emergencies.employee_emergency.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeEmergenciesController@store')
+         ->name('employee_emergencies.employee_emergency.store');
+    Route::put('employee_emergency/{employeeEmergency}', 'App\Http\Controllers\EmployeeEmergenciesController@update')
+         ->name('employee_emergencies.employee_emergency.update')->where('id', '[0-9]+');
+    Route::delete('/employee_emergency/{employeeEmergency}','App\Http\Controllers\EmployeeEmergenciesController@destroy')
+         ->name('employee_emergencies.employee_emergency.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_families',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeFamiliesController@index')
+         ->name('employee_families.employee_family.index');
+    Route::get('/create','App\Http\Controllers\EmployeeFamiliesController@create')
+         ->name('employee_families.employee_family.create');
+    Route::get('/approve/{employeeFamily}','App\Http\Controllers\EmployeeFamiliesController@approve')
+         ->name('employee_families.employee_family.approve')->where('id', '[0-9]+');
+     Route::post('/reject/{employeeFamily}','App\Http\Controllers\EmployeeFamiliesController@reject')
+          ->name('employee_families.employee_family.reject')->where('id', '[0-9]+');
+    Route::get('/{employeeFamily}/edit','App\Http\Controllers\EmployeeFamiliesController@edit')
+         ->name('employee_families.employee_family.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeFamiliesController@store')
+         ->name('employee_families.employee_family.store');
+    Route::put('employee_family/{employeeFamily}', 'App\Http\Controllers\EmployeeFamiliesController@update')
+         ->name('employee_families.employee_family.update')->where('id', '[0-9]+');
+    Route::delete('/employee_family/{employeeFamily}','App\Http\Controllers\EmployeeFamiliesController@destroy')
+         ->name('employee_families.employee_family.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_languages',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeLanguagesController@index')
+         ->name('employee_languages.employee_language.index');
+    Route::get('/create','App\Http\Controllers\EmployeeLanguagesController@create')
+         ->name('employee_languages.employee_language.create');
+    Route::get('/show/{employeeLanguage}','App\Http\Controllers\EmployeeLanguagesController@show')
+         ->name('employee_languages.employee_language.show')->where('id', '[0-9]+');
+    Route::get('/{employeeLanguage}/edit','App\Http\Controllers\EmployeeLanguagesController@edit')
+         ->name('employee_languages.employee_language.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeLanguagesController@store')
+         ->name('employee_languages.employee_language.store');
+    Route::put('employee_language/{employeeLanguage}', 'App\Http\Controllers\EmployeeLanguagesController@update')
+         ->name('employee_languages.employee_language.update')->where('id', '[0-9]+');
+    Route::delete('/employee_language/{employeeLanguage}','App\Http\Controllers\EmployeeLanguagesController@destroy')
+         ->name('employee_languages.employee_language.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_licenses',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeLicensesController@index')
+         ->name('employee_licenses.employee_license.index');
+    Route::get('/create','App\Http\Controllers\EmployeeLicensesController@create')
+         ->name('employee_licenses.employee_license.create');
+    Route::get('/approve/{employeeLicense}','App\Http\Controllers\EmployeeLicensesController@approve')
+         ->name('employee_licenses.employee_license.approve')->where('id', '[0-9]+');
+     Route::post('/reject/{employeeLicense}','App\Http\Controllers\EmployeeLicensesController@reject')
+          ->name('employee_licenses.employee_license.reject')->where('id', '[0-9]+');
+    Route::get('/{employeeLicense}/edit','App\Http\Controllers\EmployeeLicensesController@edit')
+         ->name('employee_licenses.employee_license.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeLicensesController@store')
+         ->name('employee_licenses.employee_license.store');
+    Route::put('employee_license/{employeeLicense}', 'App\Http\Controllers\EmployeeLicensesController@update')
+         ->name('employee_licenses.employee_license.update')->where('id', '[0-9]+');
+    Route::delete('/employee_license/{employeeLicense}','App\Http\Controllers\EmployeeLicensesController@destroy')
+         ->name('employee_licenses.employee_license.destroy')->where('id', '[0-9]+');
+});
+

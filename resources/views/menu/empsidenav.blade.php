@@ -18,35 +18,35 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="{{route('employee_bank_accounts.employee_bank_account.index')}}" class="nav-link ">
                             <i class="fas fa-piggy-bank nav-icon"></i>
                             <p>Bank Accounts</p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="{{route('employee_disabilities.employee_disability.index')}}" class="nav-link ">
                             <i class="fas fa-blind nav-icon"></i>
                             <p>Disability </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="{{route('employee_educations.employee_education.index')}}" class="nav-link ">
                             <i class="fas fa-school nav-icon"></i>
                             <p>Education </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="{{route('employee_emergencies.employee_emergency.index')}}" class="nav-link ">
                             <i class="fas fa-ambulance nav-icon"></i>
                             <p>Emeregency </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="employee_families.employee_family.index" class="nav-link ">
                             <i class="fas fa-users nav-icon"></i>
                             <p>Family </p>
                             <span class="badge badge-pill badge-primary"></span>

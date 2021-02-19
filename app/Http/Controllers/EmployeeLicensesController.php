@@ -3,46 +3,52 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\DisabilityType;
 use App\Models\Employee;
-use App\Models\EmployeeDisability;
+use App\Models\EmployeeLicense;
+use App\Models\LicenseType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 use Exception;
 
-class EmployeeDisabilitiesController extends Controller
+class EmployeeLicensesController extends Controller
 {
 
     /**
-     * Display a listing of the employee disabilities.
+     * Display a listing of the employee licenses.
      *
      * @return Illuminate\View\View
      */
     public function index()
     {
-        $employeeDisabilities = EmployeeDisability::with('employee','disabilitytype','creator','approvedby')->paginate(25);
+        // $employeeLicenses = EmployeeLicense::with('employee','licensetype','creator','approvedby')->paginate(25);
+        $employeeLicenses = DB::table('employee_licenses')
+        ->join('employees','employee_licenses.employee','=','employees.id')
+        ->join('license_types','employee_licenses.type','=','license_types.id')
+        ->select('employee_licenses.*','employees.en_name','license_types.name as type')
+        ->paginate(25);
 
-        return view('employee_disabilities.index', compact('employeeDisabilities'));
+        return view('employee_licenses.index', compact('employeeLicenses'));
     }
 
     /**
-     * Show the form for creating a new employee disability.
+     * Show the form for creating a new employee license.
      *
      * @return Illuminate\View\View
      */
     public function create()
     {
         $employees = Employee::pluck('en_name','id')->all();
-        $disabilityTypes = DisabilityType::pluck('name','id')->all();
+        $licenseTypes = LicenseType::pluck('name','id')->all();
         $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('id','id')->all();
+        $approvedBies = User::pluck('name','id')->all();
         
-        return view('employee_disabilities.create', compact('employees','disabilityTypes','creators','approvedBies'));
+        return view('employee_licenses.create', compact('employees','licenseTypes','creators','approvedBies'));
     }
 
     /**
-     * Store a new employee disability in the storage.
+     * Store a new employee license in the storage.
      *
      * @param Illuminate\Http\Request $request
      *
@@ -55,10 +61,10 @@ class EmployeeDisabilitiesController extends Controller
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
-            EmployeeDisability::create($data);
+            EmployeeLicense::create($data);
 
-            return redirect()->route('employee_disabilities.employee_disability.index')
-                ->with('success_message', 'Employee Disability was successfully added.');
+            return redirect()->route('employee_licenses.employee_license.index')
+                ->with('success_message', 'Employee License was successfully added.');
         } catch (Exception $exception) {
 
             return back()->withInput()
@@ -67,7 +73,7 @@ class EmployeeDisabilitiesController extends Controller
     }
 
     /**
-     * Approve the specified employee dsiability
+     * Approve the specified employee license
      *
      * @param int $id
      */
@@ -75,14 +81,14 @@ class EmployeeDisabilitiesController extends Controller
     {
         try {
             
-            $employeeDisability = EmployeeDisability::findOrFail($id);
-            $employeeDisability->status = '3';
-            $employeeDisability->approved_by = '1';
-            $employeeDisability->approved_at = now();
-            $employeeDisability->save();
+            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense->status = '3';
+            $employeeLicense->approved_by = '1';
+            $employeeLicense->approved_at = now();
+            $employeeLicense->save();
 
-            return redirect()->route('employee_disabilities.employee_disability.index')
-                ->with('success_message', 'Employee Disability was successfully approved.');
+            return redirect()->route('employee_licenses.employee_license.index')
+                ->with('success_message', 'Employee License was successfully approved.');
         } catch (Exception $exception) {
 
             return back()
@@ -91,7 +97,7 @@ class EmployeeDisabilitiesController extends Controller
     }
 
     /**
-     * reject the specified employee disability
+     * reject the specified employee license
      *
      * @param int $id
      */
@@ -99,13 +105,13 @@ class EmployeeDisabilitiesController extends Controller
     {
         try {
             
-            $employeeDisability = EmployeeDisability::findOrFail($id);
-            $employeeDisability->status = '2';
-            $employeeDisability->note = '1';
-            $employeeDisability->save();
+            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense->status = '2';
+            $employeeLicense->note = '1';
+            $employeeLicense->save();
 
-            return redirect()->route('employee_disabilities.employee_disability.index')
-                ->with('success_message', 'Employee Disability was successfully rejected.');
+            return redirect()->route('employee_licenses.employee_license.index')
+                ->with('success_message', 'Employee License was successfully rejected.');
         } catch (Exception $exception) {
 
             return back()
@@ -114,7 +120,7 @@ class EmployeeDisabilitiesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified employee disability.
+     * Show the form for editing the specified employee license.
      *
      * @param int $id
      *
@@ -122,17 +128,17 @@ class EmployeeDisabilitiesController extends Controller
      */
     public function edit($id)
     {
-        $employeeDisability = EmployeeDisability::findOrFail($id);
-        $employees = Employee::pluck('title','id')->all();
-        $disabilityTypes = DisabilityType::pluck('name','id')->all();
+        $employeeLicense = EmployeeLicense::findOrFail($id);
+        $employees = Employee::pluck('en_name','id')->all();
+        $licenseTypes = LicenseType::pluck('name','id')->all();
         $creators = User::pluck('name','id')->all();
-        $approvedBies = ApprovedBy::pluck('id','id')->all();
+        $approvedBies = User::pluck('name','id')->all();
 
-        return view('employee_disabilities.edit', compact('employeeDisability','employees','disabilityTypes','creators','approvedBies'));
+        return view('employee_licenses.edit', compact('employeeLicense','employees','licenseTypes','creators','approvedBies'));
     }
 
     /**
-     * Update the specified employee disability in the storage.
+     * Update the specified employee license in the storage.
      *
      * @param int $id
      * @param Illuminate\Http\Request $request
@@ -145,11 +151,11 @@ class EmployeeDisabilitiesController extends Controller
             
             $data = $this->getData($request);
             
-            $employeeDisability = EmployeeDisability::findOrFail($id);
-            $employeeDisability->update($data);
+            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense->update($data);
 
-            return redirect()->route('employee_disabilities.employee_disability.index')
-                ->with('success_message', 'Employee Disability was successfully updated.');
+            return redirect()->route('employee_licenses.employee_license.index')
+                ->with('success_message', 'Employee License was successfully updated.');
         } catch (Exception $exception) {
 
             return back()->withInput()
@@ -158,7 +164,7 @@ class EmployeeDisabilitiesController extends Controller
     }
 
     /**
-     * Remove the specified employee disability from the storage.
+     * Remove the specified employee license from the storage.
      *
      * @param int $id
      *
@@ -167,11 +173,11 @@ class EmployeeDisabilitiesController extends Controller
     public function destroy($id)
     {
         try {
-            $employeeDisability = EmployeeDisability::findOrFail($id);
-            $employeeDisability->delete();
+            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense->delete();
 
-            return redirect()->route('employee_disabilities.employee_disability.index')
-                ->with('success_message', 'Employee Disability was successfully deleted.');
+            return redirect()->route('employee_licenses.employee_license.index')
+                ->with('success_message', 'Employee License was successfully deleted.');
         } catch (Exception $exception) {
 
             return back()->withInput()
@@ -190,22 +196,24 @@ class EmployeeDisabilitiesController extends Controller
     {
         $rules = [
                 'employee' => 'required',
+            'title' => 'required|string|min:1|max:255',
             'type' => 'required',
-            'description' => 'string|min:1|max:1000|nullable',
-            'medical_certificate' => ['file','nullable'],
+            'issuing_organization' => 'required|string|min:1',
+            'expiry_date' => 'nullable',
+            'file' => ['file','nullable'],
             'status' => 'string|min:1|nullable',
             'created_by' => 'nullable',
             'approved_by' => 'nullable',
-            'approved_at' => 'date_format:j/n/Y g:i A|nullable',
+            'approved_at' => 'nullable',
             'note' => 'string|min:1|max:1000|nullable', 
         ];
         
         $data = $request->validate($rules);
-        if ($request->has('custom_delete_medical_certificate')) {
-            $data['medical_certificate'] = null;
+        if ($request->has('custom_delete_file')) {
+            $data['file'] = null;
         }
-        if ($request->hasFile('medical_certificate')) {
-            $data['medical_certificate'] = $this->moveFile($request->file('medical_certificate'));
+        if ($request->hasFile('file')) {
+            $data['file'] = $this->moveFile($request->file('file'));
         }
 
         return $data;

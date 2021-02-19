@@ -42,7 +42,7 @@ class EmployeeEducationsController extends Controller
         $educationalFields = EducationalField::pluck('name','id')->all();
         $gpaScales = GPAScale::pluck('name','id')->all();
         $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('id','id')->all();
+        $approvedBies = User::pluck('name','id')->all();
         
         return view('employee_educations.create', compact('employees','educationLevels','educationalInstitutes','educationalFields','gpaScales','creators','approvedBies'));
     }
@@ -59,7 +59,8 @@ class EmployeeEducationsController extends Controller
         try {
             
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
+            $data['status'] = 1;
             EmployeeEducation::create($data);
 
             return redirect()->route('employee_educations.employee_education.index')
@@ -67,6 +68,53 @@ class EmployeeEducationsController extends Controller
         } catch (Exception $exception) {
 
             return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * Approve the specified employee education
+     *
+     * @param int $id
+     */
+    public function approve($id)
+    {
+        try {
+            
+            $employeeEducation = EmployeeEducation::findOrFail($id);
+            $employeeEducation->status = '3';
+            $employeeEducation->approved_by = '1';
+            $employeeEducation->approved_at = now();
+            $employeeEducation->save();
+
+            return redirect()->route('employee_educations.employee_education.index')
+                ->with('success_message', 'Employee Education was successfully approved.');
+        } catch (Exception $exception) {
+
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * reject the specified employee education
+     *
+     * @param int $id
+     */
+    public function reject($id, Request $request)
+    {
+        try {
+            
+            $employeeEducation = EmployeeEducation::findOrFail($id);
+            $employeeEducation->status = '2';
+            $employeeEducation->note = '1';
+            $employeeEducation->save();
+
+            return redirect()->route('employee_educations.employee_education.index')
+                ->with('success_message', 'Employee Education was successfully rejected.');
+        } catch (Exception $exception) {
+
+            return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
@@ -101,7 +149,7 @@ class EmployeeEducationsController extends Controller
         $educationalFields = EducationalField::pluck('name','id')->all();
         $gpaScales = GPAScale::pluck('name','id')->all();
         $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('id','id')->all();
+        $approvedBies = User::pluck('name','id')->all();
 
         return view('employee_educations.edit', compact('employeeEducation','employees','educationLevels','educationalInstitutes','educationalFields','gpaScales','creators','approvedBies'));
     }
@@ -170,16 +218,16 @@ class EmployeeEducationsController extends Controller
                 'field' => 'required',
                 'gpa_scale' => 'required',
                 'gpa' => 'required|string|min:1',
-                'start_date' => 'nullable|date_format:j/n/Y g:i A',
-                'end_date' => 'nullable|date_format:j/n/Y g:i A',
+                'start_date' => 'nullable',
+                'end_date' => 'nullable',
                 'file' => ['file'],
                 'has_coc' => 'boolean|nullable',
-                'coc_issued_date' => 'nullable|date_format:j/n/Y g:i A',
+                'coc_issued_date' => 'nullable',
                 'coc_file' => ['file','nullable'],
                 'status' => 'string|min:1|nullable',
                 'created_by' => 'required',
                 'approved_by' => 'nullable',
-                'approved_at' => 'nullable|date_format:j/n/Y g:i A',
+                'approved_at' => 'nullable',
                 'note' => 'string|min:1|max:1000|nullable', 
         ];
                 if ($request->route()->getAction()['as'] == 'employee_educations.employeeeducation.store' || $request->has('custom_delete_file')) {

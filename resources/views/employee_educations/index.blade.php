@@ -27,18 +27,8 @@
                             <th>Level</th>
                             <th>Institute</th>
                             <th>Field</th>
-                            <th>Gpa Scale</th>
-                            <th>Gpa</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Has Coc</th>
-                            <th>Coc Issued Date</th>
-                            <th>Coc File</th>
+                            <th>GPA</th>
                             <th>Status</th>
-                            <th>Created By</th>
-                            <th>Approved By</th>
-                            <th>Approved At</th>
-
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -46,21 +36,20 @@
                     @foreach($employeeEducations as $employeeEducation)
                         <tr>
                                 <td>{{ $loop->iteration }}</td>
-                            <td>{{ optional($employeeEducation->employee)->en_name }}</td>
-                            <td>{{ optional($employeeEducation->educationLevel)->name }}</td>
-                            <td>{{ optional($employeeEducation->educationalInstitute)->name }}</td>
-                            <td>{{ optional($employeeEducation->educationalField)->name }}</td>
-                            <td>{{ optional($employeeEducation->gpaScale)->name }}</td>
-                            <td>{{ $employeeEducation->gpa }}</td>
-                            <td>{{ $employeeEducation->start_date }}</td>
-                            <td>{{ $employeeEducation->end_date }}</td>
-                            <td>{{ ($employeeEducation->has_coc) ? 'Yes' : 'No' }}</td>
-                            <td>{{ $employeeEducation->coc_issued_date }}</td>
-                            <td>{{ $employeeEducation->coc_file }}</td>
-                            <td>{{ $employeeEducation->status }}</td>
-                            <td>{{ optional($employeeEducation->creator)->name }}</td>
-                            <td>{{ optional($employeeEducation->approvedBy)->id }}</td>
-                            <td>{{ $employeeEducation->approved_at }}</td>
+                                <td>{{ optional($employeeEducation->employee)->en_name }}</td>
+                                <td>{{ optional($employeeEducation->educationLevel)->name }}</td>
+                                <td>{{ optional($employeeEducation->educationalInstitute)->name }}</td>
+                                <td>{{ optional($employeeEducation->educationalField)->name }}</td>
+                                <td>{{ $employeeEducation->gpa }} / {{ optional($employeeEducation->gpaScale)->name }}</td>
+                                <td>
+                                    @if ($employeeEducation->status == 1)
+                                    Pending
+                                @elseif($employeeEducation->status == 2)
+                                    Rejected
+                                @else
+                                    Approved
+                                @endif
+                                </td>
 
                             <td>
                                 <form method="POST" action="{!! route('employee_educations.employee_education.destroy', $employeeEducation->id) !!}" accept-charset="UTF-8">

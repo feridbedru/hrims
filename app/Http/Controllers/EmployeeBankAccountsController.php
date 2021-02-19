@@ -10,6 +10,7 @@ use App\Models\EmployeeBankAccount;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 use Exception;
 
 class EmployeeBankAccountsController extends Controller
@@ -22,7 +23,13 @@ class EmployeeBankAccountsController extends Controller
      */
     public function index()
     {
-        $employeeBankAccounts = EmployeeBankAccount::with('employee','bank','bankaccounttype')->paginate(25);
+        $employeeBankAccounts = DB::table('employee_bank_accounts')
+                                ->join('employees','employee_bank_accounts.employee','=','employees.id')
+                                ->join('banks','employee_bank_accounts.bank','=','banks.id')
+                                ->join('bank_account_types','employee_bank_accounts.account_type','=','bank_account_types.id')
+                                ->select('employee_bank_accounts.*','employees.en_name as employee','banks.name as bank_name','bank_account_types.name as account_type')
+                                ->paginate(25);
+        // $employeeBankAccounts = EmployeeBankAccount::with('employee','bank','bankaccounttype')->paginate(25);
 
         return view('employee_bank_accounts.index', compact('employeeBankAccounts'));
     }
