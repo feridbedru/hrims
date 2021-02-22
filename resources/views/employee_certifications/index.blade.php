@@ -1,0 +1,83 @@
+@extends('layouts.employee')
+@section('pagetitle')
+    Employee Certifications
+@endsection
+@section('breadcrumb')
+    <li class="breadcrumb-item active">Employee Certifications</li>
+@endsection
+@section('content')
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Employee Certifications List</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="card-body">  
+        @if(count($employeeCertifications) == 0)
+                <h4 class="text-center">No Employee Certifications Available.</h4>
+        @else
+        <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Employee</th>
+                            <th>Name</th>
+                            <th>Issued On</th>
+                            <th>Certification Number</th>
+                            <th>Skill Category</th>
+                            <th>Verification Link</th>
+                            <th>Certification Vendor</th>
+                            <th>Expires On</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($employeeCertifications as $employeeCertification)
+                        <tr>
+                                <td>{{ $loop->iteration }}</td>
+                            <td>{{ $employeeCertification->en_name }}</td>
+                            <td>{{ $employeeCertification->name }}</td>
+                            <td>{{ $employeeCertification->issued_on }}</td>
+                            <td>{{ $employeeCertification->certification_number }}</td>
+                            <td>{{ $employeeCertification->category }}</td>
+                            <td>{{ $employeeCertification->verification_link }}</td>
+                            <td>{{ $employeeCertification->vendor }}</td>
+                            <td>{{ $employeeCertification->expires_on }}</td>
+                            <td>{{ $employeeCertification->status }}</td>
+
+                            <td>
+                                <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', $employeeCertification->id) !!}" accept-charset="UTF-8">
+                                <input name="_method" value="DELETE" type="hidden">
+                                {{ csrf_field() }}
+                                    <div class="btn-group btn-group-xs pull-right" role="group">
+                                        <a href="{{ route('employee_certifications.employee_certification.show', $employeeCertification->id ) }}" class="btn btn-primary" title="Show Employee Certification">
+                                            <span class="fa fa-eye" aria-hidden="true"></span>
+                                        </a>
+                                        <a href="{{ route('employee_certifications.employee_certification.edit', $employeeCertification->id ) }}" class="btn btn-warning" title="Edit Employee Certification">
+                                            <span class="fa fa-edit text-white" aria-hidden="true"></span>
+                                        </a>
+
+                                        <button type="submit" class="btn btn-danger" title="Delete Employee Certification" onclick="return confirm(&quot;Click Ok to delete Employee Certification.&quot;)">
+                                            <span class="fa fa-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            {!! $employeeCertifications->render() !!}
+        @endif
+        </div>
+    </div>
+    <div class="btn-group btn-group-sm pull-right" role="group">
+        <a href="{{ route('employee_certifications.employee_certification.create') }}" class="btn btn-success" title="Create New Employee Certification">
+            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        </a>
+    </div>
+@endsection

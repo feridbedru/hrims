@@ -977,3 +977,135 @@ Route::group([
          ->name('employee_licenses.employee_license.destroy')->where('id', '[0-9]+');
 });
 
+Route::group([
+    'prefix' => 'employee_experiences',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeExperiencesController@index')
+         ->name('employee_experiences.employee_experience.index');
+    Route::get('/create','App\Http\Controllers\EmployeeExperiencesController@create')
+         ->name('employee_experiences.employee_experience.create');
+    Route::get('/show/{employeeExperience}','App\Http\Controllers\EmployeeExperiencesController@show')
+         ->name('employee_experiences.employee_experience.show')->where('id', '[0-9]+');
+    Route::get('/{employeeExperience}/edit','App\Http\Controllers\EmployeeExperiencesController@edit')
+         ->name('employee_experiences.employee_experience.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeExperiencesController@store')
+         ->name('employee_experiences.employee_experience.store');
+    Route::put('employee_experience/{employeeExperience}', 'App\Http\Controllers\EmployeeExperiencesController@update')
+         ->name('employee_experiences.employee_experience.update')->where('id', '[0-9]+');
+    Route::delete('/employee_experience/{employeeExperience}','App\Http\Controllers\EmployeeExperiencesController@destroy')
+         ->name('employee_experiences.employee_experience.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_disasters',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeDisastersController@index')
+         ->name('employee_disasters.employee_disaster.index');
+    Route::get('/create','App\Http\Controllers\EmployeeDisastersController@create')
+         ->name('employee_disasters.employee_disaster.create');
+    Route::get('/show/{employeeDisaster}','App\Http\Controllers\EmployeeDisastersController@show')
+         ->name('employee_disasters.employee_disaster.show')->where('id', '[0-9]+');
+    Route::get('/{employeeDisaster}/edit','App\Http\Controllers\EmployeeDisastersController@edit')
+         ->name('employee_disasters.employee_disaster.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeDisastersController@store')
+         ->name('employee_disasters.employee_disaster.store');
+    Route::put('employee_disaster/{employeeDisaster}', 'App\Http\Controllers\EmployeeDisastersController@update')
+         ->name('employee_disasters.employee_disaster.update')->where('id', '[0-9]+');
+    Route::delete('/employee_disaster/{employeeDisaster}','App\Http\Controllers\EmployeeDisastersController@destroy')
+         ->name('employee_disasters.employee_disaster.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_disaster_indeminities',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeDisasterIndeminitiesController@index')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.index');
+    Route::get('/create','App\Http\Controllers\EmployeeDisasterIndeminitiesController@create')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.create');
+    Route::get('/show/{employeeDisasterIndeminity}','App\Http\Controllers\EmployeeDisasterIndeminitiesController@show')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.show')->where('id', '[0-9]+');
+    Route::get('/{employeeDisasterIndeminity}/edit','App\Http\Controllers\EmployeeDisasterIndeminitiesController@edit')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeDisasterIndeminitiesController@store')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.store');
+    Route::put('employee_disaster_indeminity/{employeeDisasterIndeminity}', 'App\Http\Controllers\EmployeeDisasterIndeminitiesController@update')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.update')->where('id', '[0-9]+');
+    Route::delete('/employee_disaster_indeminity/{employeeDisasterIndeminity}','App\Http\Controllers\EmployeeDisasterIndeminitiesController@destroy')
+         ->name('employee_disaster_indeminities.employee_disaster_indeminity.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_disaster_witnesses',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeDisasterWitnessesController@index')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.index');
+    Route::get('/create','App\Http\Controllers\EmployeeDisasterWitnessesController@create')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.create');
+    Route::get('/show/{employeeDisasterWitness}','App\Http\Controllers\EmployeeDisasterWitnessesController@show')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.show')->where('id', '[0-9]+');
+    Route::get('/{employeeDisasterWitness}/edit','App\Http\Controllers\EmployeeDisasterWitnessesController@edit')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeDisasterWitnessesController@store')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.store');
+    Route::put('employee_disaster_witness/{employeeDisasterWitness}', 'App\Http\Controllers\EmployeeDisasterWitnessesController@update')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.update')->where('id', '[0-9]+');
+    Route::delete('/employee_disaster_witness/{employeeDisasterWitness}','App\Http\Controllers\EmployeeDisasterWitnessesController@destroy')
+         ->name('employee_disaster_witnesses.employee_disaster_witness.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_certifications',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeCertificationsController@index')
+         ->name('employee_certifications.employee_certification.index');
+    Route::get('/create','App\Http\Controllers\EmployeeCertificationsController@create')
+         ->name('employee_certifications.employee_certification.create');
+    Route::get('/show/{employeeCertification}','App\Http\Controllers\EmployeeCertificationsController@show')
+         ->name('employee_certifications.employee_certification.show')->where('id', '[0-9]+');
+    Route::get('/{employeeCertification}/edit','App\Http\Controllers\EmployeeCertificationsController@edit')
+         ->name('employee_certifications.employee_certification.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeCertificationsController@store')
+         ->name('employee_certifications.employee_certification.store');
+    Route::put('employee_certification/{employeeCertification}', 'App\Http\Controllers\EmployeeCertificationsController@update')
+         ->name('employee_certifications.employee_certification.update')->where('id', '[0-9]+');
+    Route::delete('/employee_certification/{employeeCertification}','App\Http\Controllers\EmployeeCertificationsController@destroy')
+         ->name('employee_certifications.employee_certification.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_awards',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeAwardsController@index')
+         ->name('employee_awards.employee_award.index');
+    Route::get('/create','App\Http\Controllers\EmployeeAwardsController@create')
+         ->name('employee_awards.employee_award.create');
+    Route::get('/show/{employeeAward}','App\Http\Controllers\EmployeeAwardsController@show')
+         ->name('employee_awards.employee_award.show')->where('id', '[0-9]+');
+    Route::get('/{employeeAward}/edit','App\Http\Controllers\EmployeeAwardsController@edit')
+         ->name('employee_awards.employee_award.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeAwardsController@store')
+         ->name('employee_awards.employee_award.store');
+    Route::put('employee_award/{employeeAward}', 'App\Http\Controllers\EmployeeAwardsController@update')
+         ->name('employee_awards.employee_award.update')->where('id', '[0-9]+');
+    Route::delete('/employee_award/{employeeAward}','App\Http\Controllers\EmployeeAwardsController@destroy')
+         ->name('employee_awards.employee_award.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'employee_study_trainings',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeStudyTrainingsController@index')
+         ->name('employee_study_trainings.employee_study_training.index');
+    Route::get('/create','App\Http\Controllers\EmployeeStudyTrainingsController@create')
+         ->name('employee_study_trainings.employee_study_training.create');
+    Route::get('/show/{employeeStudyTraining}','App\Http\Controllers\EmployeeStudyTrainingsController@show')
+         ->name('employee_study_trainings.employee_study_training.show')->where('id', '[0-9]+');
+    Route::get('/{employeeStudyTraining}/edit','App\Http\Controllers\EmployeeStudyTrainingsController@edit')
+         ->name('employee_study_trainings.employee_study_training.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeStudyTrainingsController@store')
+         ->name('employee_study_trainings.employee_study_training.store');
+    Route::put('employee_study_training/{employeeStudyTraining}', 'App\Http\Controllers\EmployeeStudyTrainingsController@update')
+         ->name('employee_study_trainings.employee_study_training.update')->where('id', '[0-9]+');
+    Route::delete('/employee_study_training/{employeeStudyTraining}','App\Http\Controllers\EmployeeStudyTrainingsController@destroy')
+         ->name('employee_study_trainings.employee_study_training.destroy')->where('id', '[0-9]+');
+});
