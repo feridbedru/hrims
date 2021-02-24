@@ -46,21 +46,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="employee_families.employee_family.index" class="nav-link ">
+                        <a href="{{route('employee_families.employee_family.index')}}" class="nav-link ">
                             <i class="fas fa-users nav-icon"></i>
                             <p>Family </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="{{route('employee_languages.employee_language.index')}}" class="nav-link ">
                             <i class="fas fa-language nav-icon"></i>
                             <p>Language </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">
+                        <a href="{{route('employee_licenses.employee_license.index')}}" class="nav-link ">
                             <i class="fas fa-certificate nav-icon"></i>
                             <p>License </p>
                             <span class="badge badge-pill badge-primary"></span>
@@ -78,13 +78,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('employee_experiences.employee_experience.index')}}" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_experiences.employee_experience.create')}}" class="nav-link">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
@@ -124,13 +124,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_disasters.employee_disaster.index')}}" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_disasters.employee_disaster.create')}}" class="nav-link">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
@@ -170,13 +170,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('employee_certifications.employee_certification.index')}}" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_certifications.employee_certification.create')}}" class="nav-link">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
@@ -216,13 +216,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_awards.employee_award.index')}}" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_awards.employee_award.create')}}" class="nav-link">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
@@ -247,13 +247,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{route('employee_study_trainings.employee_study_training.index')}}" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_study_trainings.employee_study_training.create')}}" class="nav-link">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
@@ -270,13 +270,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_files.employee_file.index')}}" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_files.employee_file.create')}}" class="nav-link">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>

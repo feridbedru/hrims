@@ -1109,3 +1109,41 @@ Route::group([
     Route::delete('/employee_study_training/{employeeStudyTraining}','App\Http\Controllers\EmployeeStudyTrainingsController@destroy')
          ->name('employee_study_trainings.employee_study_training.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'employee_files',
+], function () {
+    Route::get('/', 'App\Http\Controllers\EmployeeFilesController@index')
+         ->name('employee_files.employee_file.index');
+    Route::get('/create','App\Http\Controllers\EmployeeFilesController@create')
+         ->name('employee_files.employee_file.create');
+    Route::get('/show/{employeeFile}','App\Http\Controllers\EmployeeFilesController@show')
+         ->name('employee_files.employee_file.show')->where('id', '[0-9]+');
+    Route::get('/{employeeFile}/edit','App\Http\Controllers\EmployeeFilesController@edit')
+         ->name('employee_files.employee_file.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\EmployeeFilesController@store')
+         ->name('employee_files.employee_file.store');
+    Route::put('employee_file/{employeeFile}', 'App\Http\Controllers\EmployeeFilesController@update')
+         ->name('employee_files.employee_file.update')->where('id', '[0-9]+');
+    Route::delete('/employee_file/{employeeFile}','App\Http\Controllers\EmployeeFilesController@destroy')
+         ->name('employee_files.employee_file.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'reports',
+], function () {
+    Route::get('/', 'App\Http\Controllers\ReportsController@index')
+         ->name('reports.report.index');
+    Route::get('/create','App\Http\Controllers\ReportsController@create')
+         ->name('reports.report.create');
+    Route::get('/show/{report}','App\Http\Controllers\ReportsController@show')
+         ->name('reports.report.show')->where('id', '[0-9]+');
+    Route::get('/{report}/edit','App\Http\Controllers\ReportsController@edit')
+         ->name('reports.report.edit')->where('id', '[0-9]+');
+    Route::post('/', 'App\Http\Controllers\ReportsController@store')
+         ->name('reports.report.store');
+    Route::put('report/{report}', 'App\Http\Controllers\ReportsController@update')
+         ->name('reports.report.update')->where('id', '[0-9]+');
+    Route::delete('/report/{report}','App\Http\Controllers\ReportsController@destroy')
+         ->name('reports.report.destroy')->where('id', '[0-9]+');
+});
