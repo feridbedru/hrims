@@ -15,7 +15,7 @@
     @yield('js')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         @include('menu.mainnav')
         <div class="content-wrapper px-3">

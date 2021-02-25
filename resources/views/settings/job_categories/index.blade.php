@@ -41,7 +41,7 @@
                                 swal.fire("Done!", results.message, "success");
                                 setTimeout(function() {
                                     location.reload();
-                                }, 5000);
+                                }, 2000);
                             } else {
                                 swal.fire("Error!", results.message, "error");
                             }

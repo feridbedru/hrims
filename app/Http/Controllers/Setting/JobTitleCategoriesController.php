@@ -108,13 +108,13 @@ class JobTitleCategoriesController extends Controller
     {
         try {
             $jobTitleCategory = JobTitleCategory::findOrFail($id);
-            $jobTitleCategory->delete();
+            $delete = $jobTitleCategory->delete();
 
         if ($delete == 1) {
             $success = true;
             $message = "Job Title Category deleted successfully";
         } else {
-            $success = true;
+            $success = false;
             $message = "Job Title Category not found";
         }
                 //  return response
@@ -122,8 +122,8 @@ class JobTitleCategoriesController extends Controller
                     'success' => $success,
                     'message' => $message,
                 ]);
-        } catch (Exception $exception) {
-
+        } catch (Throwable $exception) {
+report($exception);
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }

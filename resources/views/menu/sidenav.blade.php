@@ -10,8 +10,8 @@
     <hr>
 
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item has-treeview">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <li class="nav-item has-treeview {{ request()->is(['organizations*','organization_units*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i>
                     <p>
@@ -21,20 +21,20 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('organizations.organization.index') }}" class="nav-link active">
+                        <a href="{{ route('organizations.organization.index') }}" class="nav-link {{ request()->is('organizations*') ? 'active' : ' ' }}">
                             <i class="fas fa-building nav-icon"></i>
                             <p>Organization</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('organization_units.organization_unit.index') }}" class="nav-link ">
+                        <a href="{{ route('organization_units.organization_unit.index') }}" class="nav-link {{ request()->is('organization_units*') ? 'active' : ' ' }}">
                             <i class="fas fa-laptop-house nav-icon"></i>
                             <p>Units</p>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview">
+            <li class="nav-item has-treeview {{ request()->is(['employees*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user-tie"></i>
                     <p>
@@ -44,20 +44,20 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employees.employee.index') }}" class="nav-link">
-                            <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('employees.employee.create') }}" class="nav-link">
+                        <a href="{{ route('employees.employee.create') }}" class="nav-link {{ request()->is('employees/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('employees.employee.index') }}" class="nav-link {{ request()->is('employees') ? 'active' : ' ' }}">
+                            <i class="fas fa-list-alt nav-icon"></i>
+                            <p>List</p>
+                        </a>
+                    </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview ">
+            <li class="nav-item has-treeview {{ request()->is(['job_positions/create','job_positions','job_positions/show/*','job_positions/*/edit']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link ">
                     <i class="nav-icon  fas fa-suitcase"></i>
                     <p>
@@ -67,15 +67,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('job_positions.job_position.index') }}" class="nav-link">
-                            <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                        <a href="{{ route('job_positions.job_position.create') }}" class="nav-link {{ request()->is('job_positions/create') ? 'active' : ' ' }}">
+                            <i class="fas fa-plus-circle nav-icon"></i>
+                            <p>New</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('job_positions.job_position.create') }}" class="nav-link">
-                            <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                        <a href="{{ route('job_positions.job_position.index') }}" class="nav-link {{ request()->is(['job_positions','job_positions/show/*','job_positions/*/edit']) ? 'active' : ' ' }}">
+                            <i class="fas fa-list-alt nav-icon"></i>
+                            <p>List</p>
                         </a>
                     </li>
                 </ul>
@@ -244,7 +244,7 @@
                         </li>
                     </ul>
                 </li> --}}
-            <li class="nav-item has-treeview ">
+            <li class="nav-item has-treeview {{ request()->is(['salaries*','salary_scales*','salary_heights*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link ">
                     <i class="nav-icon  fas fa-money-check-alt"></i>
                     <p>
@@ -254,19 +254,19 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('salaries.salary.index') }}" class="nav-link">
+                        <a href="{{ route('salaries.salary.index') }}" class="nav-link {{ request()->is('salaries*') ? 'active' : ' ' }}">
                             <i class="fas fa-file-invoice nav-icon"></i>
                             <p>Salary</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('salary_scales.salary_scale.index') }}" class="nav-link">
+                        <a href="{{ route('salary_scales.salary_scale.index') }}" class="nav-link {{ request()->is('salary_scales*') ? 'active' : ' ' }}">
                             <i class="fas fa-balance-scale nav-icon"></i>
                             <p>Salary Scale</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('salary_heights.salary_height.index') }}" class="nav-link">
+                        <a href="{{ route('salary_heights.salary_height.index') }}" class="nav-link {{ request()->is('salary_heights*') ? 'active' : ' ' }}">
                             <i class="fas fa-sort nav-icon"></i>
                             <p>Salary Height</p>
                         </a>
@@ -279,8 +279,8 @@
                     </li>
                 </ul>
             </li>
-            {{-- <li class="nav-item has-treeview ">
-                    <a href="#" class="nav-link ">
+            <li class="nav-item has-treeview {{ request()->is(['reports/create','reports','reports/show/*','reports/*/edit']) ? 'menu-open' : ' ' }}">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
                             Report
@@ -289,19 +289,19 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
+                            <a href="{{ route('reports.report.create') }}" class="nav-link {{ request()->is('reports/create') ? 'active' : ' ' }}">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Build Report</p>
+                                <p>New</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
+                            <a href="{{ route('reports.report.index') }}" class="nav-link {{ request()->is(['reports','reports/show/*','reports/*/edit']) ? 'active' : ' ' }}">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>Saved Report</p>
+                                <p>List</p>
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
 
             {{-- <li class="nav-item">
                     <a href="{{ url('#') }}" class="nav-link">
@@ -334,7 +334,7 @@
                 </li> --}}
 
             <li class="nav-item">
-                <a href="{{ route('settings.setting.index') }}" class="nav-link">
+                <a href="{{ route('settings.setting.index') }}" class="nav-link {{ request()->is('settings*') ? 'active' : ' ' }}">
                     <i class="nav-icon fa fa-cog"></i>
                     <p>
                         Setting
@@ -343,7 +343,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{ route('helps.help.index') }}" class="nav-link">
+                <a href="{{ route('helps.help.index') }}" class="nav-link {{ request()->is('help*') ? 'active' : ' ' }}">
                     <i class="nav-icon fa fa-question"></i>
                     <p>
                         Help
