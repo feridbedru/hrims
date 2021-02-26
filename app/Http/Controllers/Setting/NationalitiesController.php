@@ -103,17 +103,25 @@ class NationalitiesController extends Controller
      * Remove the specified nationality from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $nationality = Nationality::findOrFail($id);
-            $nationality->delete();
-
-            return redirect()->route('nationalities.nationality.index')
-                ->with('success_message', 'Nationality was successfully deleted.');
+            $delete = $nationality->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Nationality deleted successfully";
+            } else {
+                $success = false;
+                $message = "Nationality not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
+            
         } catch (Exception $exception) {
 
             return back()->withInput()

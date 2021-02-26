@@ -103,17 +103,24 @@ class BankAccountTypesController extends Controller
      * Remove the specified bank account type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $bankAccountType = BankAccountType::findOrFail($id);
-            $bankAccountType->delete();
-
-            return redirect()->route('bank_account_types.bank_account_type.index')
-                ->with('success_message', 'Bank Account Type was successfully deleted.');
+            $delete = $bankAccountType->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Bank Account Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "Bank Account Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

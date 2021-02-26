@@ -103,17 +103,25 @@ class JobTypesController extends Controller
      * Remove the specified job type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $jobType = JobType::findOrFail($id);
-            $jobType->delete();
-
-            return redirect()->route('job_types.job_type.index')
-                ->with('success_message', 'Job Type was successfully deleted.');
+            $delete = $jobType->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Job Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "Job Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
+            
         } catch (Exception $exception) {
 
             return back()->withInput()

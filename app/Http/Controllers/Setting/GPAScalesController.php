@@ -103,17 +103,24 @@ class GPAScalesController extends Controller
      * Remove the specified g p a scale from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $gPAScale = GPAScale::findOrFail($id);
-            $gPAScale->delete();
-
-            return redirect()->route('gpa_scales.gpa_scale.index')
-                ->with('success_message', 'GPA Scale was successfully deleted.');
+            $delete = $gPAScale->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "GPA Scale deleted successfully";
+            } else {
+                $success = false;
+                $message = "GPA Scale not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

@@ -103,17 +103,24 @@ class MaritalStatusesController extends Controller
      * Remove the specified marital status from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $maritalStatus = MaritalStatus::findOrFail($id);
-            $maritalStatus->delete();
-
-            return redirect()->route('marital_statuses.marital_status.index')
-                ->with('success_message', 'Marital Status was successfully deleted.');
+            $delete = $maritalStatus->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Marital Status deleted successfully";
+            } else {
+                $success = false;
+                $message = "Marital Status not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

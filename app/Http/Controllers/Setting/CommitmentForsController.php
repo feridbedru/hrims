@@ -103,17 +103,24 @@ class CommitmentForsController extends Controller
      * Remove the specified commitment for from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $commitmentFor = CommitmentFor::findOrFail($id);
-            $commitmentFor->delete();
-
-            return redirect()->route('commitment_fors.commitment_for.index')
-                ->with('success_message', 'Commitment For was successfully deleted.');
+            $delete = $commitmentFor->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Commitment For deleted successfully";
+            } else {
+                $success = false;
+                $message = "Commitment For not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

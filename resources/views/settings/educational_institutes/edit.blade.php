@@ -12,10 +12,6 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title mb-1">Edit Educational Institute</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
         <div class="card-body">
             <form method="POST"
@@ -39,4 +35,43 @@
             </form>
         </div>
     </div>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#edit_educational_institute_form').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    abbreviation: {
+                        minlength: 1
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Please enter a name",
+                        minlength: "Your name must be at least 2 characters long"
+                    },
+                    abbreviation: {
+                        minlength: "Your abbreviation must be at least 1 characters long"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+    </script>
 @endsection

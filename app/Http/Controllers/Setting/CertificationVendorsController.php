@@ -103,17 +103,24 @@ class CertificationVendorsController extends Controller
      * Remove the specified certification vendor from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $certificationVendor = CertificationVendor::findOrFail($id);
-            $certificationVendor->delete();
-
-            return redirect()->route('certification_vendors.certification_vendor.index')
-                ->with('success_message', 'Certification Vendor was successfully deleted.');
+            $delete = $certificationVendor->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Certification Vendor deleted successfully";
+            } else {
+                $success = false;
+                $message = "Certification Vendor not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

@@ -110,10 +110,19 @@ class SexesController extends Controller
     {
         try {
             $sex = Sex::findOrFail($id);
-            $sex->delete();
-
-            return redirect()->route('sexes.sex.index')
-                ->with('success_message', 'Sex was successfully deleted.');
+            $delete = $sex->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Sex deleted successfully";
+            } else {
+                $success = false;
+                $message = "Sex not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

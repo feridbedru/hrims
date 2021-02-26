@@ -1,10 +1,61 @@
 @extends('layouts.app')
+@section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('pagetitle')
     Templates
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
     <li class="breadcrumb-item active">Templates</li>
+@endsection
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+@endsection
+@section('js')
+    <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script type="text/javascript">
+        function deleteConfirmation(id) {
+            swal.fire({
+                title: "Delete?",
+                type: 'question',
+                text: "Are you sure you want to delete this template?",
+                type: "warning",
+                showCancelButton: !0,
+                confirmButtonText: '<span class="fa fa-trash"></span> Yes, delete it!',
+                cancelButtonText: "No, cancel!",
+                confirmButtonColor: '#d33',
+                reverseButtons: !0
+            }).then(function(e) {
+                if (e.value === true) {
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ url('settings/templates/delete') }}/" + id,
+                        data: {
+                            _token: CSRF_TOKEN
+                        },
+                        dataType: 'JSON',
+                        success: function(results) {
+                            if (results.success === true) {
+                                swal.fire("Done!", results.message, "success");
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000);
+                            } else {
+                                swal.fire("Error!", results.message, "error");
+                            }
+                        }
+                    });
+                } else {
+                    e.dismiss;
+                }
+            }, function(dismiss) {
+                return false;
+            })
+        }
+
+    </script>
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -42,26 +93,18 @@
                                 <td>{{ $template->is_active ? 'Yes' : 'No' }}</td>
                                 <td>{{ $template->code }}</td>
                                 <td>
-                                    <form method="POST" action="{!!  route('templates.template.destroy', $template->id) !!}"
-                                        accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
-                                        {{ csrf_field() }}
-                                        <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('templates.template.show', $template->id) }}"
-                                                class="btn btn-primary" title="Show Template">
-                                                <span class="fa fa-eye" aria-hidden="true"></span>
-                                            </a>
-                                            <a href="{{ route('templates.template.edit', $template->id) }}"
-                                                class="btn btn-warning" title="Edit Template">
-                                                <span class="fa fa-edit text-white" aria-hidden="true"></span>
-                                            </a>
-
-                                            <button type="submit" class="btn btn-danger" title="Delete Template"
-                                                onclick="return confirm(&quot;Click Ok to delete Template.&quot;)">
-                                                <span class="fa fa-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </form>
+                                    <a href="{{ route('templates.template.show', $template->id) }}"
+                                        class="btn btn-primary mr-4" title="Show Template">
+                                        <span class="fa fa-eye" aria-hidden="true"></span>
+                                    </a>
+                                    <a href="{{ route('templates.template.edit', $template->id) }}"
+                                        class="btn btn-warning mr-4" title="Edit Template">
+                                        <span class="fa fa-edit text-white" aria-hidden="true"></span>
+                                    </a>
+                                    <button class="btn btn-danger remove-data"
+                                        onclick="deleteConfirmation({{ $template->id }})">
+                                        <span class="fa fa-trash" aria-hidden="true"></span>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach

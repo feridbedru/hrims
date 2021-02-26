@@ -94,7 +94,7 @@ Route::group([
      Route::get('/{organizationLocation}/edit',[OrganizationLocationsController::class,'edit'])->name('organization_locations.organization_location.edit')->where('id', '[0-9]+');
      Route::post('/', [OrganizationLocationsController::class,'store'])->name('organization_locations.organization_location.store');
      Route::put('organization_location/{organizationLocation}', [OrganizationLocationsController::class,'update'])->name('organization_locations.organization_location.update')->where('id', '[0-9]+');
-     Route::delete('/organization_location/{organizationLocation}',[OrganizationLocationsController::class,'destroy'])->name('organization_locations.organization_location.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{organizationLocation}',[OrganizationLocationsController::class,'destroy'])->name('organization_locations.organization_location.destroy')->where('id', '[0-9]+');
  });
 
 Route::group([
@@ -127,7 +127,7 @@ Route::group([
     Route::get('/{jobType}/edit',[JobTypesController::class, 'edit'])->name('job_types.job_type.edit')->where('id', '[0-9]+');
     Route::post('/', [JobTypesController::class, 'store'])->name('job_types.job_type.store');
     Route::put('job_type/{jobType}', [JobTypesController::class, 'update'])->name('job_types.job_type.update')->where('id', '[0-9]+');
-    Route::delete('/job_type/{jobType}',[JobTypesController::class, 'destroy'])->name('job_types.job_type.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{jobType}',[JobTypesController::class, 'destroy'])->name('job_types.job_type.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -138,7 +138,7 @@ Route::group([
     Route::get('/{language}/edit',[LanguagesController::class, 'edit'])->name('languages.language.edit')->where('id', '[0-9]+');
     Route::post('/', [LanguagesController::class, 'store'])->name('languages.language.store');
     Route::put('language/{language}', [LanguagesController::class, 'update'])->name('languages.language.update')->where('id', '[0-9]+');
-    Route::delete('/language/{language}',[LanguagesController::class, 'destroy'])->name('languages.language.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{language}',[LanguagesController::class, 'destroy'])->name('languages.language.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -149,7 +149,7 @@ Route::group([
     Route::get('/{languageLevel}/edit',[LanguageLevelsController::class, 'edit'])->name('language_levels.language_level.edit')->where('id', '[0-9]+');
     Route::post('/', [LanguageLevelsController::class, 'store'])->name('language_levels.language_level.store');
     Route::put('language_level/{languageLevel}', [LanguageLevelsController::class, 'update'])->name('language_levels.language_level.update')->where('id', '[0-9]+');
-    Route::delete('/language_level/{languageLevel}',[LanguageLevelsController::class, 'destroy'])->name('language_levels.language_level.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{languageLevel}',[LanguageLevelsController::class, 'destroy'])->name('language_levels.language_level.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -160,7 +160,7 @@ Route::group([
     Route::get('/{maritalStatus}/edit',[MaritalStatusesController::class, 'edit'])->name('marital_statuses.marital_status.edit')->where('id', '[0-9]+');
     Route::post('/', [MaritalStatusesController::class, 'store'])->name('marital_statuses.marital_status.store');
     Route::put('marital_status/{maritalStatus}', [MaritalStatusesController::class, 'update'])->name('marital_statuses.marital_status.update')->where('id', '[0-9]+');
-    Route::delete('/marital_status/{maritalStatus}',[MaritalStatusesController::class, 'destroy'])->name('marital_statuses.marital_status.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{maritalStatus}',[MaritalStatusesController::class, 'destroy'])->name('marital_statuses.marital_status.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -171,7 +171,7 @@ Route::group([
     Route::get('/{nationality}/edit',[NationalitiesController::class, 'edit'])->name('nationalities.nationality.edit')->where('id', '[0-9]+');
     Route::post('/', [NationalitiesController::class, 'store'])->name('nationalities.nationality.store');
     Route::put('nationality/{nationality}', [NationalitiesController::class, 'update'])->name('nationalities.nationality.update')->where('id', '[0-9]+');
-    Route::delete('/nationality/{nationality}',[NationalitiesController::class, 'destroy'])->name('nationalities.nationality.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{nationality}',[NationalitiesController::class, 'destroy'])->name('nationalities.nationality.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -182,7 +182,7 @@ Route::group([
     Route::get('/{religion}/edit',[ReligionsController::class, 'edit'])->name('religions.religion.edit')->where('id', '[0-9]+');
     Route::post('/', [ReligionsController::class, 'store'])->name('religions.religion.store');
     Route::put('religion/{religion}', [ReligionsController::class, 'update'])->name('religions.religion.update')->where('id', '[0-9]+');
-    Route::delete('/religion/{religion}',[ReligionsController::class, 'destroy'])->name('religions.religion.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{religion}',[ReligionsController::class, 'destroy'])->name('religions.religion.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -193,7 +193,7 @@ Route::group([
     Route::get('/{region}/edit',[RegionsController::class, 'edit'])->name('regions.region.edit')->where('id', '[0-9]+');
     Route::post('/', [RegionsController::class, 'store'])->name('regions.region.store');
     Route::put('region/{region}', [RegionsController::class, 'update'])->name('regions.region.update')->where('id', '[0-9]+');
-    Route::delete('/region/{region}',[RegionsController::class, 'destroy'])->name('regions.region.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{region}',[RegionsController::class, 'destroy'])->name('regions.region.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -205,7 +205,7 @@ Route::group([
      Route::get('/{zone}/edit',[ZonesController::class, 'edit'])->name('zones.zone.edit')->where('id', '[0-9]+');
      Route::post('/', [ZonesController::class, 'store'])->name('zones.zone.store');
      Route::put('zone/{zone}', [ZonesController::class, 'update'])->name('zones.zone.update')->where('id', '[0-9]+');
-     Route::delete('/zone/{zone}',[ZonesController::class, 'destroy'])->name('zones.zone.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{zone}',[ZonesController::class, 'destroy'])->name('zones.zone.destroy')->where('id', '[0-9]+');
  });
  
  Route::group([
@@ -217,7 +217,7 @@ Route::group([
      Route::get('/{woreda}/edit',[WoredasController::class, 'edit'])->name('woredas.woreda.edit')->where('id', '[0-9]+');
      Route::post('/', [WoredasController::class, 'store'])->name('woredas.woreda.store');
      Route::put('woreda/{woreda}', [WoredasController::class, 'update'])->name('woredas.woreda.update')->where('id', '[0-9]+');
-     Route::delete('/woreda/{woreda}',[WoredasController::class, 'destroy'])->name('woredas.woreda.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{woreda}',[WoredasController::class, 'destroy'])->name('woredas.woreda.destroy')->where('id', '[0-9]+');
  });
 
 Route::group([
@@ -228,7 +228,7 @@ Route::group([
     Route::get('/{skillCategory}/edit',[SkillCategoriesController::class, 'edit'])->name('skill_categories.skill_category.edit')->where('id', '[0-9]+');
     Route::post('/', [SkillCategoriesController::class, 'store'])->name('skill_categories.skill_category.store');
     Route::put('skill_category/{skillCategory}', [SkillCategoriesController::class, 'update'])->name('skill_categories.skill_category.update')->where('id', '[0-9]+');
-    Route::delete('/skill_category/{skillCategory}',[SkillCategoriesController::class, 'destroy'])->name('skill_categories.skill_category.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{skillCategory}',[SkillCategoriesController::class, 'destroy'])->name('skill_categories.skill_category.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -239,7 +239,7 @@ Route::group([
     Route::get('/{relationship}/edit',[RelationshipsController::class, 'edit'])->name('relationships.relationship.edit')->where('id', '[0-9]+');
     Route::post('/', [RelationshipsController::class, 'store'])->name('relationships.relationship.store');
     Route::put('relationship/{relationship}', [RelationshipsController::class, 'update'])->name('relationships.relationship.update')->where('id', '[0-9]+');
-    Route::delete('/relationship/{relationship}',[RelationshipsController::class, 'destroy'])->name('relationships.relationship.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{relationship}',[RelationshipsController::class, 'destroy'])->name('relationships.relationship.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -250,7 +250,7 @@ Route::group([
     Route::get('/{employeeStatus}/edit',[EmployeeStatusesController::class, 'edit'])->name('employee_statuses.employee_status.edit')->where('id', '[0-9]+');
     Route::post('/', [EmployeeStatusesController::class, 'store'])->name('employee_statuses.employee_status.store');
     Route::put('employee_status/{employeeStatus}', [EmployeeStatusesController::class, 'update'])->name('employee_statuses.employee_status.update')->where('id', '[0-9]+');
-    Route::delete('/employee_status/{employeeStatus}',[EmployeeStatusesController::class, 'destroy'])->name('employee_statuses.employee_status.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{employeeStatus}',[EmployeeStatusesController::class, 'destroy'])->name('employee_statuses.employee_status.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -261,7 +261,7 @@ Route::group([
     Route::get('/{addressType}/edit',[AddressTypesController::class, 'edit'])->name('address_types.address_type.edit')->where('id', '[0-9]+');
     Route::post('/', [AddressTypesController::class, 'store'])->name('address_types.address_type.store');
     Route::put('address_type/{addressType}', [AddressTypesController::class, 'update'])->name('address_types.address_type.update')->where('id', '[0-9]+');
-    Route::delete('/address_type/{addressType}',[AddressTypesController::class, 'destroy'])->name('address_types.address_type.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{addressType}',[AddressTypesController::class, 'destroy'])->name('address_types.address_type.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -272,7 +272,7 @@ Route::group([
     Route::get('/{experienceType}/edit',[ExperienceTypesController::class, 'edit'])->name('experience_types.experience_type.edit')->where('id', '[0-9]+');
     Route::post('/', [ExperienceTypesController::class, 'store'])->name('experience_types.experience_type.store');
     Route::put('experience_type/{experienceType}', [ExperienceTypesController::class, 'update'])->name('experience_types.experience_type.update')->where('id', '[0-9]+');
-    Route::delete('/experience_type/{experienceType}',[ExperienceTypesController::class, 'destroy'])->name('experience_types.experience_type.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{experienceType}',[ExperienceTypesController::class, 'destroy'])->name('experience_types.experience_type.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -283,7 +283,7 @@ Route::group([
     Route::get('/{licenseType}/edit',[LicenseTypesController::class, 'edit'])->name('license_types.license_type.edit')->where('id', '[0-9]+');
     Route::post('/', [LicenseTypesController::class, 'store'])->name('license_types.license_type.store');
     Route::put('license_type/{licenseType}', [LicenseTypesController::class, 'update'])->name('license_types.license_type.update')->where('id', '[0-9]+');
-    Route::delete('/license_type/{licenseType}',[LicenseTypesController::class, 'destroy'])->name('license_types.license_type.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{licenseType}',[LicenseTypesController::class, 'destroy'])->name('license_types.license_type.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -294,7 +294,7 @@ Route::group([
     Route::get('/{educationLevel}/edit',[EducationLevelsController::class, 'edit'])->name('education_levels.education_level.edit')->where('id', '[0-9]+');
     Route::post('/', [EducationLevelsController::class, 'store'])->name('education_levels.education_level.store');
     Route::put('education_level/{educationLevel}', [EducationLevelsController::class, 'update'])->name('education_levels.education_level.update')->where('id', '[0-9]+');
-    Route::delete('/education_level/{educationLevel}',[EducationLevelsController::class, 'destroy'])->name('education_levels.education_level.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{educationLevel}',[EducationLevelsController::class, 'destroy'])->name('education_levels.education_level.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -305,7 +305,7 @@ Route::group([
     Route::get('/{educationalInstitute}/edit',[EducationalInstitutesController::class, 'edit'])->name('educational_institutes.educational_institute.edit')->where('id', '[0-9]+');
     Route::post('/', [EducationalInstitutesController::class, 'store'])->name('educational_institutes.educational_institute.store');
     Route::put('educational_institute/{educationalInstitute}', [EducationalInstitutesController::class, 'update'])->name('educational_institutes.educational_institute.update')->where('id', '[0-9]+');
-    Route::delete('/educational_institute/{educationalInstitute}',[EducationalInstitutesController::class, 'destroy'])->name('educational_institutes.educational_institute.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{educationalInstitute}',[EducationalInstitutesController::class, 'destroy'])->name('educational_institutes.educational_institute.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -316,7 +316,7 @@ Route::group([
     Route::get('/{educationalField}/edit',[EducationalFieldsController::class, 'edit'])->name('educational_fields.educational_field.edit')->where('id', '[0-9]+');
     Route::post('/', [EducationalFieldsController::class, 'store'])->name('educational_fields.educational_field.store');
     Route::put('educational_field/{educationalField}', [EducationalFieldsController::class, 'update'])->name('educational_fields.educational_field.update')->where('id', '[0-9]+');
-    Route::delete('/educational_field/{educationalField}',[EducationalFieldsController::class, 'destroy'])->name('educational_fields.educational_field.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{educationalField}',[EducationalFieldsController::class, 'destroy'])->name('educational_fields.educational_field.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -327,7 +327,7 @@ Route::group([
     Route::get('/{disasterCause}/edit',[DisasterCausesController::class, 'edit'])->name('disaster_causes.disaster_cause.edit')->where('id', '[0-9]+');
     Route::post('/', [DisasterCausesController::class, 'store'])->name('disaster_causes.disaster_cause.store');
     Route::put('disaster_cause/{disasterCause}', [DisasterCausesController::class, 'update'])->name('disaster_causes.disaster_cause.update')->where('id', '[0-9]+');
-    Route::delete('/disaster_cause/{disasterCause}',[DisasterCausesController::class, 'destroy'])->name('disaster_causes.disaster_cause.destroy')->where('id', '[0-9]+');
+    Route::post('/delete/{disasterCause}',[DisasterCausesController::class, 'destroy'])->name('disaster_causes.disaster_cause.destroy')->where('id', '[0-9]+');
 });
 
 Route::group([
@@ -338,7 +338,7 @@ Route::group([
      Route::get('/{sex}/edit',[SexesController::class, 'edit'])->name('sexes.sex.edit')->where('id', '[0-9]+');
      Route::post('/', [SexesController::class, 'store'])->name('sexes.sex.store');
      Route::put('sex/{sex}', [SexesController::class, 'update'])->name('sexes.sex.update')->where('id', '[0-9]+');
-     Route::delete('/sex/{sex}',[SexesController::class, 'destroy'])->name('sexes.sex.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{sex}',[SexesController::class, 'destroy'])->name('sexes.sex.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -349,7 +349,7 @@ Route::group([
      Route::get('/{templateType}/edit',[TemplateTypesController::class, 'edit'])->name('template_types.template_type.edit')->where('id', '[0-9]+');
      Route::post('/', [TemplateTypesController::class, 'store'])->name('template_types.template_type.store');
      Route::put('template_type/{templateType}', [TemplateTypesController::class, 'update'])->name('template_types.template_type.update')->where('id', '[0-9]+');
-     Route::delete('/template_type/{templateType}',[TemplateTypesController::class, 'destroy'])->name('template_types.template_type.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{templateType}',[TemplateTypesController::class, 'destroy'])->name('template_types.template_type.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -361,7 +361,7 @@ Route::group([
      Route::get('/{template}/edit',[TemplatesController::class, 'edit'])->name('templates.template.edit')->where('id', '[0-9]+');
      Route::post('/', [TemplatesController::class, 'store'])->name('templates.template.store');
      Route::put('template/{template}', [TemplatesController::class, 'update'])->name('templates.template.update')->where('id', '[0-9]+');
-     Route::delete('/template/{template}',[TemplatesController::class, 'destroy'])->name('templates.template.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{template}',[TemplatesController::class, 'destroy'])->name('templates.template.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -372,7 +372,7 @@ Route::group([
      Route::get('/{title}/edit',[TitlesController::class, 'edit'])->name('titles.title.edit')->where('id', '[0-9]+');
      Route::post('/', [TitlesController::class, 'store'])->name('titles.title.store');
      Route::put('title/{title}', [TitlesController::class, 'update'])->name('titles.title.update')->where('id', '[0-9]+');
-     Route::delete('/title/{title}',[TitlesController::class, 'destroy'])->name('titles.title.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{title}',[TitlesController::class, 'destroy'])->name('titles.title.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -383,7 +383,7 @@ Route::group([
      Route::get('/{bank}/edit',[BanksController::class, 'edit'])->name('banks.bank.edit')->where('id', '[0-9]+');
      Route::post('/', [BanksController::class, 'store'])->name('banks.bank.store');
      Route::put('bank/{bank}', [BanksController::class, 'update'])->name('banks.bank.update')->where('id', '[0-9]+');
-     Route::delete('/bank/{bank}',[BanksController::class, 'destroy'])->name('banks.bank.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{bank}',[BanksController::class, 'destroy'])->name('banks.bank.destroy')->where('id', '[0-9]+');
  }); 
 
 
@@ -395,7 +395,7 @@ Route::group([
      Route::get('/{bankAccountType}/edit',[BankAccountTypesController::class, 'edit'])->name('bank_account_types.bank_account_type.edit')->where('id', '[0-9]+');
      Route::post('/', [BankAccountTypesController::class, 'store'])->name('bank_account_types.bank_account_type.store');
      Route::put('bank_account_type/{bankAccountType}', [BankAccountTypesController::class, 'update'])->name('bank_account_types.bank_account_type.update')->where('id', '[0-9]+');
-     Route::delete('/bank_account_type/{bankAccountType}',[BankAccountTypesController::class, 'destroy'])->name('bank_account_types.bank_account_type.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{bankAccountType}',[BankAccountTypesController::class, 'destroy'])->name('bank_account_types.bank_account_type.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -406,7 +406,7 @@ Route::group([
      Route::get('/{disabilityType}/edit',[DisabilityTypesController::class, 'edit'])->name('disability_types.disability_type.edit')->where('id', '[0-9]+');
      Route::post('/', [DisabilityTypesController::class, 'store'])->name('disability_types.disability_type.store');
      Route::put('disability_type/{disabilityType}', [DisabilityTypesController::class, 'update'])->name('disability_types.disability_type.update')->where('id', '[0-9]+');
-     Route::delete('/disability_type/{disabilityType}',[DisabilityTypesController::class, 'destroy'])->name('disability_types.disability_type.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{disabilityType}',[DisabilityTypesController::class, 'destroy'])->name('disability_types.disability_type.destroy')->where('id', '[0-9]+');
  });
 
 Route::group([
@@ -417,7 +417,7 @@ Route::group([
      Route::get('/{gPAScale}/edit',[GPAScalesController::class, 'edit'])->name('gpa_scales.gpa_scale.edit')->where('id', '[0-9]+');
      Route::post('/', [GPAScalesController::class, 'store'])->name('gpa_scales.gpa_scale.store');
      Route::put('gpa_scale/{gPAScale}', [GPAScalesController::class, 'update'])->name('gpa_scales.gpa_scale.update')->where('id', '[0-9]+');
-     Route::delete('/gpa_scale/{gPAScale}',[GPAScalesController::class, 'destroy'])->name('gpa_scales.gpa_scale.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{gPAScale}',[GPAScalesController::class, 'destroy'])->name('gpa_scales.gpa_scale.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -428,7 +428,7 @@ Route::group([
      Route::get('/{awardType}/edit',[AwardTypesController::class, 'edit'])->name('award_types.award_type.edit')->where('id', '[0-9]+');
      Route::post('/', [AwardTypesController::class, 'store'])->name('award_types.award_type.store');
      Route::put('award_type/{awardType}', [AwardTypesController::class, 'update'])->name('award_types.award_type.update')->where('id', '[0-9]+');
-     Route::delete('/award_type/{awardType}',[AwardTypesController::class, 'destroy'])->name('award_types.award_type.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{awardType}',[AwardTypesController::class, 'destroy'])->name('award_types.award_type.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -439,7 +439,7 @@ Route::group([
      Route::get('/{commitmentFor}/edit',[CommitmentForsController::class, 'edit'])->name('commitment_fors.commitment_for.edit')->where('id', '[0-9]+');
      Route::post('/', [CommitmentForsController::class, 'store'])->name('commitment_fors.commitment_for.store');
      Route::put('commitment_for/{commitmentFor}', [CommitmentForsController::class, 'update'])->name('commitment_fors.commitment_for.update')->where('id', '[0-9]+');
-     Route::delete('/commitment_for/{commitmentFor}',[CommitmentForsController::class, 'destroy'])->name('commitment_fors.commitment_for.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{commitmentFor}',[CommitmentForsController::class, 'destroy'])->name('commitment_fors.commitment_for.destroy')->where('id', '[0-9]+');
  });
 
  Route::group([
@@ -450,7 +450,7 @@ Route::group([
      Route::get('/{leftReason}/edit',[LeftReasonsController::class, 'edit'])->name('left_reasons.left_reason.edit')->where('id', '[0-9]+');
      Route::post('/', [LeftReasonsController::class, 'store'])->name('left_reasons.left_reason.store');
      Route::put('left_reason/{leftReason}', [LeftReasonsController::class, 'update'])->name('left_reasons.left_reason.update')->where('id', '[0-9]+');
-     Route::delete('/left_reason/{leftReason}',[LeftReasonsController::class, 'destroy'])->name('left_reasons.left_reason.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{leftReason}',[LeftReasonsController::class, 'destroy'])->name('left_reasons.left_reason.destroy')->where('id', '[0-9]+');
  });
  
  Route::group([
@@ -461,7 +461,7 @@ Route::group([
      Route::get('/{disasterSeverity}/edit',[DisasterSeveritiesController::class, 'edit'])->name('disaster_severities.disaster_severity.edit')->where('id', '[0-9]+');
      Route::post('/', [DisasterSeveritiesController::class, 'store'])->name('disaster_severities.disaster_severity.store');
      Route::put('disaster_severity/{disasterSeverity}', [DisasterSeveritiesController::class, 'update'])->name('disaster_severities.disaster_severity.update')->where('id', '[0-9]+');
-     Route::delete('/disaster_severity/{disasterSeverity}',[DisasterSeveritiesController::class, 'destroy'])->name('disaster_severities.disaster_severity.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{disasterSeverity}',[DisasterSeveritiesController::class, 'destroy'])->name('disaster_severities.disaster_severity.destroy')->where('id', '[0-9]+');
  });
  
  Route::group([
@@ -472,7 +472,7 @@ Route::group([
      Route::get('/{certificationVendor}/edit',[CertificationVendorsController::class, 'edit'])->name('certification_vendors.certification_vendor.edit')->where('id', '[0-9]+');
      Route::post('/', [CertificationVendorsController::class, 'store'])->name('certification_vendors.certification_vendor.store');
      Route::put('certification_vendor/{certificationVendor}', [CertificationVendorsController::class, 'update'])->name('certification_vendors.certification_vendor.update')->where('id', '[0-9]+');
-     Route::delete('/certification_vendor/{certificationVendor}',[CertificationVendorsController::class, 'destroy'])->name('certification_vendors.certification_vendor.destroy')->where('id', '[0-9]+');
+     Route::post('/delete/{certificationVendor}',[CertificationVendorsController::class, 'destroy'])->name('certification_vendors.certification_vendor.destroy')->where('id', '[0-9]+');
  });
  
 Route::group([

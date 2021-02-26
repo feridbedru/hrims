@@ -103,17 +103,24 @@ class DisasterSeveritiesController extends Controller
      * Remove the specified disaster severity from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $disasterSeverity = DisasterSeverity::findOrFail($id);
-            $disasterSeverity->delete();
-
-            return redirect()->route('disaster_severities.disaster_severity.index')
-                ->with('success_message', 'Disaster Severity was successfully deleted.');
+            $delete = $disasterSeverity->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Disaster Severity deleted successfully";
+            } else {
+                $success = false;
+                $message = "Disaster Severity not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

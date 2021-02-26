@@ -114,7 +114,7 @@ class JobCategoriesController extends Controller
             $success = true;
             $message = "Job Category deleted successfully";
         } else {
-            $success = true;
+            $success = false;
             $message = "Job Category not found";
         }
                 //  return response

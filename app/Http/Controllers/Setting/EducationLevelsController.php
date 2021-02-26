@@ -103,17 +103,24 @@ class EducationLevelsController extends Controller
      * Remove the specified education level from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $educationLevel = EducationLevel::findOrFail($id);
-            $educationLevel->delete();
-
-            return redirect()->route('education_levels.education_level.index')
-                ->with('success_message', 'Education Level was successfully deleted.');
+            $delete = $educationLevel->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Education Level deleted successfully";
+            } else {
+                $success = false;
+                $message = "Education Level not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

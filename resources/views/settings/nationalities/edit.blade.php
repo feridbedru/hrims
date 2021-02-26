@@ -38,3 +38,44 @@
         </div>
     </div>
 @endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#edit_nationality_form').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    code: {
+                        required: true,
+                        minlength: 2
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Please enter a name",
+                        minlength: "Your name must be at least 2 characters long"
+                    },
+                    code: {
+                        required: "Please enter a code",
+                        minlength: "Your code must be at least 2 characters long"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+    </script>
+@endsection

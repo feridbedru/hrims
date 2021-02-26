@@ -110,10 +110,19 @@ class BanksController extends Controller
     {
         try {
             $bank = Bank::findOrFail($id);
-            $bank->delete();
-
-            return redirect()->route('banks.bank.index')
-                ->with('success_message', 'Bank was successfully deleted.');
+            $delete = $bank->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Bank deleted successfully";
+            } else {
+                $success = false;
+                $message = "Bank not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

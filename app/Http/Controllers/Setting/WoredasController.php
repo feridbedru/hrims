@@ -111,10 +111,19 @@ class WoredasController extends Controller
     {
         try {
             $woreda = Woreda::findOrFail($id);
-            $woreda->delete();
-
-            return redirect()->route('woredas.woreda.index')
-                ->with('success_message', 'Woreda was successfully deleted.');
+            $delete = $woreda->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Woreda deleted successfully";
+            } else {
+                $success = false;
+                $message = "Woreda not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

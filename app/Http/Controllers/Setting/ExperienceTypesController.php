@@ -103,17 +103,24 @@ class ExperienceTypesController extends Controller
      * Remove the specified experience type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $experienceType = ExperienceType::findOrFail($id);
-            $experienceType->delete();
-
-            return redirect()->route('experience_types.experience_type.index')
-                ->with('success_message', 'Experience Type was successfully deleted.');
+            $delete = $experienceType->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Experience Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "Experience Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

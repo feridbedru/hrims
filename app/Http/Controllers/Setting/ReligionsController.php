@@ -103,17 +103,24 @@ class ReligionsController extends Controller
      * Remove the specified religion from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $religion = Religion::findOrFail($id);
-            $religion->delete();
-
-            return redirect()->route('religions.religion.index')
-                ->with('success_message', 'Religion was successfully deleted.');
+            $delete = $religion->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Religion deleted successfully";
+            } else {
+                $success = false;
+                $message = "Religion not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

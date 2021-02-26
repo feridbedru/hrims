@@ -111,17 +111,24 @@ class ZonesController extends Controller
      * Remove the specified zone from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $zone = Zone::findOrFail($id);
-            $zone->delete();
-
-            return redirect()->route('zones.zone.index')
-                ->with('success_message', 'Zone was successfully deleted.');
+            $delete = $zone->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Zone deleted successfully";
+            } else {
+                $success = false;
+                $message = "Zone not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

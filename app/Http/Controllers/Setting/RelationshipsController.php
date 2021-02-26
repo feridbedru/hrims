@@ -103,17 +103,24 @@ class RelationshipsController extends Controller
      * Remove the specified relationship from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $relationship = Relationship::findOrFail($id);
-            $relationship->delete();
-
-            return redirect()->route('relationships.relationship.index')
-                ->with('success_message', 'Relationship was successfully deleted.');
+            $delete = $relationship->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Relationship deleted successfully";
+            } else {
+                $success = false;
+                $message = "Relationship not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

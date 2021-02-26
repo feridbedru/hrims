@@ -103,17 +103,24 @@ class LicenseTypesController extends Controller
      * Remove the specified license type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $licenseType = LicenseType::findOrFail($id);
-            $licenseType->delete();
-
-            return redirect()->route('license_types.license_type.index')
-                ->with('success_message', 'License Type was successfully deleted.');
+            $delete = $licenseType->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "License Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "License Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

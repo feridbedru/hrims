@@ -103,17 +103,25 @@ class AddressTypesController extends Controller
      * Remove the specified address type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $addressType = AddressType::findOrFail($id);
-            $addressType->delete();
+            $delete = $addressType->delete();
 
-            return redirect()->route('address_types.address_type.index')
-                ->with('success_message', 'Address Type was successfully deleted.');
+            if ($delete == 1) {
+                $success = true;
+                $message = "Address Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "Address Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()
@@ -132,7 +140,7 @@ class AddressTypesController extends Controller
     {
         $rules = [
                 'name' => 'required|string|min:1|max:255',
-            'description' => 'string|min:1|max:1000|nullable', 
+                'description' => 'string|min:1|max:1000|nullable', 
         ];
         
         $data = $request->validate($rules);

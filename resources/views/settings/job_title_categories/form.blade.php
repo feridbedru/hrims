@@ -1,11 +1,12 @@
+<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : '' }}">
-        <label for="name" class="col-md-2 control-label">Name</label>
+        <label for="name" class="col-md-2 control-label">Name <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($jobTitleCategory)->name) }}" minlength="1" maxlength="255"
                 placeholder="Enter name here...">
-            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group col-md-6 {{ $errors->has('job_title_category_id') ? 'has-error' : '' }}">
@@ -22,8 +23,6 @@
                     </option>
                 @endforeach
             </select>
-
-            {!! $errors->first('job_title_category_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -32,6 +31,5 @@
     <div class="col-md-12">
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000">{{ old('description', optional($jobTitleCategory)->description) }}</textarea>
-        {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

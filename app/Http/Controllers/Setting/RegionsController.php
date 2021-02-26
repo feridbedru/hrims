@@ -117,17 +117,24 @@ class RegionsController extends Controller
      * Remove the specified region from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $region = Region::findOrFail($id);
-            $region->delete();
-
-            return redirect()->route('regions.region.index')
-                ->with('success_message', 'Region was successfully deleted.');
+            $delete = $region->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Region deleted successfully";
+            } else {
+                $success = false;
+                $message = "Region not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

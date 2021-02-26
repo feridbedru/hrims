@@ -103,17 +103,24 @@ class TemplateTypesController extends Controller
      * Remove the specified template type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $templateType = TemplateType::findOrFail($id);
-            $templateType->delete();
-
-            return redirect()->route('template_types.template_type.index')
-                ->with('success_message', 'Template Type was successfully deleted.');
+            $delete = $templateType->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Template Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "Template Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

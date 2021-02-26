@@ -103,17 +103,24 @@ class SkillCategoriesController extends Controller
      * Remove the specified skill category from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $skillCategory = SkillCategory::findOrFail($id);
-            $skillCategory->delete();
-
-            return redirect()->route('skill_categories.skill_category.index')
-                ->with('success_message', 'Skill Category was successfully deleted.');
+            $delete = $skillCategory->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Skill Category deleted successfully";
+            } else {
+                $success = false;
+                $message = "Skill Category not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

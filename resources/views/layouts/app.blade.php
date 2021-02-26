@@ -18,6 +18,9 @@
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
         @include('menu.mainnav')
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            @include('menu.sidenav')
+            </aside>
         <div class="content-wrapper px-3">
             <div class="content-header">
                 <div class="container-fluid">
@@ -89,9 +92,6 @@
             <strong>Copyright &copy; {{ date('Y') }} <a href="http://techin.gov.et">TECHIN<sup>2</sup></a></strong>
         </footer>
 
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
-        @include('menu.sidenav')
-        </aside>
     </div>
 
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
@@ -120,7 +120,5 @@
 
     </script>
     @yield('javascripts')
-    </div>
 </body>
-
 </html>

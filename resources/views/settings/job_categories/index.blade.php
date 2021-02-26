@@ -11,6 +11,7 @@
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
 @endsection
 @section('js')
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -61,10 +62,6 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Job Category List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
 
         <div class="card-body">
@@ -73,13 +70,13 @@
                     <h4>No Job Categories Available.</h4>
                 </div>
             @else
-                <table class="table table-striped ">
+                <table class="table table-striped" id="job_category_table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -88,7 +85,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jobCategory->name }}</td>
                                 <td>{{ $jobCategory->description }}</td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{ route('job_categories.job_category.edit', $jobCategory->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Job Category">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
@@ -107,9 +104,26 @@
         </div>
     </div>
     </div>
-
     <a href="{{ route('job_categories.job_category.create') }}" class="btn btn-success" title="Create New Job Category">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#job_category_table').DataTable({
+                "paging": false,
+                "info": false,
+                "colReorder": true,
+                "dom": '<"wrapper clearfix"Bfrp>',
+                "buttons": [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+            $("#job_category_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#job_category_table");
+        });
 
+    </script>
 @endsection

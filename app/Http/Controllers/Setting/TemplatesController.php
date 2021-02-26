@@ -121,17 +121,24 @@ $templateTypes = TemplateType::pluck('name','id')->all();
      * Remove the specified template from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $template = Template::findOrFail($id);
-            $template->delete();
-
-            return redirect()->route('templates.template.index')
-                ->with('success_message', 'Template was successfully deleted.');
+            $delete = $template->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Template deleted successfully";
+            } else {
+                $success = false;
+                $message = "Template not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

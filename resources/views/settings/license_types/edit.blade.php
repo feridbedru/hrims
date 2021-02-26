@@ -37,3 +37,42 @@
         </div>
     </div>
 @endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#edit_license_type_form').validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    description: {
+                        minlength: 1
+                    },
+                },
+                messages: {
+                    name: {
+                        required: "Please enter a name",
+                        minlength: "Your name must be at least 2 characters long"
+                    },
+                    description: {
+                        minlength: "Your description must be at least 1 characters long"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+    </script>
+@endsection

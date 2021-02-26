@@ -103,17 +103,25 @@ class AwardTypesController extends Controller
      * Remove the specified award type from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $awardType = AwardType::findOrFail($id);
-            $awardType->delete();
+            $delete = $awardType->delete();
 
-            return redirect()->route('award_types.award_type.index')
-                ->with('success_message', 'Award Type was successfully deleted.');
+            if ($delete == 1) {
+                $success = true;
+                $message = "Award Type deleted successfully";
+            } else {
+                $success = false;
+                $message = "Award Type not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

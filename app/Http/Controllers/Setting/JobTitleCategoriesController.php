@@ -122,8 +122,8 @@ class JobTitleCategoriesController extends Controller
                     'success' => $success,
                     'message' => $message,
                 ]);
-        } catch (Throwable $exception) {
-report($exception);
+        } catch (Exception $exception) {
+
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }

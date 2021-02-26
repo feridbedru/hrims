@@ -103,17 +103,24 @@ class TitlesController extends Controller
      * Remove the specified title from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $title = Title::findOrFail($id);
-            $title->delete();
-
-            return redirect()->route('titles.title.index')
-                ->with('success_message', 'Title was successfully deleted.');
+            $delete = $title->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Title deleted successfully";
+            } else {
+                $success = false;
+                $message = "Title not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

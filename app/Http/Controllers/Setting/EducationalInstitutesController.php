@@ -103,17 +103,26 @@ class EducationalInstitutesController extends Controller
      * Remove the specified educational institute from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $educationalInstitute = EducationalInstitute::findOrFail($id);
-            $educationalInstitute->delete();
+            $delete = $educationalInstitute->delete();
 
-            return redirect()->route('educational_institutes.educational_institute.index')
-                ->with('success_message', 'Educational Institute was successfully deleted.');
+            if ($delete == 1) {
+                $success = true;
+                $message = "Educational Institute deleted successfully";
+            } else {
+                $success = false;
+                $message = "Educational Institute not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
+            
         } catch (Exception $exception) {
 
             return back()->withInput()

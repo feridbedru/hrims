@@ -103,17 +103,24 @@ class DisasterCausesController extends Controller
      * Remove the specified disaster cause from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $disasterCause = DisasterCause::findOrFail($id);
-            $disasterCause->delete();
-
-            return redirect()->route('disaster_causes.disaster_cause.index')
-                ->with('success_message', 'Disaster Cause was successfully deleted.');
+            $delete = $disasterCause->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Disaster Cause deleted successfully";
+            } else {
+                $success = false;
+                $message = "Disaster Cause not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

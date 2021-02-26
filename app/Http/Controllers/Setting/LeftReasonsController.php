@@ -103,17 +103,24 @@ class LeftReasonsController extends Controller
      * Remove the specified left reason from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $leftReason = LeftReason::findOrFail($id);
-            $leftReason->delete();
-
-            return redirect()->route('left_reasons.left_reason.index')
-                ->with('success_message', 'Left Reason was successfully deleted.');
+            $delete = $leftReason->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Left Reason deleted successfully";
+            } else {
+                $success = false;
+                $message = "Left Reason not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

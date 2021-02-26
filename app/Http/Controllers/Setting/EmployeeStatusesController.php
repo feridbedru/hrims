@@ -103,17 +103,24 @@ class EmployeeStatusesController extends Controller
      * Remove the specified employee status from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $employeeStatus = EmployeeStatus::findOrFail($id);
-            $employeeStatus->delete();
-
-            return redirect()->route('employee_statuses.employee_status.index')
-                ->with('success_message', 'Employee Status was successfully deleted.');
+            $delete = $employeeStatus->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Employee Status deleted successfully";
+            } else {
+                $success = false;
+                $message = "Employee Status not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()

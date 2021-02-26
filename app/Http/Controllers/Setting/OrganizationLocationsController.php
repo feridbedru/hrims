@@ -103,17 +103,24 @@ class OrganizationLocationsController extends Controller
      * Remove the specified organization location from the storage.
      *
      * @param int $id
-     *
-     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
         try {
             $organizationLocation = OrganizationLocation::findOrFail($id);
-            $organizationLocation->delete();
-
-            return redirect()->route('organization_locations.organization_location.index')
-                ->with('success_message', 'Organization Location was successfully deleted.');
+            $delete = $organizationLocation->delete();
+            if ($delete == 1) {
+                $success = true;
+                $message = "Organization Location deleted successfully";
+            } else {
+                $success = false;
+                $message = "Organization Location not found";
+            }
+                    //  return response
+                    return response()->json([
+                        'success' => $success,
+                        'message' => $message,
+                    ]);
         } catch (Exception $exception) {
 
             return back()->withInput()
