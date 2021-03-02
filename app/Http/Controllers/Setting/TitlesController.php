@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\SystemException;
 use App\Models\Title;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class TitlesController extends Controller
@@ -29,8 +31,6 @@ class TitlesController extends Controller
      */
     public function create()
     {
-        
-        
         return view('settings.titles.create');
     }
 
@@ -44,15 +44,21 @@ class TitlesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             Title::create($data);
 
             return redirect()->route('titles.title.index')
                 ->with('success_message', 'Title was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -68,7 +74,6 @@ class TitlesController extends Controller
     public function edit($id)
     {
         $title = Title::findOrFail($id);
-        
 
         return view('settings.titles.edit', compact('title'));
     }
@@ -84,19 +89,25 @@ class TitlesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $title = Title::findOrFail($id);
             $title->update($data);
 
             return redirect()->route('titles.title.index')
                 ->with('success_message', 'Title was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -116,19 +127,24 @@ class TitlesController extends Controller
                 $success = false;
                 $message = "Title not found";
             }
-                    //  return response
-                    return response()->json([
-                        'success' => $success,
-                        'message' => $message,
-                    ]);
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -138,14 +154,12 @@ class TitlesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'en_title' => 'required|string|min:1',
-            'am_title' => 'required|string|min:1', 
+            'en_title' => 'required|string|min:1',
+            'am_title' => 'required|string|min:1',
         ];
-        
-        $data = $request->validate($rules);
 
+        $data = $request->validate($rules);
 
         return $data;
     }
-
 }

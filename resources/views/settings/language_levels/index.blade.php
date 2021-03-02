@@ -108,18 +108,51 @@
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script>
-    $(document).ready( function () {
-        var table = $('#language_level_table').DataTable({
-            "paging":   false,
-            "info":     false,
-            "colReorder": true,
-            "dom": '<"wrapper clearfix"Bfrp>',
-            "buttons": [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
+        $(document).ready(function() {
+            var table = $('#language_level_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#language_level_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#language_level_table");
         });
-        $("#language_level_table_filter").addClass( "d-inline float-right" );
-        $( "<hr>" ).insertBefore( "#language_level_table" );
-    } );
+
     </script>
 @endsection

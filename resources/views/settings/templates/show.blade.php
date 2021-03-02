@@ -1,60 +1,61 @@
 @extends('layouts.app')
-
+@section('pagetitle')
+    View Template
+@endsection
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('templates.template.index') }}">Templates</a></li>
+    <li class="breadcrumb-item active">View</li>
+@endsection
 @section('content')
 
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
+    <div class="card card-primary">
+        <div class="card-header clearfix">
+            <h3 class="card-title">{{ $template->title }}</h3>
+        </div>
 
-        <span class="pull-left">
-            <h4 class="mt-5 mb-5">{{ isset($template->title) ? $template->title : 'Template' }}</h4>
-        </span>
-
-        <div class="pull-right">
-
+        <div class="card-body">
+            <dl class="dl-horizontal">
+                <div class="row">
+                    <div class="col-md-3">
+                        <dt>Language</dt>
+                        <dd>{{ $template->language }}</dd>
+                    </div>
+                    <div class="col-md-3">
+                        <dt>Template Type</dt>
+                        <dd>{{ $template->type }}</dd>
+                    </div>
+                    <div class="col-md-3">
+                        <dt>Is Active</dt>
+                        <dd>{{ $template->is_active ? 'Yes' : 'No' }}</dd>
+                    </div>
+                    <div class="col-md-3">
+                        <dt>Code</dt>
+                        <dd>{{ $template->code }}</dd>
+                    </div>
+                </div>
+                <hr>
+                <dt>Body</dt>
+                <dd>
+                    {!! $template->body !!}
+                </dd>
+            </dl><hr>
             <form method="POST" action="{!! route('templates.template.destroy', $template->id) !!}" accept-charset="UTF-8">
-            <input name="_method" value="DELETE" type="hidden">
-            {{ csrf_field() }}
-                <div class="btn-group btn-group-sm" role="group">
-                    <a href="{{ route('templates.template.index') }}" class="btn btn-primary" title="Show All Template">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                <input name="_method" value="DELETE" type="hidden">
+                {{ csrf_field() }}
+                <div>
+                    <a href="{{ route('templates.template.edit', $template->id) }}" class="btn btn-warning mr-2"
+                        title="Edit Template">
+                        <span class="fa fa-edit text-white" aria-hidden="true"></span>
                     </a>
 
-                    <a href="{{ route('templates.template.create') }}" class="btn btn-success" title="Create New Template">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                    </a>
-                    
-                    <a href="{{ route('templates.template.edit', $template->id ) }}" class="btn btn-primary" title="Edit Template">
-                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                    </a>
-
-                    <button type="submit" class="btn btn-danger" title="Delete Template" onclick="return confirm(&quot;Click Ok to delete Template.?&quot;)">
-                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    <button type="submit" class="btn btn-danger" title="Delete Template"
+                        onclick="return confirm(&quot;Click Ok to delete Template.?&quot;)">
+                        <span class="fa fa-trash" aria-hidden="true"></span>
                     </button>
                 </div>
             </form>
-
         </div>
-
     </div>
-
-    <div class="panel-body">
-        <dl class="dl-horizontal">
-            <dt>Title</dt>
-            <dd>{{ $template->title }}</dd>
-            <dt>Body</dt>
-            <dd>{{ $template->body }}</dd>
-            <dt>Language</dt>
-            <dd>{{ optional($template->language)->name }}</dd>
-            <dt>Template Type</dt>
-            <dd>{{ optional($template->templateType)->name }}</dd>
-            <dt>Is Active</dt>
-            <dd>{{ ($template->is_active) ? 'Yes' : 'No' }}</dd>
-            <dt>Code</dt>
-            <dd>{{ $template->code }}</dd>
-
-        </dl>
-
-    </div>
-</div>
 
 @endsection

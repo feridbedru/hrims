@@ -11,10 +11,6 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title mb-1">Create New Title</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('titles.title.store') }}" accept-charset="UTF-8" id="create_title_form"
@@ -25,7 +21,7 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Add">
+                        <input class="btn btn-primary mr-5" type="submit" value="Save">
                         <a href="{{ route('titles.title.index') }}" class="btn btn-warning mr-5" title="Show All Title">
                             Cancel
                         </a>
@@ -35,4 +31,44 @@
             </form>
         </div>
     </div>
+@endsection
+@section('javascripts')
+<script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script>
+    $(function () {
+      $('#create_title_form').validate({
+        rules: {
+          en_title: {
+            required: true,
+            minlength: 2,
+          },
+          am_title: {
+            required: true,
+            minlength: 2
+          },
+        },
+        messages: {
+          en_title: {
+            required: "Please enter a valid english title",
+            minlength: "Your title must be at least 2 characters long"
+          },
+          am_title: {
+            required: "Please enter a valid amharic title",
+            minlength: "Your title must be at least 2 characters long"
+          },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+          error.addClass('invalid-feedback');
+          element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+          $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+          $(element).removeClass('is-invalid');
+        }
+      });
+    });
+    </script>  
 @endsection

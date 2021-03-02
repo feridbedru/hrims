@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Zone extends Model
+class SystemException extends Model
 {
     
 
@@ -13,7 +13,7 @@ class Zone extends Model
      *
      * @var string
      */
-    protected $table = 'zones';
+    protected $table = 'system_exceptions';
 
     /**
     * The database primary key value.
@@ -28,8 +28,12 @@ class Zone extends Model
      * @var array
      */
     protected $fillable = [
-                  'name',
-                  'region'
+                  'title',
+                  'function',
+                  'path',
+                  'request',
+                  'message',
+                  'status'
               ];
 
     /**
@@ -46,15 +50,6 @@ class Zone extends Model
      */
     protected $casts = [];
     
-    /**
-     * Get the region for this model.
-     *
-     * @return App\Models\Region
-     */
-    public function region()
-    {
-        return $this->belongsTo('App\Models\Region','region_id');
-    }
 
 
 

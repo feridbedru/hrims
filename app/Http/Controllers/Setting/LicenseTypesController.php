@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\LicenseType;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class LicenseTypesController extends Controller
@@ -29,8 +31,6 @@ class LicenseTypesController extends Controller
      */
     public function create()
     {
-        
-        
         return view('settings.license_types.create');
     }
 
@@ -44,15 +44,21 @@ class LicenseTypesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             LicenseType::create($data);
 
             return redirect()->route('license_types.license_type.index')
                 ->with('success_message', 'License Type was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -68,7 +74,6 @@ class LicenseTypesController extends Controller
     public function edit($id)
     {
         $licenseType = LicenseType::findOrFail($id);
-        
 
         return view('settings.license_types.edit', compact('licenseType'));
     }
@@ -84,19 +89,25 @@ class LicenseTypesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $licenseType = LicenseType::findOrFail($id);
             $licenseType->update($data);
 
             return redirect()->route('license_types.license_type.index')
                 ->with('success_message', 'License Type was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -116,19 +127,24 @@ class LicenseTypesController extends Controller
                 $success = false;
                 $message = "License Type not found";
             }
-                    //  return response
-                    return response()->json([
-                        'success' => $success,
-                        'message' => $message,
-                    ]);
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -138,14 +154,12 @@ class LicenseTypesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'name' => 'required|string|min:1|max:255',
-            'description' => 'string|min:1|max:1000|nullable', 
+            'name' => 'required|string|min:1|max:255',
+            'description' => 'string|min:1|max:1000|nullable',
         ];
-        
-        $data = $request->validate($rules);
 
+        $data = $request->validate($rules);
 
         return $data;
     }
-
 }

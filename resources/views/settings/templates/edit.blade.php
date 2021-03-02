@@ -11,10 +11,6 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title mb-1">Edit Template</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('templates.template.update', $template->id) }}" id="edit_template_form"
@@ -36,4 +32,63 @@
             </form>
         </div>
     </div>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script>
+        $(function() {
+            $('#edit_template_form').validate({
+                rules: {
+                    title: {
+                        required: true,
+                        minlength: 2,
+                    },
+                    body: {
+                        required: true,
+                        minlength: 1
+                    },
+                    language: {
+                        required: true
+                    },
+                    template_type: {
+                        required: true
+                    },
+                    code: {
+                        required: true
+                    },
+                },
+                messages: {
+                    title: {
+                        required: "Please enter a title",
+                        minlength: "Your title must be at least 2 characters long"
+                    },
+                    body: {
+                        required: "Please enter a body",
+                        minlength: "Your body must be at least 1 characters long"
+                    },
+                    language: {
+                        required: "Please choose a language"
+                    },
+                    template_type: {
+                        required: "Please choose a template type"
+                    },
+                    code: {
+                        required: "Please enter a code"
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function(error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function(element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function(element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+    </script>
 @endsection

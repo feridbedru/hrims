@@ -11,6 +11,7 @@
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
 @endsection
 @section('js')
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -61,22 +62,18 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Template Types List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
         <div class="card-body">
             @if (count($templateTypes) == 0)
                 <h4 class="text-center">No Template Types Available.</h4>
             @else
-                <table class="table table-striped ">
+                <table class="table table-striped" id="template_type_table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,7 +82,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $templateType->name }}</td>
                                 <td>{{ $templateType->description }}</td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{ route('template_types.template_type.edit', $templateType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Template Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
@@ -107,4 +104,55 @@
         title="Create New Template Type">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#template_type_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#template_type_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#template_type_table");
+        });
+
+    </script>
 @endsection

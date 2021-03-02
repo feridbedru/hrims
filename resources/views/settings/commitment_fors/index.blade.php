@@ -55,6 +55,7 @@
                 return false;
             })
         }
+
     </script>
 @endsection
 @section('content')
@@ -87,9 +88,10 @@
                                         class="btn btn-warning mr-4" title="Edit Commitment For">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
-                                    <button class="btn btn-danger remove-data"onclick="deleteConfirmation({{ $commitmentFor->id }})">
+                                    <button class="btn btn-danger remove-data"
+                                        onclick="deleteConfirmation({{ $commitmentFor->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
-                                        </button>
+                                    </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -107,18 +109,51 @@
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script>
-    $(document).ready( function () {
-        var table = $('#commitment_for_table').DataTable({
-            "paging":   false,
-            "info":     false,
-            "colReorder": true,
-            "dom": '<"wrapper clearfix"Bfrp>',
-            "buttons": [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
+        $(document).ready(function() {
+            var table = $('#commitment_for_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#commitment_for_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#commitment_for_table");
         });
-        $("#commitment_for_table_filter").addClass( "d-inline float-right" );
-        $( "<hr>" ).insertBefore( "#commitment_for_table" );
-    } );
+
     </script>
 @endsection

@@ -11,6 +11,7 @@
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
 @endsection
 @section('js')
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -61,23 +62,19 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Titles List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
 
         <div class="card-body">
             @if (count($titles) == 0)
                 <h4 class="text-center">No Titles Available.</h4>
             @else
-                <table class="table table-striped ">
+                <table class="table table-striped" id="title_table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>English Title</th>
                             <th>Amharic Title</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,7 +83,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $title->en_title }}</td>
                                 <td>{{ $title->am_title }}</td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{ route('titles.title.edit', $title->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Title">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
@@ -107,4 +104,55 @@
     <a href="{{ route('titles.title.create') }}" class="btn btn-success" title="Create New Title">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#title_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#title_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#title_table");
+        });
+
+    </script>
 @endsection

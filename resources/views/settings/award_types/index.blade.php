@@ -108,18 +108,51 @@
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script>
-    $(document).ready( function () {
-        var table = $('#award_type_table').DataTable({
-            "paging":   false,
-            "info":     false,
-            "colReorder": true,
-            "dom": '<"wrapper clearfix"Bfrp>',
-            "buttons": [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
+        $(document).ready(function() {
+            var table = $('#award_type_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#award_type_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#award_type_table");
         });
-        $("#award_type_table_filter").addClass( "d-inline float-right" );
-        $( "<hr>" ).insertBefore( "#award_type_table" );
-    } );
+
     </script>
 @endsection

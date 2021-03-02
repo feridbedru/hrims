@@ -112,13 +112,45 @@
     <script>
         $(document).ready(function() {
             var table = $('#job_title_category_table').DataTable({
-                "paging": false,
-                "info": false,
-                "colReorder": true,
-                "dom": '<"wrapper clearfix"Bfrp>',
-                "buttons": [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
             });
             $("#job_title_category_table_filter").addClass("d-inline float-right");
             $("<hr>").insertBefore("#job_title_category_table");

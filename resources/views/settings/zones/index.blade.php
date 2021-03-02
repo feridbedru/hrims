@@ -11,6 +11,7 @@
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
 @endsection
 @section('js')
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -61,23 +62,19 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Zones List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
 
         <div class="card-body">
             @if (count($zones) == 0)
                 <h4 class="text-center">No Zones Available.</h4>
             @else
-                <table class="table table-striped ">
+                <table class="table table-striped" id="zone_table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
+                            <th>Zone Name</th>
                             <th>Region</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,13 +82,9 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $zone->name }}</td>
-                                <td>{{ optional($zone->regionS)->name }}</td>
-                                <td>
-                                    <a href="{{ route('zones.zone.show', $zone->id) }}" class="btn btn-primary "
-                                        title="Show Zone">
-                                        <span class="fa fa-eye" aria-hidden="true"></span>
-                                    </a>
-                                    <a href="{{ route('zones.zone.edit', $zone->id) }}" class="btn btn-warning"
+                                <td>{{ $zone->region }}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('zones.zone.edit', $zone->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Zone">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
@@ -111,4 +104,55 @@
     <a href="{{ route('zones.zone.create') }}" class="btn btn-success" title="Create New Zone">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#zone_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#zone_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#zone_table");
+        });
+
+    </script>
 @endsection

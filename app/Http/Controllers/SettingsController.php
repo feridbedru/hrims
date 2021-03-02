@@ -35,6 +35,8 @@ use App\Models\SkillCategory;
 use App\Models\TemplateType;
 use App\Models\Template;
 use App\Models\Title;
+use App\Models\Woreda;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
@@ -74,6 +76,8 @@ class SettingsController extends Controller
         $skillcategory = SkillCategory::count();
         $templateType = TemplateType::count();
         $template = Template::count();
-        return view('settings.index',compact('addressTypes','awardType','bank','bankAccountType','certificationVendor','commitmentFor','disabilityType','disasterCause','disasterSeverity','educationalField','educationalInstitute','educationLevel','employeeStatus','experienceType','gPAScale','jobCategories','jobTitleCategories','jobTypes','languages','languageLevels','leftReason','licenseType','maritalStatus','nationality','organizationLocation','relationship','region','religion','sex','skillcategory','templateType','template','title'));
+        $woreda = Woreda::count();
+        $zone = Zone::count();
+        return view('settings.index',compact('addressTypes','awardType','bank','bankAccountType','certificationVendor','commitmentFor','disabilityType','disasterCause','disasterSeverity','educationalField','educationalInstitute','educationLevel','employeeStatus','experienceType','gPAScale','jobCategories','jobTitleCategories','jobTypes','languages','languageLevels','leftReason','licenseType','maritalStatus','nationality','organizationLocation','relationship','region','religion','sex','skillcategory','templateType','template','title','woreda','zone'));
     }
 }

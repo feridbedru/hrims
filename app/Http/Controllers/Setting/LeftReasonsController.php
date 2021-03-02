@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\LeftReason;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class LeftReasonsController extends Controller
@@ -29,8 +31,6 @@ class LeftReasonsController extends Controller
      */
     public function create()
     {
-        
-        
         return view('settings.left_reasons.create');
     }
 
@@ -44,15 +44,21 @@ class LeftReasonsController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             LeftReason::create($data);
 
             return redirect()->route('left_reasons.left_reason.index')
                 ->with('success_message', 'Left Reason was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -68,7 +74,6 @@ class LeftReasonsController extends Controller
     public function edit($id)
     {
         $leftReason = LeftReason::findOrFail($id);
-        
 
         return view('settings.left_reasons.edit', compact('leftReason'));
     }
@@ -84,19 +89,25 @@ class LeftReasonsController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $leftReason = LeftReason::findOrFail($id);
             $leftReason->update($data);
 
             return redirect()->route('left_reasons.left_reason.index')
                 ->with('success_message', 'Left Reason was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -116,19 +127,24 @@ class LeftReasonsController extends Controller
                 $success = false;
                 $message = "Left Reason not found";
             }
-                    //  return response
-                    return response()->json([
-                        'success' => $success,
-                        'message' => $message,
-                    ]);
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -138,14 +154,12 @@ class LeftReasonsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'name' => 'string|min:1|max:255|nullable',
-            'description' => 'string|min:1|max:1000|nullable', 
+            'name' => 'string|min:1|max:255|nullable',
+            'description' => 'string|min:1|max:1000|nullable',
         ];
-        
-        $data = $request->validate($rules);
 
+        $data = $request->validate($rules);
 
         return $data;
     }
-
 }

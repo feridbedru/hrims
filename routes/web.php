@@ -63,6 +63,7 @@ use App\Http\Controllers\EmployeeAwardsController;
 use App\Http\Controllers\EmployeeStudyTrainingsController;
 use App\Http\Controllers\EmployeeFilesController;
 use App\Http\Controllers\ReportsController;
+use App\Http\Controllers\SystemExceptionsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -199,9 +200,8 @@ Route::group([
 Route::group([
      'prefix' => 'settings/zones',
  ], function () {
-     Route::get('/{region}', [ZonesController::class, 'index'])->name('zones.zone.index');
+     Route::get('/', [ZonesController::class, 'index'])->name('zones.zone.index');
      Route::get('/create',[ZonesController::class, 'create'])->name('zones.zone.create');
-     Route::get('/show/{zone}',[ZonesController::class, 'show'])->name('zones.zone.show')->where('id', '[0-9]+');
      Route::get('/{zone}/edit',[ZonesController::class, 'edit'])->name('zones.zone.edit')->where('id', '[0-9]+');
      Route::post('/', [ZonesController::class, 'store'])->name('zones.zone.store');
      Route::put('zone/{zone}', [ZonesController::class, 'update'])->name('zones.zone.update')->where('id', '[0-9]+');
@@ -213,7 +213,6 @@ Route::group([
  ], function () {
      Route::get('/', [WoredasController::class, 'index'])->name('woredas.woreda.index');
      Route::get('/create',[WoredasController::class, 'create'])->name('woredas.woreda.create');
-     Route::get('/show/{woreda}',[WoredasController::class, 'show'])->name('woredas.woreda.show')->where('id', '[0-9]+');
      Route::get('/{woreda}/edit',[WoredasController::class, 'edit'])->name('woredas.woreda.edit')->where('id', '[0-9]+');
      Route::post('/', [WoredasController::class, 'store'])->name('woredas.woreda.store');
      Route::put('woreda/{woreda}', [WoredasController::class, 'update'])->name('woredas.woreda.update')->where('id', '[0-9]+');
@@ -785,4 +784,15 @@ Route::group([
     Route::post('/', [ReportsController::class, 'store'])->name('reports.report.store');
     Route::put('report/{report}', [ReportsController::class, 'update'])->name('reports.report.update')->where('id', '[0-9]+');
     Route::delete('/report/{report}',[ReportsController::class, 'destroy'])->name('reports.report.destroy')->where('id', '[0-9]+');
+});
+
+Route::group([
+    'prefix' => 'system_exceptions',
+], function () {
+    Route::get('/', [SystemExceptionsController::class, 'index'])->name('system_exceptions.system_exception.index');
+    Route::get('/show/{systemException}',[SystemExceptionsController::class, 'show'])->name('system_exceptions.system_exception.show')->where('id', '[0-9]+');
+    Route::get('/{systemException}/edit',[SystemExceptionsController::class, 'edit'])->name('system_exceptions.system_exception.edit')->where('id', '[0-9]+');
+    Route::post('/', [SystemExceptionsController::class, 'store'])->name('system_exceptions.system_exception.store');
+    Route::put('system_exception/{systemException}', [SystemExceptionsController::class, 'update'])->name('system_exceptions.system_exception.update')->where('id', '[0-9]+');
+    Route::delete('/system_exception/{systemException}',[SystemExceptionsController::class, 'destroy'])->name('system_exceptions.system_exception.destroy')->where('id', '[0-9]+');
 });

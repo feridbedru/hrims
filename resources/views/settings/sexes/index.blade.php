@@ -11,6 +11,7 @@
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
 @endsection
 @section('js')
     <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
@@ -61,23 +62,19 @@
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Sexes List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
 
         <div class="card-body">
             @if (count($sexes) == 0)
                 <h4 class="text-center">No Sexes Available.</h4>
             @else
-                <table class="table table-striped ">
+                <table class="table table-striped" id="sex_table">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Actions</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,7 +83,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $sex->name }}</td>
                                 <td>{{ $sex->description }}</td>
-                                <td>
+                                <td class="text-center">
                                     <a href="{{ route('sexes.sex.edit', $sex->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Sex">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
@@ -104,9 +101,58 @@
             @endif
         </div>
     </div>
-    <div class="btn-group btn-group-sm pull-right" role="group">
-        <a href="{{ route('sexes.sex.create') }}" class="btn btn-success" title="Create New Sex">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
-        </a>
-    </div>
+    <a href="{{ route('sexes.sex.create') }}" class="btn btn-success" title="Create New Sex">
+        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+    </a>
+@endsection
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            var table = $('#sex_table').DataTable({
+                paging: false,
+                info: false,
+                colReorder: true,
+                dom: '<"wrapper clearfix"Bfrp>',
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'csvHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    }, {
+                        extend: 'print',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: ':visible'
+                        }
+                    },
+                    'colvis'
+                ],
+                columnDefs: [{
+                    targets: 3,
+                    orderable: false
+                }]
+            });
+            $("#sex_table_filter").addClass("d-inline float-right");
+            $("<hr>").insertBefore("#sex_table");
+        });
+
+    </script>
 @endsection

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
+use App\Models\SystemException;
 use App\Models\Woreda;
 use App\Models\Zone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use DB;
 use Exception;
 
 class WoredasController extends Controller
@@ -18,7 +21,10 @@ class WoredasController extends Controller
      */
     public function index()
     {
-        $woredas = Woreda::with('zone')->paginate(25);
+        $woredas = DB::table('woredas')
+            ->join('zones', 'woredas.zone', '=', 'zones.id')
+            ->select('woredas.*', 'zones.name as zone')
+            ->paginate(25);
 
         return view('settings.woredas.index', compact('woredas'));
     }
@@ -30,8 +36,8 @@ class WoredasController extends Controller
      */
     public function create()
     {
-        $zones = Zone::pluck('name','id')->all();
-        
+        $zones = Zone::pluck('name', 'id')->all();
+
         return view('settings.woredas.create', compact('zones'));
     }
 
@@ -45,15 +51,21 @@ class WoredasController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             Woreda::create($data);
 
             return redirect()->route('woredas.woreda.index')
                 ->with('success_message', 'Woreda was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -69,9 +81,9 @@ class WoredasController extends Controller
     public function edit($id)
     {
         $woreda = Woreda::findOrFail($id);
-        $zones = Zone::pluck('name','id')->all();
+        $zones = Zone::pluck('name', 'id')->all();
 
-        return view('settings.woredas.edit', compact('woreda','zones'));
+        return view('settings.woredas.edit', compact('woreda', 'zones'));
     }
 
     /**
@@ -85,19 +97,25 @@ class WoredasController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $woreda = Woreda::findOrFail($id);
             $woreda->update($data);
 
             return redirect()->route('woredas.woreda.index')
                 ->with('success_message', 'Woreda was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -119,19 +137,24 @@ class WoredasController extends Controller
                 $success = false;
                 $message = "Woreda not found";
             }
-                    //  return response
-                    return response()->json([
-                        'success' => $success,
-                        'message' => $message,
-                    ]);
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -141,14 +164,12 @@ class WoredasController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'name' => 'required|string|min:1|max:255',
-            'zone' => 'required', 
+            'name' => 'required|string|min:1|max:255',
+            'zone' => 'required',
         ];
-        
-        $data = $request->validate($rules);
 
+        $data = $request->validate($rules);
 
         return $data;
     }
-
 }

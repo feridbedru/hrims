@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobCategory;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class JobCategoriesController extends Controller
@@ -29,8 +31,6 @@ class JobCategoriesController extends Controller
      */
     public function create()
     {
-        
-        
         return view('settings.job_categories.create');
     }
 
@@ -44,15 +44,21 @@ class JobCategoriesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             JobCategory::create($data);
 
             return redirect()->route('job_categories.job_category.index')
                 ->with('success_message', 'Job Category was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -68,7 +74,6 @@ class JobCategoriesController extends Controller
     public function edit($id)
     {
         $jobCategory = JobCategory::findOrFail($id);
-        
 
         return view('settings.job_categories.edit', compact('jobCategory'));
     }
@@ -84,19 +89,25 @@ class JobCategoriesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $jobCategory = JobCategory::findOrFail($id);
             $jobCategory->update($data);
 
             return redirect()->route('job_categories.job_category.index')
                 ->with('success_message', 'Job Category was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -110,26 +121,31 @@ class JobCategoriesController extends Controller
             $jobCategory = JobCategory::findOrFail($id);
             $delete = $jobCategory->delete();
 
-        if ($delete == 1) {
-            $success = true;
-            $message = "Job Category deleted successfully";
-        } else {
-            $success = false;
-            $message = "Job Category not found";
-        }
-                //  return response
-                return response()->json([
-                    'success' => $success,
-                    'message' => $message,
-                ]);
+            if ($delete == 1) {
+                $success = true;
+                $message = "Job Category deleted successfully";
+            } else {
+                $success = false;
+                $message = "Job Category not found";
+            }
+            //  return response
+            return response()->json([
+                'success' => $success,
+                'message' => $message,
+            ]);
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -139,14 +155,12 @@ class JobCategoriesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'name' => 'required|string|min:1|max:255',
-            'description' => 'string|min:1|max:1000|nullable', 
+            'name' => 'required|string|min:1|max:255',
+            'description' => 'string|min:1|max:1000|nullable',
         ];
-        
-        $data = $request->validate($rules);
 
+        $data = $request->validate($rules);
 
         return $data;
     }
-
 }
