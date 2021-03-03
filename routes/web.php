@@ -496,6 +496,7 @@ Route::group([
     Route::get('/{help}/edit',[HelpsController::class, 'edit'])->name('helps.help.edit')->where('id', '[0-9]+');
     Route::post('/', [HelpsController::class, 'store'])->name('helps.help.store');
     Route::post('/filter', [HelpsController::class, 'filter'])->name('helps.help.filter');
+    Route::post('/upload', [HelpsController::class, 'upload'])->name('helps.help.upload');
     Route::put('help/{help}', [HelpsController::class, 'update'])->name('helps.help.update')->where('id', '[0-9]+');
     Route::delete('/help/{help}',[HelpsController::class, 'destroy'])->name('helps.help.destroy')->where('id', '[0-9]+');
 });
