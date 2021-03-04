@@ -12,7 +12,7 @@ class CreateJobPositionsTable extends Migration
      */
     public function up()
     {
-        Schema::table('job_positions', function(Blueprint $table)
+        Schema::create('job_positions', function(Blueprint $table)
         {
             $table->increments('id');
             $table->integer('organization_unit')->unsigned()->index();
