@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -24,7 +22,6 @@
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeFamily)->name) }}" minlength="1" maxlength="255"
                 required="true" placeholder="Enter name here...">
-            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -42,7 +39,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('sex', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -60,7 +56,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('relationship', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -72,7 +67,6 @@
             <input class="form-control" name="date_of_birth" type="date" id="date_of_birth"
                 value="{{ old('date_of_birth', optional($employeeFamily)->date_of_birth) }}" required="true"
                 placeholder="Enter date of birth here...">
-            {!! $errors->first('date_of_birth', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -100,7 +94,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('photo', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -128,7 +121,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

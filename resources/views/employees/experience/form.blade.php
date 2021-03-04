@@ -1,17 +1,17 @@
-
 <div class="form-group {{ $errors->has('employee') ? 'has-error' : '' }}">
     <label for="employee" class="col-md-2 control-label">Employee</label>
     <div class="col-md-10">
         <select class="form-control" id="employee" name="employee" required="true">
-        	    <option value="" style="display: none;" {{ old('employee', optional($employeeExperience)->employee ?: '') == '' ? 'selected' : '' }} disabled selected>Select employee</option>
-        	@foreach ($employees as $key => $employee)
-			    <option value="{{ $key }}" {{ old('employee', optional($employeeExperience)->employee) == $key ? 'selected' : '' }}>
-			    	{{ $employee }}
-			    </option>
-			@endforeach
+            <option value="" style="display: none;"
+                {{ old('employee', optional($employeeExperience)->employee ?: '') == '' ? 'selected' : '' }} disabled
+                selected>Select employee</option>
+            @foreach ($employees as $key => $employee)
+                <option value="{{ $key }}"
+                    {{ old('employee', optional($employeeExperience)->employee) == $key ? 'selected' : '' }}>
+                    {{ $employee }}
+                </option>
+            @endforeach
         </select>
-        
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="row">
@@ -29,7 +29,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -39,7 +38,6 @@
             <input class="form-control" name="organization_name" type="text" id="organization_name"
                 value="{{ old('name', optional($employeeExperience)->name) }}" minlength="1" required="true"
                 placeholder="Enter organization name here...">
-            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -49,7 +47,6 @@
             <input class="form-control" name="address" type="text" id="address"
                 value="{{ old('address', optional($employeeExperience)->address) }}" minlength="1"
                 placeholder="Enter organization address here...">
-            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -61,7 +58,6 @@
             <input class="form-control" name="job_position" type="text" id="job_position"
                 value="{{ old('job_position', optional($employeeExperience)->job_position) }}" minlength="1"
                 required="true" placeholder="Enter job position here...">
-            {!! $errors->first('job_position', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -71,7 +67,6 @@
             <input class="form-control" name="level" type="text" id="level"
                 value="{{ old('level', optional($employeeExperience)->level) }}" minlength="1" required="true"
                 placeholder="Enter level here...">
-            {!! $errors->first('level', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -81,7 +76,6 @@
             <input class="form-control" name="salary" type="text" id="salary"
                 value="{{ old('salary', optional($employeeExperience)->salary) }}" minlength="1" required="true"
                 placeholder="Enter salary here...">
-            {!! $errors->first('salary', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -101,7 +95,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('left_reason_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -121,7 +114,6 @@
             <input class="form-control" name="end_date" type="date" id="end_date"
                 value="{{ old('end_date', optional($employeeExperience)->end_date) }}"
                 placeholder="Enter end date here...">
-            {!! $errors->first('end_date', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -151,8 +143,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('attachment', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
-

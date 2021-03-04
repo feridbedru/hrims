@@ -13,7 +13,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('level', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -31,7 +30,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('institute', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -49,7 +47,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('field', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -69,7 +66,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('gpa_scale', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -79,7 +75,6 @@
             <input class="form-control" name="gpa" type="text" id="gpa"
                 value="{{ old('gpa', optional($employeeEducation)->gpa) }}" minlength="1" required="true"
                 placeholder="Enter gpa here...">
-            {!! $errors->first('gpa', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -88,7 +83,6 @@
         <div class="col-md-12">
             <input class="form-control" name="start_date" type="date" id="start_date"
                 value="{{ old('start_date', optional($employeeEducation)->start_date) }}">
-            {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -99,7 +93,6 @@
         <div class="col-md-12">
             <input class="form-control" name="end_date" type="date" id="end_date"
                 value="{{ old('end_date', optional($employeeEducation)->end_date) }}">
-            {!! $errors->first('end_date', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -125,7 +118,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -139,7 +131,6 @@
                     Yes
                 </label>
             </div>
-            {!! $errors->first('has_coc', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -150,7 +141,6 @@
             <input class="form-control" name="coc_issued_date" type="text" id="coc_issued_date"
                 value="{{ old('coc_issued_date', optional($employeeEducation)->coc_issued_date) }}"
                 placeholder="Enter coc issued date here...">
-            {!! $errors->first('coc_issued_date', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -176,7 +166,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('coc_file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -195,7 +184,5 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

@@ -1,23 +1,19 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Employee Addresses
+    Addresses
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Employee Addresses</li>
+    <li class="breadcrumb-item active">Addresses</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employee Addresses List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
+            <h3 class="card-title">Addresses List</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeAddresses) == 0)
-                <h4 class="text-center">No Employee Addresses Available.</h4>
+                <h4 class="text-center">No Addresses Available.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
@@ -65,7 +61,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Employee Address</h4>
+                                                        <h4 class="modal-title">Reject Address</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -94,7 +90,7 @@
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <button type="submit" class="btn btn-outline-danger"
-                                                    title="Delete Employee Address"
+                                                    title="Delete Address"
                                                     onclick="return confirm(&quot;Click Ok to delete Employee Address.&quot;)">
                                                     Delete
                                                 </button>
@@ -107,12 +103,12 @@
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <a href="{{ route('employee_addresses.employee_address.edit', $employeeAddress->id) }}"
-                                                class="btn btn-outline-warning mr-3" title="Edit Employee Address">
+                                                class="btn btn-outline-warning mr-3" title="Edit Address">
                                                 Edit
                                             </a>
                                             <button type="submit" class="btn btn-outline-danger"
-                                                title="Delete Employee Address"
-                                                onclick="return confirm(&quot;Click Ok to delete Employee Address.&quot;)">
+                                                title="Delete Address"
+                                                onclick="return confirm(&quot;Click Ok to delete Address.&quot;)">
                                                 Delete
                                             </button>
                                         </form>
@@ -127,10 +123,8 @@
             @endif
         </div>
     </div>
-    <div class="btn-group btn-group-sm pull-right" role="group">
         <a href="{{ route('employee_addresses.employee_address.create') }}" class="btn btn-success"
             title="Create New Employee Address">
             <span class="fa fa-plus" aria-hidden="true"> Add New</span>
         </a>
-    </div>
 @endsection

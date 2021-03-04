@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="row">
@@ -23,7 +21,6 @@
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeCertification)->name) }}" minlength="1" maxlength="255"
                 required="true" placeholder="Enter name here...">
-            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -33,7 +30,6 @@
             <input class="form-control" name="issued_on" type="date" id="issued_on"
                 value="{{ old('issued_on', optional($employeeCertification)->issued_on) }}" minlength="1"
                 required="true" placeholder="Enter issued on here...">
-            {!! $errors->first('issued_on', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -43,7 +39,6 @@
             <input class="form-control" name="certification_number" type="text" id="certification_number"
                 value="{{ old('certification_number', optional($employeeCertification)->certification_number) }}"
                 minlength="1" placeholder="Enter certification number here...">
-            {!! $errors->first('certification_number', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -63,7 +58,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('category', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -73,7 +67,6 @@
             <input class="form-control" name="verification_link" type="text" id="verification_link"
                 value="{{ old('verification_link', optional($employeeCertification)->verification_link) }}"
                 minlength="1" placeholder="Enter verification link here...">
-            {!! $errors->first('verification_link', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -91,7 +84,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('vendor', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -121,7 +113,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('attachment', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -131,7 +122,6 @@
             <input class="form-control" name="expires_on" type="date" id="expires_on"
                 value="{{ old('expires_on', optional($employeeCertification)->expires_on) }}"
                 placeholder="Enter expires on here...">
-            {!! $errors->first('expires_on', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

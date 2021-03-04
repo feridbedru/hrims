@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -32,7 +30,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('language', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -50,7 +47,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('reading', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -68,7 +64,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('writing', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -88,7 +83,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('listening', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -106,7 +100,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('speaking', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -120,7 +113,6 @@
                     Yes
                 </label>
             </div>
-            {!! $errors->first('is_prefered', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

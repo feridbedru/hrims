@@ -13,7 +13,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('address_type_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -23,7 +22,6 @@
             <input class="form-control" name="address" type="text" id="address"
                 value="{{ old('address', optional($employeeAddress)->address) }}" minlength="1"
                 placeholder="Enter address here...">
-            {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -33,7 +31,6 @@
             <input class="form-control" name="house_number" type="text" id="house_number"
                 value="{{ old('house_number', optional($employeeAddress)->house_number) }}" minlength="1"
                 placeholder="Enter house number here...">
-            {!! $errors->first('house_number', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -80,7 +77,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('woreda_id', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -100,25 +96,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('employee_id', '<p class="help-block">:message</p>') !!}
-        </div>
-    </div>
-    <div class="form-group col-md-6 {{ $errors->has('created_by') ? 'has-error' : '' }}">
-        <label for="created_by" class="col-md-4 control-label">Created By</label>
-        <div class="col-md-12">
-            <select class="form-control" id="created_by" name="created_by" required="true">
-                <option value="" style="display: none;"
-                    {{ old('created_by', optional($employeeAddress)->created_by ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select created by</option>
-                @foreach ($creators as $key => $creator)
-                    <option value="{{ $key }}"
-                        {{ old('created_by', optional($employeeAddress)->created_by) == $key ? 'selected' : '' }}>
-                        {{ $creator }}
-                    </option>
-                @endforeach
-            </select>
-
-            {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

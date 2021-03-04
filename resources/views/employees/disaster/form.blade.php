@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="row">
@@ -23,7 +21,6 @@
             <input class="form-control" name="occured_on" type="date" id="occured_on"
                 value="{{ old('occured_on', optional($employeeDisaster)->occured_on) }}" required="true"
                 placeholder="Enter occured on here...">
-            {!! $errors->first('occured_on', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -41,7 +38,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('cause', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -59,7 +55,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('severity', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -70,7 +65,6 @@
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000"
             required="true">{{ old('description', optional($employeeDisaster)->description) }}</textarea>
-        {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -99,7 +93,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('attachment', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -113,7 +106,6 @@
                     Yes
                 </label>
             </div>
-            {!! $errors->first('is_mass', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

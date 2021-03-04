@@ -13,8 +13,6 @@
                     </option>
                 @endforeach
             </select>
-
-            {!! $errors->first('bank', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -32,8 +30,6 @@
                     </option>
                 @endforeach
             </select>
-
-            {!! $errors->first('account_type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -45,7 +41,6 @@
             <input class="form-control" name="account_number" type="number" id="account_number"
                 value="{{ old('account_number', optional($employeeBankAccount)->account_number) }}" required="true"
                 placeholder="Enter account number here...">
-            {!! $errors->first('account_number', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -73,7 +68,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -93,8 +87,6 @@
                     </option>
                 @endforeach
             </select>
-
-            {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -112,8 +104,6 @@
                     </option>
                 @endforeach
             </select>
-
-            {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

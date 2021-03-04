@@ -13,7 +13,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -42,7 +41,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('medical_certificate', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -52,7 +50,6 @@
     <div class="col-md-12">
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000">{{ old('description', optional($employeeDisability)->description) }}</textarea>
-        {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -70,8 +67,5 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
-

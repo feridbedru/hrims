@@ -18,34 +18,43 @@
             <div class="float-left">
                 <div class="row ">
                     <div class="col-md-6">
-                @if (isset($employee->photo))
-                    image
-                @else
-                    <span class="fas fa-5x fa-user-circle m-2 ml-5"></span>
-                @endif
+                        @if (isset($employee->photo))
+                            image
+                        @else
+                            <span class="fas fa-5x fa-user-circle m-2 ml-5"></span>
+                        @endif
                     </div>
-                    <div class="col-md-6">
-                        <ul>
-                            <li>Name</li>
+                    <div class="col-md-6 mt-3">
+                        <ul class="list-unstyled">
+                            <li>
+                                @if (isset($employee->en_name))
+                                    {{ $employee->en_name }}
+                                @else
+                                    Full Name
+                                @endif
+                            </li>
                             <li>Position</li>
-                            <li>Contacts</li>
+                            <li>
+                                @if (isset($employee->phone_number))
+                                    {{ $employee->phone_number }}
+                                @else
+                                    Contacts
+                                @endif
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="float-right mt-5">
-                    <a href="#"
-                        class="btn btn-success mr-3" title="Make CV">
-                        Make CV
-                    </a>
-                    <a href="#"
-                        class="btn btn-primary mr-3" title="Print ID Card">
-                        Print ID
-                    </a>
-                    <a href="#"
-                        class="btn btn-warning mr-3" title="Print this employee data">
-                        Print All Data
-                    </a>
+                <a href="#" class="btn btn-success mr-3" title="Make CV">
+                    Make CV
+                </a>
+                <a href="#" class="btn btn-primary mr-3" title="Print ID Card">
+                    Print ID
+                </a>
+                <a href="#" class="btn btn-warning mr-3" title="Print this employee data">
+                    Print All Data
+                </a>
             </div>
         </div>
         <div class="content-wrapper px-3">

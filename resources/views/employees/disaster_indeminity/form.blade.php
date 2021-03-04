@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('disaster', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -23,7 +21,6 @@
         <input class="form-control" name="title" type="text" id="title"
             value="{{ old('title', optional($employeeDisasterIndeminity)->title) }}" minlength="1" maxlength="255"
             required="true" placeholder="Enter title here...">
-        {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -33,7 +30,6 @@
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000"
             required="true">{{ old('description', optional($employeeDisasterIndeminity)->description) }}</textarea>
-        {!! $errors->first('description', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -44,7 +40,6 @@
             <input class="form-control" name="cost" type="text" id="cost"
                 value="{{ old('cost', optional($employeeDisasterIndeminity)->cost) }}" minlength="1"
                 placeholder="Enter cost here...">
-            {!! $errors->first('cost', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -72,7 +67,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

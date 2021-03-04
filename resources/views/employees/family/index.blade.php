@@ -1,23 +1,19 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Employee Families
+    Families
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Employee Families</li>
+    <li class="breadcrumb-item active">Families</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employee Families List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
+            <h3 class="card-title">Families List</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeFamilies) == 0)
-                <h4 class="text-center">No Employee Families Available.</h4>
+                <h4 class="text-center">No Families Available.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
@@ -54,7 +50,7 @@
                                 <td>
                                     @if ($employeeFamily->status == 1)
                                         <a href="{{ route('employee_families.employee_family.approve', $employeeFamily->id) }}"
-                                            class="btn btn-outline-success mr-3" title="Approve Employee Family">
+                                            class="btn btn-outline-success mr-3" title="Approve Family">
                                             Approve
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal"
@@ -65,14 +61,13 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Employee Family</h4>
+                                                        <h4 class="modal-title">Reject Family</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST"
-                                                        action="{!!  route('employee_families.employee_family.reject', $employeeFamily->id) !!}"
+                                                    <form method="POST" action="{!! route('employee_families.employee_family.reject', $employeeFamily->id) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -91,32 +86,28 @@
                                             </div>
                                         </div>
                                     @elseif($employeeFamily->status == 2)
-                                        <form method="POST"
-                                            action="{!!  route('employee_families.employee_family.destroy', $employeeFamily->id) !!}"
-                                            accept-charset="UTF-8">
+                                        <form method="POST" action="{!! route('employee_families.employee_family.destroy', $employeeFamily->id) !!}" accept-charset="UTF-8">
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                                <button type="submit" class="btn btn-danger" title="Delete Employee Family"
-                                                    onclick="return confirm(&quot;Click Ok to delete Employee Family.&quot;)">
+                                                <button type="submit" class="btn btn-danger" title="Delete Family"
+                                                    onclick="return confirm(&quot;Click Ok to delete Family.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
                                             </div>
                                         </form>
                                     @else
-                                        <form method="POST"
-                                            action="{!!  route('employee_families.employee_family.destroy', $employeeFamily->id) !!}"
-                                            accept-charset="UTF-8">
+                                        <form method="POST" action="{!! route('employee_families.employee_family.destroy', $employeeFamily->id) !!}" accept-charset="UTF-8">
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <a href="{{ route('employee_families.employee_family.edit', $employeeFamily->id) }}"
-                                                    class="btn btn-warning" title="Edit Employee Family">
+                                                    class="btn btn-warning" title="Edit Family">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
 
-                                                <button type="submit" class="btn btn-danger" title="Delete Employee Family"
-                                                    onclick="return confirm(&quot;Click Ok to delete Employee Family.&quot;)">
+                                                <button type="submit" class="btn btn-danger" title="Delete Family"
+                                                    onclick="return confirm(&quot;Click Ok to delete Family.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
                                             </div>
@@ -131,8 +122,7 @@
             @endif
         </div>
     </div>
-        <a href="{{ route('employee_families.employee_family.create') }}" class="btn btn-success"
-            title="Create New Employee Family">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
-        </a>
+    <a href="{{ route('employee_families.employee_family.create') }}" class="btn btn-success" title="Create New Family">
+        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+    </a>
 @endsection

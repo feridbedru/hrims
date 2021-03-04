@@ -59,7 +59,7 @@ class EmployeeAddressesController extends Controller
         try {
             
             $data = $this->getData($request);
-            $data['created_by'] = '2';
+            $data['created_by'] = Auth::Id();
             $data['status'] = '1';
             EmployeeAddress::create($data);
 
@@ -82,7 +82,7 @@ class EmployeeAddressesController extends Controller
         try {
             $employeeAddress = EmployeeAddress::findOrFail($id);
             $employeeAddress->status = '3';
-            $employeeAddress->approved_by = '1';
+            $employeeAddress->approved_by = Auth::Id();
             $employeeAddress->approved_at = now();
             $employeeAddress->save();
             return redirect()->route('employee_addresses.employee_address.index')
@@ -198,7 +198,7 @@ class EmployeeAddressesController extends Controller
                 'house_number' => 'string|min:1|nullable',
                 'woreda_id' => 'nullable',
                 'status' => 'string|min:1|nullable',
-                'created_by' => 'required',
+                'created_by' => 'nullable',
                 'approved_by' => 'nullable',
                 'approved_at' => 'nullable',
                 'note' => 'string|min:1|max:1000|nullable', 

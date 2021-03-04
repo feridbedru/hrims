@@ -12,7 +12,6 @@
                 </option>
             @endforeach
         </select>
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -23,7 +22,6 @@
             <input class="form-control" name="title" type="text" id="title"
                 value="{{ old('title', optional($employeeLicense)->title) }}" minlength="1" maxlength="255"
                 required="true" placeholder="Enter title here...">
-            {!! $errors->first('title', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -41,7 +39,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -51,7 +48,6 @@
             <input class="form-control" name="issuing_organization" type="text" id="issuing_organization"
                 value="{{ old('issuing_organization', optional($employeeLicense)->issuing_organization) }}"
                 minlength="1" required="true" placeholder="Enter issuing organization here...">
-            {!! $errors->first('issuing_organization', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -63,7 +59,6 @@
             <input class="form-control" name="expiry_date" type="date" id="expiry_date"
                 value="{{ old('expiry_date', optional($employeeLicense)->expiry_date) }}"
                 placeholder="Enter expiry date here...">
-            {!! $errors->first('expiry_date', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -91,7 +86,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

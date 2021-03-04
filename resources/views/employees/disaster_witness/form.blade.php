@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('disaster', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="row">
@@ -23,7 +21,6 @@
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeDisasterWitness)->name) }}" minlength="1" maxlength="255"
                 required="true" placeholder="Enter name here...">
-            {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -33,7 +30,6 @@
             <input class="form-control" name="phone" type="text" id="phone"
                 value="{{ old('phone', optional($employeeDisasterWitness)->phone) }}" minlength="1"
                 placeholder="Enter phone here...">
-            {!! $errors->first('phone', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -61,7 +57,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('file', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

@@ -12,8 +12,6 @@
                 </option>
             @endforeach
         </select>
-
-        {!! $errors->first('employee', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 
@@ -32,7 +30,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('Type', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -50,7 +47,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('institution', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -68,7 +64,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('level', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -88,7 +83,6 @@
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('field', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -98,7 +92,6 @@
             <input class="form-control" name="start_date" type="date" id="start_date"
                 value="{{ old('start_date', optional($employeeStudyTraining)->start_date) }}"
                 placeholder="Enter start date here...">
-            {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -108,7 +101,6 @@
             <input class="form-control" name="duration" type="text" id="duration"
                 value="{{ old('duration', optional($employeeStudyTraining)->duration) }}" minlength="1"
                 placeholder="Enter duration here...">
-            {!! $errors->first('duration', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
@@ -123,7 +115,6 @@
                     Yes
                 </label>
             </div>
-            {!! $errors->first('has_commitment', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -133,7 +124,6 @@
             <input class="form-control" name="total_commitment" type="number" id="total_commitment"
                 value="{{ old('total_commitment', optional($employeeStudyTraining)->total_commitment) }}"
                 placeholder="Enter total commitment here...">
-            {!! $errors->first('total_commitment', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
@@ -161,7 +151,6 @@
                     </span>
                 </div>
             @endif
-            {!! $errors->first('attachment', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>

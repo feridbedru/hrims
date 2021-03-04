@@ -1,23 +1,19 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Employee Disabilities
+    Disabilities
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Employee Disabilities</li>
+    <li class="breadcrumb-item active">Disabilities</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employee Disabilities List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
+            <h3 class="card-title">Disabilities List</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeDisabilities) == 0)
-                <h4 class="text-center">No Employee Disabilities Available.</h4>
+                <h4 class="text-center">No Disabilities Available.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
@@ -52,7 +48,7 @@
                                 <td>
                                     @if ($employeeDisability->status == 1)
                                         <a href="{{ route('employee_disabilities.employee_disability.approve', $employeeDisability->id) }}"
-                                            class="btn btn-outline-success mr-3" title="Approve Employee Disability">
+                                            class="btn btn-outline-success mr-3" title="Approve Disability">
                                             Approve
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal"
@@ -63,7 +59,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Employee Disability</h4>
+                                                        <h4 class="modal-title">Reject Disability</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -95,8 +91,8 @@
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-outline-danger"
-                                                title="Delete Employee Disability"
-                                                onclick="return confirm(&quot;Click Ok to delete Employee Disability.&quot;)">
+                                                title="Delete Disability"
+                                                onclick="return confirm(&quot;Click Ok to delete Disability.&quot;)">
                                                 Delete
                                             </button>
                                         </form>
@@ -107,12 +103,12 @@
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <a href="{{ route('employee_disabilities.employee_disability.edit', $employeeDisability->id) }}"
-                                                class="btn btn-outline-warning mr-2" title="Edit Employee Disability">
+                                                class="btn btn-outline-warning mr-2" title="Edit Disability">
                                                 Edit
                                             </a>
                                             <button type="submit" class="btn btn-outline-danger"
-                                                title="Delete Employee Disability"
-                                                onclick="return confirm(&quot;Click Ok to delete Employee Disability.&quot;)">
+                                                title="Delete Disability"
+                                                onclick="return confirm(&quot;Click Ok to delete Disability.&quot;)">
                                                 Delete
                                             </button>
                                         </form>
@@ -127,7 +123,7 @@
         </div>
     </div>
     <a href="{{ route('employee_disabilities.employee_disability.create') }}" class="btn btn-success"
-        title="Create New Employee Disability">
+        title="Create New Disability">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
 @endsection

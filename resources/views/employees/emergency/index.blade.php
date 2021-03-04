@@ -1,23 +1,19 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Employee Emergencies
+    Emergencies
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Employee Emergencies</li>
+    <li class="breadcrumb-item active">Emergencies</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employee Emergencies List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
+            <h3 class="card-title">Emergencies List</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeEmergencies) == 0)
-                <h4 class="text-center">No Employee Emergencies Available.</h4>
+                <h4 class="text-center">No Emergencies Available.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
@@ -39,7 +35,7 @@
                             <tr>
                                 {{-- {{ dd($employeeEmergency)}} --}}
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeEmergency->en_name}}</td>
+                                <td>{{ $employeeEmergency->en_name }}</td>
                                 <td>{{ $employeeEmergency->name }}</td>
                                 <td>{{ $employeeEmergency->phone_number }}</td>
                                 <td>{{ $employeeEmergency->relation }}</td>
@@ -58,7 +54,7 @@
                                 <td>
                                     @if ($employeeEmergency->status == 1)
                                         <a href="{{ route('employee_emergencies.employee_emergency.approve', $employeeEmergency->id) }}"
-                                            class="btn btn-outline-success mr-3" title="Approve Employee Emergency">
+                                            class="btn btn-outline-success mr-3" title="Approve Emergency">
                                             Approve
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal"
@@ -69,14 +65,13 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Employee Emergency</h4>
+                                                        <h4 class="modal-title">Reject Emergency</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST"
-                                                        action="{!!  route('employee_emergencies.employee_emergency.reject', $employeeEmergency->id) !!}"
+                                                    <form method="POST" action="{!! route('employee_emergencies.employee_emergency.reject', $employeeEmergency->id) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -95,34 +90,28 @@
                                             </div>
                                         </div>
                                     @elseif($employeeEmergency->status == 2)
-                                        <form method="POST"
-                                            action="{!!  route('employee_emergencies.employee_emergency.destroy', $employeeEmergency->id) !!}"
-                                            accept-charset="UTF-8">
+                                        <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', $employeeEmergency->id) !!}" accept-charset="UTF-8">
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                                <button type="submit" class="btn btn-danger"
-                                                    title="Delete Employee Emergency"
-                                                    onclick="return confirm(&quot;Click Ok to delete Employee Emergency.&quot;)">
+                                                <button type="submit" class="btn btn-danger" title="Delete Emergency"
+                                                    onclick="return confirm(&quot;Click Ok to delete Emergency.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
                                             </div>
                                         </form>
                                     @else
-                                        <form method="POST"
-                                            action="{!!  route('employee_emergencies.employee_emergency.destroy', $employeeEmergency->id) !!}"
-                                            accept-charset="UTF-8">
+                                        <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', $employeeEmergency->id) !!}" accept-charset="UTF-8">
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <a href="{{ route('employee_emergencies.employee_emergency.edit', $employeeEmergency->id) }}"
-                                                    class="btn btn-warning" title="Edit Employee Emergency">
+                                                    class="btn btn-warning" title="Edit Emergency">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
 
-                                                <button type="submit" class="btn btn-danger"
-                                                    title="Delete Employee Emergency"
-                                                    onclick="return confirm(&quot;Click Ok to delete Employee Emergency.&quot;)">
+                                                <button type="submit" class="btn btn-danger" title="Delete Emergency"
+                                                    onclick="return confirm(&quot;Click Ok to delete Emergency.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
                                             </div>

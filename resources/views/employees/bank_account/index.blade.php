@@ -1,23 +1,19 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Employee Bank Accounts
+    Bank Accounts
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Employee Bank Accounts</li>
+    <li class="breadcrumb-item active">Bank Accounts</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employee Bank Accounts List</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
+            <h3 class="card-title">Bank Accounts List</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeBankAccounts) == 0)
-                <h4 class="text-center">No Employee Bank Accounts Available.</h4>
+                <h4 class="text-center">No Bank Accounts Available.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
@@ -53,7 +49,7 @@
                                 <td>
                                     @if ($employeeBankAccount->status == 1)
                                         <a href="{{ route('employee_bank_accounts.employee_bank_account.approve', $employeeBankAccount->id) }}"
-                                            class="btn btn-outline-success mr-3" title="Approve Employee Bank Account">
+                                            class="btn btn-outline-success mr-3" title="Approve Bank Account">
                                             Approve
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal"
@@ -64,7 +60,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Employee Bank Account</h4>
+                                                        <h4 class="modal-title">Reject Bank Account</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -97,8 +93,8 @@
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <button type="submit" class="btn btn-outline-danger"
-                                                    title="Delete Employee Bank Account"
-                                                    onclick="return confirm(&quot;Click Ok to delete Employee Bank Account.&quot;)">
+                                                    title="Delete Bank Account"
+                                                    onclick="return confirm(&quot;Click Ok to delete Bank Account.&quot;)">
                                                     Delete
                                                 </button>
                                             </div>
@@ -111,13 +107,13 @@
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <a href="{{ route('employee_bank_accounts.employee_bank_account.edit', $employeeBankAccount->id) }}"
-                                                    class="btn btn-outline-warning mr-3" title="Edit Employee Bank Account">
+                                                    class="btn btn-outline-warning mr-3" title="Edit Bank Account">
                                                     Edit
                                                 </a>
 
                                                 <button type="submit" class="btn btn-outline-danger"
-                                                    title="Delete Employee Bank Account"
-                                                    onclick="return confirm(&quot;Click Ok to delete Employee Bank Account.&quot;)">
+                                                    title="Delete Bank Account"
+                                                    onclick="return confirm(&quot;Click Ok to delete Bank Account.&quot;)">
                                                     Delete
                                                 </button>
                                             </div>
