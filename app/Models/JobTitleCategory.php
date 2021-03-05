@@ -30,7 +30,7 @@ class JobTitleCategory extends Model
     protected $fillable = [
                   'name',
                   'description',
-                  'job_title_category_id'
+                  'parent'
               ];
 
     /**

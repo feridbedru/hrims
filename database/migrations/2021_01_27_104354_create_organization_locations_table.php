@@ -17,7 +17,7 @@ class CreateOrganizationLocationsTable extends Migration
             $table->increments('id');
             $table->string('name', 255);
             $table->string('address')->nullable();
-            $table->string('coordinates')->nullable();
+            $table->string('cordinates')->nullable();
             $table->timestamps();
 
         });

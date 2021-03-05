@@ -9,16 +9,16 @@
                 placeholder="Enter name here...">
         </div>
     </div>
-    <div class="form-group col-md-6 {{ $errors->has('job_title_category_id') ? 'has-error' : '' }}">
-        <label for="job_title_category_id" class="col-md-2 control-label">Parent</label>
+    <div class="form-group col-md-6 {{ $errors->has('parent') ? 'has-error' : '' }}">
+        <label for="parent" class="col-md-2 control-label">Parent</label>
         <div class="col-md-12">
-            <select class="form-control" id="job_title_category_id" name="job_title_category_id">
+            <select class="form-control" id="parent" name="parent">
                 <option value="" style="display: none;"
-                    {{ old('job_title_category_id', optional($jobTitleCategory)->job_title_category_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('parent', optional($jobTitleCategory)->parent ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select job title category</option>
                 @foreach ($jobTitleCategories as $key => $jobTitleCategory)
                     <option value="{{ $key }}"
-                        {{ old('job_title_category_id', optional($jobTitleCategory)->job_title_category_id) == $key ? 'selected' : '' }}>
+                        {{ old('parent', optional($jobTitleCategory)->parent) == $key ? 'selected' : '' }}>
                         {{ $jobTitleCategory }}
                     </option>
                 @endforeach

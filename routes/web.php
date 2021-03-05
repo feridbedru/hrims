@@ -107,7 +107,7 @@ Route::group([
     Route::post('/', [JobCategoriesController::class, 'store'])->name('job_categories.job_category.store');
     Route::put('job_category/{jobCategory}', [JobCategoriesController::class, 'update'])->name('job_categories.job_category.update')->whereNumber('id');
     Route::post('/delete/{jobCategory}',[JobCategoriesController::class, 'destroy'])->name('job_categories.job_category.destroy')->whereNumber('id');
-});
+}); 
 
 Route::group([
     'prefix' => 'settings/job_title_categories',

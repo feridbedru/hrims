@@ -19,7 +19,7 @@ class JobTitleCategoriesController extends Controller
      */
     public function index()
     {
-        $jobTitleCategories = JobTitleCategory::with('jobtitlecategory')->paginate(25);
+        $jobTitleCategories = JobTitleCategory::with('jobTitleCategory')->paginate(25);
 
         return view('settings.job_title_categories.index', compact('jobTitleCategories'));
     }
@@ -160,7 +160,7 @@ class JobTitleCategoriesController extends Controller
         $rules = [
             'name' => 'string|min:1|max:255|nullable',
             'description' => 'string|min:1|max:1000|nullable',
-            'job_title_category_id' => 'nullable',
+            'parent' => 'nullable',
         ];
 
         $data = $request->validate($rules);

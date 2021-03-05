@@ -77,10 +77,7 @@ class EmployeesController extends Controller
             $data['created_by'] = Auth::Id();
             Employee::create($data);
             $id = DB::getPdo()->lastInsertId();
-            // dd($id);
             $employee = Employee::with('title','sex','organizationunit','jobposition','employeestatus','creator')->findOrFail($id);
-            // return redirect()->route('employees.employee.success',['id'->$id])
-            //     ->with('success_message', 'Employee was successfully added.');
             return view('employees.success', compact('employee'));
         } catch (Throwable $exception) {
 report($exception);
