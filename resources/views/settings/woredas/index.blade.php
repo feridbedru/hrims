@@ -81,7 +81,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $woreda->name }}</td>
-                                <td>{{ $woreda->zone }}</td>
+                                <td>{{ $woreda->zones->name }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('woredas.woreda.edit', $woreda->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Woreda">

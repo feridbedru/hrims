@@ -32,7 +32,7 @@
                     <div class="form-group col-md-2">
                         <select class="form-control" name="sex_id" id="sex_id">
                             <option value="NULL">Select Sex</option>
-                            @foreach ($sexes as $key => $sex)
+                            @foreach ($sexl as $key => $sex)
                                 <option value="{{ $key }}">
                                     {{ $sex }}
                                 </option>
@@ -84,7 +84,7 @@
                             <th>Name</th>
                             <th>Sex</th>
                             <th>Organization Unit</th>
-                            {{-- <th>Position</th> --}}
+                            <th>Position</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -92,10 +92,10 @@
                         @foreach ($employees as $employee)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($employee->title)->en_title }} {{ $employee->en_name }}</td>
-                                <td>{{ optional($employee->sex)->name }}</td>
-                                <td>{{ optional($employee->organizationUnit)->en_name }}</td>
-                                {{-- <td>{{ optional($employee->jobPosition)->jobTitleCategory }}</td> --}}
+                                <td>{{ optional($employee->titles)->en_title }} {{ $employee->en_name }}</td>
+                                <td>{{ $employee->sexes->name }}</td>
+                                <td>{{ $employee->organizationUnitse->en_name }}</td>
+                                <td>{{ $employee->jobPositions->job_title_category }}</td>
 
                                 <td>
                                     <div class="btn-group btn-group-xs pull-right" role="group">

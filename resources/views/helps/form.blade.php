@@ -54,16 +54,16 @@
         </div>
     </div>
 
-    <div class="form-group col-md-4 {{ $errors->has('language_id') ? 'has-error' : '' }}">
-        <label for="language_id" class="col-md-4 control-label">Language <span class="text-danger">*</span></label>
+    <div class="form-group col-md-4 {{ $errors->has('language') ? 'has-error' : '' }}">
+        <label for="language" class="col-md-4 control-label">Language <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <select class="form-control" id="language_id" name="language_id" required="true">
+            <select class="form-control" id="language" name="language" required="true">
                 <option value="" style="display: none;"
-                    {{ old('language_id', optional($help)->language_id ?: '') == '' ? 'selected' : '' }} disabled
+                    {{ old('language', optional($help)->language ?: '') == '' ? 'selected' : '' }} disabled
                     selected>Enter language here...</option>
                 @foreach ($languages as $key => $language)
                     <option value="{{ $key }}"
-                        {{ old('language_id', optional($help)->language_id) == $key ? 'selected' : '' }}>
+                        {{ old('language', optional($help)->language) == $key ? 'selected' : '' }}>
                         {{ $language }}
                     </option>
                 @endforeach

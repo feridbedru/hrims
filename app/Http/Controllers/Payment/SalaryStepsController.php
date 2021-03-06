@@ -20,7 +20,7 @@ class SalaryStepsController extends Controller
      */
     public function index()
     {
-        $salarySteps = SalaryStep::with('salaryscale')->paginate(25);
+        $salarySteps = SalaryStep::with('salaryScales')->paginate(25);
 
         return view('payment.salary_steps.index', compact('salarySteps'));
     }
@@ -76,7 +76,7 @@ class SalaryStepsController extends Controller
      */
     public function show($id)
     {
-        $salaryStep = SalaryStep::with('salaryscale')->findOrFail($id);
+        $salaryStep = SalaryStep::with('salaryScales')->findOrFail($id);
 
         return view('payment.salary_steps.show', compact('salaryStep'));
     }

@@ -47,6 +47,4 @@ class EducationalField extends Model
     protected $casts = [];
     
 
-
-
 }

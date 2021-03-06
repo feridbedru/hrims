@@ -14,7 +14,7 @@ class CreateSystemExceptionsTable extends Migration
     {
         Schema::create('system_exceptions', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title')->nullable();
             $table->string('function')->nullable();
             $table->string('path')->nullable();

@@ -14,13 +14,13 @@ class CreateEmployeeDisasterIndeminitiesTable extends Migration
     {
         Schema::create('employee_disaster_indeminities', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('disaster')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('disaster')->constrained('employee_disasters')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title', 255);
             $table->string('description', 1000);
-            $table->string('cost')->nullable();
+            $table->float('cost',8,2)->nullable();
             $table->string('file')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

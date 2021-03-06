@@ -14,8 +14,8 @@ class CreateSalaryStepsTable extends Migration
     {
         Schema::create('salary_steps', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('salary_scale')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('salary_scale')->constrained('salary_scales')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('step');
             $table->timestamps();
 

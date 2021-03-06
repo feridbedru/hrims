@@ -7,12 +7,10 @@ use App\Models\Bank;
 use App\Models\BankAccountType;
 use App\Models\Employee;
 use App\Models\EmployeeBankAccount;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeBankAccountsController extends Controller
@@ -25,12 +23,7 @@ class EmployeeBankAccountsController extends Controller
      */
     public function index()
     {
-        $employeeBankAccounts = DB::table('employee_bank_accounts')
-            ->join('employees', 'employee_bank_accounts.employee', '=', 'employees.id')
-            ->join('banks', 'employee_bank_accounts.bank', '=', 'banks.id')
-            ->join('bank_account_types', 'employee_bank_accounts.account_type', '=', 'bank_account_types.id')
-            ->select('employee_bank_accounts.*', 'employees.en_name as employee', 'banks.name as bank_name', 'bank_account_types.name as account_type')
-            ->paginate(25);
+        $employeeBankAccounts = EmployeeBankAccount::with('banks', 'types', 'employees')->paginate(25);
 
         return view('employees.bank_account.index', compact('employeeBankAccounts'));
     }
@@ -45,9 +38,8 @@ class EmployeeBankAccountsController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $banks = Bank::pluck('name', 'id')->all();
         $bankAccountTypes = BankAccountType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.bank_account.create', compact('employees', 'banks', 'bankAccountTypes', 'creators'));
+        return view('employees.bank_account.create', compact('employees', 'banks', 'bankAccountTypes'));
     }
 
     /**
@@ -60,8 +52,8 @@ class EmployeeBankAccountsController extends Controller
         try {
 
             $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
-            $employeeBankAccount->status = '3';
-            $employeeBankAccount->approved_by = '1';
+            $employeeBankAccount->status = 3;
+            $employeeBankAccount->approved_by = 1;
             $employeeBankAccount->approved_at = now();
             $employeeBankAccount->save();
 
@@ -89,8 +81,8 @@ class EmployeeBankAccountsController extends Controller
         try {
 
             $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
-            $employeeBankAccount->status = '2';
-            $employeeBankAccount->note = '1';
+            $employeeBankAccount->status = 2;
+            $employeeBankAccount->note = 1;
             $employeeBankAccount->save();
 
             return redirect()->route('employee_bank_accounts.employee_bank_account.index')
@@ -152,9 +144,8 @@ class EmployeeBankAccountsController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $banks = Bank::pluck('name', 'id')->all();
         $bankAccountTypes = BankAccountType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.bank_account.edit', compact('employeeBankAccount', 'employees', 'banks', 'bankAccountTypes', 'creators'));
+        return view('employees.bank_account.edit', compact('employeeBankAccount', 'employees', 'banks', 'bankAccountTypes'));
     }
 
     /**
@@ -234,7 +225,7 @@ class EmployeeBankAccountsController extends Controller
             'status' => 'string|min:1|nullable',
             'created_by' => 'required',
             'approved_by' => 'nullable',
-            'approved_at' => 'date_format:j/n/Y g:i A|nullable',
+            'approved_at' => 'nullable',
             'note' => 'string|min:1|max:1000|nullable',
         ];
 

@@ -22,7 +22,7 @@ class EmployeeDisasterWitnessesController extends Controller
      */
     public function index()
     {
-        $employeeDisasterWitnesses = EmployeeDisasterWitness::with('employeedisaster', 'creator')->paginate(25);
+        $employeeDisasterWitnesses = EmployeeDisasterWitness::with('disasters')->paginate(25);
 
         return view('employees.disaster_witness.index', compact('employeeDisasterWitnesses'));
     }
@@ -34,10 +34,9 @@ class EmployeeDisasterWitnessesController extends Controller
      */
     public function create()
     {
-        $employeeDisasters = EmployeeDisaster::pluck('approved_at', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
+        $employeeDisasters = EmployeeDisaster::pluck('occured_on', 'id')->all();
 
-        return view('employees.disaster_witness.create', compact('employeeDisasters', 'creators'));
+        return view('employees.disaster_witness.create', compact('employeeDisasters'));
     }
 
     /**
@@ -79,7 +78,7 @@ class EmployeeDisasterWitnessesController extends Controller
      */
     public function show($id)
     {
-        $employeeDisasterWitness = EmployeeDisasterWitness::with('employeedisaster', 'creator')->findOrFail($id);
+        $employeeDisasterWitness = EmployeeDisasterWitness::with('disasters')->findOrFail($id);
 
         return view('employees.disaster_witness.show', compact('employeeDisasterWitness'));
     }
@@ -94,8 +93,7 @@ class EmployeeDisasterWitnessesController extends Controller
     public function edit($id)
     {
         $employeeDisasterWitness = EmployeeDisasterWitness::findOrFail($id);
-        $employeeDisasters = EmployeeDisaster::pluck('approved_at', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
+        $employeeDisasters = EmployeeDisaster::pluck('occured_on', 'id')->all();
 
         return view('employees.disaster_witness.edit', compact('employeeDisasterWitness', 'employeeDisasters', 'creators'));
     }

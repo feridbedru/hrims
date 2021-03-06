@@ -9,7 +9,6 @@ use App\Models\EducationalInstitute;
 use App\Models\Employee;
 use App\Models\EmployeeEducation;
 use App\Models\GPAScale;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +25,7 @@ class EmployeeEducationsController extends Controller
      */
     public function index()
     {
-        $employeeEducations = EmployeeEducation::with('employee', 'educationlevel', 'educationalinstitute', 'educationalfield', 'gpascale', 'creator', 'approvedby')->paginate(25);
+        $employeeEducations = EmployeeEducation::with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->paginate(25);
 
         return view('employees.education.index', compact('employeeEducations'));
     }
@@ -43,10 +42,8 @@ class EmployeeEducationsController extends Controller
         $educationalInstitutes = EducationalInstitute::pluck('name', 'id')->all();
         $educationalFields = EducationalField::pluck('name', 'id')->all();
         $gpaScales = GPAScale::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.education.create', compact('employees', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales', 'creators', 'approvedBies'));
+        return view('employees.education.create', compact('employees', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
     }
 
     /**
@@ -90,8 +87,8 @@ class EmployeeEducationsController extends Controller
         try {
 
             $employeeEducation = EmployeeEducation::findOrFail($id);
-            $employeeEducation->status = '3';
-            $employeeEducation->approved_by = '1';
+            $employeeEducation->status = 3;
+            $employeeEducation->approved_by = 1;
             $employeeEducation->approved_at = now();
             $employeeEducation->save();
 
@@ -101,7 +98,6 @@ class EmployeeEducationsController extends Controller
             $systemException = new SystemException();
             $systemException->function = Route::currentRouteAction();
             $systemException->path = Route::getCurrentRoute()->uri();
-            $systemException->request = json_encode($request->all());
             $systemException->message = json_encode([$exception->getMessage()]);
             $systemException->status = 1;
             $systemException->save();
@@ -120,7 +116,7 @@ class EmployeeEducationsController extends Controller
         try {
 
             $employeeEducation = EmployeeEducation::findOrFail($id);
-            $employeeEducation->status = '2';
+            $employeeEducation->status = 2;
             $employeeEducation->note = '1';
             $employeeEducation->save();
 
@@ -148,7 +144,7 @@ class EmployeeEducationsController extends Controller
      */
     public function show($id)
     {
-        $employeeEducation = EmployeeEducation::with('employee', 'educationlevel', 'educationalinstitute', 'educationalfield', 'gpascale', 'creator', 'approvedby')->findOrFail($id);
+        $employeeEducation = EmployeeEducation::with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->findOrFail($id);
 
         return view('employees.education.show', compact('employeeEducation'));
     }
@@ -168,10 +164,8 @@ class EmployeeEducationsController extends Controller
         $educationalInstitutes = EducationalInstitute::pluck('name', 'id')->all();
         $educationalFields = EducationalField::pluck('name', 'id')->all();
         $gpaScales = GPAScale::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.education.edit', compact('employeeEducation', 'employees', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales', 'creators', 'approvedBies'));
+        return view('employees.education.edit', compact('employeeEducation', 'employees', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
     }
 
     /**

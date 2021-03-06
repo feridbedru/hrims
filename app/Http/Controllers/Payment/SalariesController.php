@@ -21,7 +21,7 @@ class SalariesController extends Controller
      */
     public function index()
     {
-        $salaries = Salary::with('salaryheight', 'salarystep')->paginate(25);
+        $salaries = Salary::with('salaryHeights', 'salarySteps')->paginate(25);
 
         return view('payment.salaries.index', compact('salaries'));
     }
@@ -33,8 +33,8 @@ class SalariesController extends Controller
      */
     public function create()
     {
-        $salaryHeights = SalaryHeight::pluck('created_at', 'id')->all();
-        $salarySteps = SalaryStep::pluck('created_at', 'id')->all();
+        $salaryHeights = SalaryHeight::pluck('level', 'id')->all();
+        $salarySteps = SalaryStep::pluck('step', 'id')->all();
 
         return view('payment.salaries.create', compact('salaryHeights', 'salarySteps'));
     }
@@ -78,7 +78,7 @@ class SalariesController extends Controller
      */
     public function show($id)
     {
-        $salary = Salary::with('salaryheight', 'salarystep')->findOrFail($id);
+        $salary = Salary::with('salaryHeights', 'salarySteps')->findOrFail($id);
 
         return view('payment.salaries.show', compact('salary'));
     }
@@ -93,8 +93,8 @@ class SalariesController extends Controller
     public function edit($id)
     {
         $salary = Salary::findOrFail($id);
-        $salaryHeights = SalaryHeight::pluck('created_at', 'id')->all();
-        $salarySteps = SalaryStep::pluck('created_at', 'id')->all();
+        $salaryHeights = SalaryHeight::pluck('level', 'id')->all();
+        $salarySteps = SalaryStep::pluck('step', 'id')->all();
 
         return view('payment.salaries.edit', compact('salary', 'salaryHeights', 'salarySteps'));
     }

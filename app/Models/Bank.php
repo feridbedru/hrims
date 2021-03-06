@@ -47,6 +47,4 @@ class Bank extends Model
     protected $casts = [];
     
 
-
-
 }

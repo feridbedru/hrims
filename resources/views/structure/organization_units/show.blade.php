@@ -48,11 +48,13 @@
             <dt>Amharic Acronym</dt>
             <dd>{{ $organizationUnit->am_acronym }}</dd>
             <dt>Parent</dt>
-            <dd>{{ optional($organizationUnit->organizationUnit)->id }}</dd>
+            <dd>{{ optional($organizationUnit->parents)->en_name }}</dd>
             <dt>Job Category</dt>
-            <dd>{{ optional($organizationUnit->jobCategory)->name }}</dd>
+            <dd>{{ optional($organizationUnit->jobCategorys)->name }}</dd>
             <dt>Organization Location</dt>
-            <dd>{{ optional($organizationUnit->organizationLocation)->name }}</dd>
+            <dd>{{ optional($organizationUnit->locations)->name }}</dd>
+            <dt>Chairman </dt>
+            <dd>{{ optional($organizationUnit->chairman)->name }}</dd>
             <dt>Is Root Unit</dt>
             <dd>{{ ($organizationUnit->is_root_unit) ? 'Yes' : 'No' }}</dd>
             <dt>Is Category</dt>

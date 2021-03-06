@@ -55,9 +55,9 @@ class Template extends Model
      *
      * @return App\Models\Language
      */
-    public function language()
+    public function languages()
     {
-        return $this->belongsTo('App\Models\Language','language_id');
+        return $this->belongsTo(Language::class,'language');
     }
 
     /**
@@ -65,9 +65,9 @@ class Template extends Model
      *
      * @return App\Models\TemplateType
      */
-    public function templateType()
+    public function types()
     {
-        return $this->belongsTo('App\Models\TemplateType','template_type_id');
+        return $this->belongsTo(TemplateType::class,'template_type');
     }
 
 

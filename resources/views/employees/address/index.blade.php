@@ -32,11 +32,11 @@
                         @foreach ($employeeAddresses as $employeeAddress)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($employeeAddress->employee)->en_name }}</td>
-                                <td>{{ optional($employeeAddress->addressType)->name }}</td>
+                                <td>{{ $employeeAddress->employees->en_name }}</td>
+                                <td>{{ $employeeAddress->types->name }}</td>
                                 <td>{{ $employeeAddress->address }}</td>
                                 <td>{{ $employeeAddress->house_number }}</td>
-                                <td>{{ optional($employeeAddress->woreda)->name }}</td>
+                                <td>{{ optional($employeeAddress->woredas)->name }}</td>
                                 <td>
                                     @if ($employeeAddress->status == 1)
                                         Pending

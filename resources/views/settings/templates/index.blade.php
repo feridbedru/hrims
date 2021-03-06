@@ -85,8 +85,8 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $template->title }}</td>
-                                <td>{{ $template->language }}</td>
-                                <td>{{ $template->type }}</td>
+                                <td>{{ $template->languages->name }}</td>
+                                <td>{{ $template->types->name }}</td>
                                 <td>{{ $template->is_active ? 'Yes' : 'No' }}</td>
                                 <td>{{ $template->code }}</td>
                                 <td class="text-center">

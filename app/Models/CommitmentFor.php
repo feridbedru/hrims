@@ -47,6 +47,4 @@ class CommitmentFor extends Model
     protected $casts = [];
     
 
-
-
 }

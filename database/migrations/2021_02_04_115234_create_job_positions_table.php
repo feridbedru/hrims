@@ -14,16 +14,16 @@ class CreateJobPositionsTable extends Migration
     {
         Schema::create('job_positions', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('organization_unit')->unsigned()->index();
-            $table->integer('job_category')->unsigned()->index();
-            $table->integer('job_type')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('organization_unit')->constrained('organization_units')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('job_category')->constrained('job_categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('job_type')->constrained('job_types')->onUpdate('cascade')->onDelete('cascade');
             $table->text('job_description')->nullable();
             $table->string('position_code');
             $table->string('position_id');
-            $table->integer('salary')->unsigned()->index();
+            $table->foreignId('job_title_category')->constrained('job_title_categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('salary')->constrained('salaries')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('status');
-            $table->integer('job_title_category')->unsigned()->index();
             $table->timestamps();
 
         });

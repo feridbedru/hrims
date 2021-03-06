@@ -47,6 +47,4 @@ class CertificationVendor extends Model
     protected $casts = [];
     
 
-
-
 }

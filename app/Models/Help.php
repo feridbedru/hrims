@@ -33,7 +33,7 @@ class Help extends Model
                   'data',
                   'topic_for',
                   'parent',
-                  'language_id',
+                  'language',
                   'created_by'
               ];
 
@@ -56,9 +56,9 @@ class Help extends Model
      *
      * @return App\Models\Help
      */
-    public function help()
+    public function helpes()
     {
-        return $this->belongsTo('App\Models\Help','help_id');
+        return $this->belongsTo(Help::class,'parent');
     }
 
     /**
@@ -66,19 +66,9 @@ class Help extends Model
      *
      * @return App\Models\Language
      */
-    public function language()
+    public function languagers()
     {
-        return $this->belongsTo('App\Models\Language','language_id');
-    }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
+        return $this->belongsTo(Language::class,'language');
     }
 
 

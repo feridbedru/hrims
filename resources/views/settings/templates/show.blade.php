@@ -19,11 +19,11 @@
                 <div class="row">
                     <div class="col-md-3">
                         <dt>Language</dt>
-                        <dd>{{ $template->language }}</dd>
+                        <dd>{{ $template->languages->name }}</dd>
                     </div>
                     <div class="col-md-3">
                         <dt>Template Type</dt>
-                        <dd>{{ $template->type }}</dd>
+                        <dd>{{ $template->types->name }}</dd>
                     </div>
                     <div class="col-md-3">
                         <dt>Is Active</dt>

@@ -14,18 +14,19 @@ class CreateEmployeeStudyTrainingsTable extends Migration
     {
         Schema::create('employee_study_trainings', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
-            $table->integer('Type')->unsigned()->index();
-            $table->integer('institution')->unsigned()->index();
-            $table->integer('level')->unsigned()->index();
-            $table->integer('field')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('type')->constrained('commitment_fors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('institution')->constrained('educational_institutes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('level')->constrained('education_levels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('field')->constrained('educational_fields')->onUpdate('cascade')->onDelete('cascade');
             $table->date('start_date')->nullable();
-            $table->string('duration')->nullable();
+            $table->integer('duration')->nullable();
             $table->boolean('has_commitment')->nullable();
-            $table->string('total_commitment')->nullable();
+            $table->integer('total_commitment')->nullable();
+            $table->float('amount',8,2)->nullable();
             $table->string('attachment')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

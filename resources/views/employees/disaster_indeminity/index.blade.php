@@ -19,7 +19,7 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee Disaster</th>
+                            <th>Disaster</th>
                             <th>Title</th>
                             <th>Cost</th>
                             <th>Actions</th>
@@ -29,7 +29,7 @@
                         @foreach ($employeeDisasterIndeminities as $employeeDisasterIndeminity)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($employeeDisasterIndeminity->employeeDisaster)->approved_at }}</td>
+                                <td>{{ $employeeDisasterIndeminity->disasters->occured_on }}</td>
                                 <td>{{ $employeeDisasterIndeminity->title }}</td>
                                 <td>{{ $employeeDisasterIndeminity->cost }}</td>
 

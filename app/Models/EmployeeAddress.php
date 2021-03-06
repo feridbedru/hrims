@@ -28,11 +28,11 @@ class EmployeeAddress extends Model
      * @var array
      */
     protected $fillable = [
-                  'employee_id',
-                  'address_type_id',
+                  'employee',
+                  'type',
                   'address',
                   'house_number',
-                  'woreda_id',
+                  'woreda',
                   'status',
                   'created_by',
                   'approved_by',
@@ -59,9 +59,9 @@ class EmployeeAddress extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -69,9 +69,9 @@ class EmployeeAddress extends Model
      *
      * @return App\Models\AddressType
      */
-    public function addressType()
+    public function types()
     {
-        return $this->belongsTo('App\Models\AddressType','address_type_id');
+        return $this->belongsTo(AddressType::class,'type');
     }
 
     /**
@@ -79,29 +79,9 @@ class EmployeeAddress extends Model
      *
      * @return App\Models\Woreda
      */
-    public function woreda()
+    public function woredas()
     {
-        return $this->belongsTo('App\Models\Woreda','woreda_id');
-    }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-    /**
-     * Get the approvedBy for this model.
-     *
-     * @return App\Models\User
-     */
-    public function approvedBy()
-    {
-        return $this->belongsTo('App\Models\User','approved_by');
+        return $this->belongsTo(Woreda::class,'woreda');
     }
 
 }

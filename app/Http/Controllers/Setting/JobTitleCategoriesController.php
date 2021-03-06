@@ -19,7 +19,7 @@ class JobTitleCategoriesController extends Controller
      */
     public function index()
     {
-        $jobTitleCategories = JobTitleCategory::with('jobTitleCategory')->paginate(25);
+        $jobTitleCategories = JobTitleCategory::with('parents')->paginate(25);
 
         return view('settings.job_title_categories.index', compact('jobTitleCategories'));
     }

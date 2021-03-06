@@ -7,7 +7,6 @@ use App\Models\Employee;
 use App\Models\EmployeeExperience;
 use App\Models\ExperienceType;
 use App\Models\LeftReason;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +23,7 @@ class EmployeeExperiencesController extends Controller
      */
     public function index()
     {
-        $employeeExperiences = EmployeeExperience::with('employee', 'experiencetype', 'leftreason', 'creator', 'approvedby')->paginate(25);
+        $employeeExperiences = EmployeeExperience::with('employees', 'types', 'leftReasons')->paginate(25);
 
         return view('employees.experience.index', compact('employeeExperiences'));
     }
@@ -39,10 +38,8 @@ class EmployeeExperiencesController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $experienceTypes = ExperienceType::pluck('name', 'id')->all();
         $leftReasons = LeftReason::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.experience.create', compact('employees', 'experienceTypes', 'leftReasons', 'creators', 'approvedBies'));
+        return view('employees.experience.create', compact('employees', 'experienceTypes', 'leftReasons'));
     }
 
     /**
@@ -84,7 +81,7 @@ class EmployeeExperiencesController extends Controller
      */
     public function show($id)
     {
-        $employeeExperience = EmployeeExperience::with('employee', 'experiencetype', 'leftreason', 'creator', 'approvedby')->findOrFail($id);
+        $employeeExperience = EmployeeExperience::with('employees', 'types', 'leftReasons')->findOrFail($id);
 
         return view('employees.experience.show', compact('employeeExperience'));
     }
@@ -102,10 +99,8 @@ class EmployeeExperiencesController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $experienceTypes = ExperienceType::pluck('name', 'id')->all();
         $leftReasons = LeftReason::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.experience.edit', compact('employeeExperience', 'employees', 'experienceTypes', 'leftReasons', 'creators', 'approvedBies'));
+        return view('employees.experience.edit', compact('employeeExperience', 'employees', 'experienceTypes', 'leftReasons'));
     }
 
     /**

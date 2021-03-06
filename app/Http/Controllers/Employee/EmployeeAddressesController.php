@@ -26,7 +26,7 @@ class EmployeeAddressesController extends Controller
      */
     public function index()
     {
-        $employeeAddresses = EmployeeAddress::with('employee', 'addresstype', 'woreda', 'creator', 'approvedby')->paginate(25);
+        $employeeAddresses = EmployeeAddress::with('employees', 'types', 'woredas')->paginate(25);
 
         return view('employees.address.index', compact('employeeAddresses'));
     }
@@ -43,10 +43,8 @@ class EmployeeAddressesController extends Controller
         $regions = Region::pluck('name', 'id')->all();
         $woredas = Woreda::pluck('name', 'id')->all();
         $zones = Zone::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.address.create', compact('employees', 'addressTypes', 'regions', 'woredas', 'zones', 'creators', 'approvedBies'));
+        return view('employees.address.create', compact('employees', 'addressTypes', 'regions', 'woredas', 'zones'));
     }
 
     /**
@@ -149,10 +147,8 @@ class EmployeeAddressesController extends Controller
         $regions = Region::pluck('name', 'id')->all();
         $woredas = Woreda::pluck('name', 'id')->all();
         $zones = Zone::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.address.edit', compact('employeeAddress', 'employees', 'addressTypes', 'regions', 'woredas', 'zones', 'creators', 'approvedBies'));
+        return view('employees.address.edit', compact('employeeAddress', 'employees', 'addressTypes', 'regions', 'woredas', 'zones'));
     }
 
     /**
@@ -224,11 +220,11 @@ class EmployeeAddressesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee_id' => 'required',
-            'address_type_id' => 'required',
+            'employee' => 'required',
+            'address_type' => 'required',
             'address' => 'string|min:1|nullable',
             'house_number' => 'string|min:1|nullable',
-            'woreda_id' => 'nullable',
+            'woreda' => 'nullable',
             'status' => 'string|min:1|nullable',
             'created_by' => 'nullable',
             'approved_by' => 'nullable',

@@ -14,17 +14,17 @@ class CreateEmployeeAddressesTable extends Migration
     {
         Schema::create('employee_addresses', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee_id')->unsigned()->index();
-            $table->integer('address_type_id')->unsigned()->index();
-            $table->string('address')->nullable();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('type')->constrained('address_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('address')->nullable();
             $table->string('house_number')->nullable();
-            $table->integer('woreda_id')->unsigned()->nullable()->index();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->foreignId('woreda')->nullable()->constrained('woredas')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

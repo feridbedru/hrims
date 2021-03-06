@@ -7,7 +7,6 @@ use App\Models\Employee;
 use App\Models\EmployeeLanguage;
 use App\Models\Language;
 use App\Models\LanguageLevel;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,16 +24,8 @@ class EmployeeLanguagesController extends Controller
      */
     public function index()
     {
-        $employeeLanguages = EmployeeLanguage::with('employee', 'language', 'languagelevel', 'languagelevel', 'languagelevel', 'languagelevel', 'creator')->paginate(25);
-        $employeeLanguages = DB::table('employee_languages')
-            ->join('employees', 'employee_languages.employee', '=', 'employees.id')
-            ->join('languages', 'employee_languages.language', '=', 'languages.id')
-            ->join('language_levels', 'employee_languages.reading', '=', 'language_levels.id')
-            // ->join('language_levels','employee_languages.writing','=','language_levels.id')
-            // ->join('language_levels','employee_languages.speaking','=','languagelevels.id')
-            // ->join('language_levels','employee_languages.listening','=','languagelevels.id')
-            ->select('employee_languages.*', 'employees.en_name', 'language_levels.name as level', 'languages.name as language')
-            ->paginate(25);
+        $employeeLanguages = EmployeeLanguage::with('employees', 'languages', 'languageLevels')->paginate(25);
+
         return view('employees.language.index', compact('employeeLanguages'));
     }
 
@@ -48,9 +39,8 @@ class EmployeeLanguagesController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $languages = Language::pluck('name', 'id')->all();
         $languageLevels = LanguageLevel::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.language.create', compact('employees', 'languages', 'languageLevels', 'languageLevels', 'languageLevels', 'languageLevels', 'creators'));
+        return view('employees.language.create', compact('employees', 'languages', 'languageLevels'));
     }
 
     /**
@@ -84,20 +74,6 @@ class EmployeeLanguagesController extends Controller
     }
 
     /**
-     * Display the specified employee language.
-     *
-     * @param int $id
-     *
-     * @return Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $employeeLanguage = EmployeeLanguage::with('employee', 'language', 'languagelevel', 'languagelevel', 'languagelevel', 'languagelevel', 'creator')->findOrFail($id);
-
-        return view('employees.language.show', compact('employeeLanguage'));
-    }
-
-    /**
      * Show the form for editing the specified employee language.
      *
      * @param int $id
@@ -110,9 +86,8 @@ class EmployeeLanguagesController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $languages = Language::pluck('name', 'id')->all();
         $languageLevels = LanguageLevel::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.language.edit', compact('employeeLanguage', 'employees', 'languages', 'languageLevels', 'languageLevels', 'languageLevels', 'languageLevels', 'creators'));
+        return view('employees.language.edit', compact('employeeLanguage', 'employees', 'languages', 'languageLevels'));
     }
 
     /**

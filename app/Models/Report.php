@@ -49,16 +49,4 @@ class Report extends Model
      */
     protected $casts = [];
     
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-
-
 }

@@ -14,22 +14,22 @@ class CreateEmployeeExperiencesTable extends Migration
     {
         Schema::create('employee_experiences', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
-            $table->integer('type')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('type')->constrained('experience_types')->onUpdate('cascade')->onDelete('cascade');
             $table->string('organization_name');
-            $table->string('organization_address')->nullable();
+            $table->text('organization_address')->nullable();
             $table->string('job_position');
             $table->string('level')->nullable();
-            $table->string('salary');
-            $table->integer('left_reason')->unsigned()->index();
+            $table->float('salary',8,2);
+            $table->foreignId('left_reason')->constrained('left_reasons')->onUpdate('cascade')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
             $table->string('attachment');
-            $table->string('status')->nullable();
-            $table->string('note', 1000)->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->text('note')->nullable();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
             $table->timestamps();
 

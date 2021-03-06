@@ -46,7 +46,4 @@ class EmployeeStatus extends Model
      */
     protected $casts = [];
     
-
-
-
 }

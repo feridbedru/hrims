@@ -35,13 +35,13 @@
                         @foreach ($employeeCertifications as $employeeCertification)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeCertification->en_name }}</td>
+                                <td>{{ $employeeCertification->employees->en_name }}</td>
                                 <td>{{ $employeeCertification->name }}</td>
                                 <td>{{ $employeeCertification->issued_on }}</td>
                                 <td>{{ $employeeCertification->certification_number }}</td>
-                                <td>{{ $employeeCertification->category }}</td>
+                                <td>{{ $employeeCertification->categories->name }}</td>
                                 <td>{{ $employeeCertification->verification_link }}</td>
-                                <td>{{ $employeeCertification->vendor }}</td>
+                                <td>{{ $employeeCertification->vendors->name }}</td>
                                 <td>{{ $employeeCertification->expires_on }}</td>
                                 <td>{{ $employeeCertification->status }}</td>
 

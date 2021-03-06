@@ -26,7 +26,6 @@
                             <th>Salary Height</th>
                             <th>Salary Step</th>
                             <th>Amount</th>
-
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -34,8 +33,8 @@
                     @foreach($salaries as $salary)
                         <tr>
                                 <td>{{ $loop->iteration }}</td>
-                            <td>{{ optional($salary->salaryHeight)->created_at }}</td>
-                            <td>{{ optional($salary->salaryStep)->created_at }}</td>
+                            <td>{{ $salary->salaryHeights->level }}</td>
+                            <td>{{ $salary->salarySteps->step }}</td>
                             <td>{{ $salary->amount }}</td>
 
                             <td>

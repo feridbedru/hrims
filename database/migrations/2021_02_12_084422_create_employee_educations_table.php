@@ -14,12 +14,12 @@ class CreateEmployeeEducationsTable extends Migration
     {
         Schema::create('employee_educations', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
-            $table->integer('level')->unsigned()->index();
-            $table->integer('institute')->unsigned()->index();
-            $table->integer('field')->unsigned()->index();
-            $table->integer('gpa_scale')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('level')->constrained('education_levels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('institute')->constrained('educational_institutes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('field')->constrained('educational_fields')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('gpa_scale')->constrained('gpa_scales')->onUpdate('cascade')->onDelete('cascade');
             $table->string('gpa');
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
@@ -27,11 +27,11 @@ class CreateEmployeeEducationsTable extends Migration
             $table->boolean('has_coc')->nullable();
             $table->date('coc_issued_date')->nullable();
             $table->string('coc_file')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

@@ -1,14 +1,14 @@
 <div class="row">
-    <div class="form-group col-md-4 {{ $errors->has('address_type_id') ? 'has-error' : '' }}">
-        <label for="address_type_id" class="col-md-4 control-label">Address Type</label>
+    <div class="form-group col-md-4 {{ $errors->has('type') ? 'has-error' : '' }}">
+        <label for="type" class="col-md-4 control-label">Address Type</label>
         <div class="col-md-12">
-            <select class="form-control" id="address_type_id" name="address_type_id" required="true">
+            <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
-                    {{ old('address_type_id', optional($employeeAddress)->address_type_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('type', optional($employeeAddress)->type ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select address type</option>
                 @foreach ($addressTypes as $key => $addressType)
                     <option value="{{ $key }}"
-                        {{ old('address_type_id', optional($employeeAddress)->address_type_id) == $key ? 'selected' : '' }}>
+                        {{ old('type', optional($employeeAddress)->type) == $key ? 'selected' : '' }}>
                         {{ $addressType }}
                     </option>
                 @endforeach
@@ -36,9 +36,9 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4">
-        <label for="region_id" class="col-md-4 control-label">Region</label>
+        <label for="region" class="col-md-4 control-label">Region</label>
         <div class="col-md-12">
-            <select class="form-control" id="region_id" name="region_id">
+            <select class="form-control" id="region" name="region">
                 <option value="" style="display: none;" disabled selected>Select Region</option>
                 @foreach ($regions as $key => $region)
                     <option value="{{ $key }}">
@@ -49,9 +49,9 @@
         </div>
     </div>
     <div class="form-group col-md-4">
-        <label for="zone_id" class="col-md-4 control-label">Zone</label>
+        <label for="zone" class="col-md-4 control-label">Zone</label>
         <div class="col-md-12">
-            <select class="form-control" id="zone_id" name="zone_id">
+            <select class="form-control" id="zone" name="zone">
                 <option value="" style="display: none;" disabled selected>Select Zone</option>
                 @foreach ($zones as $key => $zone)
                     <option value="{{ $key }}">
@@ -63,16 +63,16 @@
     </div>
 
 
-    <div class="form-group col-md-4 {{ $errors->has('woreda_id') ? 'has-error' : '' }}">
-        <label for="woreda_id" class="col-md-4 control-label">Woreda</label>
+    <div class="form-group col-md-4 {{ $errors->has('woreda') ? 'has-error' : '' }}">
+        <label for="woreda" class="col-md-4 control-label">Woreda</label>
         <div class="col-md-12">
-            <select class="form-control" id="woreda_id" name="woreda_id">
+            <select class="form-control" id="woreda" name="woreda">
                 <option value="" style="display: none;"
-                    {{ old('woreda_id', optional($employeeAddress)->woreda_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('woreda', optional($employeeAddress)->woreda ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select woreda</option>
                 @foreach ($woredas as $key => $woreda)
                     <option value="{{ $key }}"
-                        {{ old('woreda_id', optional($employeeAddress)->woreda_id) == $key ? 'selected' : '' }}>
+                        {{ old('woreda', optional($employeeAddress)->woreda) == $key ? 'selected' : '' }}>
                         {{ $woreda }}
                     </option>
                 @endforeach
@@ -82,16 +82,16 @@
 </div>
 <hr>
 <div class="row">
-    <div class="form-group col-md-6 {{ $errors->has('employee_id') ? 'has-error' : '' }}">
-        <label for="employee_id" class="col-md-4 control-label">Employee</label>
+    <div class="form-group col-md-6 {{ $errors->has('employee') ? 'has-error' : '' }}">
+        <label for="employee" class="col-md-4 control-label">Employee</label>
         <div class="col-md-12">
-            <select class="form-control" id="employee_id" name="employee_id" required="true">
+            <select class="form-control" id="employee" name="employee" required="true">
                 <option value="" style="display: none;"
-                    {{ old('employee_id', optional($employeeAddress)->employee_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('employee', optional($employeeAddress)->employee ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select employee</option>
                 @foreach ($employees as $key => $employee)
                     <option value="{{ $key }}"
-                        {{ old('employee_id', optional($employeeAddress)->employee_id) == $key ? 'selected' : '' }}>
+                        {{ old('employee', optional($employeeAddress)->employee) == $key ? 'selected' : '' }}>
                         {{ $employee }}
                     </option>
                 @endforeach

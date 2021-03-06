@@ -100,7 +100,7 @@ function loadEditors() {
                         required: "Please enter a topic",
                         minlength: "Your topic must be at least 2 characters long"
                     },
-                    language_id: {
+                    language: {
                         required: "Please choose a language"
                     },
                 },

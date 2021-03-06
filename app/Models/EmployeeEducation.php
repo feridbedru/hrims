@@ -66,9 +66,9 @@ class EmployeeEducation extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -76,9 +76,9 @@ class EmployeeEducation extends Model
      *
      * @return App\Models\EducationLevel
      */
-    public function educationLevel()
+    public function levels()
     {
-        return $this->belongsTo('App\Models\EducationLevel','education_level_id');
+        return $this->belongsTo(EducationLevel::class,'level');
     }
 
     /**
@@ -86,9 +86,9 @@ class EmployeeEducation extends Model
      *
      * @return App\Models\EducationalInstitute
      */
-    public function educationalInstitute()
+    public function institutes()
     {
-        return $this->belongsTo('App\Models\EducationalInstitute','educational_institute_id');
+        return $this->belongsTo(EducationalInstitute::class,'institute');
     }
 
     /**
@@ -96,9 +96,9 @@ class EmployeeEducation extends Model
      *
      * @return App\Models\EducationalField
      */
-    public function educationalField()
+    public function fields()
     {
-        return $this->belongsTo('App\Models\EducationalField','educational_field_id');
+        return $this->belongsTo(EducationalField::class,'field');
     }
 
     /**
@@ -106,117 +106,9 @@ class EmployeeEducation extends Model
      *
      * @return App\Models\GpaScale
      */
-    public function gpaScale()
+    public function gpaScales()
     {
-        return $this->belongsTo('App\Models\GpaScale','gpa_scale_id');
-    }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-    /**
-     * Get the approvedBy for this model.
-     *
-     * @return App\Models\User
-     */
-    public function approvedBy()
-    {
-        return $this->belongsTo('App\Models\User','approved_by');
-    }
-
-    /**
-     * Set the start_date.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setStartDateAttribute($value)
-    {
-        $this->attributes['start_date'] = !empty($value) ? \DateTime::createFromFormat('[% date_format %]', $value) : null;
-    }
-
-    /**
-     * Set the end_date.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setEndDateAttribute($value)
-    {
-        $this->attributes['end_date'] = !empty($value) ? \DateTime::createFromFormat('[% date_format %]', $value) : null;
-    }
-
-    /**
-     * Set the coc_issued_date.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setCocIssuedDateAttribute($value)
-    {
-        $this->attributes['coc_issued_date'] = !empty($value) ? \DateTime::createFromFormat('[% date_format %]', $value) : null;
-    }
-
-    /**
-     * Set the approved_at.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setApprovedAtAttribute($value)
-    {
-        $this->attributes['approved_at'] = !empty($value) ? \DateTime::createFromFormat('[% date_format %]', $value) : null;
-    }
-
-    /**
-     * Get start_date in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getStartDateAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
-    }
-
-    /**
-     * Get end_date in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getEndDateAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
-    }
-
-    /**
-     * Get coc_issued_date in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getCocIssuedDateAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
-    }
-
-    /**
-     * Get approved_at in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getApprovedAtAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
+        return $this->belongsTo(GpaScale::class,'gpa_scale');
     }
 
 }

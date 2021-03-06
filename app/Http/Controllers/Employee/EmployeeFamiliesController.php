@@ -12,7 +12,6 @@ use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeFamiliesController extends Controller
@@ -25,12 +24,7 @@ class EmployeeFamiliesController extends Controller
      */
     public function index()
     {
-        $employeeFamilies = DB::table('employee_families')
-            ->join('employees', 'employee_families.employee', '=', 'employees.id')
-            ->join('relationships', 'employee_families.relationship', '=', 'relationships.id')
-            ->join('sexes', 'employee_families.sex', '=', 'sexes.id')
-            ->select('employee_families.*', 'employees.en_name', 'relationships.name as relation', 'sexes.name as sex')
-            ->paginate(25);
+        $employeeFamilies = EmployeeFamily::with('employees','relationships','sexes')->paginate(25);
 
         return view('employees.family.index', compact('employeeFamilies'));
     }
@@ -45,10 +39,8 @@ class EmployeeFamiliesController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $sexes = Sex::pluck('name', 'id')->all();
         $relationships = Relationship::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.family.create', compact('employees', 'sexes', 'relationships', 'creators', 'approvedBies'));
+        return view('employees.family.create', compact('employees', 'sexes', 'relationships'));
     }
 
     /**
@@ -92,8 +84,8 @@ class EmployeeFamiliesController extends Controller
         try {
 
             $employeeFamily = EmployeeFamily::findOrFail($id);
-            $employeeFamily->status = '3';
-            $employeeFamily->approved_by = '1';
+            $employeeFamily->status = 3;
+            $employeeFamily->approved_by = 1;
             $employeeFamily->approved_at = now();
             $employeeFamily->save();
 
@@ -121,7 +113,7 @@ class EmployeeFamiliesController extends Controller
         try {
 
             $employeeFamily = EmployeeFamily::findOrFail($id);
-            $employeeFamily->status = '2';
+            $employeeFamily->status = 2;
             $employeeFamily->note = '1';
             $employeeFamily->save();
 
@@ -153,10 +145,8 @@ class EmployeeFamiliesController extends Controller
         $employees = Employee::pluck('title', 'id')->all();
         $sexes = Sex::pluck('name', 'id')->all();
         $relationships = Relationship::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.family.edit', compact('employeeFamily', 'employees', 'sexes', 'relationships', 'creators', 'approvedBies'));
+        return view('employees.family.edit', compact('employeeFamily', 'employees', 'sexes', 'relationships'));
     }
 
     /**

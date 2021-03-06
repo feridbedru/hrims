@@ -34,12 +34,12 @@
                         @foreach ($employeeLanguages as $employeeLanguage)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeLanguage->en_name }}</td>
-                                <td>{{ $employeeLanguage->language }}</td>
-                                <td>{{ $employeeLanguage->level }}</td>
-                                <td>{{ $employeeLanguage->level }}</td>
-                                <td>{{ $employeeLanguage->level }}</td>
+                                <td>{{ $employeeLanguage->employees->en_name }}</td>
+                                <td>{{ $employeeLanguage->languages->name }}</td>
+                                <td>{{ $employeeLanguage->reading }}</td>
                                 <td>{{ $employeeLanguage->writing }}</td>
+                                <td>{{ $employeeLanguage->listening }}</td>
+                                <td>{{ $employeeLanguage->speaking }}</td>
                                 <td>{{ $employeeLanguage->is_prefered ? 'Yes' : 'No' }}</td>
 
                                 <td>
@@ -47,10 +47,6 @@
                                         <input name="_method" value="DELETE" type="hidden">
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_languages.employee_language.show', $employeeLanguage->id) }}"
-                                                class="btn btn-primary" title="Show Language">
-                                                <span class="fa fa-eye" aria-hidden="true"></span>
-                                            </a>
                                             <a href="{{ route('employee_languages.employee_language.edit', $employeeLanguage->id) }}"
                                                 class="btn btn-warning" title="Edit Language">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>

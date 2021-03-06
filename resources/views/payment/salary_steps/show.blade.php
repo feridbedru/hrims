@@ -40,7 +40,7 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>Salary Scale</dt>
-            <dd>{{ optional($salaryStep->salaryScale)->name }}</dd>
+            <dd>{{ $salaryStep->salaryScales->name }}</dd>
             <dt>Step</dt>
             <dd>{{ $salaryStep->step }}</dd>
 

@@ -63,9 +63,9 @@ class EmployeeCertification extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -73,9 +73,9 @@ class EmployeeCertification extends Model
      *
      * @return App\Models\SkillCategory
      */
-    public function skillCategory()
+    public function categories()
     {
-        return $this->belongsTo('App\Models\SkillCategory','skill_category_id');
+        return $this->belongsTo(SkillCategory::class,'category');
     }
 
     /**
@@ -83,51 +83,9 @@ class EmployeeCertification extends Model
      *
      * @return App\Models\CertificationVendor
      */
-    public function certificationVendor()
+    public function vendors()
     {
-        return $this->belongsTo('App\Models\CertificationVendor','certification_vendor_id');
-    }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-    /**
-     * Get the approvedBy for this model.
-     *
-     * @return App\Models\User
-     */
-    public function approvedBy()
-    {
-        return $this->belongsTo('App\Models\User','approved_by');
-    }
-
-    /**
-     * Set the approved_at.
-     *
-     * @param  string  $value
-     * @return void
-     */
-    public function setApprovedAtAttribute($value)
-    {
-        $this->attributes['approved_at'] = !empty($value) ? \DateTime::createFromFormat('[% date_format %]', $value) : null;
-    }
-
-    /**
-     * Get approved_at in array format
-     *
-     * @param  string  $value
-     * @return array
-     */
-    public function getApprovedAtAttribute($value)
-    {
-        return \DateTime::createFromFormat($this->getDateFormat(), $value)->format('j/n/Y g:i A');
+        return $this->belongsTo(CertificationVendor::class,'vendor');
     }
 
 }

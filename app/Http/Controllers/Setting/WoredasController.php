@@ -21,10 +21,7 @@ class WoredasController extends Controller
      */
     public function index()
     {
-        $woredas = DB::table('woredas')
-            ->join('zones', 'woredas.zone', '=', 'zones.id')
-            ->select('woredas.*', 'zones.name as zone')
-            ->paginate(25);
+        $woredas = Woreda::with('zones')->paginate(25);
 
         return view('settings.woredas.index', compact('woredas'));
     }

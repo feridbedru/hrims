@@ -40,7 +40,7 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>Employee Disaster</dt>
-            <dd>{{ optional($employeeDisasterIndeminity->employeeDisaster)->approved_at }}</dd>
+            <dd>{{ $employeeDisasterIndeminity->disasters->occured_on }}</dd>
             <dt>Title</dt>
             <dd>{{ $employeeDisasterIndeminity->title }}</dd>
             <dt>Description</dt>
@@ -49,8 +49,6 @@
             <dd>{{ $employeeDisasterIndeminity->cost }}</dd>
             <dt>File</dt>
             <dd>{{ asset('storage/' . $employeeDisasterIndeminity->file) }}</dd>
-            <dt>Created By</dt>
-            <dd>{{ optional($employeeDisasterIndeminity->creator)->name }}</dd>
 
         </dl>
 

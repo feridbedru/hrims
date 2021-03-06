@@ -42,97 +42,97 @@
 </div>
 
 <div class="row">
-    <div class="form-group col-md-4 {{ $errors->has('parent_id') ? 'has-error' : '' }}">
-        <label for="parent_id" class="col-md-4 control-label">Parent</label>
+    <div class="form-group col-md-4 {{ $errors->has('parent') ? 'has-error' : '' }}">
+        <label for="parent" class="col-md-4 control-label">Parent</label>
         <div class="col-md-12">
-            <select class="form-control" id="parent_id" name="parent_id">
+            <select class="form-control" id="parent" name="parent">
                 <option value="" style="display: none;"
-                    {{ old('parent_id', optional($organizationUnit)->parent_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('parent', optional($organizationUnit)->parent ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select organization unit</option>
                 @foreach ($organizationUnits as $key => $organizationUnit)
                     <option value="{{ $key }}"
-                        {{ old('parent_id', optional($organizationUnit)->parent_id) == $key ? 'selected' : '' }}>
+                        {{ old('parent', optional($organizationUnit)->parent) == $key ? 'selected' : '' }}>
                         {{ $organizationUnit }}
                     </option>
                 @endforeach
             </select>
 
-            {!! $errors->first('parent_id', '<p class="help-block">:message</p>') !!}
+            {!! $errors->first('parent', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
-    <div class="form-group col-md-4 {{ $errors->has('job_category_id') ? 'has-error' : '' }}">
-        <label for="job_category_id" class="col-md-4 control-label">Job Category</label>
+    <div class="form-group col-md-4 {{ $errors->has('job_category') ? 'has-error' : '' }}">
+        <label for="job_category" class="col-md-4 control-label">Job Category</label>
         <div class="col-md-12">
-            <select class="form-control" id="job_category_id" name="job_category_id">
+            <select class="form-control" id="job_category" name="job_category">
                 <option value="" style="display: none;"
-                    {{ old('job_category_id', optional($organizationUnit)->job_category_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('job_category', optional($organizationUnit)->job_category ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select job category</option>
                 @foreach ($jobCategories as $key => $jobCategory)
                     <option value="{{ $key }}"
-                        {{ old('job_category_id', optional($organizationUnit)->job_category_id) == $key ? 'selected' : '' }}>
+                        {{ old('job_category', optional($organizationUnit)->job_category) == $key ? 'selected' : '' }}>
                         {{ $jobCategory }}
                     </option>
                 @endforeach
             </select>
 
-            {!! $errors->first('job_category_id', '<p class="help-block">:message</p>') !!}
+            {!! $errors->first('job_category', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group col-md-4 {{ $errors->has('organization_location_id') ? 'has-error' : '' }}">
-        <label for="organization_location_id" class="col-md-4 control-label">Location</label>
+    <div class="form-group col-md-4 {{ $errors->has('location') ? 'has-error' : '' }}">
+        <label for="location" class="col-md-4 control-label">Location</label>
         <div class="col-md-12">
-            <select class="form-control" id="organization_location_id" name="organization_location_id">
+            <select class="form-control" id="location" name="location">
                 <option value="" style="display: none;"
-                    {{ old('organization_location_id', optional($organizationUnit)->organization_location_id ?: '') == '' ? 'selected' : 'selected' }}
+                    {{ old('location', optional($organizationUnit)->location ?: '') == '' ? 'selected' : 'selected' }}
                     disabled selected>Select organization location</option>
                 @foreach ($organizationLocations as $key => $organizationLocation)
                     <option value="{{ $key }}"
-                        {{ old('organization_location_id', optional($organizationUnit)->organization_location_id) == $key ? 'selected' : '' }}>
+                        {{ old('location', optional($organizationUnit)->location) == $key ? 'selected' : '' }}>
                         {{ $organizationLocation }}
                     </option>
                 @endforeach
             </select>
-            {!! $errors->first('organization_location_id', '<p class="help-block">:message</p>') !!}
+            {!! $errors->first('location', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="form-group col-md-4 {{ $errors->has('reports_to_id') ? 'has-error' : '' }}">
+    <div class="form-group col-md-4 {{ $errors->has('reports_to') ? 'has-error' : '' }}">
         <label for="reports_id" class="col-md-4 control-label">Reports To</label>
         <div class="col-md-12">
-            <select class="form-control" id="reports_to_id" name="reports_to_id">
+            <select class="form-control" id="reports_to" name="reports_to">
                 <option value="" style="display: none;"
-                    {{ old('reports_to_id', optional($organizationUnit)->reports_to_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('reports_to', optional($organizationUnit)->reports_to ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select organization unit</option>
                 @foreach ($organizationUnits as $key => $organizationUnit)
                     <option value="{{ $key }}"
-                        {{ old('reports_to_id', optional($organizationUnit)->reports_to_id) == $key ? 'selected' : '' }}>
+                        {{ old('reports_to', optional($organizationUnit)->reports_to) == $key ? 'selected' : '' }}>
                         {{ $organizationUnit }}
                     </option>
                 @endforeach
             </select>
 
-            {!! $errors->first('reports_to_id', '<p class="help-block">:message</p>') !!}
+            {!! $errors->first('reports_to', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
-    <div class="form-group col-md-4 {{ $errors->has('chairman_id') ? 'has-error' : '' }}">
-        <label for="chairman_id" class="col-md-4 control-label">Chairman</label>
+    <div class="form-group col-md-4 {{ $errors->has('chairman') ? 'has-error' : '' }}">
+        <label for="chairman" class="col-md-4 control-label">Chairman</label>
         <div class="col-md-12">
-            <select class="form-control" id="chairman_id" name="chairman_id">
+            <select class="form-control" id="chairman" name="chairman">
                 <option value="" style="display: none;"
-                    {{ old('chairman_id', optional($organizationUnit)->chairman_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('chairman', optional($organizationUnit)->chairman ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select Chairman</option>
                 @foreach ($chairmans as $key => $chairman)
                     <option value="{{ $key }}"
-                        {{ old('chairman_id', optional($chairman)->chairman_id) == $key ? 'selected' : '' }}>
+                        {{ old('chairman', optional($chairman)->chairman) == $key ? 'selected' : '' }}>
                         {{ $chairman }}
                     </option>
                 @endforeach
             </select>
 
-            {!! $errors->first('reports_to_id', '<p class="help-block">:message</p>') !!}
+            {!! $errors->first('reports_to', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
     <div class="form-group col-md-2 {{ $errors->has('is_root_unit') ? 'has-error' : '' }}">

@@ -40,9 +40,9 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>Salary Height</dt>
-            <dd>{{ optional($salary->salaryHeight)->created_at }}</dd>
+            <dd>{{ $salary->salaryHeights->level }}</dd>
             <dt>Salary Step</dt>
-            <dd>{{ optional($salary->salaryStep)->created_at }}</dd>
+            <dd>{{ $salary->salarySteps->step }}</dd>
             <dt>Amount</dt>
             <dd>{{ $salary->amount }}</dd>
 

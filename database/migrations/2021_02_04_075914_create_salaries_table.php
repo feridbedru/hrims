@@ -14,10 +14,10 @@ class CreateSalariesTable extends Migration
     {
         Schema::create('salaries', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('salary_step')->unsigned()->index();
-            $table->integer('salary_height')->unsigned()->index();
-            $table->string('amount');
+            $table->bigIncrements('id');
+            $table->foreignId('salary_step')->constrained('salary_steps')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('salary_height')->constrained('salary_heights')->onUpdate('cascade')->onDelete('cascade');
+            $table->float('amount',8,2);
             $table->timestamps();
 
         });

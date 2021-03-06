@@ -14,21 +14,21 @@ class CreateEmployeeCertificationsTable extends Migration
     {
         Schema::create('employee_certifications', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name', 255);
-            $table->string('issued_on');
+            $table->date('issued_on');
             $table->string('certification_number')->nullable();
-            $table->integer('category')->unsigned()->index();
+            $table->foreignId('category')->constrained('skill_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->string('verification_link')->nullable();
-            $table->integer('vendor')->unsigned()->nullable()->index();
+            $table->foreignId('vendor')->nullable()->constrained('certification_vendors')->onUpdate('cascade')->onDelete('cascade');
             $table->string('attachment')->nullable();
-            $table->string('expires_on')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->date('expires_on')->nullable();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

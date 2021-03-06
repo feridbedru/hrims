@@ -51,9 +51,9 @@ class Woreda extends Model
      *
      * @return App\Models\Zone
      */
-    public function zone()
+    public function zones()
     {
-        return $this->belongsTo('App\Models\Zone','zone_id');
+        return $this->belongsTo(Zone::class,'zone');
     }
 
 

@@ -57,9 +57,9 @@ class EmployeeLanguage extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -67,9 +67,9 @@ class EmployeeLanguage extends Model
      *
      * @return App\Models\Language
      */
-    public function language()
+    public function languages()
     {
-        return $this->belongsTo('App\Models\Language','language_id');
+        return $this->belongsTo(Language::class,'language');
     }
 
     /**
@@ -77,21 +77,8 @@ class EmployeeLanguage extends Model
      *
      * @return App\Models\LanguageLevel
      */
-    public function languageLevel()
+    public function languageLevels()
     {
-        return $this->belongsTo('App\Models\LanguageLevel','language_level_id');
+        return $this->belongsTo(LanguageLevel::class,'language_level');
     }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-
-
 }

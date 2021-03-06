@@ -46,12 +46,12 @@
                     @if (isset($help->parent))
                         <div class="col-md-2">
                             <dt>Parent</dt>
-                            <dd>{{ optional($help->help)->id }}</dd>
+                            <dd>{{ optional($help->helpes)->id }}</dd>
                         </div>
                     @endif
                     <div class="col-md-2">
                         <dt>Language</dt>
-                        <dd>{{ optional($help->language)->name }}</dd>
+                        <dd>{{ optional($help->languagers)->name }}</dd>
                     </div>
                 </div>
                 <hr>

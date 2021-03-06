@@ -16,16 +16,16 @@
 </div>
 
 <div class="row">
-    <div class="form-group col-md-4 {{ $errors->has('Type') ? 'has-error' : '' }}">
-        <label for="Type" class="col-md-4 control-label">Type</label>
+    <div class="form-group col-md-4 {{ $errors->has('type') ? 'has-error' : '' }}">
+        <label for="type" class="col-md-4 control-label">Type</label>
         <div class="col-md-12">
-            <select class="form-control" id="Type" name="Type" required="true">
+            <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
-                    {{ old('Type', optional($employeeStudyTraining)->Type ?: '') == '' ? 'selected' : '' }} disabled
+                    {{ old('type', optional($employeeStudyTraining)->type ?: '') == '' ? 'selected' : '' }} disabled
                     selected>Select Type</option>
                 @foreach ($commitmentFors as $key => $commitmentFor)
                     <option value="{{ $key }}"
-                        {{ old('Type', optional($employeeStudyTraining)->Type) == $key ? 'selected' : '' }}>
+                        {{ old('type', optional($employeeStudyTraining)->type) == $key ? 'selected' : '' }}>
                         {{ $commitmentFor }}
                     </option>
                 @endforeach

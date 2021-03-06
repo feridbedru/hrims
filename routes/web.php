@@ -659,7 +659,6 @@ Route::group([
 ], function () {
     Route::get('/', [EmployeeLanguagesController::class, 'index'])->name('employee_languages.employee_language.index');
     Route::get('/create',[EmployeeLanguagesController::class, 'create'])->name('employee_languages.employee_language.create');
-    Route::get('/show/{employeeLanguage}',[EmployeeLanguagesController::class, 'show'])->name('employee_languages.employee_language.show')->whereNumber('id');
     Route::get('/{employeeLanguage}/edit',[EmployeeLanguagesController::class, 'edit'])->name('employee_languages.employee_language.edit')->whereNumber('id');
     Route::post('/', [EmployeeLanguagesController::class, 'store'])->name('employee_languages.employee_language.store');
     Route::put('employee_language/{employeeLanguage}', [EmployeeLanguagesController::class, 'update'])->name('employee_languages.employee_language.update')->whereNumber('id');
@@ -768,7 +767,6 @@ Route::group([
 ], function () {
     Route::get('/', [EmployeeFilesController::class, 'index'])->name('employee_files.employee_file.index');
     Route::get('/create',[EmployeeFilesController::class, 'create'])->name('employee_files.employee_file.create');
-    Route::get('/show/{employeeFile}',[EmployeeFilesController::class, 'show'])->name('employee_files.employee_file.show')->whereNumber('id');
     Route::get('/{employeeFile}/edit',[EmployeeFilesController::class, 'edit'])->name('employee_files.employee_file.edit')->whereNumber('id');
     Route::post('/', [EmployeeFilesController::class, 'store'])->name('employee_files.employee_file.store');
     Route::put('employee_file/{employeeFile}', [EmployeeFilesController::class, 'update'])->name('employee_files.employee_file.update')->whereNumber('id');

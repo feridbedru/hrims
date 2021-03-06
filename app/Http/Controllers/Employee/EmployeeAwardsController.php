@@ -11,7 +11,6 @@ use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeAwardsController extends Controller
@@ -24,11 +23,7 @@ class EmployeeAwardsController extends Controller
      */
     public function index()
     {
-        $employeeAwards = DB::table('employee_awards')
-            ->join('employees', 'employee_awards.employee', '=', 'employees.id')
-            ->join('award_types', 'employee_awards.type', '=', 'award_types.id')
-            ->select('employee_awards.*', 'employees.en_name', 'award_types.name as type')
-            ->paginate(25);
+        $employeeAwards = EmployeeAward::with('types','employees')->paginate(25);
 
         return view('employees.award.index', compact('employeeAwards'));
     }
@@ -87,7 +82,7 @@ class EmployeeAwardsController extends Controller
      */
     public function show($id)
     {
-        $employeeAward = EmployeeAward::with('employee', 'awardtype', 'creator', 'approvedby')->findOrFail($id);
+        $employeeAward = EmployeeAward::with('employees', 'types')->findOrFail($id);
 
         return view('employees.award.show', compact('employeeAward'));
     }

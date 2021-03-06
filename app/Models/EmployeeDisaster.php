@@ -61,9 +61,9 @@ class EmployeeDisaster extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -71,9 +71,9 @@ class EmployeeDisaster extends Model
      *
      * @return App\Models\DisasterCause
      */
-    public function disasterCause()
+    public function causes()
     {
-        return $this->belongsTo('App\Models\DisasterCause','disaster_cause_id');
+        return $this->belongsTo(DisasterCause::class,'cause');
     }
 
     /**
@@ -81,28 +81,9 @@ class EmployeeDisaster extends Model
      *
      * @return App\Models\DisasterSeverity
      */
-    public function disasterSeverity()
+    public function severities()
     {
-        return $this->belongsTo('App\Models\DisasterSeverity','disaster_severity_id');
+        return $this->belongsTo(DisasterSeverity::class,'severity');
     }
 
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-    /**
-     * Get the approvedBy for this model.
-     *
-     * @return App\Models\User
-     */
-    public function approvedBy()
-    {
-        return $this->belongsTo('App\Models\User','approved_by');
-    }
 }

@@ -33,9 +33,9 @@
                         @foreach ($employeeLicenses as $employeeLicense)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeLicense->en_name }}</td>
+                                <td>{{ $employeeLicense->employees->en_name }}</td>
                                 <td>{{ $employeeLicense->title }}</td>
-                                <td>{{ $employeeLicense->type }}</td>
+                                <td>{{ $employeeLicense->types->name }}</td>
                                 <td>{{ $employeeLicense->issuing_organization }}</td>
                                 <td>{{ $employeeLicense->expiry_date }}</td>
                                 <td>{{ $employeeLicense->file }}</td>

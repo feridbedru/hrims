@@ -14,15 +14,15 @@ class CreateEmployeeLanguagesTable extends Migration
     {
         Schema::create('employee_languages', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
-            $table->integer('language')->unsigned()->index();
-            $table->integer('reading')->unsigned()->index();
-            $table->integer('writing')->unsigned()->index();
-            $table->integer('listening')->unsigned()->index();
-            $table->integer('speaking')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreignId('language')->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('reading')->constrained('language_levels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('writing')->constrained('language_levels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('listening')->constrained('language_levels')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('speaking')->constrained('language_levels')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('is_prefered')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

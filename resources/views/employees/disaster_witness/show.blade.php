@@ -40,15 +40,13 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>Employee Disaster</dt>
-            <dd>{{ optional($employeeDisasterWitness->employeeDisaster)->approved_at }}</dd>
+            <dd>{{ $employeeDisasterWitness->disasters->occured_on }}</dd>
             <dt>Name</dt>
             <dd>{{ $employeeDisasterWitness->name }}</dd>
             <dt>Phone</dt>
             <dd>{{ $employeeDisasterWitness->phone }}</dd>
             <dt>File</dt>
             <dd>{{ asset('storage/' . $employeeDisasterWitness->file) }}</dd>
-            <dt>Created By</dt>
-            <dd>{{ optional($employeeDisasterWitness->creator)->name }}</dd>
 
         </dl>
 

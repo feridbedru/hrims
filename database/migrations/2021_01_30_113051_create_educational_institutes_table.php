@@ -14,7 +14,7 @@ class CreateEducationalInstitutesTable extends Migration
     {
         Schema::create('educational_institutes', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 255);
             $table->string('abbreviation')->nullable();
             $table->timestamps();

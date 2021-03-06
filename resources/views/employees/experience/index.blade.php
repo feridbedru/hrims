@@ -32,8 +32,8 @@
                         @foreach ($employeeExperiences as $employeeExperience)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($employeeExperience->employee)->en_name }}</td>
-                                <td>{{ optional($employeeExperience->experienceType)->name }}</td>
+                                <td>{{ $employeeExperience->employees->en_name }}</td>
+                                <td>{{ $employeeExperience->types->name }}</td>
                                 <td>{{ $employeeExperience->organization_name }}</td>
                                 <td>{{ $employeeExperience->job_position }}</td>
                                 <td>{{ $employeeExperience->salary }}</td>

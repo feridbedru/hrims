@@ -14,12 +14,12 @@ class CreateEmployeeFilesTable extends Migration
     {
         Schema::create('employee_files', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title', 255);
-            $table->string('description', 1000)->nullable();
-            $table->string('attachment')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->text('description')->nullable();
+            $table->string('attachment');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

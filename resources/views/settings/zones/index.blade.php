@@ -82,7 +82,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $zone->name }}</td>
-                                <td>{{ $zone->region }}</td>
+                                <td>{{ $zone->regions->name }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('zones.zone.edit', $zone->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Zone">

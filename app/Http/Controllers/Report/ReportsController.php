@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\Report;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,7 @@ class ReportsController extends Controller
      */
     public function index()
     {
-        $reports = Report::with('creator')->paginate(25);
+        $reports = Report::paginate(25);
 
         return view('reports.index', compact('reports'));
     }
@@ -34,9 +33,7 @@ class ReportsController extends Controller
      */
     public function create()
     {
-        $creators = User::pluck('name', 'id')->all();
-
-        return view('reports.create', compact('creators'));
+        return view('reports.create');
     }
 
     /**
@@ -78,7 +75,7 @@ class ReportsController extends Controller
      */
     public function show($id)
     {
-        $report = Report::with('creator')->findOrFail($id);
+        $report = Report::findOrFail($id);
         // dd($report['query']);
         $query = $report['query'];
         $result = DB::select(DB::raw("$query"));
@@ -99,9 +96,8 @@ class ReportsController extends Controller
     public function edit($id)
     {
         $report = Report::findOrFail($id);
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('reports.edit', compact('report', 'creators'));
+        return view('reports.edit', compact('report'));
     }
 
     /**

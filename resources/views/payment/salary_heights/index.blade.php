@@ -35,7 +35,7 @@
                     @foreach($salaryHeights as $salaryHeight)
                         <tr>
                                 <td>{{ $loop->iteration }}</td>
-                            <td>{{ optional($salaryHeight->salaryScale)->name }}</td>
+                            <td>{{ $salaryHeight->salaryScales->name }}</td>
                             <td>{{ $salaryHeight->level }}</td>
                             <td>{{ $salaryHeight->initial_salary }}</td>
                             <td>{{ $salaryHeight->maximum_salary }}</td>

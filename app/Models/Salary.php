@@ -52,9 +52,9 @@ class Salary extends Model
      *
      * @return App\Models\SalaryHeight
      */
-    public function salaryHeight()
+    public function salaryHeights()
     {
-        return $this->belongsTo('App\Models\SalaryHeight','salary_height_id');
+        return $this->belongsTo(SalaryHeight::class,'salary_height');
     }
 
     /**
@@ -62,9 +62,9 @@ class Salary extends Model
      *
      * @return App\Models\SalaryStep
      */
-    public function salaryStep()
+    public function salarySteps()
     {
-        return $this->belongsTo('App\Models\SalaryStep','salary_step_id');
+        return $this->belongsTo(SalaryStep::class,'salary_step');
     }
 
 

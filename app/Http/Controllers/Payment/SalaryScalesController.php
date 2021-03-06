@@ -20,7 +20,7 @@ class SalaryScalesController extends Controller
      */
     public function index()
     {
-        $salaryScales = SalaryScale::with('jobcategory')->paginate(25);
+        $salaryScales = SalaryScale::with('jobCategories')->paginate(25);
 
         return view('payment.salary_scales.index', compact('salaryScales'));
     }
@@ -76,7 +76,7 @@ class SalaryScalesController extends Controller
      */
     public function show($id)
     {
-        $salaryScale = SalaryScale::with('jobcategory')->findOrFail($id);
+        $salaryScale = SalaryScale::with('jobCategories')->findOrFail($id);
 
         return view('payment.salary_scales.show', compact('salaryScale'));
     }
@@ -168,8 +168,8 @@ class SalaryScalesController extends Controller
             'name' => 'required|string|min:1|max:255',
             'description' => 'required|string|min:1|max:255',
             'job_category' => 'required',
-            'stair_height' => 'required|string|min:1',
-            'salary_steps' => 'required|string|min:1',
+            'stair_height' => 'required|numeric|min:1',
+            'salary_steps' => 'required|numeric|min:1',
             'is_enabled' => 'boolean|nullable',
         ];
 

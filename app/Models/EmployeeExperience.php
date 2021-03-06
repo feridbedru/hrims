@@ -65,9 +65,9 @@ class EmployeeExperience extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -75,9 +75,9 @@ class EmployeeExperience extends Model
      *
      * @return App\Models\ExperienceType
      */
-    public function experienceType()
+    public function types()
     {
-        return $this->belongsTo('App\Models\ExperienceType','experience_type_id');
+        return $this->belongsTo(ExperienceType::class,'type');
     }
 
     /**
@@ -85,29 +85,8 @@ class EmployeeExperience extends Model
      *
      * @return App\Models\LeftReason
      */
-    public function leftReason()
+    public function leftReasons()
     {
-        return $this->belongsTo('App\Models\LeftReason','left_reason_id');
+        return $this->belongsTo(LeftReason::class,'left_reason');
     }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-    /**
-     * Get the approvedBy for this model.
-     *
-     * @return App\Models\ApprovedBy
-     */
-    public function approvedBy()
-    {
-        return $this->belongsTo('App\Models\User','approved_by');
-    }
-
 }

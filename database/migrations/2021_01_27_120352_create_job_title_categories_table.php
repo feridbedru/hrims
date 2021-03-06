@@ -14,10 +14,10 @@ class CreateJobTitleCategoriesTable extends Migration
     {
         Schema::create('job_title_categories', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 255);
             $table->text('description')->nullable();
-            $table->integer('parent')->unsigned()->index();
+            $table->foreignId('parent')->constrained('job_title_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

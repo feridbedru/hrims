@@ -25,7 +25,6 @@
                             <th>#</th>
                             <th>Salary Scale</th>
                             <th>Step</th>
-
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -33,7 +32,7 @@
                     @foreach($salarySteps as $salaryStep)
                         <tr>
                                 <td>{{ $loop->iteration }}</td>
-                            <td>{{ optional($salaryStep->salaryScale)->name }}</td>
+                            <td>{{ $salaryStep->salaryScales->name }}</td>
                             <td>{{ $salaryStep->step }}</td>
 
                             <td>

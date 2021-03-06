@@ -14,18 +14,18 @@ class CreateEmployeeLicensesTable extends Migration
     {
         Schema::create('employee_licenses', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title', 255);
-            $table->integer('type')->unsigned()->index();
+            $table->foreignId('type')->constrained('license_types')->onUpdate('cascade')->onDelete('cascade');
             $table->string('issuing_organization');
             $table->date('expiry_date')->nullable();
             $table->string('file')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

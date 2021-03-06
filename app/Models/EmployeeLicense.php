@@ -60,9 +60,9 @@ class EmployeeLicense extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -70,29 +70,9 @@ class EmployeeLicense extends Model
      *
      * @return App\Models\LicenseType
      */
-    public function licenseType()
+    public function types()
     {
-        return $this->belongsTo('App\Models\LicenseType','license_type_id');
-    }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-    /**
-     * Get the approvedBy for this model.
-     *
-     * @return App\Models\ApprovedBy
-     */
-    public function approvedBy()
-    {
-        return $this->belongsTo('App\Models\User','approved_by');
+        return $this->belongsTo(LicenseType::class,'type');
     }
 
 }

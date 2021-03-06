@@ -33,12 +33,11 @@
                     <tbody>
                         @foreach ($employeeEmergencies as $employeeEmergency)
                             <tr>
-                                {{-- {{ dd($employeeEmergency)}} --}}
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeEmergency->en_name }}</td>
+                                <td>{{ $employeeEmergency->employees->en_name }}</td>
                                 <td>{{ $employeeEmergency->name }}</td>
                                 <td>{{ $employeeEmergency->phone_number }}</td>
-                                <td>{{ $employeeEmergency->relation }}</td>
+                                <td>{{ $employeeEmergency->relationships->name }}</td>
                                 <td>{{ $employeeEmergency->address }}</td>
                                 <td>{{ $employeeEmergency->house_number }}</td>
                                 <td>{{ $employeeEmergency->other_phone }}</td>

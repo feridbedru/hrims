@@ -23,8 +23,8 @@
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Job Title</th>
                             <th>Organization Unit</th>
-                            <th>Job Title Category</th>
                             <th>Position Code</th>
                             <th>Position ID</th>
                             <th>Salary</th>
@@ -36,11 +36,11 @@
                     @foreach($jobPositions as $jobPosition)
                         <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($jobPosition->organizationUnit)->en_name }}</td>
-                                <td>{{ optional($jobPosition->jobTitleCategory)->name }}</td>
+                                <td>{{ $jobPosition->jobTitleCategories->name }}</td>
+                                <td>{{ $jobPosition->organizationUnits->en_name }}</td>
                                 <td>{{ $jobPosition->position_code }}</td>
                                 <td>{{ $jobPosition->position_id }}</td>
-                                <td>{{ optional($jobPosition->salary)->created_at }}</td>
+                                <td>{{ $jobPosition->salarys->amount }}</td>
                                 <td>{{ ($jobPosition->status) ? 'Yes' : 'No' }}</td>
 
                             <td>

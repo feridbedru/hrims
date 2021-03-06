@@ -58,9 +58,9 @@ class JobPosition extends Model
      *
      * @return App\Models\OrganizationUnit
      */
-    public function organizationUnit()
+    public function organizationUnits()
     {
-        return $this->belongsTo('App\Models\OrganizationUnit','organization_unit_id');
+        return $this->belongsTo(OrganizationUnit::class,'organization_unit');
     }
 
     /**
@@ -68,9 +68,9 @@ class JobPosition extends Model
      *
      * @return App\Models\JobTitleCategory
      */
-    public function jobTitleCategory()
+    public function jobTitleCategories()
     {
-        return $this->belongsTo('App\Models\JobTitleCategory','job_title_category_id');
+        return $this->belongsTo(JobTitleCategory::class,'job_title_category');
     }
 
     /**
@@ -78,9 +78,9 @@ class JobPosition extends Model
      *
      * @return App\Models\JobCategory
      */
-    public function jobCategory()
+    public function jobCategorys()
     {
-        return $this->belongsTo('App\Models\JobCategory','job_category_id');
+        return $this->belongsTo(JobCategory::class,'job_category');
     }
 
     /**
@@ -88,9 +88,9 @@ class JobPosition extends Model
      *
      * @return App\Models\JobType
      */
-    public function jobType()
+    public function jobTypes()
     {
-        return $this->belongsTo('App\Models\JobType','job_type_id');
+        return $this->belongsTo(JobType::class,'job_type');
     }
 
     /**
@@ -98,9 +98,9 @@ class JobPosition extends Model
      *
      * @return App\Models\Salary
      */
-    public function salary()
+    public function salarys()
     {
-        return $this->belongsTo('App\Models\Salary','salary_id');
+        return $this->belongsTo(Salary::class,'salary');
     }
 
 

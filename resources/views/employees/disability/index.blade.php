@@ -31,8 +31,8 @@
                         @foreach ($employeeDisabilities as $employeeDisability)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeDisability['employee'] }}</td>
-                                <td>{{ optional($employeeDisability->disabilityType)->name }}</td>
+                                <td>{{ $employeeDisability->employees->en_name }}</td>
+                                <td>{{ $employeeDisability->types->name }}</td>
                                 <td>{{ $employeeDisability->description }}</td>
                                 <td>{{ $employeeDisability->file }}</td>
                                 <td>

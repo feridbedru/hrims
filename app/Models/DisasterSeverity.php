@@ -47,6 +47,4 @@ class DisasterSeverity extends Model
     protected $casts = [];
     
 
-
-
 }

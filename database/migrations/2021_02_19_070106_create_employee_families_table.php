@@ -14,19 +14,19 @@ class CreateEmployeeFamiliesTable extends Migration
     {
         Schema::create('employee_families', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name', 255);
-            $table->integer('sex')->unsigned()->index();
-            $table->integer('relationship')->unsigned()->index();
+            $table->foreignId('sex')->constrained('sexes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('relationship')->constrained('relationships')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date_of_birth');
             $table->string('photo')->nullable();
             $table->string('file')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

@@ -47,6 +47,4 @@ class DisabilityType extends Model
     protected $casts = [];
     
 
-
-
 }

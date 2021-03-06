@@ -44,7 +44,7 @@
             <dt>Description</dt>
             <dd>{{ $salaryScale->description }}</dd>
             <dt>Job Category</dt>
-            <dd>{{ optional($salaryScale->jobCategory)->name }}</dd>
+            <dd>{{ $salaryScale->jobCategories->name }}</dd>
             <dt>Stair Height</dt>
             <dd>{{ $salaryScale->stair_height }}</dd>
             <dt>Salary Steps</dt>

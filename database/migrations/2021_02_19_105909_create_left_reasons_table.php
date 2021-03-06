@@ -14,9 +14,9 @@ class CreateLeftReasonsTable extends Migration
     {
         Schema::create('left_reasons', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->string('name', 255)->nullable();
-            $table->string('description', 1000)->nullable();
+            $table->bigIncrements('id');
+            $table->string('name', 255);
+            $table->text('description')->nullable();
             $table->timestamps();
 
         });

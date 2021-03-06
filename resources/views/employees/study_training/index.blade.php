@@ -32,11 +32,11 @@
                         @foreach ($employeeStudyTrainings as $employeeStudyTraining)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeStudyTraining->en_name }}</td>
-                                <td>{{ $employeeStudyTraining->type }}</td>
-                                <td>{{ $employeeStudyTraining->institution }}</td>
-                                <td>{{ $employeeStudyTraining->level }}</td>
-                                <td>{{ $employeeStudyTraining->field }}</td>
+                                <td>{{ $employeeStudyTraining->employees->en_name }}</td>
+                                <td>{{ $employeeStudyTraining->types->name }}</td>
+                                <td>{{ $employeeStudyTraining->institutions->name }}</td>
+                                <td>{{ $employeeStudyTraining->levels->name }}</td>
+                                <td>{{ $employeeStudyTraining->fields->name }}</td>
                                 <td>{{ $employeeStudyTraining->has_commitment ? 'Yes' : 'No' }}</td>
 
                                 <td>

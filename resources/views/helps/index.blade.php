@@ -81,7 +81,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $help->title }}</td>
                                 <td>{{ $help->topic_for }}</td>
-                                <td>{{ optional($help->language)->name }}</td>
+                                <td>{{ optional($help->languagers)->name }}</td>
 
                                 <td>
                                     <form method="POST" action="{!!  route('helps.help.destroy', $help->id) !!}"

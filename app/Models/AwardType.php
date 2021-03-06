@@ -47,6 +47,4 @@ class AwardType extends Model
     protected $casts = [];
     
 
-
-
 }

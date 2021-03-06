@@ -32,10 +32,10 @@
                         @foreach ($employeeDisasters as $employeeDisaster)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeDisaster->en_name }}</td>
+                                <td>{{ $employeeDisaster->employees->en_name }}</td>
                                 <td>{{ $employeeDisaster->occured_on }}</td>
-                                <td>{{ $employeeDisaster->cause }}</td>
-                                <td>{{ $employeeDisaster->severity }}</td>
+                                <td>{{ $employeeDisaster->causes->name }}</td>
+                                <td>{{ $employeeDisaster->severities->name }}</td>
                                 <td>{{ $employeeDisaster->description }}</td>
                                 <td>{{ $employeeDisaster->status }}</td>
 

@@ -22,7 +22,7 @@ class OrganizationUnitsController extends Controller
      */
     public function index()
     {
-        $organizationUnits = OrganizationUnit::with('organizationunit', 'jobcategory', 'organizationlocation')->paginate(25);
+        $organizationUnits = OrganizationUnit::with('chairman', 'jobCategorys', 'locations')->paginate(25);
         $jobCategories = JobCategory::pluck('name', 'id')->all();
         $organizationLocations = OrganizationLocation::pluck('name', 'id')->all();
 
@@ -111,7 +111,7 @@ class OrganizationUnitsController extends Controller
      */
     public function show($id)
     {
-        $organizationUnit = OrganizationUnit::with('organizationunit', 'jobcategory', 'organizationlocation')->findOrFail($id);
+        $organizationUnit = OrganizationUnit::with('chairman', 'jobCategorys', 'locations', 'parents', 'reportsTo')->findOrFail($id);
 
         return view('structure.organization_units.show', compact('organizationUnit'));
     }
@@ -207,10 +207,10 @@ class OrganizationUnitsController extends Controller
             'en_acronym' => 'string|min:1|nullable',
             'am_name' => 'string|min:1|nullable',
             'am_acronym' => 'string|min:1|nullable',
-            'parent_id' => 'nullable',
-            'reports_to_id' => 'nullable',
-            'job_category_id' => 'nullable',
-            'organization_location_id' => 'nullable',
+            'parent' => 'nullable',
+            'reports_to' => 'nullable',
+            'job_category' => 'required',
+            'location' => 'required',
             'is_root_unit' => 'boolean|nullable',
             'is_category' => 'boolean|nullable',
             'phone_number' => 'numeric|nullable',

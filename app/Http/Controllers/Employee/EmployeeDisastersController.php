@@ -12,7 +12,6 @@ use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeDisastersController extends Controller
@@ -25,12 +24,7 @@ class EmployeeDisastersController extends Controller
      */
     public function index()
     {
-        $employeeDisasters = DB::table('employee_disasters')
-            ->join('employees', 'employee_disasters.employee', '=', 'employees.id')
-            ->join('disaster_causes', 'employee_disasters.cause', '=', 'disaster_causes.id')
-            ->join('disaster_severities', 'employee_disasters.severity', '=', 'disaster_severities.id')
-            ->select('employee_disasters.*', 'employees.en_name', 'disaster_causes.name as cause', 'disaster_severities.name as severity')
-            ->paginate(25);
+        $employeeDisasters = EmployeeDisaster::with('causes','employees','severities')->paginate(25);
 
         return view('employees.disaster.index', compact('employeeDisasters'));
     }
@@ -45,10 +39,8 @@ class EmployeeDisastersController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $disasterCauses = DisasterCause::pluck('name', 'id')->all();
         $disasterSeverities = DisasterSeverity::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.disaster.create', compact('employees', 'disasterCauses', 'disasterSeverities', 'creators', 'approvedBies'));
+        return view('employees.disaster.create', compact('employees', 'disasterCauses', 'disasterSeverities'));
     }
 
     /**
@@ -90,7 +82,7 @@ class EmployeeDisastersController extends Controller
      */
     public function show($id)
     {
-        $employeeDisaster = EmployeeDisaster::with('employee', 'disastercause', 'disasterseverity', 'creator', 'approvedby')->findOrFail($id);
+        $employeeDisaster = EmployeeDisaster::with('causes','employees','severities')->findOrFail($id);
 
         return view('employees.disaster.show', compact('employeeDisaster'));
     }
@@ -108,10 +100,8 @@ class EmployeeDisastersController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $disasterCauses = DisasterCause::pluck('name', 'id')->all();
         $disasterSeverities = DisasterSeverity::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.disaster.edit', compact('employeeDisaster', 'employees', 'disasterCauses', 'disasterSeverities', 'creators', 'approvedBies'));
+        return view('employees.disaster.edit', compact('employeeDisaster', 'employees', 'disasterCauses', 'disasterSeverities'));
     }
 
     /**

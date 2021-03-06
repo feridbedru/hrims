@@ -22,11 +22,8 @@ class TemplatesController extends Controller
      */
     public function index()
     {
-        $templates = DB::table('templates')
-            ->join('languages', 'templates.language', '=', 'languages.id')
-            ->join('template_types', 'templates.template_type', '=', 'template_types.id')
-            ->select('templates.*', 'languages.name as language', 'template_types.name as type')
-            ->paginate(25);
+        $templates = Template::with('languages','types')->paginate(25);
+           
         return view('settings.templates.index', compact('templates'));
     }
 
@@ -82,12 +79,8 @@ class TemplatesController extends Controller
      */
     public function show($id)
     {
-        $template = DB::table('templates')
-            ->join('languages', 'templates.language', '=', 'languages.id')
-            ->join('template_types', 'templates.template_type', '=', 'template_types.id')
-            ->select('templates.*', 'languages.name as language', 'template_types.name as type')
-            ->where('templates.id', '=', $id)
-            ->first();
+        $template = Template::with('languages','types')->findOrFail($id);
+
         return view('settings.templates.show', compact('template'));
     }
 

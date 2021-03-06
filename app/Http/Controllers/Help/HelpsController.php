@@ -22,7 +22,7 @@ class HelpsController extends Controller
      */
     public function index()
     {
-        $helps = Help::with('help', 'language', 'creator')->paginate(25);
+        $helps = Help::with('languagers')->paginate(25);
         $helpers = Help::pluck('title', 'id')->all();
         $languages = Language::pluck('name', 'id')->all();
 
@@ -47,8 +47,8 @@ class HelpsController extends Controller
             $helps->where('title', 'like', '%' . $request->input('title') . '%');
         }
         $languages = Language::pluck('name', 'id')->all();
-        $helps = $helps->paginate(25);
         $helpers = Help::pluck('title', 'id')->all();
+        $helps = $helps->paginate(25);
         return view('helps.index', compact('helps', 'languages', 'helpers'));
     }
 
@@ -61,9 +61,8 @@ class HelpsController extends Controller
     {
         $helps = Help::pluck('title', 'id')->all();
         $languages = Language::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('helps.create', compact('helps', 'languages', 'creators'));
+        return view('helps.create', compact('helps', 'languages'));
     }
 
     public function image(Request $request)
@@ -140,7 +139,7 @@ class HelpsController extends Controller
      */
     public function show($id)
     {
-        $help = Help::with('help', 'language', 'creator')->findOrFail($id);
+        $help = Help::with('helpes', 'languagers')->findOrFail($id);
 
         return view('helps.show', compact('help'));
     }
@@ -157,9 +156,8 @@ class HelpsController extends Controller
         $help = Help::findOrFail($id);
         $helps = Help::pluck('title', 'id')->all();
         $languages = Language::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('helps.edit', compact('help', 'helps', 'languages', 'creators'));
+        return view('helps.edit', compact('help', 'helps', 'languages'));
     }
 
     /**
@@ -236,8 +234,8 @@ class HelpsController extends Controller
             'data' => 'required|string|min:1',
             'topic_for' => 'required|string|min:1',
             'parent' => 'nullable',
-            'language_id' => 'required|numeric|min:0|max:4294967295',
-            'created_by' => 'nullable',
+            'language' => 'required|numeric|min:0|max:4294967295',
+            'created_by' => 'required',
         ];
 
         $data = $request->validate($rules);

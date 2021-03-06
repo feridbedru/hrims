@@ -51,11 +51,9 @@ class Zone extends Model
      *
      * @return App\Models\Region
      */
-    public function region()
+    public function regions()
     {
-        return $this->belongsTo('App\Models\Region','region_id');
+        return $this->belongsTo(Region::class,'region');
     }
-
-
 
 }

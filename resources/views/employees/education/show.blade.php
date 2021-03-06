@@ -40,13 +40,13 @@
     <div class="panel-body">
         <dl class="dl-horizontal">
             <dt>Employee</dt>
-            <dd>{{ optional($employeeEducation->employee)->en_name }}</dd>
+            <dd>{{ $employeeEducation->employees->en_name }}</dd>
             <dt>Level</dt>
-            <dd>{{ optional($employeeEducation->educationLevel)->name }}</dd>
+            <dd>{{ $employeeEducation->levels->name }}</dd>
             <dt>Institute</dt>
-            <dd>{{ optional($employeeEducation->educationalInstitute)->name }}</dd>
+            <dd>{{ $employeeEducation->institutes->name }}</dd>
             <dt>Field</dt>
-            <dd>{{ optional($employeeEducation->educationalField)->name }}</dd>
+            <dd>{{ $employeeEducation->fields->name }}</dd>
             <dt>Gpa Scale</dt>
             <dd>{{ optional($employeeEducation->gpaScale)->name }}</dd>
             <dt>Gpa</dt>
@@ -65,14 +65,6 @@
             <dd>{{ asset('storage/' . $employeeEducation->coc_file) }}</dd>
             <dt>Status</dt>
             <dd>{{ $employeeEducation->status }}</dd>
-            <dt>Created By</dt>
-            <dd>{{ optional($employeeEducation->creator)->name }}</dd>
-            <dt>Approved By</dt>
-            <dd>{{ optional($employeeEducation->approvedBy)->id }}</dd>
-            <dt>Approved At</dt>
-            <dd>{{ $employeeEducation->approved_at }}</dd>
-            <dt>Note</dt>
-            <dd>{{ $employeeEducation->note }}</dd>
 
         </dl>
 

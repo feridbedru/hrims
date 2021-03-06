@@ -73,7 +73,7 @@
                         <tr>
                             <th>#</th>
                             <th>English Name</th>
-                            <th>English Acronym</th>
+                            <th>Chairman</th>
                             <th>Job Category</th>
                             <th>Location</th>
                             <th class="text-center">Actions</th>
@@ -81,12 +81,12 @@
                     </thead>
                     <tbody>
                         @foreach ($organizationUnits as $organizationUnit)
-                            <tr class="align-middle">
+                            <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $organizationUnit->en_name }}</td>
-                                <td>{{ $organizationUnit->en_acronym }}</td>
-                                <td>{{ optional($organizationUnit->jobCategory)->name }}</td>
-                                <td>{{ optional($organizationUnit->organizationLocation)->name }}</td>
+                                <td>{{ optional($organizationUnit->chairman)->name }}</td>
+                                <td>{{ optional($organizationUnit->jobCategorys)->name }}</td>
+                                <td>{{ optional($organizationUnit->locations)->name }}</td>
                                 <td>
                                     <div class="text-center">
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
@@ -115,10 +115,8 @@
             @endif
         </div>
     </div>
-    <div class="btn-group btn-group-sm pull-right" role="group">
         <a href="{{ route('organization_units.organization_unit.create') }}" class="btn btn-success"
             title="Create New Organization Unit">
             <span class="fa fa-plus" aria-hidden="true"> Add New</span>
         </a>
-    </div>
 @endsection

@@ -14,12 +14,12 @@ class CreateTemplatesTable extends Migration
     {
         Schema::create('templates', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title', 255);
-            $table->string('body');
-            $table->integer('language')->unsigned()->index();
-            $table->integer('template_type')->unsigned()->index();
-            $table->boolean('is_active');
+            $table->text('body');
+            $table->foreignId('language')->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('template_type')->constrained('template_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->boolean('is_active')->nullable();
             $table->string('code');
             $table->timestamps();
 

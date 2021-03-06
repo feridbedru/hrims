@@ -8,7 +8,6 @@ use App\Models\SystemException;
 use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class ZonesController extends Controller
@@ -21,10 +20,7 @@ class ZonesController extends Controller
      */
     public function index()
     {
-        $zones = DB::table('zones')
-            ->join('regions', 'zones.region', '=', 'regions.id')
-            ->select('zones.*', 'regions.name as region')
-            ->paginate(25);
+        $zones = Zone::with('regions')->paginate(25);
 
         return view('settings.zones.index', compact('zones'));
     }

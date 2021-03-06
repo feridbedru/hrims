@@ -20,7 +20,7 @@ class SalaryHeightsController extends Controller
      */
     public function index()
     {
-        $salaryHeights = SalaryHeight::with('salaryscale')->paginate(25);
+        $salaryHeights = SalaryHeight::with('salaryScales')->paginate(25);
 
         return view('payment.salary_heights.index', compact('salaryHeights'));
     }
@@ -76,7 +76,7 @@ class SalaryHeightsController extends Controller
      */
     public function show($id)
     {
-        $salaryHeight = SalaryHeight::with('salaryscale')->findOrFail($id);
+        $salaryHeight = SalaryHeight::with('salaryScales')->findOrFail($id);
 
         return view('payment.salary_heights.show', compact('salaryHeight'));
     }

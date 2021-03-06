@@ -12,11 +12,11 @@ class CreateGPAScalesTable extends Migration
      */
     public function up()
     {
-        Schema::create('g_p_a_scales', function(Blueprint $table)
+        Schema::create('gpa_scales', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 255);
-            $table->string('description', 1000)->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
 
         });
@@ -29,6 +29,6 @@ class CreateGPAScalesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('g_p_a_scales');
+        Schema::drop('gpa_scales');
     }
 }

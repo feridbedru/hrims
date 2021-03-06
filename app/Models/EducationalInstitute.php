@@ -47,6 +47,4 @@ class EducationalInstitute extends Model
     protected $casts = [];
     
 
-
-
 }

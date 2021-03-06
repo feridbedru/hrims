@@ -36,20 +36,3 @@
         {!! $errors->first('is_active', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
-
-<div class="form-group {{ $errors->has('created_by') ? 'has-error' : '' }}">
-    <label for="created_by" class="col-md-2 control-label">Created By</label>
-    <div class="col-md-10">
-        <select class="form-control" id="created_by" name="created_by">
-        	    <option value="" style="display: none;" {{ old('created_by', optional($report)->created_by ?: '') == '' ? 'selected' : '' }} disabled selected>Select created by</option>
-        	@foreach ($creators as $key => $creator)
-			    <option value="{{ $key }}" {{ old('created_by', optional($report)->created_by) == $key ? 'selected' : '' }}>
-			    	{{ $creator }}
-			    </option>
-			@endforeach
-        </select>
-        
-        {!! $errors->first('created_by', '<p class="help-block">:message</p>') !!}
-    </div>
-</div>
-

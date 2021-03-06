@@ -14,18 +14,18 @@ class CreateEmployeeDisastersTable extends Migration
     {
         Schema::create('employee_disasters', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->date('occured_on');
-            $table->integer('cause')->unsigned()->index();
-            $table->integer('severity')->unsigned()->index();
-            $table->string('description', 1000);
+            $table->foreignId('cause')->constrained('disaster_causes')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('severity')->constrained('disaster_severities')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('description');
             $table->string('attachment');
             $table->boolean('is_mass');
-            $table->string('status')->nullable();
-            $table->string('note', 1000)->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->text('note')->nullable();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
             $table->timestamps();
 

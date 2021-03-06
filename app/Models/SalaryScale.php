@@ -55,9 +55,9 @@ class SalaryScale extends Model
      *
      * @return App\Models\JobCategory
      */
-    public function jobCategory()
+    public function jobCategories()
     {
-        return $this->belongsTo('App\Models\JobCategory','job_category_id');
+        return $this->belongsTo(JobCategory::class,'job_category');
     }
 
 

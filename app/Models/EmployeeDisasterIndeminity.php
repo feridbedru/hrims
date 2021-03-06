@@ -55,21 +55,9 @@ class EmployeeDisasterIndeminity extends Model
      *
      * @return App\Models\EmployeeDisaster
      */
-    public function employeeDisaster()
+    public function disasters()
     {
-        return $this->belongsTo('App\Models\EmployeeDisaster','employee_disaster_id');
+        return $this->belongsTo(EmployeeDisaster::class,'disaster');
     }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
-
 
 }

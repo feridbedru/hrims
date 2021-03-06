@@ -14,10 +14,10 @@ class CreateLanguagesTable extends Migration
     {
         Schema::create('languages', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 255);
             $table->string('code')->nullable();
-            $table->boolean('is_default');
+            $table->boolean('is_default')->nullable();
             $table->timestamps();
 
         });

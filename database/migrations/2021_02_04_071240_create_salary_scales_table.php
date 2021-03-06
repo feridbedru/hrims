@@ -14,12 +14,12 @@ class CreateSalaryScalesTable extends Migration
     {
         Schema::create('salary_scales', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 255);
-            $table->string('description', 255);
-            $table->integer('job_category')->unsigned()->index();
-            $table->string('stair_height');
-            $table->string('salary_steps');
+            $table->text('description');
+            $table->foreignId('job_category')->constrained('job_categories')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('stair_height');
+            $table->integer('salary_steps');
             $table->boolean('is_enabled')->nullable();
             $table->timestamps();
 

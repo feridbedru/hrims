@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeEmergency;
 use App\Models\Relationship;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeEmergenciesController extends Controller
@@ -24,11 +22,7 @@ class EmployeeEmergenciesController extends Controller
      */
     public function index()
     {
-        $employeeEmergencies = DB::table('employee_emergencies')
-            ->join('employees', 'employee_emergencies.employee', '=', 'employees.id')
-            ->join('relationships', 'employee_emergencies.relationship', '=', 'relationships.id')
-            ->select('employee_emergencies.*', 'employees.en_name', 'relationships.name as relation')
-            ->paginate(25);
+        $employeeEmergencies = EmployeeEmergency::with('employees','relationships')->paginate(25);
 
         return view('employees.emergency.index', compact('employeeEmergencies'));
     }
@@ -42,10 +36,8 @@ class EmployeeEmergenciesController extends Controller
     {
         $employees = Employee::pluck('en_name', 'id')->all();
         $relationships = Relationship::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.emergency.create', compact('employees', 'relationships', 'creators', 'approvedBies'));
+        return view('employees.emergency.create', compact('employees', 'relationships'));
     }
 
     /**
@@ -89,8 +81,8 @@ class EmployeeEmergenciesController extends Controller
         try {
 
             $employeeEmergency = EmployeeEmergency::findOrFail($id);
-            $employeeEmergency->status = '3';
-            $employeeEmergency->approved_by = '1';
+            $employeeEmergency->status = 3;
+            $employeeEmergency->approved_by = 1;
             $employeeEmergency->approved_at = now();
             $employeeEmergency->save();
 
@@ -118,8 +110,8 @@ class EmployeeEmergenciesController extends Controller
         try {
 
             $employeeEmergency = EmployeeEmergency::findOrFail($id);
-            $employeeEmergency->status = '2';
-            $employeeEmergency->note = '1';
+            $employeeEmergency->status = 2;
+            $employeeEmergency->note = 1;
             $employeeEmergency->save();
 
             return redirect()->route('employee_emergencies.employee_emergency.index')
@@ -138,20 +130,6 @@ class EmployeeEmergenciesController extends Controller
     }
 
     /**
-     * Display the specified employee emergency.
-     *
-     * @param int $id
-     *
-     * @return Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $employeeEmergency = EmployeeEmergency::with('employee', 'relationship', 'creator', 'approvedby')->findOrFail($id);
-
-        return view('employees.emergency.show', compact('employeeEmergency'));
-    }
-
-    /**
      * Show the form for editing the specified employee emergency.
      *
      * @param int $id
@@ -163,10 +141,8 @@ class EmployeeEmergenciesController extends Controller
         $employeeEmergency = EmployeeEmergency::findOrFail($id);
         $employees = Employee::pluck('en_name', 'id')->all();
         $relationships = Relationship::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.emergency.edit', compact('employeeEmergency', 'employees', 'relationships', 'creators', 'approvedBies'));
+        return view('employees.emergency.edit', compact('employeeEmergency', 'employees', 'relationships'));
     }
 
     /**

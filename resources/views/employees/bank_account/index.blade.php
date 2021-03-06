@@ -32,9 +32,9 @@
                         @foreach ($employeeBankAccounts as $employeeBankAccount)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeBankAccount->employee }}</td>
-                                <td>{{ $employeeBankAccount->bank_name }}</td>
-                                <td>{{ $employeeBankAccount->account_type }}</td>
+                                <td>{{ $employeeBankAccount->employees->en_name }}</td>
+                                <td>{{ $employeeBankAccount->banks->name }}</td>
+                                <td>{{ $employeeBankAccount->types->name }}</td>
                                 <td>{{ $employeeBankAccount->account_number }}</td>
                                 <td>{{ $employeeBankAccount->file }}</td>
                                 <td>

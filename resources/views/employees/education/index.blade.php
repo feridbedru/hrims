@@ -32,11 +32,11 @@
                         @foreach ($employeeEducations as $employeeEducation)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($employeeEducation->employee)->en_name }}</td>
-                                <td>{{ optional($employeeEducation->educationLevel)->name }}</td>
-                                <td>{{ optional($employeeEducation->educationalInstitute)->name }}</td>
-                                <td>{{ optional($employeeEducation->educationalField)->name }}</td>
-                                <td>{{ $employeeEducation->gpa }} / {{ optional($employeeEducation->gpaScale)->name }}
+                                <td>{{ $employeeEducation->employee->en_name }}</td>
+                                <td>{{ $employeeEducation->levels->name }}</td>
+                                <td>{{ $employeeEducation->institutes->name }}</td>
+                                <td>{{ $employeeEducation->fields->name }}</td>
+                                <td>{{ $employeeEducation->gpa }} / {{ optional($employeeEducation->gpaScales)->name }}
                                 </td>
                                 <td>
                                     @if ($employeeEducation->status == 1)

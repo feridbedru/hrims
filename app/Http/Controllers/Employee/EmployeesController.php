@@ -28,12 +28,12 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $employees = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus', 'creator')->paginate(25);
+        $employees = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->paginate(25);
         $jobPositions = JobPosition::pluck('job_title_category', 'id');
-        $sexes = Sex::pluck('name', 'id');
+        $sexl = Sex::pluck('name', 'id');
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
 
-        return view('employees.index', compact('employees', 'jobPositions', 'sexes', 'organizationUnits'));
+        return view('employees.index', compact('employees', 'jobPositions', 'organizationUnits','sexl'));
     }
 
     /**
@@ -58,9 +58,8 @@ class EmployeesController extends Controller
         $jobPositions = JobPosition::pluck('job_title_category', 'id')->all();
         // $jobPositions = DB::table('job_positions')->where('status','1')->pluck('job_title_category');
         $employeeStatuses = EmployeeStatus::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.create', compact('titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses', 'creators'));
+        return view('employees.create', compact('titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses'));
     }
 
     /**
@@ -75,10 +74,11 @@ class EmployeesController extends Controller
         try {
 
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            // $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
             Employee::create($data);
             $id = DB::getPdo()->lastInsertId();
-            $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus', 'creator')->findOrFail($id);
+            $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus')->findOrFail($id);
             return view('employees.success', compact('employee'));
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -102,9 +102,9 @@ class EmployeesController extends Controller
      */
     public function show($id)
     {
-        $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus', 'creator')->findOrFail($id);
+        $employee = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->findOrFail($id);
 
-        return view('employees.show', compact('employee'));
+        return view('employees.dashboard', compact('employee'));
     }
 
     /**
@@ -116,7 +116,7 @@ class EmployeesController extends Controller
      */
     public function success($id)
     {
-        $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus', 'creator')->findOrFail($id);
+        $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus')->findOrFail($id);
 
         return view('employees.success', compact('employee'));
     }
@@ -136,9 +136,8 @@ class EmployeesController extends Controller
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
         $jobPositions = JobPosition::pluck('job_title_category', 'id')->all();
         $employeeStatuses = EmployeeStatus::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.edit', compact('employee', 'titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses', 'creators'));
+        return view('employees.edit', compact('employee', 'titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses'));
     }
 
     /**

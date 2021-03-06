@@ -14,11 +14,11 @@ class CreateSalaryHeightsTable extends Migration
     {
         Schema::create('salary_heights', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('salary_scale')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('salary_scale')->constrained('salary_scales')->onUpdate('cascade')->onDelete('cascade');
             $table->string('level');
-            $table->string('initial_salary');
-            $table->string('maximum_salary');
+            $table->float('initial_salary',8,2);
+            $table->float('maximum_salary',8,2);
             $table->timestamps();
 
         });

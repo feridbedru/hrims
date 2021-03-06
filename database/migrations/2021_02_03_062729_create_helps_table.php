@@ -14,14 +14,14 @@ class CreateHelpsTable extends Migration
     {
         Schema::create('helps', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('title', 255);
             $table->string('description', 1000)->nullable();
-            $table->string('data', 2000);
+            $table->longText('data');
             $table->string('topic_for');
-            $table->integer('parent')->unsigned()->nullable()->index();
-            $table->integer('language_id')->unsigned()->index();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->foreignId('parent')->nullable()->constrained('helps')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('language')->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

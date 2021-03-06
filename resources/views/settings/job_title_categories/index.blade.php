@@ -83,7 +83,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jobTitleCategory->name }}</td>
                                 <td>{{ $jobTitleCategory->description }}</td>
-                                <td>{{ optional($jobTitleCategory->jobTitleCategory)->name }}</td>
+                                <td>{{ optional($jobTitleCategory->parents)->name }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('job_title_categories.job_title_category.edit', $jobTitleCategory->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Job Title Category">

@@ -47,6 +47,4 @@ class DisasterCause extends Model
     protected $casts = [];
     
 
-
-
 }

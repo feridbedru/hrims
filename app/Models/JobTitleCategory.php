@@ -52,9 +52,9 @@ class JobTitleCategory extends Model
      *
      * @return App\Models\JobTitleCategory
      */
-    public function jobTitleCategory()
+    public function parents()
     {
-        return $this->belongsTo('App\Models\JobTitleCategory','job_title_category_id');
+        return $this->belongsTo(JobTitleCategory::class,'parent');
     }
 
 

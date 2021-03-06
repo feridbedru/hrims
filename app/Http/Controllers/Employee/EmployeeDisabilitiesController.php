@@ -23,7 +23,7 @@ class EmployeeDisabilitiesController extends Controller
      */
     public function index()
     {
-        $employeeDisabilities = EmployeeDisability::with('employee', 'disabilitytype', 'creator', 'approvedby')->paginate(25);
+        $employeeDisabilities = EmployeeDisability::with('employees', 'types')->paginate(25);
 
         return view('employees.disability.index', compact('employeeDisabilities'));
     }
@@ -37,10 +37,8 @@ class EmployeeDisabilitiesController extends Controller
     {
         $employees = Employee::pluck('en_name', 'id')->all();
         $disabilityTypes = DisabilityType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.disability.create', compact('employees', 'disabilityTypes', 'creators', 'approvedBies'));
+        return view('employees.disability.create', compact('employees', 'disabilityTypes'));
     }
 
     /**
@@ -84,8 +82,8 @@ class EmployeeDisabilitiesController extends Controller
         try {
 
             $employeeDisability = EmployeeDisability::findOrFail($id);
-            $employeeDisability->status = '3';
-            $employeeDisability->approved_by = '1';
+            $employeeDisability->status = 3;
+            $employeeDisability->approved_by = 1;
             $employeeDisability->approved_at = now();
             $employeeDisability->save();
 
@@ -113,8 +111,8 @@ class EmployeeDisabilitiesController extends Controller
         try {
 
             $employeeDisability = EmployeeDisability::findOrFail($id);
-            $employeeDisability->status = '2';
-            $employeeDisability->note = '1';
+            $employeeDisability->status = 2;
+            $employeeDisability->note = 1;
             $employeeDisability->save();
 
             return redirect()->route('employee_disabilities.employee_disability.index')
@@ -144,10 +142,8 @@ class EmployeeDisabilitiesController extends Controller
         $employeeDisability = EmployeeDisability::findOrFail($id);
         $employees = Employee::pluck('title', 'id')->all();
         $disabilityTypes = DisabilityType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.disability.edit', compact('employeeDisability', 'employees', 'disabilityTypes', 'creators', 'approvedBies'));
+        return view('employees.disability.edit', compact('employeeDisability', 'employees', 'disabilityTypes'));
     }
 
     /**

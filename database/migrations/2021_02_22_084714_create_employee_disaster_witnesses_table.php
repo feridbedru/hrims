@@ -14,12 +14,12 @@ class CreateEmployeeDisasterWitnessesTable extends Migration
     {
         Schema::create('employee_disaster_witnesses', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('disaster')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('disaster')->constrained('employee_disasters')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name', 255);
             $table->string('phone')->nullable();
             $table->string('file')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

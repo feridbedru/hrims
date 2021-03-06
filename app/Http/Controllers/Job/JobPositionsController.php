@@ -24,7 +24,7 @@ class JobPositionsController extends Controller
      */
     public function index()
     {
-        $jobPositions = JobPosition::with('organizationunit', 'jobtitlecategory', 'salary')->paginate(25);
+        $jobPositions = JobPosition::with('organizationUnits', 'jobTitleCategories', 'salarys')->paginate(25);
 
         return view('job_positions.index', compact('jobPositions'));
     }
@@ -84,7 +84,7 @@ class JobPositionsController extends Controller
      */
     public function show($id)
     {
-        $jobPosition = JobPosition::with('organizationunit', 'jobtitlecategory', 'jobcategory', 'jobtype', 'salary')->findOrFail($id);
+        $jobPosition = JobPosition::with('organizationUnits', 'jobTitleCategories', 'salarys','jobCategorys','jobTypes')->findOrFail($id);
 
         return view('job_positions.show', compact('jobPosition'));
     }

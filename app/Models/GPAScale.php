@@ -13,7 +13,7 @@ class GPAScale extends Model
      *
      * @var string
      */
-    protected $table = 'g_p_a_scales';
+    protected $table = 'gpa_scales';
 
     /**
     * The database primary key value.

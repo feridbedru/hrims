@@ -14,19 +14,19 @@ class CreateEmployeeEmergenciesTable extends Migration
     {
         Schema::create('employee_emergencies', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name', 255);
             $table->string('phone_number')->nullable();
-            $table->integer('relationship')->unsigned()->index();
-            $table->string('address')->nullable();
+            $table->foreignId('relationship')->constrained('relationships')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('address')->nullable();
             $table->string('house_number')->nullable();
             $table->string('other_phone')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

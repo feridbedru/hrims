@@ -29,7 +29,7 @@
                         @foreach ($employeeDisasterWitnesses as $employeeDisasterWitness)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ optional($employeeDisasterWitness->employeeDisaster)->approved_at }}</td>
+                                <td>{{ $employeeDisasterWitness->disasters->occured_on }}</td>
                                 <td>{{ $employeeDisasterWitness->name }}</td>
                                 <td>{{ $employeeDisasterWitness->phone }}</td>
 

@@ -47,6 +47,4 @@ class BankAccountType extends Model
     protected $casts = [];
     
 
-
-
 }

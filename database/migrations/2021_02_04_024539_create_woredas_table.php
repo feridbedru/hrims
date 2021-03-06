@@ -14,10 +14,10 @@ class CreateWoredasTable extends Migration
     {
         Schema::create('woredas', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name', 255);
-            $table->integer('zone')->unsigned()->index();
+            $table->foreignId('zone')->constrained('zones')->onUpdate('cascade')->onDelete('cascade');
 
         });
     }

@@ -14,12 +14,12 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function(Blueprint $table)
         {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 255);
-            $table->string('description', 1000);
-            $table->string('query',1000);
+            $table->text('description');
+            $table->longText('query');
             $table->boolean('is_active')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 
         });

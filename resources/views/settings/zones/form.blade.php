@@ -17,7 +17,7 @@
                 region</option>
             @foreach ($regions as $key => $region)
                 <option value="{{ $key }}"
-                    {{ old('regionS', optional($zone)->regionS) == $key ? 'selected' : '' }}>
+                    {{ old('regionS', optional($zone)->region) == $key ? 'selected' : '' }}>
                     {{ $region }}
                 </option>
             @endforeach

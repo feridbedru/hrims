@@ -38,8 +38,7 @@ class Employee extends Model
                   'organization_unit',
                   'job_position',
                   'employment_id',
-                  'status',
-                  'created_by'
+                  'status'
               ];
 
     /**
@@ -61,9 +60,9 @@ class Employee extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function title()
+    public function titles()
     {
-        return $this->hasMany('App\Models\Title','id');
+        return $this->belongsTo(Title::class,'title');
     }
 
     /**
@@ -71,9 +70,9 @@ class Employee extends Model
      *
      * @return App\Models\Sex
      */
-    public function sex()
+    public function sexes()
     {
-        return $this->belongsTo('App\Models\Sex','id');
+        return $this->belongsTo(Sex::class,'sex');
     }
 
     /**
@@ -81,9 +80,9 @@ class Employee extends Model
      *
      * @return App\Models\OrganizationUnit
      */
-    public function organizationUnit()
+    public function organizationUnitse()
     {
-        return $this->belongsTo('App\Models\OrganizationUnit','id');
+        return $this->belongsTo(OrganizationUnit::class,'organization_unit');
     }
 
     /**
@@ -91,9 +90,9 @@ class Employee extends Model
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function jobPosition()
+    public function jobPositions()
     {
-        return $this->hasMany('App\Models\JobPosition','id');
+        return $this->belongsTo(JobPosition::class,'job_position');
     }
 
     /**
@@ -101,19 +100,9 @@ class Employee extends Model
      *
      * @return App\Models\EmployeeStatus
      */
-    public function employeeStatus()
+    public function employeeStatuses()
     {
-        return $this->belongsTo('App\Models\EmployeeStatus','id');
-    }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
+        return $this->belongsTo(EmployeeStatus::class,'status');
     }
 
 }

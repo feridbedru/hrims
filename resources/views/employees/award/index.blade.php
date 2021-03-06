@@ -31,9 +31,9 @@
                         @foreach ($employeeAwards as $employeeAward)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeAward->en_name }}</td>
+                                <td>{{ $employeeAward->employees->en_name }}</td>
                                 <td>{{ $employeeAward->organization }}</td>
-                                <td>{{ $employeeAward->type }}</td>
+                                <td>{{ $employeeAward->types->name }}</td>
                                 <td>{{ $employeeAward->awarded_on }}</td>
                                 <td>{{ $employeeAward->status }}</td>
 

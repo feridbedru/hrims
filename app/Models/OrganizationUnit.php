@@ -32,10 +32,10 @@ class OrganizationUnit extends Model
                   'en_acronym',
                   'am_name',
                   'am_acronym',
-                  'parent_id',
-                  'job_category_id',
-                  'organization_location_id',
-                  'reports_to_id',
+                  'parent',
+                  'job_category',
+                  'location',
+                  'reports_to',
                   'is_root_unit',
                   'is_category',
                   'phone_number',
@@ -62,9 +62,9 @@ class OrganizationUnit extends Model
      *
      * @return App\Models\OrganizationUnit
      */
-    public function organizationUnit()
+    public function parents()
     {
-        return $this->belongsTo('App\Models\OrganizationUnit','parent_id');
+        return $this->belongsTo(OrganizationUnit::class,'parent');
     }
     
     /**
@@ -72,9 +72,9 @@ class OrganizationUnit extends Model
      *
      * @return App\Models\OrganizationUnit
      */
-    public function organizationUnits()
+    public function reportsTo()
     {
-        return $this->belongsTo('App\Models\OrganizationUnit','reports_to_id');
+        return $this->belongsTo(OrganizationUnit::class,'reports_to');
     }
 
     /**
@@ -82,9 +82,9 @@ class OrganizationUnit extends Model
      *
      * @return App\Models\JobCategory
      */
-    public function jobCategory()
+    public function jobCategorys()
     {
-        return $this->belongsTo('App\Models\JobCategory','job_category_id');
+        return $this->belongsTo(JobCategory::class,'job_category');
     }
 
     /**
@@ -92,9 +92,9 @@ class OrganizationUnit extends Model
      *
      * @return App\Models\OrganizationLocation
      */
-    public function organizationLocation()
+    public function locations()
     {
-        return $this->belongsTo('App\Models\OrganizationLocation','organization_location_id');
+        return $this->belongsTo(OrganizationLocation::class,'location');
     }
 
     /**
@@ -104,7 +104,7 @@ class OrganizationUnit extends Model
      */
     public function chairman()
     {
-        return $this->belongsTo('App\Models\User','chairman_id');
+        return $this->belongsTo(User::class,'chairman');
     }
 
 

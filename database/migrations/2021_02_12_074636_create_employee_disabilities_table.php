@@ -14,16 +14,16 @@ class CreateEmployeeDisabilitiesTable extends Migration
     {
         Schema::create('employee_disabilities', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
-            $table->integer('type')->unsigned()->index();
-            $table->string('description', 1000)->nullable();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('type')->constrained('disability_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->text('description')->nullable();
             $table->string('medical_certificate')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

@@ -32,10 +32,10 @@
                         @foreach ($employeeFamilies as $employeeFamily)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeFamily->en_name }}</td>
+                                <td>{{ $employeeFamily->employees->en_name }}</td>
                                 <td>{{ $employeeFamily->name }}</td>
-                                <td>{{ $employeeFamily->sex }}</td>
-                                <td>{{ $employeeFamily->relation }}</td>
+                                <td>{{ $employeeFamily->sexes->name }}</td>
+                                <td>{{ $employeeFamily->relationships->name }}</td>
                                 <td>{{ $employeeFamily->date_of_birth }}</td>
                                 <td>
                                     @if ($employeeFamily->status == 1)

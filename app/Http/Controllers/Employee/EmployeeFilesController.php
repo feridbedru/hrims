@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Employee;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeFile;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,7 +21,7 @@ class EmployeeFilesController extends Controller
      */
     public function index()
     {
-        $employeeFiles = EmployeeFile::with('employee', 'creator')->paginate(25);
+        $employeeFiles = EmployeeFile::with('employees')->paginate(25);
 
         return view('employees.file.index', compact('employeeFiles'));
     }
@@ -34,10 +33,9 @@ class EmployeeFilesController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('title', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
 
-        return view('employees.file.create', compact('employees', 'creators'));
+        return view('employees.file.create', compact('employees'));
     }
 
     /**
@@ -71,20 +69,6 @@ class EmployeeFilesController extends Controller
     }
 
     /**
-     * Display the specified employee file.
-     *
-     * @param int $id
-     *
-     * @return Illuminate\View\View
-     */
-    public function show($id)
-    {
-        $employeeFile = EmployeeFile::with('employee', 'creator')->findOrFail($id);
-
-        return view('employees.file.show', compact('employeeFile'));
-    }
-
-    /**
      * Show the form for editing the specified employee file.
      *
      * @param int $id
@@ -94,10 +78,9 @@ class EmployeeFilesController extends Controller
     public function edit($id)
     {
         $employeeFile = EmployeeFile::findOrFail($id);
-        $employees = Employee::pluck('title', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
 
-        return view('employees.file.edit', compact('employeeFile', 'employees', 'creators'));
+        return view('employees.file.edit', compact('employeeFile', 'employees'));
     }
 
     /**

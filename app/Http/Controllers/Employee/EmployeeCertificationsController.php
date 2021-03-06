@@ -7,12 +7,10 @@ use App\Models\CertificationVendor;
 use App\Models\Employee;
 use App\Models\EmployeeCertification;
 use App\Models\SkillCategory;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeCertificationsController extends Controller
@@ -25,12 +23,7 @@ class EmployeeCertificationsController extends Controller
      */
     public function index()
     {
-        $employeeCertifications = DB::table('employee_certifications')
-            ->join('employees', 'employee_certifications.employee', '=', 'employees.id')
-            ->join('skill_categories', 'employee_certifications.category', '=', 'skill_categories.id')
-            ->join('certification_vendors', 'employee_certifications.vendor', '=', 'certification_vendors.id')
-            ->select('employee_certifications.*', 'employees.en_name', 'skill_categories.name as category', 'certification_vendors.name as vendor')
-            ->paginate(25);
+        $employeeCertifications = EmployeeCertification::with('employees','vendors','categories')->paginate(25);
 
         return view('employees.certification.index', compact('employeeCertifications'));
     }
@@ -45,10 +38,8 @@ class EmployeeCertificationsController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $skillCategories = SkillCategory::pluck('name', 'id')->all();
         $certificationVendors = CertificationVendor::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.certification.create', compact('employees', 'skillCategories', 'certificationVendors', 'creators', 'approvedBies'));
+        return view('employees.certification.create', compact('employees', 'skillCategories', 'certificationVendors'));
     }
 
     /**
@@ -90,7 +81,7 @@ class EmployeeCertificationsController extends Controller
      */
     public function show($id)
     {
-        $employeeCertification = EmployeeCertification::with('employee', 'skillcategory', 'certificationvendor', 'creator', 'approvedby')->findOrFail($id);
+        $employeeCertification = EmployeeCertification::with('employees','vendors','categories')->findOrFail($id);
 
         return view('employees.certification.show', compact('employeeCertification'));
     }
@@ -108,10 +99,8 @@ class EmployeeCertificationsController extends Controller
         $employees = Employee::pluck('en_name', 'id')->all();
         $skillCategories = SkillCategory::pluck('name', 'id')->all();
         $certificationVendors = CertificationVendor::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.certification.edit', compact('employeeCertification', 'employees', 'skillCategories', 'certificationVendors', 'creators', 'approvedBies'));
+        return view('employees.certification.edit', compact('employeeCertification', 'employees', 'skillCategories', 'certificationVendors'));
     }
 
     /**

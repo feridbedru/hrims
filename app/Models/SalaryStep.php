@@ -51,9 +51,9 @@ class SalaryStep extends Model
      *
      * @return App\Models\SalaryScale
      */
-    public function salaryScale()
+    public function salaryScales()
     {
-        return $this->belongsTo('App\Models\SalaryScale','salary_scale_id');
+        return $this->belongsTo(SalaryScale::class,'salary_scale');
     }
 
 

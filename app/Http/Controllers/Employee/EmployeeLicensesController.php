@@ -6,12 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeLicense;
 use App\Models\LicenseType;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use DB;
 use Exception;
 
 class EmployeeLicensesController extends Controller
@@ -24,11 +22,7 @@ class EmployeeLicensesController extends Controller
      */
     public function index()
     {
-        $employeeLicenses = DB::table('employee_licenses')
-            ->join('employees', 'employee_licenses.employee', '=', 'employees.id')
-            ->join('license_types', 'employee_licenses.type', '=', 'license_types.id')
-            ->select('employee_licenses.*', 'employees.en_name', 'license_types.name as type')
-            ->paginate(25);
+        $employeeLicenses = EmployeeLicense::with('employees','types')->paginate(25);
 
         return view('employees.license.index', compact('employeeLicenses'));
     }
@@ -42,10 +36,8 @@ class EmployeeLicensesController extends Controller
     {
         $employees = Employee::pluck('en_name', 'id')->all();
         $licenseTypes = LicenseType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.license.create', compact('employees', 'licenseTypes', 'creators', 'approvedBies'));
+        return view('employees.license.create', compact('employees', 'licenseTypes'));
     }
 
     /**
@@ -89,8 +81,8 @@ class EmployeeLicensesController extends Controller
         try {
 
             $employeeLicense = EmployeeLicense::findOrFail($id);
-            $employeeLicense->status = '3';
-            $employeeLicense->approved_by = '1';
+            $employeeLicense->status = 3;
+            $employeeLicense->approved_by = 1;
             $employeeLicense->approved_at = now();
             $employeeLicense->save();
 
@@ -118,7 +110,7 @@ class EmployeeLicensesController extends Controller
         try {
 
             $employeeLicense = EmployeeLicense::findOrFail($id);
-            $employeeLicense->status = '2';
+            $employeeLicense->status = 2;
             $employeeLicense->note = '1';
             $employeeLicense->save();
 
@@ -149,10 +141,8 @@ class EmployeeLicensesController extends Controller
         $employeeLicense = EmployeeLicense::findOrFail($id);
         $employees = Employee::pluck('en_name', 'id')->all();
         $licenseTypes = LicenseType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.license.edit', compact('employeeLicense', 'employees', 'licenseTypes', 'creators', 'approvedBies'));
+        return view('employees.license.edit', compact('employeeLicense', 'employees', 'licenseTypes'));
     }
 
     /**

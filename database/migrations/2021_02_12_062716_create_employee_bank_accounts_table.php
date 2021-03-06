@@ -14,17 +14,17 @@ class CreateEmployeeBankAccountsTable extends Migration
     {
         Schema::create('employee_bank_accounts', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
-            $table->integer('bank')->unsigned()->index();
-            $table->integer('account_type')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('bank')->constrained('banks')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('account_type')->constrained('bank_account_types')->onUpdate('cascade')->onDelete('cascade');
             $table->string('account_number');
             $table->string('file')->nullable();
-            $table->string('status');
-            $table->integer('created_by')->unsigned()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });

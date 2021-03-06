@@ -29,7 +29,7 @@ class EmployeeStudyTraining extends Model
      */
     protected $fillable = [
                   'employee',
-                  'Type',
+                  'type',
                   'institution',
                   'level',
                   'field',
@@ -37,6 +37,7 @@ class EmployeeStudyTraining extends Model
                   'duration',
                   'has_commitment',
                   'total_commitment',
+                  'amount',
                   'attachment',
                   'created_by'
               ];
@@ -60,9 +61,9 @@ class EmployeeStudyTraining extends Model
      *
      * @return App\Models\Employee
      */
-    public function employee()
+    public function employees()
     {
-        return $this->belongsTo('App\Models\Employee','employee_id');
+        return $this->belongsTo(Employee::class,'employee');
     }
 
     /**
@@ -70,9 +71,9 @@ class EmployeeStudyTraining extends Model
      *
      * @return App\Models\CommitmentFor
      */
-    public function commitmentFor()
+    public function types()
     {
-        return $this->belongsTo('App\Models\CommitmentFor','commitment_for_id');
+        return $this->belongsTo(CommitmentFor::class,'type');
     }
 
     /**
@@ -80,9 +81,9 @@ class EmployeeStudyTraining extends Model
      *
      * @return App\Models\EducationalInstitution
      */
-    public function educationalInstitution()
+    public function institutions()
     {
-        return $this->belongsTo('App\Models\EducationalInstitute','educational_institution_id');
+        return $this->belongsTo(EducationalInstitute::class,'institution');
     }
 
     /**
@@ -90,9 +91,9 @@ class EmployeeStudyTraining extends Model
      *
      * @return App\Models\EducationalLevel
      */
-    public function educationalLevel()
+    public function levels()
     {
-        return $this->belongsTo('App\Models\EducationLevel','educational_level_id');
+        return $this->belongsTo(EducationLevel::class,'level');
     }
 
     /**
@@ -100,19 +101,8 @@ class EmployeeStudyTraining extends Model
      *
      * @return App\Models\EducationalField
      */
-    public function educationalField()
+    public function fields()
     {
-        return $this->belongsTo('App\Models\EducationalField','educational_field_id');
+        return $this->belongsTo(EducationalField::class,'field');
     }
-
-    /**
-     * Get the creator for this model.
-     *
-     * @return App\Models\User
-     */
-    public function creator()
-    {
-        return $this->belongsTo('App\Models\User','created_by');
-    }
-
 }

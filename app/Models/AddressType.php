@@ -47,6 +47,4 @@ class AddressType extends Model
     protected $casts = [];
     
 
-
-
 }

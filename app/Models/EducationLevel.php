@@ -47,6 +47,4 @@ class EducationLevel extends Model
     protected $casts = [];
     
 
-
-
 }

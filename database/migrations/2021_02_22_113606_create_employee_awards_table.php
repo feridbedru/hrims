@@ -14,18 +14,18 @@ class CreateEmployeeAwardsTable extends Migration
     {
         Schema::create('employee_awards', function(Blueprint $table)
         {
-            $table->increments('id');
-            $table->integer('employee')->unsigned()->index();
+            $table->bigIncrements('id');
+            $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->string('organization');
-            $table->string('description', 1000)->nullable();
+            $table->text('description')->nullable();
             $table->string('attachment');
-            $table->integer('type')->unsigned()->index();
-            $table->string('awarded_on')->nullable();
-            $table->string('status')->nullable();
-            $table->integer('created_by')->unsigned()->nullable()->index();
-            $table->integer('approved_by')->unsigned()->nullable()->index();
+            $table->foreignId('type')->constrained('award_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->date('awarded_on')->nullable();
+            $table->integer('status');
+            $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('approved_at')->nullable();
-            $table->string('note', 1000)->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
 
         });
