@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Structure;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class OrganizationsController extends Controller
@@ -49,7 +51,13 @@ class OrganizationsController extends Controller
             return redirect()->route('organizations.organization.index')
                 ->with('success_message', 'Organization was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -104,6 +112,13 @@ class OrganizationsController extends Controller
             return redirect()->route('organizations.organization.index')
                 ->with('success_message', 'Organization was successfully updated.');
         } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }        
@@ -125,7 +140,12 @@ class OrganizationsController extends Controller
             return redirect()->route('organizations.organization.index')
                 ->with('success_message', 'Organization was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }

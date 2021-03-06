@@ -7,8 +7,10 @@ use App\Models\AwardType;
 use App\Models\Employee;
 use App\Models\EmployeeAward;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DB;
 use Exception;
 
@@ -23,10 +25,10 @@ class EmployeeAwardsController extends Controller
     public function index()
     {
         $employeeAwards = DB::table('employee_awards')
-                                ->join('employees','employee_awards.employee','=','employees.id')
-                                ->join('award_types','employee_awards.type','=','award_types.id')
-                                ->select('employee_awards.*','employees.en_name','award_types.name as type')
-                                ->paginate(25);
+            ->join('employees', 'employee_awards.employee', '=', 'employees.id')
+            ->join('award_types', 'employee_awards.type', '=', 'award_types.id')
+            ->select('employee_awards.*', 'employees.en_name', 'award_types.name as type')
+            ->paginate(25);
 
         return view('employees.award.index', compact('employeeAwards'));
     }
@@ -38,12 +40,12 @@ class EmployeeAwardsController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('en_name','id')->all();
-        $awardTypes = AwardType::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('name','id')->all();
-        
-        return view('employees.award.create', compact('employees','awardTypes','creators','approvedBies'));
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $awardTypes = AwardType::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
+
+        return view('employees.award.create', compact('employees', 'awardTypes', 'creators', 'approvedBies'));
     }
 
     /**
@@ -56,7 +58,7 @@ class EmployeeAwardsController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = Auth::Id();
             EmployeeAward::create($data);
@@ -64,7 +66,13 @@ class EmployeeAwardsController extends Controller
             return redirect()->route('employee_awards.employee_award.index')
                 ->with('success_message', 'Employee Award was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -79,7 +87,7 @@ class EmployeeAwardsController extends Controller
      */
     public function show($id)
     {
-        $employeeAward = EmployeeAward::with('employee','awardtype','creator','approvedby')->findOrFail($id);
+        $employeeAward = EmployeeAward::with('employee', 'awardtype', 'creator', 'approvedby')->findOrFail($id);
 
         return view('employees.award.show', compact('employeeAward'));
     }
@@ -94,12 +102,12 @@ class EmployeeAwardsController extends Controller
     public function edit($id)
     {
         $employeeAward = EmployeeAward::findOrFail($id);
-        $employees = Employee::pluck('en_name','id')->all();
-        $awardTypes = AwardType::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('name','id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $awardTypes = AwardType::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.award.edit', compact('employeeAward','employees','awardTypes','creators','approvedBies'));
+        return view('employees.award.edit', compact('employeeAward', 'employees', 'awardTypes', 'creators', 'approvedBies'));
     }
 
     /**
@@ -113,19 +121,25 @@ class EmployeeAwardsController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeAward = EmployeeAward::findOrFail($id);
             $employeeAward->update($data);
 
             return redirect()->route('employee_awards.employee_award.index')
                 ->with('success_message', 'Employee Award was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -144,13 +158,18 @@ class EmployeeAwardsController extends Controller
             return redirect()->route('employee_awards.employee_award.index')
                 ->with('success_message', 'Employee Award was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -160,7 +179,7 @@ class EmployeeAwardsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'employee' => 'required',
+            'employee' => 'required',
             'organization' => 'required|string|min:1',
             'description' => 'string|min:1|max:1000|nullable',
             'attachment' => ['file'],
@@ -170,9 +189,9 @@ class EmployeeAwardsController extends Controller
             'created_by' => 'nullable',
             'approved_by' => 'nullable',
             'approved_at' => 'nullable',
-            'note' => 'string|min:1|max:1000|nullable', 
+            'note' => 'string|min:1|max:1000|nullable',
         ];
-                if ($request->route()->getAction()['as'] == 'employee_awards.employeeaward.store' || $request->has('custom_delete_attachment')) {
+        if ($request->route()->getAction()['as'] == 'employee_awards.employeeaward.store' || $request->has('custom_delete_attachment')) {
             array_push($rules['attachment'], 'required');
         }
         $data = $request->validate($rules);
@@ -185,7 +204,7 @@ class EmployeeAwardsController extends Controller
 
         return $data;
     }
-  
+
     /**
      * Moves the attached file to the server.
      *
@@ -198,7 +217,7 @@ class EmployeeAwardsController extends Controller
         if (!$file->isValid()) {
             return '';
         }
-        
+
         $path = config('codegenerator.files_upload_path', 'uploads');
         $saved = $file->store('public/' . $path, config('filesystems.default'));
 

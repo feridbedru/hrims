@@ -8,8 +8,10 @@ use App\Models\Employee;
 use App\Models\EmployeeCertification;
 use App\Models\SkillCategory;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DB;
 use Exception;
 
@@ -24,11 +26,11 @@ class EmployeeCertificationsController extends Controller
     public function index()
     {
         $employeeCertifications = DB::table('employee_certifications')
-                                ->join('employees','employee_certifications.employee','=','employees.id')
-                                ->join('skill_categories','employee_certifications.category','=','skill_categories.id')
-                                ->join('certification_vendors','employee_certifications.vendor','=','certification_vendors.id')
-                                ->select('employee_certifications.*','employees.en_name','skill_categories.name as category','certification_vendors.name as vendor')
-                                ->paginate(25);
+            ->join('employees', 'employee_certifications.employee', '=', 'employees.id')
+            ->join('skill_categories', 'employee_certifications.category', '=', 'skill_categories.id')
+            ->join('certification_vendors', 'employee_certifications.vendor', '=', 'certification_vendors.id')
+            ->select('employee_certifications.*', 'employees.en_name', 'skill_categories.name as category', 'certification_vendors.name as vendor')
+            ->paginate(25);
 
         return view('employees.certification.index', compact('employeeCertifications'));
     }
@@ -40,13 +42,13 @@ class EmployeeCertificationsController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('en_name','id')->all();
-$skillCategories = SkillCategory::pluck('name','id')->all();
-$certificationVendors = CertificationVendor::pluck('name','id')->all();
-$creators = User::pluck('name','id')->all();
-$approvedBies = User::pluck('name','id')->all();
-        
-        return view('employees.certification.create', compact('employees','skillCategories','certificationVendors','creators','approvedBies'));
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $skillCategories = SkillCategory::pluck('name', 'id')->all();
+        $certificationVendors = CertificationVendor::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
+
+        return view('employees.certification.create', compact('employees', 'skillCategories', 'certificationVendors', 'creators', 'approvedBies'));
     }
 
     /**
@@ -59,7 +61,7 @@ $approvedBies = User::pluck('name','id')->all();
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = Auth::Id();
             EmployeeCertification::create($data);
@@ -67,7 +69,13 @@ $approvedBies = User::pluck('name','id')->all();
             return redirect()->route('employee_certifications.employee_certification.index')
                 ->with('success_message', 'Employee Certification was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -82,7 +90,7 @@ $approvedBies = User::pluck('name','id')->all();
      */
     public function show($id)
     {
-        $employeeCertification = EmployeeCertification::with('employee','skillcategory','certificationvendor','creator','approvedby')->findOrFail($id);
+        $employeeCertification = EmployeeCertification::with('employee', 'skillcategory', 'certificationvendor', 'creator', 'approvedby')->findOrFail($id);
 
         return view('employees.certification.show', compact('employeeCertification'));
     }
@@ -97,13 +105,13 @@ $approvedBies = User::pluck('name','id')->all();
     public function edit($id)
     {
         $employeeCertification = EmployeeCertification::findOrFail($id);
-        $employees = Employee::pluck('en_name','id')->all();
-        $skillCategories = SkillCategory::pluck('name','id')->all();
-        $certificationVendors = CertificationVendor::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('name','id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $skillCategories = SkillCategory::pluck('name', 'id')->all();
+        $certificationVendors = CertificationVendor::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.certification.edit', compact('employeeCertification','employees','skillCategories','certificationVendors','creators','approvedBies'));
+        return view('employees.certification.edit', compact('employeeCertification', 'employees', 'skillCategories', 'certificationVendors', 'creators', 'approvedBies'));
     }
 
     /**
@@ -117,19 +125,25 @@ $approvedBies = User::pluck('name','id')->all();
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeCertification = EmployeeCertification::findOrFail($id);
             $employeeCertification->update($data);
 
             return redirect()->route('employee_certifications.employee_certification.index')
                 ->with('success_message', 'Employee Certification was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -148,13 +162,18 @@ $approvedBies = User::pluck('name','id')->all();
             return redirect()->route('employee_certifications.employee_certification.index')
                 ->with('success_message', 'Employee Certification was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -164,22 +183,22 @@ $approvedBies = User::pluck('name','id')->all();
     protected function getData(Request $request)
     {
         $rules = [
-                'employee' => 'required',
+            'employee' => 'required',
             'name' => 'required|string|min:1|max:255',
             'issued_on' => 'required|string|min:1',
             'certification_number' => 'string|min:1|nullable',
             'category' => 'required',
             'verification_link' => 'string|min:1|nullable',
             'vendor' => 'nullable',
-            'attachment' => ['file','nullable'],
+            'attachment' => ['file', 'nullable'],
             'expires_on' => 'nullable|string|min:0',
             'status' => 'string|min:1|nullable',
             'created_by' => 'nullable',
             'approved_by' => 'nullable',
-            'approved_at' => 'nullable|date_format:j/n/Y g:i A',
-            'note' => 'string|min:1|max:1000|nullable', 
+            'approved_at' => 'nullable',
+            'note' => 'string|min:1|max:1000|nullable',
         ];
-        
+
         $data = $request->validate($rules);
         if ($request->has('custom_delete_attachment')) {
             $data['attachment'] = null;
@@ -190,7 +209,7 @@ $approvedBies = User::pluck('name','id')->all();
 
         return $data;
     }
-  
+
     /**
      * Moves the attached file to the server.
      *
@@ -203,7 +222,7 @@ $approvedBies = User::pluck('name','id')->all();
         if (!$file->isValid()) {
             return '';
         }
-        
+
         $path = config('codegenerator.files_upload_path', 'uploads');
         $saved = $file->store('public/' . $path, config('filesystems.default'));
 

@@ -10,8 +10,10 @@ use App\Models\User;
 use App\Models\Region;
 use App\Models\Woreda;
 use App\Models\Zone;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class EmployeeAddressesController extends Controller
@@ -24,7 +26,7 @@ class EmployeeAddressesController extends Controller
      */
     public function index()
     {
-        $employeeAddresses = EmployeeAddress::with('employee','addresstype','woreda','creator','approvedby')->paginate(25);
+        $employeeAddresses = EmployeeAddress::with('employee', 'addresstype', 'woreda', 'creator', 'approvedby')->paginate(25);
 
         return view('employees.address.index', compact('employeeAddresses'));
     }
@@ -36,15 +38,15 @@ class EmployeeAddressesController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('en_name','id')->all();
-        $addressTypes = AddressType::pluck('name','id')->all();
-        $regions = Region::pluck('name','id')->all();
-        $woredas = Woreda::pluck('name','id')->all();
-        $zones = Zone::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('id','id')->all();
-        
-        return view('employees.address.create', compact('employees','addressTypes','regions','woredas','zones','creators','approvedBies'));
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $addressTypes = AddressType::pluck('name', 'id')->all();
+        $regions = Region::pluck('name', 'id')->all();
+        $woredas = Woreda::pluck('name', 'id')->all();
+        $zones = Zone::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('id', 'id')->all();
+
+        return view('employees.address.create', compact('employees', 'addressTypes', 'regions', 'woredas', 'zones', 'creators', 'approvedBies'));
     }
 
     /**
@@ -57,7 +59,7 @@ class EmployeeAddressesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = Auth::Id();
             $data['status'] = '1';
@@ -66,7 +68,13 @@ class EmployeeAddressesController extends Controller
             return redirect()->route('employee_addresses.employee_address.index')
                 ->with('success_message', 'Employee Address was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -88,9 +96,15 @@ class EmployeeAddressesController extends Controller
             return redirect()->route('employee_addresses.employee_address.index')
                 ->with('success_message', 'Employee Address was successfully approved.');
         } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        } 
+        }
     }
 
     /**
@@ -108,9 +122,16 @@ class EmployeeAddressesController extends Controller
             return redirect()->route('employee_addresses.employee_address.index')
                 ->with('success_message', 'Employee Address was successfully rejected.');
         } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        } 
+        }
     }
 
     /**
@@ -123,15 +144,15 @@ class EmployeeAddressesController extends Controller
     public function edit($id)
     {
         $employeeAddress = EmployeeAddress::findOrFail($id);
-        $employees = Employee::pluck('en_name','id')->all();
-        $addressTypes = AddressType::pluck('name','id')->all();
-        $regions = Region::pluck('name','id')->all();
-        $woredas = Woreda::pluck('name','id')->all();
-        $zones = Zone::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('id','id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $addressTypes = AddressType::pluck('name', 'id')->all();
+        $regions = Region::pluck('name', 'id')->all();
+        $woredas = Woreda::pluck('name', 'id')->all();
+        $zones = Zone::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.address.edit', compact('employeeAddress','employees','addressTypes','regions','woredas','zones','creators','approvedBies'));
+        return view('employees.address.edit', compact('employeeAddress', 'employees', 'addressTypes', 'regions', 'woredas', 'zones', 'creators', 'approvedBies'));
     }
 
     /**
@@ -145,19 +166,25 @@ class EmployeeAddressesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeAddress = EmployeeAddress::findOrFail($id);
             $employeeAddress->update($data);
 
             return redirect()->route('employee_addresses.employee_address.index')
                 ->with('success_message', 'Employee Address was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -176,13 +203,18 @@ class EmployeeAddressesController extends Controller
             return redirect()->route('employee_addresses.employee_address.index')
                 ->with('success_message', 'Employee Address was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -192,22 +224,20 @@ class EmployeeAddressesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'employee_id' => 'required',
-                'address_type_id' => 'required',
-                'address' => 'string|min:1|nullable',
-                'house_number' => 'string|min:1|nullable',
-                'woreda_id' => 'nullable',
-                'status' => 'string|min:1|nullable',
-                'created_by' => 'nullable',
-                'approved_by' => 'nullable',
-                'approved_at' => 'nullable',
-                'note' => 'string|min:1|max:1000|nullable', 
+            'employee_id' => 'required',
+            'address_type_id' => 'required',
+            'address' => 'string|min:1|nullable',
+            'house_number' => 'string|min:1|nullable',
+            'woreda_id' => 'nullable',
+            'status' => 'string|min:1|nullable',
+            'created_by' => 'nullable',
+            'approved_by' => 'nullable',
+            'approved_at' => 'nullable',
+            'note' => 'string|min:1|max:1000|nullable',
         ];
-        
-        $data = $request->validate($rules);
 
+        $data = $request->validate($rules);
 
         return $data;
     }
-
 }

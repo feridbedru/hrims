@@ -7,8 +7,10 @@ use App\Models\Employee;
 use App\Models\EmployeeEmergency;
 use App\Models\Relationship;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DB;
 use Exception;
 
@@ -23,10 +25,10 @@ class EmployeeEmergenciesController extends Controller
     public function index()
     {
         $employeeEmergencies = DB::table('employee_emergencies')
-                                ->join('employees','employee_emergencies.employee','=','employees.id')
-                                ->join('relationships','employee_emergencies.relationship','=','relationships.id')
-                                ->select('employee_emergencies.*','employees.en_name','relationships.name as relation')
-                                ->paginate(25);
+            ->join('employees', 'employee_emergencies.employee', '=', 'employees.id')
+            ->join('relationships', 'employee_emergencies.relationship', '=', 'relationships.id')
+            ->select('employee_emergencies.*', 'employees.en_name', 'relationships.name as relation')
+            ->paginate(25);
 
         return view('employees.emergency.index', compact('employeeEmergencies'));
     }
@@ -38,12 +40,12 @@ class EmployeeEmergenciesController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('en_name','id')->all();
-        $relationships = Relationship::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('name','id')->all();
-        
-        return view('employees.emergency.create', compact('employees','relationships','creators','approvedBies'));
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $relationships = Relationship::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
+
+        return view('employees.emergency.create', compact('employees', 'relationships', 'creators', 'approvedBies'));
     }
 
     /**
@@ -56,7 +58,7 @@ class EmployeeEmergenciesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
@@ -65,7 +67,13 @@ class EmployeeEmergenciesController extends Controller
             return redirect()->route('employee_emergencies.employee_emergency.index')
                 ->with('success_message', 'Employee Emergency was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -79,7 +87,7 @@ class EmployeeEmergenciesController extends Controller
     public function approve($id)
     {
         try {
-            
+
             $employeeEmergency = EmployeeEmergency::findOrFail($id);
             $employeeEmergency->status = '3';
             $employeeEmergency->approved_by = '1';
@@ -89,7 +97,12 @@ class EmployeeEmergenciesController extends Controller
             return redirect()->route('employee_emergencies.employee_emergency.index')
                 ->with('success_message', 'Employee Emergency was successfully approved.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -103,7 +116,7 @@ class EmployeeEmergenciesController extends Controller
     public function reject($id, Request $request)
     {
         try {
-            
+
             $employeeEmergency = EmployeeEmergency::findOrFail($id);
             $employeeEmergency->status = '2';
             $employeeEmergency->note = '1';
@@ -112,7 +125,13 @@ class EmployeeEmergenciesController extends Controller
             return redirect()->route('employee_emergencies.employee_emergency.index')
                 ->with('success_message', 'Employee Emeregency was successfully rejected.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -127,7 +146,7 @@ class EmployeeEmergenciesController extends Controller
      */
     public function show($id)
     {
-        $employeeEmergency = EmployeeEmergency::with('employee','relationship','creator','approvedby')->findOrFail($id);
+        $employeeEmergency = EmployeeEmergency::with('employee', 'relationship', 'creator', 'approvedby')->findOrFail($id);
 
         return view('employees.emergency.show', compact('employeeEmergency'));
     }
@@ -142,12 +161,12 @@ class EmployeeEmergenciesController extends Controller
     public function edit($id)
     {
         $employeeEmergency = EmployeeEmergency::findOrFail($id);
-        $employees = Employee::pluck('en_name','id')->all();
-        $relationships = Relationship::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('name','id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $relationships = Relationship::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.emergency.edit', compact('employeeEmergency','employees','relationships','creators','approvedBies'));
+        return view('employees.emergency.edit', compact('employeeEmergency', 'employees', 'relationships', 'creators', 'approvedBies'));
     }
 
     /**
@@ -161,19 +180,25 @@ class EmployeeEmergenciesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeEmergency = EmployeeEmergency::findOrFail($id);
             $employeeEmergency->update($data);
 
             return redirect()->route('employee_emergencies.employee_emergency.index')
                 ->with('success_message', 'Employee Emergency was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -192,13 +217,18 @@ class EmployeeEmergenciesController extends Controller
             return redirect()->route('employee_emergencies.employee_emergency.index')
                 ->with('success_message', 'Employee Emergency was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -208,7 +238,7 @@ class EmployeeEmergenciesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'employee' => 'required',
+            'employee' => 'required',
             'name' => 'required|string|min:1|max:255',
             'phone_number' => 'numeric|nullable',
             'relationship' => 'required',
@@ -219,13 +249,12 @@ class EmployeeEmergenciesController extends Controller
             'created_by' => 'nullable',
             'approved_by' => 'nullable',
             'approved_at' => 'nullable',
-            'note' => 'string|min:1|max:1000|nullable', 
+            'note' => 'string|min:1|max:1000|nullable',
         ];
-        
+
         $data = $request->validate($rules);
 
 
         return $data;
     }
-
 }

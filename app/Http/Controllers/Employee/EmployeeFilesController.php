@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\EmployeeFile;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class EmployeeFilesController extends Controller
@@ -20,7 +22,7 @@ class EmployeeFilesController extends Controller
      */
     public function index()
     {
-        $employeeFiles = EmployeeFile::with('employee','creator')->paginate(25);
+        $employeeFiles = EmployeeFile::with('employee', 'creator')->paginate(25);
 
         return view('employees.file.index', compact('employeeFiles'));
     }
@@ -32,10 +34,10 @@ class EmployeeFilesController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('title','id')->all();
-$creators = User::pluck('name','id')->all();
-        
-        return view('employees.file.create', compact('employees','creators'));
+        $employees = Employee::pluck('title', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+
+        return view('employees.file.create', compact('employees', 'creators'));
     }
 
     /**
@@ -48,7 +50,7 @@ $creators = User::pluck('name','id')->all();
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = Auth::Id();
             EmployeeFile::create($data);
@@ -56,7 +58,13 @@ $creators = User::pluck('name','id')->all();
             return redirect()->route('employee_files.employee_file.index')
                 ->with('success_message', 'Employee File was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -71,7 +79,7 @@ $creators = User::pluck('name','id')->all();
      */
     public function show($id)
     {
-        $employeeFile = EmployeeFile::with('employee','creator')->findOrFail($id);
+        $employeeFile = EmployeeFile::with('employee', 'creator')->findOrFail($id);
 
         return view('employees.file.show', compact('employeeFile'));
     }
@@ -86,10 +94,10 @@ $creators = User::pluck('name','id')->all();
     public function edit($id)
     {
         $employeeFile = EmployeeFile::findOrFail($id);
-        $employees = Employee::pluck('title','id')->all();
-$creators = User::pluck('name','id')->all();
+        $employees = Employee::pluck('title', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.file.edit', compact('employeeFile','employees','creators'));
+        return view('employees.file.edit', compact('employeeFile', 'employees', 'creators'));
     }
 
     /**
@@ -103,19 +111,25 @@ $creators = User::pluck('name','id')->all();
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeFile = EmployeeFile::findOrFail($id);
             $employeeFile->update($data);
 
             return redirect()->route('employee_files.employee_file.index')
                 ->with('success_message', 'Employee File was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -134,13 +148,18 @@ $creators = User::pluck('name','id')->all();
             return redirect()->route('employee_files.employee_file.index')
                 ->with('success_message', 'Employee File was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -150,13 +169,13 @@ $creators = User::pluck('name','id')->all();
     protected function getData(Request $request)
     {
         $rules = [
-                'employee' => 'required',
+            'employee' => 'required',
             'title' => 'required|string|min:1|max:255',
             'description' => 'string|min:1|max:1000|nullable',
-            'attachment' => ['file','nullable'],
-            'created_by' => 'nullable', 
+            'attachment' => ['file', 'nullable'],
+            'created_by' => 'nullable',
         ];
-        
+
         $data = $request->validate($rules);
         if ($request->has('custom_delete_attachment')) {
             $data['attachment'] = null;
@@ -167,7 +186,7 @@ $creators = User::pluck('name','id')->all();
 
         return $data;
     }
-  
+
     /**
      * Moves the attached file to the server.
      *
@@ -180,7 +199,7 @@ $creators = User::pluck('name','id')->all();
         if (!$file->isValid()) {
             return '';
         }
-        
+
         $path = config('codegenerator.files_upload_path', 'uploads');
         $saved = $file->store('public/' . $path, config('filesystems.default'));
 

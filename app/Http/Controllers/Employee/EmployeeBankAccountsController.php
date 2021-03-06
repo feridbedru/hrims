@@ -8,8 +8,10 @@ use App\Models\BankAccountType;
 use App\Models\Employee;
 use App\Models\EmployeeBankAccount;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DB;
 use Exception;
 
@@ -24,11 +26,11 @@ class EmployeeBankAccountsController extends Controller
     public function index()
     {
         $employeeBankAccounts = DB::table('employee_bank_accounts')
-                                ->join('employees','employee_bank_accounts.employee','=','employees.id')
-                                ->join('banks','employee_bank_accounts.bank','=','banks.id')
-                                ->join('bank_account_types','employee_bank_accounts.account_type','=','bank_account_types.id')
-                                ->select('employee_bank_accounts.*','employees.en_name as employee','banks.name as bank_name','bank_account_types.name as account_type')
-                                ->paginate(25);
+            ->join('employees', 'employee_bank_accounts.employee', '=', 'employees.id')
+            ->join('banks', 'employee_bank_accounts.bank', '=', 'banks.id')
+            ->join('bank_account_types', 'employee_bank_accounts.account_type', '=', 'bank_account_types.id')
+            ->select('employee_bank_accounts.*', 'employees.en_name as employee', 'banks.name as bank_name', 'bank_account_types.name as account_type')
+            ->paginate(25);
 
         return view('employees.bank_account.index', compact('employeeBankAccounts'));
     }
@@ -40,12 +42,12 @@ class EmployeeBankAccountsController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('en_name','id')->all();
-        $banks = Bank::pluck('name','id')->all();
-        $bankAccountTypes = BankAccountType::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        
-        return view('employees.bank_account.create', compact('employees','banks','bankAccountTypes','creators'));
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $banks = Bank::pluck('name', 'id')->all();
+        $bankAccountTypes = BankAccountType::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+
+        return view('employees.bank_account.create', compact('employees', 'banks', 'bankAccountTypes', 'creators'));
     }
 
     /**
@@ -56,7 +58,7 @@ class EmployeeBankAccountsController extends Controller
     public function approve($id)
     {
         try {
-            
+
             $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
             $employeeBankAccount->status = '3';
             $employeeBankAccount->approved_by = '1';
@@ -66,7 +68,12 @@ class EmployeeBankAccountsController extends Controller
             return redirect()->route('employee_bank_accounts.employee_bank_account.index')
                 ->with('success_message', 'Employee Bank Account was successfully approved.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -80,7 +87,7 @@ class EmployeeBankAccountsController extends Controller
     public function reject($id, Request $request)
     {
         try {
-            
+
             $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
             $employeeBankAccount->status = '2';
             $employeeBankAccount->note = '1';
@@ -89,7 +96,13 @@ class EmployeeBankAccountsController extends Controller
             return redirect()->route('employee_bank_accounts.employee_bank_account.index')
                 ->with('success_message', 'Employee Bank Account was successfully rejected.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -105,7 +118,7 @@ class EmployeeBankAccountsController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
@@ -114,7 +127,13 @@ class EmployeeBankAccountsController extends Controller
             return redirect()->route('employee_bank_accounts.employee_bank_account.index')
                 ->with('success_message', 'Employee Bank Account was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -130,12 +149,12 @@ class EmployeeBankAccountsController extends Controller
     public function edit($id)
     {
         $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
-        $employees = Employee::pluck('en_name','id')->all();
-        $banks = Bank::pluck('name','id')->all();
-        $bankAccountTypes = BankAccountType::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $banks = Bank::pluck('name', 'id')->all();
+        $bankAccountTypes = BankAccountType::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.bank_account.edit', compact('employeeBankAccount','employees','banks','bankAccountTypes','creators'));
+        return view('employees.bank_account.edit', compact('employeeBankAccount', 'employees', 'banks', 'bankAccountTypes', 'creators'));
     }
 
     /**
@@ -149,19 +168,25 @@ class EmployeeBankAccountsController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
             $employeeBankAccount->update($data);
 
             return redirect()->route('employee_bank_accounts.employee_bank_account.index')
                 ->with('success_message', 'Employee Bank Account was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -180,13 +205,18 @@ class EmployeeBankAccountsController extends Controller
             return redirect()->route('employee_bank_accounts.employee_bank_account.index')
                 ->with('success_message', 'Employee Bank Account was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -196,18 +226,18 @@ class EmployeeBankAccountsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'employee' => 'required',
-                'bank' => 'required',
-                'account_type' => 'required|numeric|min:0|max:4294967295',
-                'account_number' => 'required|numeric',
-                'file' => ['file','nullable'], 
-                'status' => 'string|min:1|nullable',
-                'created_by' => 'required',
-                'approved_by' => 'nullable',
-                'approved_at' => 'date_format:j/n/Y g:i A|nullable',
-                'note' => 'string|min:1|max:1000|nullable', 
+            'employee' => 'required',
+            'bank' => 'required',
+            'account_type' => 'required|numeric|min:0|max:4294967295',
+            'account_number' => 'required|numeric',
+            'file' => ['file', 'nullable'],
+            'status' => 'string|min:1|nullable',
+            'created_by' => 'required',
+            'approved_by' => 'nullable',
+            'approved_at' => 'date_format:j/n/Y g:i A|nullable',
+            'note' => 'string|min:1|max:1000|nullable',
         ];
-        
+
         $data = $request->validate($rules);
         if ($request->has('custom_delete_file')) {
             $data['file'] = null;
@@ -218,7 +248,7 @@ class EmployeeBankAccountsController extends Controller
 
         return $data;
     }
-  
+
     /**
      * Moves the attached file to the server.
      *
@@ -231,7 +261,7 @@ class EmployeeBankAccountsController extends Controller
         if (!$file->isValid()) {
             return '';
         }
-        
+
         $path = config('codegenerator.files_upload_path', 'uploads');
         $saved = $file->store('public/' . $path, config('filesystems.default'));
 

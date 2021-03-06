@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Salary;
 use App\Models\SalaryHeight;
 use App\Models\SalaryStep;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class SalariesController extends Controller
@@ -19,7 +21,7 @@ class SalariesController extends Controller
      */
     public function index()
     {
-        $salaries = Salary::with('salaryheight','salarystep')->paginate(25);
+        $salaries = Salary::with('salaryheight', 'salarystep')->paginate(25);
 
         return view('payment.salaries.index', compact('salaries'));
     }
@@ -31,10 +33,10 @@ class SalariesController extends Controller
      */
     public function create()
     {
-        $salaryHeights = SalaryHeight::pluck('created_at','id')->all();
-$salarySteps = SalaryStep::pluck('created_at','id')->all();
-        
-        return view('payment.salaries.create', compact('salaryHeights','salarySteps'));
+        $salaryHeights = SalaryHeight::pluck('created_at', 'id')->all();
+        $salarySteps = SalaryStep::pluck('created_at', 'id')->all();
+
+        return view('payment.salaries.create', compact('salaryHeights', 'salarySteps'));
     }
 
     /**
@@ -47,15 +49,21 @@ $salarySteps = SalaryStep::pluck('created_at','id')->all();
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             Salary::create($data);
 
             return redirect()->route('salaries.salary.index')
                 ->with('success_message', 'Salary was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -70,7 +78,7 @@ $salarySteps = SalaryStep::pluck('created_at','id')->all();
      */
     public function show($id)
     {
-        $salary = Salary::with('salaryheight','salarystep')->findOrFail($id);
+        $salary = Salary::with('salaryheight', 'salarystep')->findOrFail($id);
 
         return view('payment.salaries.show', compact('salary'));
     }
@@ -85,10 +93,10 @@ $salarySteps = SalaryStep::pluck('created_at','id')->all();
     public function edit($id)
     {
         $salary = Salary::findOrFail($id);
-        $salaryHeights = SalaryHeight::pluck('created_at','id')->all();
-$salarySteps = SalaryStep::pluck('created_at','id')->all();
+        $salaryHeights = SalaryHeight::pluck('created_at', 'id')->all();
+        $salarySteps = SalaryStep::pluck('created_at', 'id')->all();
 
-        return view('payment.salaries.edit', compact('salary','salaryHeights','salarySteps'));
+        return view('payment.salaries.edit', compact('salary', 'salaryHeights', 'salarySteps'));
     }
 
     /**
@@ -102,19 +110,25 @@ $salarySteps = SalaryStep::pluck('created_at','id')->all();
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $salary = Salary::findOrFail($id);
             $salary->update($data);
 
             return redirect()->route('salaries.salary.index')
                 ->with('success_message', 'Salary was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -133,13 +147,18 @@ $salarySteps = SalaryStep::pluck('created_at','id')->all();
             return redirect()->route('salaries.salary.index')
                 ->with('success_message', 'Salary was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -149,15 +168,14 @@ $salarySteps = SalaryStep::pluck('created_at','id')->all();
     protected function getData(Request $request)
     {
         $rules = [
-                'salary_height' => 'required',
+            'salary_height' => 'required',
             'salary_step' => 'required',
-            'amount' => 'required|string|min:1', 
+            'amount' => 'required|string|min:1',
         ];
-        
+
         $data = $request->validate($rules);
 
 
         return $data;
     }
-
 }

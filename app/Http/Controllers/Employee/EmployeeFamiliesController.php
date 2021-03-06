@@ -8,8 +8,10 @@ use App\Models\Employee;
 use App\Models\EmployeeFamily;
 use App\Models\Relationship;
 use App\Models\Sex;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DB;
 use Exception;
 
@@ -24,11 +26,11 @@ class EmployeeFamiliesController extends Controller
     public function index()
     {
         $employeeFamilies = DB::table('employee_families')
-                                ->join('employees','employee_families.employee','=','employees.id')
-                                ->join('relationships','employee_families.relationship','=','relationships.id')
-                                ->join('sexes','employee_families.sex','=','sexes.id')
-                                ->select('employee_families.*','employees.en_name','relationships.name as relation','sexes.name as sex')
-                                ->paginate(25);
+            ->join('employees', 'employee_families.employee', '=', 'employees.id')
+            ->join('relationships', 'employee_families.relationship', '=', 'relationships.id')
+            ->join('sexes', 'employee_families.sex', '=', 'sexes.id')
+            ->select('employee_families.*', 'employees.en_name', 'relationships.name as relation', 'sexes.name as sex')
+            ->paginate(25);
 
         return view('employees.family.index', compact('employeeFamilies'));
     }
@@ -40,13 +42,13 @@ class EmployeeFamiliesController extends Controller
      */
     public function create()
     {
-        $employees = Employee::pluck('en_name','id')->all();
-        $sexes = Sex::pluck('name','id')->all();
-        $relationships = Relationship::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('name','id')->all();
-        
-        return view('employees.family.create', compact('employees','sexes','relationships','creators','approvedBies'));
+        $employees = Employee::pluck('en_name', 'id')->all();
+        $sexes = Sex::pluck('name', 'id')->all();
+        $relationships = Relationship::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('name', 'id')->all();
+
+        return view('employees.family.create', compact('employees', 'sexes', 'relationships', 'creators', 'approvedBies'));
     }
 
     /**
@@ -59,7 +61,7 @@ class EmployeeFamiliesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
@@ -68,7 +70,13 @@ class EmployeeFamiliesController extends Controller
             return redirect()->route('employee_families.employee_family.index')
                 ->with('success_message', 'Employee Family was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -82,7 +90,7 @@ class EmployeeFamiliesController extends Controller
     public function approve($id)
     {
         try {
-            
+
             $employeeFamily = EmployeeFamily::findOrFail($id);
             $employeeFamily->status = '3';
             $employeeFamily->approved_by = '1';
@@ -92,7 +100,12 @@ class EmployeeFamiliesController extends Controller
             return redirect()->route('employee_families.employee_family.index')
                 ->with('success_message', 'Employee Family was successfully approved.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -106,7 +119,7 @@ class EmployeeFamiliesController extends Controller
     public function reject($id, Request $request)
     {
         try {
-            
+
             $employeeFamily = EmployeeFamily::findOrFail($id);
             $employeeFamily->status = '2';
             $employeeFamily->note = '1';
@@ -115,7 +128,13 @@ class EmployeeFamiliesController extends Controller
             return redirect()->route('employee_families.employee_family.index')
                 ->with('success_message', 'Employee Family was successfully rejected.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -131,13 +150,13 @@ class EmployeeFamiliesController extends Controller
     public function edit($id)
     {
         $employeeFamily = EmployeeFamily::findOrFail($id);
-        $employees = Employee::pluck('title','id')->all();
-        $sexes = Sex::pluck('name','id')->all();
-        $relationships = Relationship::pluck('name','id')->all();
-        $creators = User::pluck('name','id')->all();
-        $approvedBies = User::pluck('id','id')->all();
+        $employees = Employee::pluck('title', 'id')->all();
+        $sexes = Sex::pluck('name', 'id')->all();
+        $relationships = Relationship::pluck('name', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+        $approvedBies = User::pluck('id', 'id')->all();
 
-        return view('employees.family.edit', compact('employeeFamily','employees','sexes','relationships','creators','approvedBies'));
+        return view('employees.family.edit', compact('employeeFamily', 'employees', 'sexes', 'relationships', 'creators', 'approvedBies'));
     }
 
     /**
@@ -151,19 +170,25 @@ class EmployeeFamiliesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeFamily = EmployeeFamily::findOrFail($id);
             $employeeFamily->update($data);
 
             return redirect()->route('employee_families.employee_family.index')
                 ->with('success_message', 'Employee Family was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -182,13 +207,18 @@ class EmployeeFamiliesController extends Controller
             return redirect()->route('employee_families.employee_family.index')
                 ->with('success_message', 'Employee Family was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -198,20 +228,20 @@ class EmployeeFamiliesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'employee' => 'required',
+            'employee' => 'required',
             'name' => 'required|string|min:1|max:255',
             'sex' => 'required',
             'relationship' => 'required',
             'date_of_birth' => 'required',
-            'photo' => ['file','nullable'],
-            'file' => ['file','nullable'],
+            'photo' => ['file', 'nullable'],
+            'file' => ['file', 'nullable'],
             'status' => 'string|min:1|nullable',
             'created_by' => 'nullable',
             'approved_by' => 'nullable',
             'approved_at' => 'nullable',
-            'note' => 'string|min:1|max:1000|nullable', 
+            'note' => 'string|min:1|max:1000|nullable',
         ];
-        
+
         $data = $request->validate($rules);
         if ($request->has('custom_delete_photo')) {
             $data['photo'] = null;
@@ -228,7 +258,7 @@ class EmployeeFamiliesController extends Controller
 
         return $data;
     }
-  
+
     /**
      * Moves the attached file to the server.
      *
@@ -241,7 +271,7 @@ class EmployeeFamiliesController extends Controller
         if (!$file->isValid()) {
             return '';
         }
-        
+
         $path = config('codegenerator.files_upload_path', 'uploads');
         $saved = $file->store('public/' . $path, config('filesystems.default'));
 

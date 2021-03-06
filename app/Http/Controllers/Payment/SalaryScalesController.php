@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use App\Models\JobCategory;
 use App\Models\SalaryScale;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class SalaryScalesController extends Controller
@@ -30,8 +32,8 @@ class SalaryScalesController extends Controller
      */
     public function create()
     {
-        $jobCategories = JobCategory::pluck('name','id')->all();
-        
+        $jobCategories = JobCategory::pluck('name', 'id')->all();
+
         return view('payment.salary_scales.create', compact('jobCategories'));
     }
 
@@ -45,15 +47,21 @@ class SalaryScalesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             SalaryScale::create($data);
 
             return redirect()->route('salary_scales.salary_scale.index')
                 ->with('success_message', 'Salary Scale was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -83,9 +91,9 @@ class SalaryScalesController extends Controller
     public function edit($id)
     {
         $salaryScale = SalaryScale::findOrFail($id);
-        $jobCategories = JobCategory::pluck('name','id')->all();
+        $jobCategories = JobCategory::pluck('name', 'id')->all();
 
-        return view('payment.salary_scales.edit', compact('salaryScale','jobCategories'));
+        return view('payment.salary_scales.edit', compact('salaryScale', 'jobCategories'));
     }
 
     /**
@@ -99,19 +107,25 @@ class SalaryScalesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $salaryScale = SalaryScale::findOrFail($id);
             $salaryScale->update($data);
 
             return redirect()->route('salary_scales.salary_scale.index')
                 ->with('success_message', 'Salary Scale was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -130,13 +144,18 @@ class SalaryScalesController extends Controller
             return redirect()->route('salary_scales.salary_scale.index')
                 ->with('success_message', 'Salary Scale was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -146,19 +165,18 @@ class SalaryScalesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'name' => 'required|string|min:1|max:255',
+            'name' => 'required|string|min:1|max:255',
             'description' => 'required|string|min:1|max:255',
             'job_category' => 'required',
             'stair_height' => 'required|string|min:1',
             'salary_steps' => 'required|string|min:1',
-            'is_enabled' => 'boolean|nullable', 
+            'is_enabled' => 'boolean|nullable',
         ];
-        
+
         $data = $request->validate($rules);
 
         $data['is_enabled'] = $request->has('is_enabled');
 
         return $data;
     }
-
 }

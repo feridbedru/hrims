@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\EmployeeDisaster;
 use App\Models\EmployeeDisasterIndeminity;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class EmployeeDisasterIndeminitiesController extends Controller
@@ -20,7 +22,7 @@ class EmployeeDisasterIndeminitiesController extends Controller
      */
     public function index()
     {
-        $employeeDisasterIndeminities = EmployeeDisasterIndeminity::with('employeedisaster','creator')->paginate(25);
+        $employeeDisasterIndeminities = EmployeeDisasterIndeminity::with('employeedisaster', 'creator')->paginate(25);
 
         return view('employees.disaster_indeminity.index', compact('employeeDisasterIndeminities'));
     }
@@ -32,10 +34,10 @@ class EmployeeDisasterIndeminitiesController extends Controller
      */
     public function create()
     {
-        $employeeDisasters = EmployeeDisaster::pluck('occured_on','id')->all();
-        $creators = User::pluck('name','id')->all();
-        
-        return view('employees.disaster_indeminity.create', compact('employeeDisasters','creators'));
+        $employeeDisasters = EmployeeDisaster::pluck('occured_on', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
+
+        return view('employees.disaster_indeminity.create', compact('employeeDisasters', 'creators'));
     }
 
     /**
@@ -48,7 +50,7 @@ class EmployeeDisasterIndeminitiesController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = Auth::Id();
             EmployeeDisasterIndeminity::create($data);
@@ -56,7 +58,13 @@ class EmployeeDisasterIndeminitiesController extends Controller
             return redirect()->route('employee_disaster_indeminities.employee_disaster_indeminity.index')
                 ->with('success_message', 'Employee Disaster Indeminity was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -71,7 +79,7 @@ class EmployeeDisasterIndeminitiesController extends Controller
      */
     public function show($id)
     {
-        $employeeDisasterIndeminity = EmployeeDisasterIndeminity::with('employeedisaster','creator')->findOrFail($id);
+        $employeeDisasterIndeminity = EmployeeDisasterIndeminity::with('employeedisaster', 'creator')->findOrFail($id);
 
         return view('employees.disaster_indeminity.show', compact('employeeDisasterIndeminity'));
     }
@@ -86,10 +94,10 @@ class EmployeeDisasterIndeminitiesController extends Controller
     public function edit($id)
     {
         $employeeDisasterIndeminity = EmployeeDisasterIndeminity::findOrFail($id);
-        $employeeDisasters = EmployeeDisaster::pluck('approved_at','id')->all();
-        $creators = User::pluck('name','id')->all();
+        $employeeDisasters = EmployeeDisaster::pluck('approved_at', 'id')->all();
+        $creators = User::pluck('name', 'id')->all();
 
-        return view('employees.disaster_indeminity.edit', compact('employeeDisasterIndeminity','employeeDisasters','creators'));
+        return view('employees.disaster_indeminity.edit', compact('employeeDisasterIndeminity', 'employeeDisasters', 'creators'));
     }
 
     /**
@@ -103,19 +111,25 @@ class EmployeeDisasterIndeminitiesController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $employeeDisasterIndeminity = EmployeeDisasterIndeminity::findOrFail($id);
             $employeeDisasterIndeminity->update($data);
 
             return redirect()->route('employee_disaster_indeminities.employee_disaster_indeminity.index')
                 ->with('success_message', 'Employee Disaster Indeminity was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -134,13 +148,18 @@ class EmployeeDisasterIndeminitiesController extends Controller
             return redirect()->route('employee_disaster_indeminities.employee_disaster_indeminity.index')
                 ->with('success_message', 'Employee Disaster Indeminity was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -150,14 +169,14 @@ class EmployeeDisasterIndeminitiesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'disaster' => 'required',
-                'title' => 'required|string|min:1|max:255',
-                'description' => 'required|string|min:1|max:1000',
-                'cost' => 'string|min:1|nullable',
-                'file' => ['file','nullable'],
-                'created_by' => 'nullable', 
+            'disaster' => 'required',
+            'title' => 'required|string|min:1|max:255',
+            'description' => 'required|string|min:1|max:1000',
+            'cost' => 'string|min:1|nullable',
+            'file' => ['file', 'nullable'],
+            'created_by' => 'nullable',
         ];
-        
+
         $data = $request->validate($rules);
         if ($request->has('custom_delete_file')) {
             $data['file'] = null;
@@ -168,7 +187,7 @@ class EmployeeDisasterIndeminitiesController extends Controller
 
         return $data;
     }
-  
+
     /**
      * Moves the attached file to the server.
      *
@@ -181,7 +200,7 @@ class EmployeeDisasterIndeminitiesController extends Controller
         if (!$file->isValid()) {
             return '';
         }
-        
+
         $path = config('codegenerator.files_upload_path', 'uploads');
         $saved = $file->store('public/' . $path, config('filesystems.default'));
 

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Report;
 use App\Http\Controllers\Controller;
 use App\Models\Report;
 use App\Models\User;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use DB;
 use Exception;
 
@@ -32,8 +34,8 @@ class ReportsController extends Controller
      */
     public function create()
     {
-        $creators = User::pluck('name','id')->all();
-        
+        $creators = User::pluck('name', 'id')->all();
+
         return view('reports.create', compact('creators'));
     }
 
@@ -47,7 +49,7 @@ class ReportsController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
             $data['created_by'] = Auth::Id();
             Report::create($data);
@@ -55,7 +57,13 @@ class ReportsController extends Controller
             return redirect()->route('reports.report.index')
                 ->with('success_message', 'Report was successfully added.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -73,12 +81,12 @@ class ReportsController extends Controller
         $report = Report::with('creator')->findOrFail($id);
         // dd($report['query']);
         $query = $report['query'];
-        $result = DB::select( DB::raw("$query"));
+        $result = DB::select(DB::raw("$query"));
         $results = collect($result);
         $cols = $results->first();
         // dd($result);
 
-        return view('reports.show', compact('report','results','cols'));
+        return view('reports.show', compact('report', 'results', 'cols'));
     }
 
     /**
@@ -91,9 +99,9 @@ class ReportsController extends Controller
     public function edit($id)
     {
         $report = Report::findOrFail($id);
-        $creators = User::pluck('name','id')->all();
+        $creators = User::pluck('name', 'id')->all();
 
-        return view('reports.edit', compact('report','creators'));
+        return view('reports.edit', compact('report', 'creators'));
     }
 
     /**
@@ -107,19 +115,25 @@ class ReportsController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $report = Report::findOrFail($id);
             $report->update($data);
-            
+
             return redirect()->route('reports.report.index')
                 ->with('success_message', 'Report was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -138,13 +152,18 @@ class ReportsController extends Controller
             return redirect()->route('reports.report.index')
                 ->with('success_message', 'Report was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -154,18 +173,17 @@ class ReportsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'name' => 'required|string|min:1|max:255',
+            'name' => 'required|string|min:1|max:255',
             'description' => 'required|string|min:1|max:1000',
             'query' => 'required|string|min:1',
             'is_active' => 'boolean|nullable',
-            'created_by' => 'nullable', 
+            'created_by' => 'nullable',
         ];
-        
+
         $data = $request->validate($rules);
 
         $data['is_active'] = $request->has('is_active');
 
         return $data;
     }
-
 }

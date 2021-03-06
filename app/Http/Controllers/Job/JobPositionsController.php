@@ -9,7 +9,9 @@ use App\Models\JobTitleCategory;
 use App\Models\JobType;
 use App\Models\OrganizationUnit;
 use App\Models\Salary;
+use App\Models\SystemException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Exception;
 
 class JobPositionsController extends Controller
@@ -22,7 +24,7 @@ class JobPositionsController extends Controller
      */
     public function index()
     {
-        $jobPositions = JobPosition::with('organizationunit','jobtitlecategory','salary')->paginate(25);
+        $jobPositions = JobPosition::with('organizationunit', 'jobtitlecategory', 'salary')->paginate(25);
 
         return view('job_positions.index', compact('jobPositions'));
     }
@@ -34,13 +36,13 @@ class JobPositionsController extends Controller
      */
     public function create()
     {
-        $organizationUnits = OrganizationUnit::pluck('en_name','id')->all();
-        $jobTitleCategories = JobTitleCategory::pluck('name','id')->all();
-        $jobCategories = JobCategory::pluck('name','id')->all();
-        $jobTypes = JobType::pluck('name','id')->all();
-        $salaries = Salary::pluck('amount','id')->all();
-        
-        return view('job_positions.create', compact('organizationUnits','jobTitleCategories','jobCategories','jobTypes','salaries'));
+        $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
+        $jobTitleCategories = JobTitleCategory::pluck('name', 'id')->all();
+        $jobCategories = JobCategory::pluck('name', 'id')->all();
+        $jobTypes = JobType::pluck('name', 'id')->all();
+        $salaries = Salary::pluck('amount', 'id')->all();
+
+        return view('job_positions.create', compact('organizationUnits', 'jobTitleCategories', 'jobCategories', 'jobTypes', 'salaries'));
     }
 
     /**
@@ -53,15 +55,21 @@ class JobPositionsController extends Controller
     public function store(Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             JobPosition::create($data);
 
             return redirect()->route('job_positions.job_position.index')
                 ->with('success_message', 'Job Position was successfully added.');
         } catch (Exception $exception) {
-        
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -76,7 +84,7 @@ class JobPositionsController extends Controller
      */
     public function show($id)
     {
-        $jobPosition = JobPosition::with('organizationunit','jobtitlecategory','jobcategory','jobtype','salary')->findOrFail($id);
+        $jobPosition = JobPosition::with('organizationunit', 'jobtitlecategory', 'jobcategory', 'jobtype', 'salary')->findOrFail($id);
 
         return view('job_positions.show', compact('jobPosition'));
     }
@@ -91,13 +99,13 @@ class JobPositionsController extends Controller
     public function edit($id)
     {
         $jobPosition = JobPosition::findOrFail($id);
-        $organizationUnits = OrganizationUnit::pluck('en_name','id')->all();
-        $jobTitleCategories = JobTitleCategory::pluck('name','id')->all();
-        $jobCategories = JobCategory::pluck('name','id')->all();
-        $jobTypes = JobType::pluck('name','id')->all();
-        $salaries = Salary::pluck('amount','id')->all();
+        $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
+        $jobTitleCategories = JobTitleCategory::pluck('name', 'id')->all();
+        $jobCategories = JobCategory::pluck('name', 'id')->all();
+        $jobTypes = JobType::pluck('name', 'id')->all();
+        $salaries = Salary::pluck('amount', 'id')->all();
 
-        return view('job_positions.edit', compact('jobPosition','organizationUnits','jobTitleCategories','jobCategories','jobTypes','salaries'));
+        return view('job_positions.edit', compact('jobPosition', 'organizationUnits', 'jobTitleCategories', 'jobCategories', 'jobTypes', 'salaries'));
     }
 
     /**
@@ -111,19 +119,25 @@ class JobPositionsController extends Controller
     public function update($id, Request $request)
     {
         try {
-            
+
             $data = $this->getData($request);
-            
+
             $jobPosition = JobPosition::findOrFail($id);
             $jobPosition->update($data);
 
             return redirect()->route('job_positions.job_position.index')
                 ->with('success_message', 'Job Position was successfully updated.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
-        }        
+        }
     }
 
     /**
@@ -142,13 +156,18 @@ class JobPositionsController extends Controller
             return redirect()->route('job_positions.job_position.index')
                 ->with('success_message', 'Job Position was successfully deleted.');
         } catch (Exception $exception) {
-
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
     }
 
-    
+
     /**
      * Get the request's data from the request.
      *
@@ -158,7 +177,7 @@ class JobPositionsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-                'organization_unit' => 'required',
+            'organization_unit' => 'required',
             'job_title_category' => 'required',
             'job_category' => 'required',
             'job_type' => 'required',
@@ -166,14 +185,13 @@ class JobPositionsController extends Controller
             'position_code' => 'string|min:1|nullable',
             'position_id' => 'string|min:1|nullable',
             'salary' => 'required',
-            'status' => 'boolean|nullable', 
+            'status' => 'boolean|nullable',
         ];
-        
+
         $data = $request->validate($rules);
 
         $data['status'] = $request->has('status');
 
         return $data;
     }
-
 }
