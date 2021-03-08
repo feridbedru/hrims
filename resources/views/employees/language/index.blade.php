@@ -36,18 +36,18 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employeeLanguage->employees->en_name }}</td>
                                 <td>{{ $employeeLanguage->languages->name }}</td>
-                                <td>{{ $employeeLanguage->reading }}</td>
-                                <td>{{ $employeeLanguage->writing }}</td>
-                                <td>{{ $employeeLanguage->listening }}</td>
-                                <td>{{ $employeeLanguage->speaking }}</td>
+                                <td>{{ $employeeLanguage->readings->name }}</td>
+                                <td>{{ $employeeLanguage->writings->name }}</td>
+                                <td>{{ $employeeLanguage->listenings->name }}</td>
+                                <td>{{ $employeeLanguage->speakings->name }}</td>
                                 <td>{{ $employeeLanguage->is_prefered ? 'Yes' : 'No' }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_languages.employee_language.destroy', $employeeLanguage->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                    <form method="POST" action="{!! route('employee_languages.employee_language.destroy', ['employee' => $employeeLanguage->employees->id, 'employeeLanguage' => $employeeLanguage->id]) !!}" accept-charset="UTF-8">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_languages.employee_language.edit', $employeeLanguage->id) }}"
+                                            <a href="{{ route('employee_languages.employee_language.edit', ['employee' => $employeeLanguage->employees->id, 'employeeLanguage' => $employeeLanguage->id]) }}"
                                                 class="btn btn-warning" title="Edit Language">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -67,7 +67,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_languages.employee_language.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_languages.employee_language.create',$employee) }}" class="btn btn-success"
         title="Create New Language">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

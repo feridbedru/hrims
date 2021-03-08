@@ -34,11 +34,11 @@
                                 <td>{{ $employeeFile->description }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_files.employee_file.destroy', $employeeFile->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                    <form method="POST" action="{!! route('employee_files.employee_file.destroy',['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) !!}" accept-charset="UTF-8">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_files.employee_file.edit', $employeeFile->id) }}"
+                                            <a href="{{ route('employee_files.employee_file.edit', ['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) }}"
                                                 class="btn btn-warning" title="Edit File">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -58,7 +58,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_files.employee_file.create') }}" class="btn btn-success" title="Create New File">
+    <a href="{{ route('employee_files.employee_file.create', $employee) }}" class="btn btn-success" title="Create New File">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
 @endsection

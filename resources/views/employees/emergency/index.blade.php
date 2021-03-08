@@ -52,7 +52,7 @@
                                 </td>
                                 <td>
                                     @if ($employeeEmergency->status == 1)
-                                        <a href="{{ route('employee_emergencies.employee_emergency.approve', $employeeEmergency->id) }}"
+                                        <a href="{{ route('employee_emergencies.employee_emergency.approve', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Emergency">
                                             Approve
                                         </a>
@@ -70,7 +70,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST" action="{!! route('employee_emergencies.employee_emergency.reject', $employeeEmergency->id) !!}"
+                                                    <form method="POST" action="{!! route('employee_emergencies.employee_emergency.reject', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -89,8 +89,8 @@
                                             </div>
                                         </div>
                                     @elseif($employeeEmergency->status == 2)
-                                        <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', $employeeEmergency->id) !!}" accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <button type="submit" class="btn btn-danger" title="Delete Emergency"
@@ -100,11 +100,11 @@
                                             </div>
                                         </form>
                                     @else
-                                        <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', $employeeEmergency->id) !!}" accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                                <a href="{{ route('employee_emergencies.employee_emergency.edit', $employeeEmergency->id) }}"
+                                                <a href="{{ route('employee_emergencies.employee_emergency.edit', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) }}"
                                                     class="btn btn-warning" title="Edit Emergency">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
@@ -125,7 +125,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_emergencies.employee_emergency.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_emergencies.employee_emergency.create', $employee) }}" class="btn btn-success"
         title="Create New Employee Emergency">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

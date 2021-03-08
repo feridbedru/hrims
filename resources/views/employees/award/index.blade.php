@@ -38,15 +38,15 @@
                                 <td>{{ $employeeAward->status }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_awards.employee_award.destroy', $employeeAward->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                    <form method="POST" action="{!! route('employee_awards.employee_award.destroy', ['employee' => $employeeAward->employees->id, 'employeeAward' => $employeeAward->id]) !!}" accept-charset="UTF-8">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_awards.employee_award.show', $employeeAward->id) }}"
+                                            <a href="{{ route('employee_awards.employee_award.show', ['employee' => $employeeAward->employees->id, 'employeeAward' => $employeeAward->id]) }}"
                                                 class="btn btn-primary" title="Show Award">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
-                                            <a href="{{ route('employee_awards.employee_award.edit', $employeeAward->id) }}"
+                                            <a href="{{ route('employee_awards.employee_award.edit', ['employee' => $employeeAward->employees->id, 'employeeAward' => $employeeAward->id]) }}"
                                                 class="btn btn-warning" title="Edit Award">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -66,7 +66,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_awards.employee_award.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_awards.employee_award.create',$employee) }}" class="btn btn-success"
         title="Create New Employee Award">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

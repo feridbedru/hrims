@@ -41,20 +41,20 @@
                                 <td>{{ $employeeCertification->certification_number }}</td>
                                 <td>{{ $employeeCertification->categories->name }}</td>
                                 <td>{{ $employeeCertification->verification_link }}</td>
-                                <td>{{ $employeeCertification->vendors->name }}</td>
+                                <td>{{ optional($employeeCertification->vendors)->name }}</td>
                                 <td>{{ $employeeCertification->expires_on }}</td>
                                 <td>{{ $employeeCertification->status }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', $employeeCertification->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                    <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) !!}" accept-charset="UTF-8">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_certifications.employee_certification.show', $employeeCertification->id) }}"
+                                            <a href="{{ route('employee_certifications.employee_certification.show', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                                                 class="btn btn-primary" title="Show Certification">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
-                                            <a href="{{ route('employee_certifications.employee_certification.edit', $employeeCertification->id) }}"
+                                            <a href="{{ route('employee_certifications.employee_certification.edit', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                                                 class="btn btn-warning" title="Edit Certification">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -74,7 +74,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_certifications.employee_certification.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_certifications.employee_certification.create', $employee) }}" class="btn btn-success"
         title="Create New Employee Certification">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

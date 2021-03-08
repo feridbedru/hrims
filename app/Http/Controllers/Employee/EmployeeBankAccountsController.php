@@ -21,11 +21,13 @@ class EmployeeBankAccountsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeBankAccounts = EmployeeBankAccount::with('banks', 'types', 'employees')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeBankAccounts = EmployeeBankAccount::where('employee', $employee_id)->with('banks', 'types', 'employees')->paginate(25);
 
-        return view('employees.bank_account.index', compact('employeeBankAccounts'));
+        return view('employees.bank_account.index', compact('employeeBankAccounts','employee'));
     }
 
     /**
@@ -33,13 +35,13 @@ class EmployeeBankAccountsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $banks = Bank::pluck('name', 'id')->all();
         $bankAccountTypes = BankAccountType::pluck('name', 'id')->all();
 
-        return view('employees.bank_account.create', compact('employees', 'banks', 'bankAccountTypes'));
+        return view('employees.bank_account.create', compact('employee', 'banks', 'bankAccountTypes'));
     }
 
     /**
@@ -47,17 +49,17 @@ class EmployeeBankAccountsController extends Controller
      *
      * @param int $id
      */
-    public function approve($id)
+    public function approve($employee,$employeeBankAccounts)
     {
         try {
 
-            $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
+            $employeeBankAccount = EmployeeBankAccount::findOrFail($employeeBankAccounts);
             $employeeBankAccount->status = 3;
             $employeeBankAccount->approved_by = 1;
             $employeeBankAccount->approved_at = now();
             $employeeBankAccount->save();
 
-            return redirect()->route('employee_bank_accounts.employee_bank_account.index')
+            return redirect()->route('employee_bank_accounts.employee_bank_account.index',$employee)
                 ->with('success_message', 'Employee Bank Account was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -76,16 +78,16 @@ class EmployeeBankAccountsController extends Controller
      *
      * @param int $id
      */
-    public function reject($id, Request $request)
+    public function reject($employee,$employeeBankAccounts, Request $request)
     {
         try {
 
-            $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
+            $employeeBankAccount = EmployeeBankAccount::findOrFail($employeeBankAccounts);
             $employeeBankAccount->status = 2;
-            $employeeBankAccount->note = 1;
+            $employeeBankAccount->note = $request['note'];
             $employeeBankAccount->save();
 
-            return redirect()->route('employee_bank_accounts.employee_bank_account.index')
+            return redirect()->route('employee_bank_accounts.employee_bank_account.index',$employee)
                 ->with('success_message', 'Employee Bank Account was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -107,16 +109,17 @@ class EmployeeBankAccountsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeBankAccount::create($data);
 
-            return redirect()->route('employee_bank_accounts.employee_bank_account.index')
+            return redirect()->route('employee_bank_accounts.employee_bank_account.index',$employee)
                 ->with('success_message', 'Employee Bank Account was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -138,14 +141,14 @@ class EmployeeBankAccountsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeBankAccounts)
     {
-        $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeBankAccount = EmployeeBankAccount::findOrFail($employeeBankAccounts);
         $banks = Bank::pluck('name', 'id')->all();
         $bankAccountTypes = BankAccountType::pluck('name', 'id')->all();
 
-        return view('employees.bank_account.edit', compact('employeeBankAccount', 'employees', 'banks', 'bankAccountTypes'));
+        return view('employees.bank_account.edit', compact('employeeBankAccount', 'employee', 'banks', 'bankAccountTypes'));
     }
 
     /**
@@ -156,16 +159,16 @@ class EmployeeBankAccountsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeBankAccounts, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
+            $employeeBankAccount = EmployeeBankAccount::findOrFail($employeeBankAccounts);
             $employeeBankAccount->update($data);
 
-            return redirect()->route('employee_bank_accounts.employee_bank_account.index')
+            return redirect()->route('employee_bank_accounts.employee_bank_account.index',$employee)
                 ->with('success_message', 'Employee Bank Account was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -187,13 +190,13 @@ class EmployeeBankAccountsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeBankAccounts)
     {
         try {
-            $employeeBankAccount = EmployeeBankAccount::findOrFail($id);
+            $employeeBankAccount = EmployeeBankAccount::findOrFail($employeeBankAccounts);
             $employeeBankAccount->delete();
 
-            return redirect()->route('employee_bank_accounts.employee_bank_account.index')
+            return redirect()->route('employee_bank_accounts.employee_bank_account.index',$employee)
                 ->with('success_message', 'Employee Bank Account was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -217,13 +220,12 @@ class EmployeeBankAccountsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'bank' => 'required',
             'account_type' => 'required|numeric|min:0|max:4294967295',
             'account_number' => 'required|numeric',
             'file' => ['file', 'nullable'],
-            'status' => 'string|min:1|nullable',
-            'created_by' => 'required',
+            'status' => 'numeric|min:1|nullable',
+            'created_by' => 'nullable',
             'approved_by' => 'nullable',
             'approved_at' => 'nullable',
             'note' => 'string|min:1|max:1000|nullable',

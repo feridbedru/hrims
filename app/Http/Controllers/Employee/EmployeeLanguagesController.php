@@ -22,11 +22,13 @@ class EmployeeLanguagesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeLanguages = EmployeeLanguage::with('employees', 'languages', 'languageLevels')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings','writings','speakings','listenings')->paginate(25);
 
-        return view('employees.language.index', compact('employeeLanguages'));
+        return view('employees.language.index', compact('employeeLanguages','employee'));
     }
 
     /**
@@ -34,13 +36,13 @@ class EmployeeLanguagesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $languages = Language::pluck('name', 'id')->all();
         $languageLevels = LanguageLevel::pluck('name', 'id')->all();
 
-        return view('employees.language.create', compact('employees', 'languages', 'languageLevels'));
+        return view('employees.language.create', compact('employee', 'languages', 'languageLevels'));
     }
 
     /**
@@ -50,15 +52,16 @@ class EmployeeLanguagesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['created_by'] = 1;
+            $data['employee'] = $id;
             EmployeeLanguage::create($data);
 
-            return redirect()->route('employee_languages.employee_language.index')
+            return redirect()->route('employee_languages.employee_language.index',$employee)
                 ->with('success_message', 'Employee Language was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -80,14 +83,14 @@ class EmployeeLanguagesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeLanguages)
     {
-        $employeeLanguage = EmployeeLanguage::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeLanguage = EmployeeLanguage::findOrFail($employeeLanguages);
         $languages = Language::pluck('name', 'id')->all();
         $languageLevels = LanguageLevel::pluck('name', 'id')->all();
 
-        return view('employees.language.edit', compact('employeeLanguage', 'employees', 'languages', 'languageLevels'));
+        return view('employees.language.edit', compact('employeeLanguage', 'employee', 'languages', 'languageLevels'));
     }
 
     /**
@@ -98,16 +101,17 @@ class EmployeeLanguagesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeLanguages, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeLanguage = EmployeeLanguage::findOrFail($id);
+            $employeeLanguage = EmployeeLanguage::findOrFail($employeeLanguages);
+            $data['employee'] = $employee;
             $employeeLanguage->update($data);
 
-            return redirect()->route('employee_languages.employee_language.index')
+            return redirect()->route('employee_languages.employee_language.index',$employee)
                 ->with('success_message', 'Employee Language was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -129,13 +133,13 @@ class EmployeeLanguagesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeLanguages)
     {
         try {
-            $employeeLanguage = EmployeeLanguage::findOrFail($id);
+            $employeeLanguage = EmployeeLanguage::findOrFail($employeeLanguages);
             $employeeLanguage->delete();
 
-            return redirect()->route('employee_languages.employee_language.index')
+            return redirect()->route('employee_languages.employee_language.index',$employee)
                 ->with('success_message', 'Employee Language was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -159,7 +163,6 @@ class EmployeeLanguagesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'language' => 'required|numeric|min:0|max:4294967295',
             'reading' => 'required|numeric|min:0|max:4294967295',
             'writing' => 'required|numeric|min:0|max:4294967295',

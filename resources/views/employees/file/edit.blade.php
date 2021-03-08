@@ -3,7 +3,7 @@
     Edit File
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_files.employee_file.index') }}">File</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('employee_files.employee_file.index', $employee) }}">File</a></li>
     <li class="breadcrumb-item active">Edit</li>
 @endsection
 @section('content')
@@ -12,7 +12,7 @@
             <h3 class="card-title mb-1">Edit File</h3>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('employee_files.employee_file.update', $employeeFile->id) }}"
+            <form method="POST" action="{{ route('employee_files.employee_file.update', ['employee' => $employee->id, 'employeeFile' => $employeeFile->id]) }}"
                 id="edit_employee_file_form" name="edit_employee_file_form" accept-charset="UTF-8" class="form-horizontal"
                 enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
                         <input class="btn btn-primary mr-5" type="submit" value="Update">
-                        <a href="{{ route('employee_files.employee_file.index') }}" class="btn btn-warning mr-5"
+                        <a href="{{ route('employee_files.employee_file.index', $employee) }}" class="btn btn-warning mr-5"
                             title="Show All File">
                             Cancel
                         </a>

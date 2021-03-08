@@ -22,11 +22,13 @@ class EmployeeFamiliesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeFamilies = EmployeeFamily::with('employees','relationships','sexes')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeFamilies = EmployeeFamily::where('employee', $employee_id)->with('employees','relationships','sexes')->paginate(25);
 
-        return view('employees.family.index', compact('employeeFamilies'));
+        return view('employees.family.index', compact('employeeFamilies','employee'));
     }
 
     /**
@@ -34,13 +36,13 @@ class EmployeeFamiliesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $sexes = Sex::pluck('name', 'id')->all();
         $relationships = Relationship::pluck('name', 'id')->all();
 
-        return view('employees.family.create', compact('employees', 'sexes', 'relationships'));
+        return view('employees.family.create', compact('employee', 'sexes', 'relationships'));
     }
 
     /**
@@ -50,16 +52,17 @@ class EmployeeFamiliesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeFamily::create($data);
 
-            return redirect()->route('employee_families.employee_family.index')
+            return redirect()->route('employee_families.employee_family.index', $employee)
                 ->with('success_message', 'Employee Family was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -79,17 +82,17 @@ class EmployeeFamiliesController extends Controller
      *
      * @param int $id
      */
-    public function approve($id)
+    public function approve($employee, $employeeFamilies)
     {
         try {
 
-            $employeeFamily = EmployeeFamily::findOrFail($id);
+            $employeeFamily = EmployeeFamily::findOrFail($employeeFamilies);
             $employeeFamily->status = 3;
             $employeeFamily->approved_by = 1;
             $employeeFamily->approved_at = now();
             $employeeFamily->save();
 
-            return redirect()->route('employee_families.employee_family.index')
+            return redirect()->route('employee_families.employee_family.index',$employee)
                 ->with('success_message', 'Employee Family was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -108,16 +111,16 @@ class EmployeeFamiliesController extends Controller
      *
      * @param int $id
      */
-    public function reject($id, Request $request)
+    public function reject($employee, $employeeFamilies, Request $request)
     {
         try {
 
-            $employeeFamily = EmployeeFamily::findOrFail($id);
+            $employeeFamily = EmployeeFamily::findOrFail($employeeFamilies);
             $employeeFamily->status = 2;
-            $employeeFamily->note = '1';
+            $employeeFamily->note = $request['note'];
             $employeeFamily->save();
 
-            return redirect()->route('employee_families.employee_family.index')
+            return redirect()->route('employee_families.employee_family.index',$employee)
                 ->with('success_message', 'Employee Family was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -139,14 +142,14 @@ class EmployeeFamiliesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeFamilies)
     {
-        $employeeFamily = EmployeeFamily::findOrFail($id);
-        $employees = Employee::pluck('title', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeFamily = EmployeeFamily::findOrFail($employeeFamilies);
         $sexes = Sex::pluck('name', 'id')->all();
         $relationships = Relationship::pluck('name', 'id')->all();
 
-        return view('employees.family.edit', compact('employeeFamily', 'employees', 'sexes', 'relationships'));
+        return view('employees.family.edit', compact('employeeFamily', 'employee', 'sexes', 'relationships'));
     }
 
     /**
@@ -157,16 +160,17 @@ class EmployeeFamiliesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeFamilies, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeFamily = EmployeeFamily::findOrFail($id);
+            $employeeFamily = EmployeeFamily::findOrFail($employeeFamilies);
+            $data['employee'] = $employee;
             $employeeFamily->update($data);
 
-            return redirect()->route('employee_families.employee_family.index')
+            return redirect()->route('employee_families.employee_family.index',$employee)
                 ->with('success_message', 'Employee Family was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -188,13 +192,13 @@ class EmployeeFamiliesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeFamilies)
     {
         try {
-            $employeeFamily = EmployeeFamily::findOrFail($id);
+            $employeeFamily = EmployeeFamily::findOrFail($employeeFamilies);
             $employeeFamily->delete();
 
-            return redirect()->route('employee_families.employee_family.index')
+            return redirect()->route('employee_families.employee_family.index',$employee)
                 ->with('success_message', 'Employee Family was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -218,7 +222,6 @@ class EmployeeFamiliesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'name' => 'required|string|min:1|max:255',
             'sex' => 'required',
             'relationship' => 'required',

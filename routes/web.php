@@ -577,7 +577,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'employee_addresses',
+    'prefix' => 'employees/{employee}/address',
 ], function () {
     Route::get('/', [EmployeeAddressesController::class, 'index'])->name('employee_addresses.employee_address.index');
     Route::get('/create',[EmployeeAddressesController::class, 'create'])->name('employee_addresses.employee_address.create');
@@ -590,116 +590,117 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'employee_bank_accounts',
+    'prefix' => 'employees/{employee}/bank_account',
 ], function () {
     Route::get('/', [EmployeeBankAccountsController::class, 'index'])->name('employee_bank_accounts.employee_bank_account.index');
     Route::get('/create',[EmployeeBankAccountsController::class, 'create'])->name('employee_bank_accounts.employee_bank_account.create');
     Route::get('/approve/{employeeBankAccount}',[EmployeeBankAccountsController::class, 'approve'])->name('employee_bank_accounts.employee_bank_account.approve')->whereNumber('id');
     Route::post('/reject/{employeeBankAccount}',[EmployeeBankAccountsController::class, 'reject'])->name('employee_bank_accounts.employee_bank_account.reject')->whereNumber('id');
-    Route::get('/{employeeBankAccount}/edit',[EmployeeBankAccountsController::class, 'edit'])->name('employee_bank_accounts.employee_bank_account.edit')->whereNumber('id');
+    Route::get('/edit/{employeeBankAccount}',[EmployeeBankAccountsController::class, 'edit'])->name('employee_bank_accounts.employee_bank_account.edit')->whereNumber('id');
     Route::post('/', [EmployeeBankAccountsController::class, 'store'])->name('employee_bank_accounts.employee_bank_account.store');
-    Route::put('employee_bank_account/{employeeBankAccount}', [EmployeeBankAccountsController::class, 'update'])->name('employee_bank_accounts.employee_bank_account.update')->whereNumber('id');
-    Route::delete('/employee_bank_account/{employeeBankAccount}',[EmployeeBankAccountsController::class, 'destroy'])->name('employee_bank_accounts.employee_bank_account.destroy')->whereNumber('id');
+    Route::put('/update/{employeeBankAccount}', [EmployeeBankAccountsController::class, 'update'])->name('employee_bank_accounts.employee_bank_account.update')->whereNumber('id');
+    Route::delete('/delete/{employeeBankAccount}',[EmployeeBankAccountsController::class, 'destroy'])->name('employee_bank_accounts.employee_bank_account.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_disabilities',
+    'prefix' => 'employees/{employee}/disability',
 ], function () {
     Route::get('/', [EmployeeDisabilitiesController::class, 'index'])->name('employee_disabilities.employee_disability.index');
     Route::get('/create',[EmployeeDisabilitiesController::class, 'create'])->name('employee_disabilities.employee_disability.create');
     Route::get('/approve/{employeeDisability}',[EmployeeDisabilitiesController::class, 'approve'])->name('employee_disabilities.employee_disability.approve')->whereNumber('id');
     Route::post('/reject/{employeeDisability}',[EmployeeDisabilitiesController::class, 'reject'])->name('employee_disabilities.employee_disability.reject')->whereNumber('id');
-    Route::get('/{employeeDisability}/edit',[EmployeeDisabilitiesController::class, 'edit'])->name('employee_disabilities.employee_disability.edit')->whereNumber('id');
+    Route::get('/edit/{employeeDisability}',[EmployeeDisabilitiesController::class, 'edit'])->name('employee_disabilities.employee_disability.edit')->whereNumber('id');
     Route::post('/', [EmployeeDisabilitiesController::class, 'store'])->name('employee_disabilities.employee_disability.store');
-    Route::put('employee_disability/{employeeDisability}', [EmployeeDisabilitiesController::class, 'update'])->name('employee_disabilities.employee_disability.update')->whereNumber('id');
-    Route::delete('/employee_disability/{employeeDisability}',[EmployeeDisabilitiesController::class, 'destroy'])->name('employee_disabilities.employee_disability.destroy')->whereNumber('id');
+    Route::put('/update/{employeeDisability}', [EmployeeDisabilitiesController::class, 'update'])->name('employee_disabilities.employee_disability.update')->whereNumber('id');
+    Route::delete('/delete/{employeeDisability}',[EmployeeDisabilitiesController::class, 'destroy'])->name('employee_disabilities.employee_disability.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_educations',
+    'prefix' => 'employees/{employee}/education',
 ], function () {
     Route::get('/', [EmployeeEducationsController::class, 'index'])->name('employee_educations.employee_education.index');
     Route::get('/create',[EmployeeEducationsController::class, 'create'])->name('employee_educations.employee_education.create');
+    Route::get('/show/{employeeEducation}',[EmployeeEducationsController::class, 'show'])->name('employee_educations.employee_education.show')->whereNumber('id');
     Route::get('/approve/{employeeEducation}',[EmployeeEducationsController::class, 'approve'])->name('employee_educations.employee_education.approve')->whereNumber('id');
     Route::post('/reject/{employeeEducation}',[EmployeeEducationsController::class, 'reject'])->name('employee_educations.employee_education.reject')->whereNumber('id');
-    Route::get('/{employeeEducation}/edit',[EmployeeEducationsController::class, 'edit'])->name('employee_educations.employee_education.edit')->whereNumber('id');
+    Route::get('/edit/{employeeEducation}',[EmployeeEducationsController::class, 'edit'])->name('employee_educations.employee_education.edit')->whereNumber('id');
     Route::post('/', [EmployeeEducationsController::class, 'store'])->name('employee_educations.employee_education.store');
-    Route::put('employee_education/{employeeEducation}', [EmployeeEducationsController::class, 'update'])->name('employee_educations.employee_education.update')->whereNumber('id');
-    Route::delete('/employee_education/{employeeEducation}',[EmployeeEducationsController::class, 'destroy'])->name('employee_educations.employee_education.destroy')->whereNumber('id');
+    Route::put('/update/{employeeEducation}', [EmployeeEducationsController::class, 'update'])->name('employee_educations.employee_education.update')->whereNumber('id');
+    Route::delete('/delete/{employeeEducation}',[EmployeeEducationsController::class, 'destroy'])->name('employee_educations.employee_education.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_emergencies',
+    'prefix' => 'employees/{employee}/emergencies',
 ], function () {
     Route::get('/', [EmployeeEmergenciesController::class, 'index'])->name('employee_emergencies.employee_emergency.index');
     Route::get('/create',[EmployeeEmergenciesController::class, 'create'])->name('employee_emergencies.employee_emergency.create');
     Route::get('/approve/{employeeEmergency}',[EmployeeEmergenciesController::class, 'approve'])->name('employee_emergencies.employee_emergency.approve')->whereNumber('id');
     Route::post('/reject/{employeeEmergency}',[EmployeeEmergenciesController::class, 'reject'])->name('employee_emergencies.employee_emergency.reject')->whereNumber('id');
-    Route::get('/{employeeEmergency}/edit',[EmployeeEmergenciesController::class, 'edit'])->name('employee_emergencies.employee_emergency.edit')->whereNumber('id');
+    Route::get('/edit/{employeeEmergency}',[EmployeeEmergenciesController::class, 'edit'])->name('employee_emergencies.employee_emergency.edit')->whereNumber('id');
     Route::post('/', [EmployeeEmergenciesController::class, 'store'])->name('employee_emergencies.employee_emergency.store');
-    Route::put('employee_emergency/{employeeEmergency}', [EmployeeEmergenciesController::class, 'update'])->name('employee_emergencies.employee_emergency.update')->whereNumber('id');
-    Route::delete('/employee_emergency/{employeeEmergency}',[EmployeeEmergenciesController::class, 'destroy'])->name('employee_emergencies.employee_emergency.destroy')->whereNumber('id');
+    Route::put('/update/{employeeEmergency}', [EmployeeEmergenciesController::class, 'update'])->name('employee_emergencies.employee_emergency.update')->whereNumber('id');
+    Route::delete('/delete/{employeeEmergency}',[EmployeeEmergenciesController::class, 'destroy'])->name('employee_emergencies.employee_emergency.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_families',
+    'prefix' => 'employees/{employee}/family',
 ], function () {
     Route::get('/', [EmployeeFamiliesController::class, 'index'])->name('employee_families.employee_family.index');
     Route::get('/create',[EmployeeFamiliesController::class, 'create'])->name('employee_families.employee_family.create');
     Route::get('/approve/{employeeFamily}',[EmployeeFamiliesController::class, 'approve'])->name('employee_families.employee_family.approve')->whereNumber('id');
     Route::post('/reject/{employeeFamily}',[EmployeeFamiliesController::class, 'reject'])->name('employee_families.employee_family.reject')->whereNumber('id');
-    Route::get('/{employeeFamily}/edit',[EmployeeFamiliesController::class, 'edit'])->name('employee_families.employee_family.edit')->whereNumber('id');
+    Route::get('/edit/{employeeFamily}',[EmployeeFamiliesController::class, 'edit'])->name('employee_families.employee_family.edit')->whereNumber('id');
     Route::post('/', [EmployeeFamiliesController::class, 'store'])->name('employee_families.employee_family.store');
-    Route::put('employee_family/{employeeFamily}', [EmployeeFamiliesController::class, 'update'])->name('employee_families.employee_family.update')->whereNumber('id');
-    Route::delete('/employee_family/{employeeFamily}',[EmployeeFamiliesController::class, 'destroy'])->name('employee_families.employee_family.destroy')->whereNumber('id');
+    Route::put('/update/{employeeFamily}', [EmployeeFamiliesController::class, 'update'])->name('employee_families.employee_family.update')->whereNumber('id');
+    Route::delete('/delete/{employeeFamily}',[EmployeeFamiliesController::class, 'destroy'])->name('employee_families.employee_family.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_languages',
+    'prefix' => 'employees/{employee}/language',
 ], function () {
     Route::get('/', [EmployeeLanguagesController::class, 'index'])->name('employee_languages.employee_language.index');
     Route::get('/create',[EmployeeLanguagesController::class, 'create'])->name('employee_languages.employee_language.create');
-    Route::get('/{employeeLanguage}/edit',[EmployeeLanguagesController::class, 'edit'])->name('employee_languages.employee_language.edit')->whereNumber('id');
+    Route::get('/edit/{employeeLanguage}',[EmployeeLanguagesController::class, 'edit'])->name('employee_languages.employee_language.edit')->whereNumber('id');
     Route::post('/', [EmployeeLanguagesController::class, 'store'])->name('employee_languages.employee_language.store');
-    Route::put('employee_language/{employeeLanguage}', [EmployeeLanguagesController::class, 'update'])->name('employee_languages.employee_language.update')->whereNumber('id');
-    Route::delete('/employee_language/{employeeLanguage}',[EmployeeLanguagesController::class, 'destroy'])->name('employee_languages.employee_language.destroy')->whereNumber('id');
+    Route::put('/update/{employeeLanguage}', [EmployeeLanguagesController::class, 'update'])->name('employee_languages.employee_language.update')->whereNumber('id');
+    Route::delete('/delete/{employeeLanguage}',[EmployeeLanguagesController::class, 'destroy'])->name('employee_languages.employee_language.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_licenses',
+    'prefix' => 'employees/{employee}/license',
 ], function () {
     Route::get('/', [EmployeeLicensesController::class, 'index'])->name('employee_licenses.employee_license.index');
     Route::get('/create',[EmployeeLicensesController::class, 'create'])->name('employee_licenses.employee_license.create');
     Route::get('/approve/{employeeLicense}',[EmployeeLicensesController::class, 'approve'])->name('employee_licenses.employee_license.approve')->whereNumber('id');
     Route::post('/reject/{employeeLicense}',[EmployeeLicensesController::class, 'reject'])->name('employee_licenses.employee_license.reject')->whereNumber('id');
-    Route::get('/{employeeLicense}/edit',[EmployeeLicensesController::class, 'edit'])->name('employee_licenses.employee_license.edit')->whereNumber('id');
+    Route::get('/edit/{employeeLicense}',[EmployeeLicensesController::class, 'edit'])->name('employee_licenses.employee_license.edit')->whereNumber('id');
     Route::post('/', [EmployeeLicensesController::class, 'store'])->name('employee_licenses.employee_license.store');
-    Route::put('employee_license/{employeeLicense}', [EmployeeLicensesController::class, 'update'])->name('employee_licenses.employee_license.update')->whereNumber('id');
-    Route::delete('/employee_license/{employeeLicense}',[EmployeeLicensesController::class, 'destroy'])->name('employee_licenses.employee_license.destroy')->whereNumber('id');
+    Route::put('/update/{employeeLicense}', [EmployeeLicensesController::class, 'update'])->name('employee_licenses.employee_license.update')->whereNumber('id');
+    Route::delete('/delete/{employeeLicense}',[EmployeeLicensesController::class, 'destroy'])->name('employee_licenses.employee_license.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_experiences',
+    'prefix' => 'employees/{employee}/experience',
 ], function () {
     Route::get('/', [EmployeeExperiencesController::class, 'index'])->name('employee_experiences.employee_experience.index');
     Route::get('/create',[EmployeeExperiencesController::class, 'create'])->name('employee_experiences.employee_experience.create');
     Route::get('/show/{employeeExperience}',[EmployeeExperiencesController::class, 'show'])->name('employee_experiences.employee_experience.show')->whereNumber('id');
-    Route::get('/{employeeExperience}/edit',[EmployeeExperiencesController::class, 'edit'])->name('employee_experiences.employee_experience.edit')->whereNumber('id');
+    Route::get('/edit/{employeeExperience}',[EmployeeExperiencesController::class, 'edit'])->name('employee_experiences.employee_experience.edit')->whereNumber('id');
     Route::post('/', [EmployeeExperiencesController::class, 'store'])->name('employee_experiences.employee_experience.store');
-    Route::put('employee_experience/{employeeExperience}', [EmployeeExperiencesController::class, 'update'])->name('employee_experiences.employee_experience.update')->whereNumber('id');
-    Route::delete('/employee_experience/{employeeExperience}',[EmployeeExperiencesController::class, 'destroy'])->name('employee_experiences.employee_experience.destroy')->whereNumber('id');
+    Route::put('update/{employeeExperience}', [EmployeeExperiencesController::class, 'update'])->name('employee_experiences.employee_experience.update')->whereNumber('id');
+    Route::delete('/delete/{employeeExperience}',[EmployeeExperiencesController::class, 'destroy'])->name('employee_experiences.employee_experience.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_disasters',
+    'prefix' => 'employees/{employee}/disaster',
 ], function () {
     Route::get('/', [EmployeeDisastersController::class, 'index'])->name('employee_disasters.employee_disaster.index');
     Route::get('/create',[EmployeeDisastersController::class, 'create'])->name('employee_disasters.employee_disaster.create');
     Route::get('/show/{employeeDisaster}',[EmployeeDisastersController::class, 'show'])->name('employee_disasters.employee_disaster.show')->whereNumber('id');
-    Route::get('/{employeeDisaster}/edit',[EmployeeDisastersController::class, 'edit'])->name('employee_disasters.employee_disaster.edit')->whereNumber('id');
+    Route::get('/edit/{employeeDisaster}',[EmployeeDisastersController::class, 'edit'])->name('employee_disasters.employee_disaster.edit')->whereNumber('id');
     Route::post('/', [EmployeeDisastersController::class, 'store'])->name('employee_disasters.employee_disaster.store');
-    Route::put('employee_disaster/{employeeDisaster}', [EmployeeDisastersController::class, 'update'])->name('employee_disasters.employee_disaster.update')->whereNumber('id');
-    Route::delete('/employee_disaster/{employeeDisaster}',[EmployeeDisastersController::class, 'destroy'])->name('employee_disasters.employee_disaster.destroy')->whereNumber('id');
+    Route::put('/update/{employeeDisaster}', [EmployeeDisastersController::class, 'update'])->name('employee_disasters.employee_disaster.update')->whereNumber('id');
+    Route::delete('/delete/{employeeDisaster}',[EmployeeDisastersController::class, 'destroy'])->name('employee_disasters.employee_disaster.destroy')->whereNumber('id');
 });
 
 Route::group([
@@ -727,50 +728,50 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'employee_certifications',
+    'prefix' => 'employees/{employee}/certification',
 ], function () {
     Route::get('/', [EmployeeCertificationsController::class, 'index'])->name('employee_certifications.employee_certification.index');
     Route::get('/create',[EmployeeCertificationsController::class, 'create'])->name('employee_certifications.employee_certification.create');
     Route::get('/show/{employeeCertification}',[EmployeeCertificationsController::class, 'show'])->name('employee_certifications.employee_certification.show')->whereNumber('id');
-    Route::get('/{employeeCertification}/edit',[EmployeeCertificationsController::class, 'edit'])->name('employee_certifications.employee_certification.edit')->whereNumber('id');
+    Route::get('/edit/{employeeCertification}',[EmployeeCertificationsController::class, 'edit'])->name('employee_certifications.employee_certification.edit')->whereNumber('id');
     Route::post('/', [EmployeeCertificationsController::class, 'store'])->name('employee_certifications.employee_certification.store');
-    Route::put('employee_certification/{employeeCertification}', [EmployeeCertificationsController::class, 'update'])->name('employee_certifications.employee_certification.update')->whereNumber('id');
-    Route::delete('/employee_certification/{employeeCertification}',[EmployeeCertificationsController::class, 'destroy'])->name('employee_certifications.employee_certification.destroy')->whereNumber('id');
+    Route::put('/update/{employeeCertification}', [EmployeeCertificationsController::class, 'update'])->name('employee_certifications.employee_certification.update')->whereNumber('id');
+    Route::delete('/delete/{employeeCertification}',[EmployeeCertificationsController::class, 'destroy'])->name('employee_certifications.employee_certification.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_awards',
+    'prefix' => 'employees/{employee}/award',
 ], function () {
     Route::get('/', [EmployeeAwardsController::class, 'index'])->name('employee_awards.employee_award.index');
     Route::get('/create',[EmployeeAwardsController::class, 'create'])->name('employee_awards.employee_award.create');
     Route::get('/show/{employeeAward}',[EmployeeAwardsController::class, 'show'])->name('employee_awards.employee_award.show')->whereNumber('id');
-    Route::get('/{employeeAward}/edit',[EmployeeAwardsController::class, 'edit'])->name('employee_awards.employee_award.edit')->whereNumber('id');
+    Route::get('/edit/{employeeAward}',[EmployeeAwardsController::class, 'edit'])->name('employee_awards.employee_award.edit')->whereNumber('id');
     Route::post('/', [EmployeeAwardsController::class, 'store'])->name('employee_awards.employee_award.store');
-    Route::put('employee_award/{employeeAward}', [EmployeeAwardsController::class, 'update'])->name('employee_awards.employee_award.update')->whereNumber('id');
-    Route::delete('/employee_award/{employeeAward}',[EmployeeAwardsController::class, 'destroy'])->name('employee_awards.employee_award.destroy')->whereNumber('id');
+    Route::put('/update/{employeeAward}', [EmployeeAwardsController::class, 'update'])->name('employee_awards.employee_award.update')->whereNumber('id');
+    Route::delete('/delete/{employeeAward}',[EmployeeAwardsController::class, 'destroy'])->name('employee_awards.employee_award.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_study_trainings',
+    'prefix' => 'employees/{employee}/studytraining',
 ], function () {
     Route::get('/', [EmployeeStudyTrainingsController::class, 'index'])->name('employee_study_trainings.employee_study_training.index');
     Route::get('/create',[EmployeeStudyTrainingsController::class, 'create'])->name('employee_study_trainings.employee_study_training.create');
     Route::get('/show/{employeeStudyTraining}',[EmployeeStudyTrainingsController::class, 'show'])->name('employee_study_trainings.employee_study_training.show')->whereNumber('id');
-    Route::get('/{employeeStudyTraining}/edit',[EmployeeStudyTrainingsController::class, 'edit'])->name('employee_study_trainings.employee_study_training.edit')->whereNumber('id');
+    Route::get('/edit/{employeeStudyTraining}',[EmployeeStudyTrainingsController::class, 'edit'])->name('employee_study_trainings.employee_study_training.edit')->whereNumber('id');
     Route::post('/', [EmployeeStudyTrainingsController::class, 'store'])->name('employee_study_trainings.employee_study_training.store');
-    Route::put('employee_study_training/{employeeStudyTraining}', [EmployeeStudyTrainingsController::class, 'update'])->name('employee_study_trainings.employee_study_training.update')->whereNumber('id');
-    Route::delete('/employee_study_training/{employeeStudyTraining}',[EmployeeStudyTrainingsController::class, 'destroy'])->name('employee_study_trainings.employee_study_training.destroy')->whereNumber('id');
+    Route::put('/update/{employeeStudyTraining}', [EmployeeStudyTrainingsController::class, 'update'])->name('employee_study_trainings.employee_study_training.update')->whereNumber('id');
+    Route::delete('/delete/{employeeStudyTraining}',[EmployeeStudyTrainingsController::class, 'destroy'])->name('employee_study_trainings.employee_study_training.destroy')->whereNumber('id');
 });
 
 Route::group([
-    'prefix' => 'employee_files',
+    'prefix' => 'employees/{employee}/file',
 ], function () {
     Route::get('/', [EmployeeFilesController::class, 'index'])->name('employee_files.employee_file.index');
     Route::get('/create',[EmployeeFilesController::class, 'create'])->name('employee_files.employee_file.create');
     Route::get('/{employeeFile}/edit',[EmployeeFilesController::class, 'edit'])->name('employee_files.employee_file.edit')->whereNumber('id');
     Route::post('/', [EmployeeFilesController::class, 'store'])->name('employee_files.employee_file.store');
-    Route::put('employee_file/{employeeFile}', [EmployeeFilesController::class, 'update'])->name('employee_files.employee_file.update')->whereNumber('id');
-    Route::delete('/employee_file/{employeeFile}',[EmployeeFilesController::class, 'destroy'])->name('employee_files.employee_file.destroy')->whereNumber('id');
+    Route::put('/update/{employeeFile}', [EmployeeFilesController::class, 'update'])->name('employee_files.employee_file.update')->whereNumber('id');
+    Route::delete('/delete/{employeeFile}',[EmployeeFilesController::class, 'destroy'])->name('employee_files.employee_file.destroy')->whereNumber('id');
 });
 
 Route::group([

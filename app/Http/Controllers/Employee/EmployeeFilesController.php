@@ -19,11 +19,13 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeFiles = EmployeeFile::with('employees')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeFiles = EmployeeFile::where('employee', $employee_id)->with('employees')->paginate(25);
 
-        return view('employees.file.index', compact('employeeFiles'));
+        return view('employees.file.index', compact('employeeFiles','employee'));
     }
 
     /**
@@ -31,11 +33,11 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
 
-        return view('employees.file.create', compact('employees'));
+        return view('employees.file.create', compact('employee'));
     }
 
     /**
@@ -45,15 +47,16 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
+            $data['employee'] = $id;
             EmployeeFile::create($data);
 
-            return redirect()->route('employee_files.employee_file.index')
+            return redirect()->route('employee_files.employee_file.index',$employee)
                 ->with('success_message', 'Employee File was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -75,12 +78,12 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeFiles)
     {
-        $employeeFile = EmployeeFile::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employeeFile = EmployeeFile::findOrFail($employeeFiles);
+        $employee = Employee::findOrFail($employee);
 
-        return view('employees.file.edit', compact('employeeFile', 'employees'));
+        return view('employees.file.edit', compact('employeeFile', 'employee'));
     }
 
     /**
@@ -91,16 +94,17 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeFiles, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeFile = EmployeeFile::findOrFail($id);
+            $employeeFile = EmployeeFile::findOrFail($employeeFiles);
+            $data['employee'] = $employee;
             $employeeFile->update($data);
 
-            return redirect()->route('employee_files.employee_file.index')
+            return redirect()->route('employee_files.employee_file.index', $employee)
                 ->with('success_message', 'Employee File was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -122,13 +126,13 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeFiles)
     {
         try {
-            $employeeFile = EmployeeFile::findOrFail($id);
+            $employeeFile = EmployeeFile::findOrFail($employeeFiles);
             $employeeFile->delete();
 
-            return redirect()->route('employee_files.employee_file.index')
+            return redirect()->route('employee_files.employee_file.index',$employee)
                 ->with('success_message', 'Employee File was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -152,7 +156,6 @@ class EmployeeFilesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'title' => 'required|string|min:1|max:255',
             'description' => 'string|min:1|max:1000|nullable',
             'attachment' => ['file', 'nullable'],

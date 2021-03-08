@@ -3,7 +3,7 @@
     New Experience
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_experiences.employee_experience.index') }}">Experience</a>
+    <li class="breadcrumb-item"><a href="{{ route('employee_experiences.employee_experience.index',$employee) }}">Experience</a>
     </li>
     <li class="breadcrumb-item active">New</li>
 @endsection
@@ -13,7 +13,7 @@
             <h3 class="card-title mb-1">Create New Experience</h3>
         </div>
         <div class="card-body">
-            <form method="POST" action="{{ route('employee_experiences.employee_experience.store') }}"
+            <form method="POST" action="{{ route('employee_experiences.employee_experience.store',$employee) }}"
                 accept-charset="UTF-8" id="create_employee_experience_form" name="create_employee_experience_form"
                 class="form-horizontal" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
                         <input class="btn btn-primary mr-5" type="submit" value="Save">
-                        <a href="{{ route('employee_experiences.employee_experience.index') }}"
+                        <a href="{{ route('employee_experiences.employee_experience.index',$employee) }}"
                             class="btn btn-warning mr-5" title="Show All Experience">
                             Cancel
                         </a>

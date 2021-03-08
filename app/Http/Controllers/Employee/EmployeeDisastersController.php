@@ -7,7 +7,6 @@ use App\Models\DisasterCause;
 use App\Models\DisasterSeverity;
 use App\Models\Employee;
 use App\Models\EmployeeDisaster;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,11 +21,13 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeDisasters = EmployeeDisaster::with('causes','employees','severities')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeDisasters = EmployeeDisaster::where('employee', $employee_id)->with('causes','employees','severities')->paginate(25);
 
-        return view('employees.disaster.index', compact('employeeDisasters'));
+        return view('employees.disaster.index', compact('employeeDisasters','employee'));
     }
 
     /**
@@ -34,13 +35,13 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $disasterCauses = DisasterCause::pluck('name', 'id')->all();
         $disasterSeverities = DisasterSeverity::pluck('name', 'id')->all();
 
-        return view('employees.disaster.create', compact('employees', 'disasterCauses', 'disasterSeverities'));
+        return view('employees.disaster.create', compact('employee', 'disasterCauses', 'disasterSeverities'));
     }
 
     /**
@@ -50,15 +51,18 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
 
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['status'] = 1;
+            $data['created_by'] = 1;
+            $data['employee'] = $id;
             EmployeeDisaster::create($data);
 
-            return redirect()->route('employee_disasters.employee_disaster.index')
+            return redirect()->route('employee_disasters.employee_disaster.index',$employee)
                 ->with('success_message', 'Employee Disaster was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -80,11 +84,12 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($employee,$employeeDisasters)
     {
-        $employeeDisaster = EmployeeDisaster::with('causes','employees','severities')->findOrFail($id);
+        $employee = Employee::findOrFail($employee);
+        $employeeDisaster = EmployeeDisaster::with('causes','employees','severities')->findOrFail($employeeDisasters);
 
-        return view('employees.disaster.show', compact('employeeDisaster'));
+        return view('employees.disaster.show', compact('employeeDisaster','employee'));
     }
 
     /**
@@ -94,14 +99,14 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeDisasters)
     {
-        $employeeDisaster = EmployeeDisaster::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeDisaster = EmployeeDisaster::findOrFail($employeeDisasters);
         $disasterCauses = DisasterCause::pluck('name', 'id')->all();
         $disasterSeverities = DisasterSeverity::pluck('name', 'id')->all();
 
-        return view('employees.disaster.edit', compact('employeeDisaster', 'employees', 'disasterCauses', 'disasterSeverities'));
+        return view('employees.disaster.edit', compact('employeeDisaster', 'employee', 'disasterCauses', 'disasterSeverities'));
     }
 
     /**
@@ -112,16 +117,17 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeDisasters, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeDisaster = EmployeeDisaster::findOrFail($id);
+            $employeeDisaster = EmployeeDisaster::findOrFail($employeeDisasters);
+            $data['employee'] = $employee;
             $employeeDisaster->update($data);
 
-            return redirect()->route('employee_disasters.employee_disaster.index')
+            return redirect()->route('employee_disasters.employee_disaster.index',$employee)
                 ->with('success_message', 'Employee Disaster was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -143,13 +149,13 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeDisasters)
     {
         try {
-            $employeeDisaster = EmployeeDisaster::findOrFail($id);
+            $employeeDisaster = EmployeeDisaster::findOrFail($employeeDisasters);
             $employeeDisaster->delete();
 
-            return redirect()->route('employee_disasters.employee_disaster.index')
+            return redirect()->route('employee_disasters.employee_disaster.index',$employee)
                 ->with('success_message', 'Employee Disaster was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -173,7 +179,6 @@ class EmployeeDisastersController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'occured_on' => 'required',
             'cause' => 'required',
             'severity' => 'required',

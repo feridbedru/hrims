@@ -51,7 +51,7 @@
 
                                 <td>
                                     @if ($employeeLicense->status == 1)
-                                        <a href="{{ route('employee_licenses.employee_license.approve', $employeeLicense->id) }}"
+                                        <a href="{{ route('employee_licenses.employee_license.approve', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve License">
                                             Approve
                                         </a>
@@ -69,7 +69,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST" action="{!! route('employee_licenses.employee_license.reject', $employeeLicense->id) !!}"
+                                                    <form method="POST" action="{!! route('employee_licenses.employee_license.reject', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -88,8 +88,8 @@
                                             </div>
                                         </div>
                                     @elseif($employeeLicense->status == 2)
-                                        <form method="POST" action="{!! route('employee_licenses.employee_license.destroy', $employeeLicense->id) !!}" accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_licenses.employee_license.destroy', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <button type="submit" class="btn btn-danger" title="Delete License"
@@ -99,11 +99,11 @@
                                             </div>
                                         </form>
                                     @else
-                                        <form method="POST" action="{!! route('employee_licenses.employee_license.destroy', $employeeLicense->id) !!}" accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_licenses.employee_license.destroy', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                                <a href="{{ route('employee_licenses.employee_license.edit', $employeeLicense->id) }}"
+                                                <a href="{{ route('employee_licenses.employee_license.edit', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) }}"
                                                     class="btn btn-warning" title="Edit License">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
@@ -124,7 +124,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_licenses.employee_license.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_licenses.employee_license.create', $employee) }}" class="btn btn-success"
         title="Create New License">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

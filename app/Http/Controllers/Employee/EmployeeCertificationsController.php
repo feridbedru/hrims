@@ -21,11 +21,13 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeCertifications = EmployeeCertification::with('employees','vendors','categories')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees','vendors','categories')->paginate(25);
 
-        return view('employees.certification.index', compact('employeeCertifications'));
+        return view('employees.certification.index', compact('employeeCertifications','employee'));
     }
 
     /**
@@ -33,13 +35,13 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $skillCategories = SkillCategory::pluck('name', 'id')->all();
         $certificationVendors = CertificationVendor::pluck('name', 'id')->all();
 
-        return view('employees.certification.create', compact('employees', 'skillCategories', 'certificationVendors'));
+        return view('employees.certification.create', compact('employee', 'skillCategories', 'certificationVendors'));
     }
 
     /**
@@ -49,15 +51,18 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
 
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
+            $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeCertification::create($data);
 
-            return redirect()->route('employee_certifications.employee_certification.index')
+            return redirect()->route('employee_certifications.employee_certification.index',$employee)
                 ->with('success_message', 'Employee Certification was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -79,11 +84,12 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($employee, $employeeCertifications)
     {
-        $employeeCertification = EmployeeCertification::with('employees','vendors','categories')->findOrFail($id);
+        $employee = Employee::findOrFail($employee);
+        $employeeCertification = EmployeeCertification::with('employees','vendors','categories')->findOrFail($employeeCertifications);
 
-        return view('employees.certification.show', compact('employeeCertification'));
+        return view('employees.certification.show', compact('employeeCertification','employee'));
     }
 
     /**
@@ -93,14 +99,14 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeCertifications)
     {
-        $employeeCertification = EmployeeCertification::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeCertification = EmployeeCertification::findOrFail($employeeCertifications);
         $skillCategories = SkillCategory::pluck('name', 'id')->all();
         $certificationVendors = CertificationVendor::pluck('name', 'id')->all();
 
-        return view('employees.certification.edit', compact('employeeCertification', 'employees', 'skillCategories', 'certificationVendors'));
+        return view('employees.certification.edit', compact('employeeCertification', 'employee', 'skillCategories', 'certificationVendors'));
     }
 
     /**
@@ -111,16 +117,17 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeCertifications, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeCertification = EmployeeCertification::findOrFail($id);
+            $employeeCertification = EmployeeCertification::findOrFail($employeeCertifications);
+            $data['employee'] = $employee;
             $employeeCertification->update($data);
 
-            return redirect()->route('employee_certifications.employee_certification.index')
+            return redirect()->route('employee_certifications.employee_certification.index',$employee)
                 ->with('success_message', 'Employee Certification was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -142,13 +149,13 @@ class EmployeeCertificationsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeCertifications)
     {
         try {
-            $employeeCertification = EmployeeCertification::findOrFail($id);
+            $employeeCertification = EmployeeCertification::findOrFail($employeeCertifications);
             $employeeCertification->delete();
 
-            return redirect()->route('employee_certifications.employee_certification.index')
+            return redirect()->route('employee_certifications.employee_certification.index',$employee)
                 ->with('success_message', 'Employee Certification was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -172,7 +179,6 @@ class EmployeeCertificationsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'name' => 'required|string|min:1|max:255',
             'issued_on' => 'required|string|min:1',
             'certification_number' => 'string|min:1|nullable',

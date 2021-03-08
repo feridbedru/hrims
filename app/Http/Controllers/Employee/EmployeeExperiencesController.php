@@ -21,11 +21,13 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeExperiences = EmployeeExperience::with('employees', 'types', 'leftReasons')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeExperiences = EmployeeExperience::where('employee', $employee_id)->with('employees', 'types', 'leftReasons')->paginate(25);
 
-        return view('employees.experience.index', compact('employeeExperiences'));
+        return view('employees.experience.index', compact('employeeExperiences','employee'));
     }
 
     /**
@@ -33,13 +35,13 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $experienceTypes = ExperienceType::pluck('name', 'id')->all();
         $leftReasons = LeftReason::pluck('name', 'id')->all();
 
-        return view('employees.experience.create', compact('employees', 'experienceTypes', 'leftReasons'));
+        return view('employees.experience.create', compact('employee', 'experienceTypes', 'leftReasons'));
     }
 
     /**
@@ -49,15 +51,17 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['status'] = 1;
+            $data['created_by'] = 1;
+            $data['employee'] = $id;
             EmployeeExperience::create($data);
 
-            return redirect()->route('employee_experiences.employee_experience.index')
+            return redirect()->route('employee_experiences.employee_experience.index', $employee)
                 ->with('success_message', 'Employee Experience was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -79,11 +83,12 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($employee, $employeeExperiences)
     {
-        $employeeExperience = EmployeeExperience::with('employees', 'types', 'leftReasons')->findOrFail($id);
+        $employee = Employee::findOrFail($employee);
+        $employeeExperience = EmployeeExperience::with('employees', 'types', 'leftReasons')->findOrFail($employeeExperiences);
 
-        return view('employees.experience.show', compact('employeeExperience'));
+        return view('employees.experience.show', compact('employeeExperience','employee'));
     }
 
     /**
@@ -93,14 +98,14 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeExperiences)
     {
-        $employeeExperience = EmployeeExperience::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeExperience = EmployeeExperience::findOrFail($employeeExperiences);
         $experienceTypes = ExperienceType::pluck('name', 'id')->all();
         $leftReasons = LeftReason::pluck('name', 'id')->all();
 
-        return view('employees.experience.edit', compact('employeeExperience', 'employees', 'experienceTypes', 'leftReasons'));
+        return view('employees.experience.edit', compact('employeeExperience', 'employee', 'experienceTypes', 'leftReasons'));
     }
 
     /**
@@ -111,16 +116,17 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeExperiences, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeExperience = EmployeeExperience::findOrFail($id);
+            $employeeExperience = EmployeeExperience::findOrFail($employeeExperiences);
+            $data['employee'] = $employee;
             $employeeExperience->update($data);
 
-            return redirect()->route('employee_experiences.employee_experience.index')
+            return redirect()->route('employee_experiences.employee_experience.index',$employee)
                 ->with('success_message', 'Employee Experience was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -142,13 +148,13 @@ class EmployeeExperiencesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeExperiences)
     {
         try {
-            $employeeExperience = EmployeeExperience::findOrFail($id);
+            $employeeExperience = EmployeeExperience::findOrFail($employeeExperiences);
             $employeeExperience->delete();
 
-            return redirect()->route('employee_experiences.employee_experience.index')
+            return redirect()->route('employee_experiences.employee_experience.index',$employee)
                 ->with('success_message', 'Employee Experience was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -172,7 +178,6 @@ class EmployeeExperiencesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'type' => 'required',
             'organization_name' => 'required|string|min:1',
             'organization_address' => 'string|min:1|nullable',

@@ -9,16 +9,16 @@
 
         <div class="card-tools">
 
-            <form method="POST" action="{!! route('employee_experiences.employee_experience.destroy', $employeeExperience->id) !!}" accept-charset="UTF-8">
-            <input name="_method" value="DELETE" type="hidden">
+            <form method="POST" action="{!! route('employee_experiences.employee_experience.destroy', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) !!}" accept-charset="UTF-8">
+                @method('DELETE')
             {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
 
-                    <a href="{{ route('employee_experiences.employee_experience.create') }}" class="btn btn-success" title="Create New Employee Experience">
+                    <a href="{{ route('employee_experiences.employee_experience.create', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}" class="btn btn-success" title="Create New Employee Experience">
                         <span class="fa fa-plus" aria-hidden="true"></span>
                     </a>
                     
-                    <a href="{{ route('employee_experiences.employee_experience.edit', $employeeExperience->id ) }}" class="btn btn-warning" title="Edit Employee Experience">
+                    <a href="{{ route('employee_experiences.employee_experience.edit', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}" class="btn btn-warning" title="Edit Employee Experience">
                         <span class="fa fa-edit" aria-hidden="true"></span>
                     </a>
 
@@ -32,7 +32,7 @@
 
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
         <dl class="dl-horizontal">
             <dt>Employee</dt>
             <dd>{{ $employeeExperience->employees->en_name }}</dd>

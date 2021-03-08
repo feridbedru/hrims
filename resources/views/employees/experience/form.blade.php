@@ -1,19 +1,3 @@
-<div class="form-group {{ $errors->has('employee') ? 'has-error' : '' }}">
-    <label for="employee" class="col-md-2 control-label">Employee</label>
-    <div class="col-md-10">
-        <select class="form-control" id="employee" name="employee" required="true">
-            <option value="" style="display: none;"
-                {{ old('employee', optional($employeeExperience)->employee ?: '') == '' ? 'selected' : '' }} disabled
-                selected>Select employee</option>
-            @foreach ($employees as $key => $employee)
-                <option value="{{ $key }}"
-                    {{ old('employee', optional($employeeExperience)->employee) == $key ? 'selected' : '' }}>
-                    {{ $employee }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-</div>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('type') ? 'has-error' : '' }}">
         <label for="type" class="col-md-4 control-label">Experience Type</label>
@@ -32,21 +16,21 @@
         </div>
     </div>
 
-    <div class="form-group col-md-4 {{ $errors->has('name') ? 'has-error' : '' }}">
-        <label for="name" class="col-md-4 control-label">Organization Name</label>
+    <div class="form-group col-md-4 {{ $errors->has('organization_name') ? 'has-error' : '' }}">
+        <label for="organization_name" class="col-md-4 control-label">Organization Name</label>
         <div class="col-md-12">
             <input class="form-control" name="organization_name" type="text" id="organization_name"
-                value="{{ old('name', optional($employeeExperience)->name) }}" minlength="1" required="true"
+                value="{{ old('organization_name', optional($employeeExperience)->organization_name) }}" minlength="1" required="true"
                 placeholder="Enter organization name here...">
         </div>
     </div>
 
-    <div class="form-group col-md-4 {{ $errors->has('address') ? 'has-error' : '' }}">
-        <label for="address" class="col-md-6 control-label">Organization Address</label>
+    <div class="form-group col-md-4 {{ $errors->has('organization_address') ? 'has-error' : '' }}">
+        <label for="organization_address" class="col-md-6 control-label">Organization </label>
         <div class="col-md-12">
-            <input class="form-control" name="address" type="text" id="address"
-                value="{{ old('address', optional($employeeExperience)->address) }}" minlength="1"
-                placeholder="Enter organization address here...">
+            <input class="form-control" name="organization_address" type="text" id="organization_address"
+                value="{{ old('organization_address', optional($employeeExperience)->organization_address) }}" minlength="1"
+                placeholder="Enter organization organization_address here...">
         </div>
     </div>
 </div>
@@ -81,16 +65,16 @@
 </div>
 
 <div class="row">
-    <div class="form-group col-md-4 {{ $errors->has('left_reason_id') ? 'has-error' : '' }}">
-        <label for="left_reason_id" class="col-md-4 control-label">Left Reason</label>
+    <div class="form-group col-md-4 {{ $errors->has('left_reason') ? 'has-error' : '' }}">
+        <label for="left_reason" class="col-md-4 control-label">Left Reason</label>
         <div class="col-md-12">
             <select class="form-control" id="left_reason" name="left_reason" required="true">
                 <option value="" style="display: none;"
-                    {{ old('left_reason_id', optional($employeeExperience)->left_reason_id ?: '') == '' ? 'selected' : '' }}
+                    {{ old('left_reason', optional($employeeExperience)->left_reason ?: '') == '' ? 'selected' : '' }}
                     disabled selected>Select left reason</option>
                 @foreach ($leftReasons as $key => $leftReason)
                     <option value="{{ $key }}"
-                        {{ old('left_reason_id', optional($employeeExperience)->left_reason_id) == $key ? 'selected' : '' }}>
+                        {{ old('left_reason', optional($employeeExperience)->left_reason) == $key ? 'selected' : '' }}>
                         {{ $leftReason }}
                     </option>
                 @endforeach

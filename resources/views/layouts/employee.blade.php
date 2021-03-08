@@ -14,7 +14,7 @@
 
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
-        <div class="clearfix bg-dark">
+        <div class="clearfix bg-primary">
             <div class="float-left">
                 <div class="row ">
                     <div class="col-md-6">
@@ -49,7 +49,7 @@
                 <a href="#" class="btn btn-success mr-3" title="Make CV">
                     Make CV
                 </a>
-                <a href="#" class="btn btn-primary mr-3" title="Print ID Card">
+                <a href="#" class="btn btn-light mr-3" title="Print ID Card">
                     Print ID
                 </a>
                 <a href="#" class="btn btn-warning mr-3" title="Print this employee data">
@@ -57,6 +57,9 @@
                 </a>
             </div>
         </div>
+        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="margin-top:105px;">
+            @include('menu.empsidenav')
+        </aside>
         <div class="content-wrapper px-3">
             <div class="content-header">
                 <div class="container-fluid">
@@ -123,9 +126,6 @@
                 </div>
             </section>
         </div>
-        <aside class="main-sidebar sidebar-light elevation-4 pt-3" style="margin-top:90px;">
-            @include('menu.empsidenav')
-        </aside>
     </div>
 
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>

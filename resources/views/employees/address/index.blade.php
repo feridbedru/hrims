@@ -3,17 +3,17 @@
     Addresses
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Addresses</li>
+    <li class="breadcrumb-item active">Address</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Addresses List</h3>
+            <h3 class="card-title">Address List</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeAddresses) == 0)
-                <h4 class="text-center">No Addresses Available.</h4>
+                <h4 class="text-center">No Address Available.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
@@ -49,7 +49,7 @@
 
                                 <td>
                                     @if ($employeeAddress->status == 1)
-                                        <a href="{{ route('employee_addresses.employee_address.approve', $employeeAddress->id) }}"
+                                        <a href="{{ route('employee_addresses.employee_address.approve', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Employee Address">
                                             Approve
                                         </a>
@@ -67,47 +67,44 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST" action="{!!route('employee_addresses.employee_address.reject', $employeeAddress->id) !!}" accept-charset="UTF-8">
+                                                    <form method="POST" action="{!! route('employee_addresses.employee_address.reject', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) !!}"
+                                                        accept-charset="UTF-8">
                                                         {{ csrf_field() }}
-                                                    <div class="modal-body">
+                                                        <div class="modal-body">
                                                             <label for="note">Note</label>
-                                                            <textarea class="form-control" name="note" cols="50" rows="10" id="note" minlength="1" maxlength="1000" required="true"></textarea>
-                                                    </div>
-                                                    <div class="modal-footer justify-content-between">
-                                                        <button type="button" class="btn btn-default"
-                                                            data-dismiss="modal">Close</button>
-                                                        <input class="btn btn-danger" type="submit" value="Reject">
-                                                    </div>
-                                                </form>
+                                                            <textarea class="form-control" name="note" cols="50" rows="10"
+                                                                id="note" minlength="1" maxlength="1000"
+                                                                required="true"></textarea>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-default"
+                                                                data-dismiss="modal">Close</button>
+                                                            <input class="btn btn-danger" type="submit" value="Reject">
+                                                        </div>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
                                     @elseif($employeeAddress->status == 2)
-                                        <form method="POST"
-                                            action="{!!  route('employee_addresses.employee_address.destroy', $employeeAddress->id) !!}"
-                                            accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_addresses.employee_address.destroy', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                                <button type="submit" class="btn btn-outline-danger"
-                                                    title="Delete Address"
+                                                <button type="submit" class="btn btn-outline-danger" title="Delete Address"
                                                     onclick="return confirm(&quot;Click Ok to delete Employee Address.&quot;)">
                                                     Delete
                                                 </button>
                                             </div>
                                         </form>
                                     @else
-                                        <form method="POST"
-                                            action="{!!  route('employee_addresses.employee_address.destroy', $employeeAddress->id) !!}"
-                                            accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_addresses.employee_address.destroy', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
-                                            <a href="{{ route('employee_addresses.employee_address.edit', $employeeAddress->id) }}"
+                                            <a href="{{ route('employee_addresses.employee_address.edit', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) }}"
                                                 class="btn btn-outline-warning mr-3" title="Edit Address">
                                                 Edit
                                             </a>
-                                            <button type="submit" class="btn btn-outline-danger"
-                                                title="Delete Address"
+                                            <button type="submit" class="btn btn-outline-danger" title="Delete Address"
                                                 onclick="return confirm(&quot;Click Ok to delete Address.&quot;)">
                                                 Delete
                                             </button>
@@ -123,8 +120,8 @@
             @endif
         </div>
     </div>
-        <a href="{{ route('employee_addresses.employee_address.create') }}" class="btn btn-success"
-            title="Create New Employee Address">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
-        </a>
+    <a href="{{ route('employee_addresses.employee_address.create', $employee) }}" class="btn btn-success"
+        title="Create New Employee Address">
+        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+    </a>
 @endsection

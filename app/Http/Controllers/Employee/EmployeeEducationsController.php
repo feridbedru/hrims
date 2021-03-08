@@ -23,11 +23,13 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeEducations = EmployeeEducation::with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeEducations = EmployeeEducation::where('employee', $employee_id)->with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->paginate(25);
 
-        return view('employees.education.index', compact('employeeEducations'));
+        return view('employees.education.index', compact('employeeEducations', 'employee'));
     }
 
     /**
@@ -35,15 +37,15 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $educationLevels = EducationLevel::pluck('name', 'id')->all();
         $educationalInstitutes = EducationalInstitute::pluck('name', 'id')->all();
         $educationalFields = EducationalField::pluck('name', 'id')->all();
         $gpaScales = GPAScale::pluck('name', 'id')->all();
 
-        return view('employees.education.create', compact('employees', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
+        return view('employees.education.create', compact('employee', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
     }
 
     /**
@@ -53,16 +55,17 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeEducation::create($data);
 
-            return redirect()->route('employee_educations.employee_education.index')
+            return redirect()->route('employee_educations.employee_education.index', $employee)
                 ->with('success_message', 'Employee Education was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -82,17 +85,17 @@ class EmployeeEducationsController extends Controller
      *
      * @param int $id
      */
-    public function approve($id)
+    public function approve($employee, $employeeEducations)
     {
         try {
 
-            $employeeEducation = EmployeeEducation::findOrFail($id);
+            $employeeEducation = EmployeeEducation::findOrFail($employeeEducations);
             $employeeEducation->status = 3;
             $employeeEducation->approved_by = 1;
             $employeeEducation->approved_at = now();
             $employeeEducation->save();
 
-            return redirect()->route('employee_educations.employee_education.index')
+            return redirect()->route('employee_educations.employee_education.index', $employee)
                 ->with('success_message', 'Employee Education was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -111,16 +114,16 @@ class EmployeeEducationsController extends Controller
      *
      * @param int $id
      */
-    public function reject($id, Request $request)
+    public function reject($employee, $employeeEducations, Request $request)
     {
         try {
 
-            $employeeEducation = EmployeeEducation::findOrFail($id);
+            $employeeEducation = EmployeeEducation::findOrFail($employeeEducations);
             $employeeEducation->status = 2;
-            $employeeEducation->note = '1';
+            $employeeEducation->note = $request['note'];
             $employeeEducation->save();
 
-            return redirect()->route('employee_educations.employee_education.index')
+            return redirect()->route('employee_educations.employee_education.index', $employee)
                 ->with('success_message', 'Employee Education was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -142,11 +145,12 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($employee, $employeeEducations)
     {
-        $employeeEducation = EmployeeEducation::with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->findOrFail($id);
+        $employee = Employee::findOrFail($employee);
+        $employeeEducation = EmployeeEducation::with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->findOrFail($employeeEducations);
 
-        return view('employees.education.show', compact('employeeEducation'));
+        return view('employees.education.show', compact('employeeEducation', 'employee'));
     }
 
     /**
@@ -156,16 +160,16 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeEducations)
     {
-        $employeeEducation = EmployeeEducation::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeEducation = EmployeeEducation::findOrFail($employeeEducations);
         $educationLevels = EducationLevel::pluck('name', 'id')->all();
         $educationalInstitutes = EducationalInstitute::pluck('name', 'id')->all();
         $educationalFields = EducationalField::pluck('name', 'id')->all();
         $gpaScales = GPAScale::pluck('name', 'id')->all();
 
-        return view('employees.education.edit', compact('employeeEducation', 'employees', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
+        return view('employees.education.edit', compact('employeeEducation', 'employee', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
     }
 
     /**
@@ -176,16 +180,17 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeEducations, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeEducation = EmployeeEducation::findOrFail($id);
+            $employeeEducation = EmployeeEducation::findOrFail($employeeEducations);
+            $data['employee'] = $employee;
             $employeeEducation->update($data);
 
-            return redirect()->route('employee_educations.employee_education.index')
+            return redirect()->route('employee_educations.employee_education.index', $employee)
                 ->with('success_message', 'Employee Education was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -207,13 +212,13 @@ class EmployeeEducationsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeEducations)
     {
         try {
-            $employeeEducation = EmployeeEducation::findOrFail($id);
+            $employeeEducation = EmployeeEducation::findOrFail($employeeEducations);
             $employeeEducation->delete();
 
-            return redirect()->route('employee_educations.employee_education.index')
+            return redirect()->route('employee_educations.employee_education.index', $employee)
                 ->with('success_message', 'Employee Education was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -237,7 +242,6 @@ class EmployeeEducationsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'level' => 'required',
             'institute' => 'required',
             'field' => 'required',
@@ -250,7 +254,6 @@ class EmployeeEducationsController extends Controller
             'coc_issued_date' => 'nullable',
             'coc_file' => ['file', 'nullable'],
             'status' => 'string|min:1|nullable',
-            'created_by' => 'required',
             'approved_by' => 'nullable',
             'approved_at' => 'nullable',
             'note' => 'string|min:1|max:1000|nullable',

@@ -40,15 +40,15 @@
                                 <td>{{ $employeeExperience->status }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_experiences.employee_experience.destroy', $employeeExperience->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                    <form method="POST" action="{!! route('employee_experiences.employee_experience.destroy', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) !!}" accept-charset="UTF-8">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_experiences.employee_experience.show', $employeeExperience->id) }}"
+                                            <a href="{{ route('employee_experiences.employee_experience.show', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}"
                                                 class="btn btn-primary" title="Show Experience">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
-                                            <a href="{{ route('employee_experiences.employee_experience.edit', $employeeExperience->id) }}"
+                                            <a href="{{ route('employee_experiences.employee_experience.edit', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}"
                                                 class="btn btn-warning" title="Edit Experience">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -68,7 +68,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_experiences.employee_experience.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_experiences.employee_experience.create', $employee) }}" class="btn btn-success"
         title="Create New Experience">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

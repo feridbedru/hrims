@@ -9,16 +9,16 @@
 
         <div class="card-tools">
 
-            <form method="POST" action="{!! route('employee_study_trainings.employee_study_training.destroy', $employeeStudyTraining->id) !!}" accept-charset="UTF-8">
+            <form method="POST" action="{!! route('employee_study_trainings.employee_study_training.destroy', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) !!}" accept-charset="UTF-8">
             <input name="_method" value="DELETE" type="hidden">
             {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
 
-                    <a href="{{ route('employee_study_trainings.employee_study_training.create') }}" class="btn btn-success" title="Create New Employee Study Training">
+                    <a href="{{ route('employee_study_trainings.employee_study_training.create',$employee) }}" class="btn btn-success" title="Create New Employee Study Training">
                         <span class="fa fa-plus" aria-hidden="true"></span>
                     </a>
                     
-                    <a href="{{ route('employee_study_trainings.employee_study_training.edit', $employeeStudyTraining->id ) }}" class="btn btn-warning" title="Edit Employee Study Training">
+                    <a href="{{ route('employee_study_trainings.employee_study_training.edit', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id] ) }}" class="btn btn-warning" title="Edit Employee Study Training">
                         <span class="fa fa-edit" aria-hidden="true"></span>
                     </a>
 

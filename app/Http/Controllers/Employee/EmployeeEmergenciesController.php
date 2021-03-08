@@ -20,11 +20,13 @@ class EmployeeEmergenciesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeEmergencies = EmployeeEmergency::with('employees','relationships')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeEmergencies = EmployeeEmergency::where('employee', $employee_id)->with('employees','relationships')->paginate(25);
 
-        return view('employees.emergency.index', compact('employeeEmergencies'));
+        return view('employees.emergency.index', compact('employeeEmergencies','employee'));
     }
 
     /**
@@ -32,12 +34,12 @@ class EmployeeEmergenciesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $relationships = Relationship::pluck('name', 'id')->all();
 
-        return view('employees.emergency.create', compact('employees', 'relationships'));
+        return view('employees.emergency.create', compact('employee', 'relationships'));
     }
 
     /**
@@ -47,16 +49,17 @@ class EmployeeEmergenciesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeEmergency::create($data);
 
-            return redirect()->route('employee_emergencies.employee_emergency.index')
+            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
                 ->with('success_message', 'Employee Emergency was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -76,17 +79,17 @@ class EmployeeEmergenciesController extends Controller
      *
      * @param int $id
      */
-    public function approve($id)
+    public function approve($employee, $employeeEmergencies)
     {
         try {
 
-            $employeeEmergency = EmployeeEmergency::findOrFail($id);
+            $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
             $employeeEmergency->status = 3;
             $employeeEmergency->approved_by = 1;
             $employeeEmergency->approved_at = now();
             $employeeEmergency->save();
 
-            return redirect()->route('employee_emergencies.employee_emergency.index')
+            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
                 ->with('success_message', 'Employee Emergency was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -105,16 +108,16 @@ class EmployeeEmergenciesController extends Controller
      *
      * @param int $id
      */
-    public function reject($id, Request $request)
+    public function reject($employee, $employeeEmergencies, Request $request)
     {
         try {
 
-            $employeeEmergency = EmployeeEmergency::findOrFail($id);
+            $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
             $employeeEmergency->status = 2;
-            $employeeEmergency->note = 1;
+            $employeeEmergency->note = $request['note'];
             $employeeEmergency->save();
 
-            return redirect()->route('employee_emergencies.employee_emergency.index')
+            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
                 ->with('success_message', 'Employee Emeregency was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -136,13 +139,13 @@ class EmployeeEmergenciesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeEmergencies)
     {
-        $employeeEmergency = EmployeeEmergency::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
         $relationships = Relationship::pluck('name', 'id')->all();
 
-        return view('employees.emergency.edit', compact('employeeEmergency', 'employees', 'relationships'));
+        return view('employees.emergency.edit', compact('employeeEmergency', 'employee', 'relationships'));
     }
 
     /**
@@ -153,16 +156,17 @@ class EmployeeEmergenciesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeEmergencies, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeEmergency = EmployeeEmergency::findOrFail($id);
+            $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
+            $data['employee'] = $employee;
             $employeeEmergency->update($data);
 
-            return redirect()->route('employee_emergencies.employee_emergency.index')
+            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
                 ->with('success_message', 'Employee Emergency was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -184,13 +188,13 @@ class EmployeeEmergenciesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeEmergencies)
     {
         try {
-            $employeeEmergency = EmployeeEmergency::findOrFail($id);
+            $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
             $employeeEmergency->delete();
 
-            return redirect()->route('employee_emergencies.employee_emergency.index')
+            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
                 ->with('success_message', 'Employee Emergency was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -214,14 +218,13 @@ class EmployeeEmergenciesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'name' => 'required|string|min:1|max:255',
             'phone_number' => 'numeric|nullable',
             'relationship' => 'required',
             'address' => 'string|min:1|nullable',
             'house_number' => 'string|nullable',
             'other_phone' => 'string|min:1|nullable',
-            'status' => 'string|min:1|nullable',
+            'status' => 'numeric|min:1|nullable',
             'created_by' => 'nullable',
             'approved_by' => 'nullable',
             'approved_at' => 'nullable',

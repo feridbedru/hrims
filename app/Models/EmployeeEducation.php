@@ -108,7 +108,7 @@ class EmployeeEducation extends Model
      */
     public function gpaScales()
     {
-        return $this->belongsTo(GpaScale::class,'gpa_scale');
+        return $this->belongsTo(GPAScale::class,'gpa_scale');
     }
 
 }

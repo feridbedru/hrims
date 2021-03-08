@@ -40,15 +40,15 @@
                                 <td>{{ $employeeStudyTraining->has_commitment ? 'Yes' : 'No' }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_study_trainings.employee_study_training.destroy', $employeeStudyTraining->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                    <form method="POST" action="{!! route('employee_study_trainings.employee_study_training.destroy', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) !!}" accept-charset="UTF-8">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_study_trainings.employee_study_training.show', $employeeStudyTraining->id) }}"
+                                            <a href="{{ route('employee_study_trainings.employee_study_training.show', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) }}"
                                                 class="btn btn-primary" title="Show Study Training">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
-                                            <a href="{{ route('employee_study_trainings.employee_study_training.edit', $employeeStudyTraining->id) }}"
+                                            <a href="{{ route('employee_study_trainings.employee_study_training.edit', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) }}"
                                                 class="btn btn-warning" title="Edit Study Training">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -68,7 +68,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_study_trainings.employee_study_training.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_study_trainings.employee_study_training.create',$employee) }}" class="btn btn-success"
         title="Create New Study Training">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\AddressType;
 use App\Models\Employee;
 use App\Models\EmployeeAddress;
-use App\Models\User;
 use App\Models\Region;
 use App\Models\Woreda;
 use App\Models\Zone;
@@ -24,11 +23,13 @@ class EmployeeAddressesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeAddresses = EmployeeAddress::with('employees', 'types', 'woredas')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeAddresses = EmployeeAddress::where('employee', $employee_id)->with('employees', 'types', 'woredas')->paginate(25);
 
-        return view('employees.address.index', compact('employeeAddresses'));
+        return view('employees.address.index', compact('employeeAddresses', 'employee'));
     }
 
     /**
@@ -36,15 +37,15 @@ class EmployeeAddressesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $addressTypes = AddressType::pluck('name', 'id')->all();
         $regions = Region::pluck('name', 'id')->all();
         $woredas = Woreda::pluck('name', 'id')->all();
         $zones = Zone::pluck('name', 'id')->all();
 
-        return view('employees.address.create', compact('employees', 'addressTypes', 'regions', 'woredas', 'zones'));
+        return view('employees.address.create', compact('employee', 'addressTypes', 'regions', 'woredas', 'zones', 'employee'));
     }
 
     /**
@@ -54,16 +55,17 @@ class EmployeeAddressesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
-            $data['status'] = '1';
+            $data['created_by'] = 1;
+            $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeAddress::create($data);
 
-            return redirect()->route('employee_addresses.employee_address.index')
+            return redirect()->route('employee_addresses.employee_address.index', $employee)
                 ->with('success_message', 'Employee Address was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -83,15 +85,15 @@ class EmployeeAddressesController extends Controller
      *
      * @param int $id
      */
-    public function approve($id)
+    public function approve($employee, $employeeAddresses)
     {
         try {
-            $employeeAddress = EmployeeAddress::findOrFail($id);
-            $employeeAddress->status = '3';
-            $employeeAddress->approved_by = Auth::Id();
+            $employeeAddress = EmployeeAddress::findOrFail($employeeAddresses);
+            $employeeAddress->status = 3;
+            $employeeAddress->approved_by = 1;
             $employeeAddress->approved_at = now();
             $employeeAddress->save();
-            return redirect()->route('employee_addresses.employee_address.index')
+            return redirect()->route('employee_addresses.employee_address.index', $employee)
                 ->with('success_message', 'Employee Address was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -110,14 +112,14 @@ class EmployeeAddressesController extends Controller
      *
      * @param int $id
      */
-    public function reject($id, Request $request)
+    public function reject($employee, $employeeAddresses, Request $request)
     {
         try {
-            $employeeAddress = EmployeeAddress::findOrFail($id);
-            $employeeAddress->status = '2';
-            $employeeAddress->note = '1';
+            $employeeAddress = EmployeeAddress::findOrFail($employeeAddresses);
+            $employeeAddress->status = 2;
+            $employeeAddress->note = $request['note'];
             $employeeAddress->save();
-            return redirect()->route('employee_addresses.employee_address.index')
+            return redirect()->route('employee_addresses.employee_address.index', $employee)
                 ->with('success_message', 'Employee Address was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -139,16 +141,16 @@ class EmployeeAddressesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeAddresses)
     {
-        $employeeAddress = EmployeeAddress::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeAddress = EmployeeAddress::findOrFail($employeeAddresses);
         $addressTypes = AddressType::pluck('name', 'id')->all();
         $regions = Region::pluck('name', 'id')->all();
         $woredas = Woreda::pluck('name', 'id')->all();
         $zones = Zone::pluck('name', 'id')->all();
 
-        return view('employees.address.edit', compact('employeeAddress', 'employees', 'addressTypes', 'regions', 'woredas', 'zones'));
+        return view('employees.address.edit', compact('employeeAddress', 'employee', 'addressTypes', 'regions', 'woredas', 'zones'));
     }
 
     /**
@@ -159,16 +161,16 @@ class EmployeeAddressesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeAddresses, Request $request)
     {
         try {
-
             $data = $this->getData($request);
 
-            $employeeAddress = EmployeeAddress::findOrFail($id);
+            $employeeAddress = EmployeeAddress::findOrFail($employeeAddresses);
+            $data['employee'] = $employee;
             $employeeAddress->update($data);
 
-            return redirect()->route('employee_addresses.employee_address.index')
+            return redirect()->route('employee_addresses.employee_address.index', $employee)
                 ->with('success_message', 'Employee Address was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -190,13 +192,13 @@ class EmployeeAddressesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeAddresses)
     {
         try {
-            $employeeAddress = EmployeeAddress::findOrFail($id);
+            $employeeAddress = EmployeeAddress::findOrFail($employeeAddresses);
             $employeeAddress->delete();
 
-            return redirect()->route('employee_addresses.employee_address.index')
+            return redirect()->route('employee_addresses.employee_address.index', $employee)
                 ->with('success_message', 'Employee Address was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -220,8 +222,7 @@ class EmployeeAddressesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
-            'address_type' => 'required',
+            'type' => 'required',
             'address' => 'string|min:1|nullable',
             'house_number' => 'string|min:1|nullable',
             'woreda' => 'nullable',

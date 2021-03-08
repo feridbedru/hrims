@@ -23,11 +23,13 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeStudyTrainings = EmployeeStudyTraining::with('employees','types','institutions','fields','levels')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeStudyTrainings = EmployeeStudyTraining::where('employee', $employee_id)->with('employees','types','institutions','fields','levels')->paginate(25);
 
-        return view('employees.study_training.index', compact('employeeStudyTrainings'));
+        return view('employees.study_training.index', compact('employeeStudyTrainings','employee'));
     }
 
     /**
@@ -35,15 +37,15 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $commitmentFors = CommitmentFor::pluck('name', 'id')->all();
         $educationalInstitutions = EducationalInstitute::pluck('name', 'id')->all();
         $educationalLevels = EducationLevel::pluck('name', 'id')->all();
         $educationalFields = EducationalField::pluck('name', 'id')->all();
 
-        return view('employees.study_training.create', compact('employees', 'commitmentFors', 'educationalInstitutions', 'educationalLevels', 'educationalFields'));
+        return view('employees.study_training.create', compact('employee', 'commitmentFors', 'educationalInstitutions', 'educationalLevels', 'educationalFields'));
     }
 
     /**
@@ -53,15 +55,16 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request,$id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
+            $data['employee'] = $id;
             EmployeeStudyTraining::create($data);
 
-            return redirect()->route('employee_study_trainings.employee_study_training.index')
+            return redirect()->route('employee_study_trainings.employee_study_training.index',$employee)
                 ->with('success_message', 'Employee Study Training was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -83,11 +86,12 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($employee, $employeeStudyTrainings)
     {
-        $employeeStudyTraining = EmployeeStudyTraining::with('employees','types','institutions','fields','levels')->findOrFail($id);
+        $employee = Employee::findOrFail($employee);
+        $employeeStudyTraining = EmployeeStudyTraining::with('employees','types','institutions','fields','levels')->findOrFail($employeeStudyTrainings);
 
-        return view('employees.study_training.show', compact('employeeStudyTraining'));
+        return view('employees.study_training.show', compact('employeeStudyTraining','employee'));
     }
 
     /**
@@ -97,16 +101,16 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeStudyTrainings)
     {
-        $employeeStudyTraining = EmployeeStudyTraining::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeStudyTraining = EmployeeStudyTraining::findOrFail($employeeStudyTrainings);
         $commitmentFors = CommitmentFor::pluck('name', 'id')->all();
         $educationalInstitutions = EducationalInstitute::pluck('name', 'id')->all();
         $educationalLevels = EducationLevel::pluck('name', 'id')->all();
         $educationalFields = EducationalField::pluck('name', 'id')->all();
 
-        return view('employees.study_training.edit', compact('employeeStudyTraining', 'employees', 'commitmentFors', 'educationalInstitutions', 'educationalLevels', 'educationalFields'));
+        return view('employees.study_training.edit', compact('employeeStudyTraining', 'employee', 'commitmentFors', 'educationalInstitutions', 'educationalLevels', 'educationalFields'));
     }
 
     /**
@@ -117,16 +121,17 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeStudyTrainings, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeStudyTraining = EmployeeStudyTraining::findOrFail($id);
+            $employeeStudyTraining = EmployeeStudyTraining::findOrFail($employeeStudyTrainings);
+            $data['employee'] = $employee;
             $employeeStudyTraining->update($data);
 
-            return redirect()->route('employee_study_trainings.employee_study_training.index')
+            return redirect()->route('employee_study_trainings.employee_study_training.index',$employee)
                 ->with('success_message', 'Employee Study Training was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -148,13 +153,13 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeStudyTrainings)
     {
         try {
-            $employeeStudyTraining = EmployeeStudyTraining::findOrFail($id);
+            $employeeStudyTraining = EmployeeStudyTraining::findOrFail($employeeStudyTrainings);
             $employeeStudyTraining->delete();
 
-            return redirect()->route('employee_study_trainings.employee_study_training.index')
+            return redirect()->route('employee_study_trainings.employee_study_training.index',$employee)
                 ->with('success_message', 'Employee Study Training was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -178,7 +183,6 @@ class EmployeeStudyTrainingsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'type' => 'required',
             'institution' => 'required',
             'level' => 'required',

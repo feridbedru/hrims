@@ -1,20 +1,3 @@
-<div class="form-group {{ $errors->has('employee') ? 'has-error' : '' }}">
-    <label for="employee" class="col-md-2 control-label">Employee</label>
-    <div class="col-md-10">
-        <select class="form-control" id="employee" name="employee" required="true">
-            <option value="" style="display: none;"
-                {{ old('employee', optional($employeeLanguage)->employee ?: '') == '' ? 'selected' : '' }} disabled
-                selected>Select employee</option>
-            @foreach ($employees as $key => $employee)
-                <option value="{{ $key }}"
-                    {{ old('employee', optional($employeeLanguage)->employee) == $key ? 'selected' : '' }}>
-                    {{ $employee }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-</div>
-
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('language') ? 'has-error' : '' }}">
         <label for="language" class="col-md-4 control-label">Language</label>

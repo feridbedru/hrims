@@ -20,11 +20,13 @@ class EmployeeLicensesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeLicenses = EmployeeLicense::with('employees','types')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeLicenses = EmployeeLicense::where('employee', $employee_id)->with('employees','types')->paginate(25);
 
-        return view('employees.license.index', compact('employeeLicenses'));
+        return view('employees.license.index', compact('employeeLicenses','employee'));
     }
 
     /**
@@ -32,12 +34,12 @@ class EmployeeLicensesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $licenseTypes = LicenseType::pluck('name', 'id')->all();
 
-        return view('employees.license.create', compact('employees', 'licenseTypes'));
+        return view('employees.license.create', compact('employee', 'licenseTypes'));
     }
 
     /**
@@ -47,16 +49,17 @@ class EmployeeLicensesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['created_by'] = 1;
             $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeLicense::create($data);
 
-            return redirect()->route('employee_licenses.employee_license.index')
+            return redirect()->route('employee_licenses.employee_license.index', $employee)
                 ->with('success_message', 'Employee License was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -76,17 +79,17 @@ class EmployeeLicensesController extends Controller
      *
      * @param int $id
      */
-    public function approve($id)
+    public function approve($employee, $employeeLicenses)
     {
         try {
 
-            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense = EmployeeLicense::findOrFail($employeeLicenses);
             $employeeLicense->status = 3;
             $employeeLicense->approved_by = 1;
             $employeeLicense->approved_at = now();
             $employeeLicense->save();
 
-            return redirect()->route('employee_licenses.employee_license.index')
+            return redirect()->route('employee_licenses.employee_license.index', $employee)
                 ->with('success_message', 'Employee License was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -105,16 +108,16 @@ class EmployeeLicensesController extends Controller
      *
      * @param int $id
      */
-    public function reject($id, Request $request)
+    public function reject($employee, $employeeLicenses, Request $request)
     {
         try {
 
-            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense = EmployeeLicense::findOrFail($employeeLicenses);
             $employeeLicense->status = 2;
-            $employeeLicense->note = '1';
+            $employeeLicense->note = $request['note'];
             $employeeLicense->save();
 
-            return redirect()->route('employee_licenses.employee_license.index')
+            return redirect()->route('employee_licenses.employee_license.index', $employee)
                 ->with('success_message', 'Employee License was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -136,13 +139,13 @@ class EmployeeLicensesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeLicenses)
     {
-        $employeeLicense = EmployeeLicense::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeLicense = EmployeeLicense::findOrFail($employeeLicenses);
         $licenseTypes = LicenseType::pluck('name', 'id')->all();
 
-        return view('employees.license.edit', compact('employeeLicense', 'employees', 'licenseTypes'));
+        return view('employees.license.edit', compact('employeeLicense', 'employee', 'licenseTypes'));
     }
 
     /**
@@ -153,16 +156,17 @@ class EmployeeLicensesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeLicenses, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense = EmployeeLicense::findOrFail($employeeLicenses);
+            $data['employee'] = $employee;
             $employeeLicense->update($data);
 
-            return redirect()->route('employee_licenses.employee_license.index')
+            return redirect()->route('employee_licenses.employee_license.index', $employee)
                 ->with('success_message', 'Employee License was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -184,13 +188,13 @@ class EmployeeLicensesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeLicenses)
     {
         try {
-            $employeeLicense = EmployeeLicense::findOrFail($id);
+            $employeeLicense = EmployeeLicense::findOrFail($employeeLicenses);
             $employeeLicense->delete();
 
-            return redirect()->route('employee_licenses.employee_license.index')
+            return redirect()->route('employee_licenses.employee_license.index', $employee)
                 ->with('success_message', 'Employee License was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -214,7 +218,6 @@ class EmployeeLicensesController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'title' => 'required|string|min:1|max:255',
             'type' => 'required',
             'issuing_organization' => 'required|string|min:1',

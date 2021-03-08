@@ -21,11 +21,13 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index($id)
     {
-        $employeeAwards = EmployeeAward::with('types','employees')->paginate(25);
+        $employee_id = $id;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeAwards = EmployeeAward::where('employee', $employee_id)->with('types','employees')->paginate(25);
 
-        return view('employees.award.index', compact('employeeAwards'));
+        return view('employees.award.index', compact('employeeAwards','employee'));
     }
 
     /**
@@ -33,14 +35,12 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create($id)
     {
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($id);
         $awardTypes = AwardType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.award.create', compact('employees', 'awardTypes', 'creators', 'approvedBies'));
+        return view('employees.award.create', compact('employee', 'awardTypes'));
     }
 
     /**
@@ -50,15 +50,17 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
         try {
-
+            $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
+            $data['status'] = 1;
+            $data['employee'] = $id;
             EmployeeAward::create($data);
 
-            return redirect()->route('employee_awards.employee_award.index')
+            return redirect()->route('employee_awards.employee_award.index',$employee)
                 ->with('success_message', 'Employee Award was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -80,11 +82,12 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($employee, $employeeAwards)
     {
-        $employeeAward = EmployeeAward::with('employees', 'types')->findOrFail($id);
+        $employee = Employee::findOrFail($employee);
+        $employeeAward = EmployeeAward::with('employees', 'types')->findOrFail($employeeAwards);
 
-        return view('employees.award.show', compact('employeeAward'));
+        return view('employees.award.show', compact('employeeAward','employee'));
     }
 
     /**
@@ -94,15 +97,13 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($employee, $employeeAwards)
     {
-        $employeeAward = EmployeeAward::findOrFail($id);
-        $employees = Employee::pluck('en_name', 'id')->all();
+        $employee = Employee::findOrFail($employee);
+        $employeeAward = EmployeeAward::findOrFail($employeeAwards);
         $awardTypes = AwardType::pluck('name', 'id')->all();
-        $creators = User::pluck('name', 'id')->all();
-        $approvedBies = User::pluck('name', 'id')->all();
 
-        return view('employees.award.edit', compact('employeeAward', 'employees', 'awardTypes', 'creators', 'approvedBies'));
+        return view('employees.award.edit', compact('employeeAward', 'employee', 'awardTypes'));
     }
 
     /**
@@ -113,16 +114,17 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function update($id, Request $request)
+    public function update($employee, $employeeAwards, Request $request)
     {
         try {
 
             $data = $this->getData($request);
 
-            $employeeAward = EmployeeAward::findOrFail($id);
+            $employeeAward = EmployeeAward::findOrFail($employeeAwards);
+            $data['employee'] = $employee;
             $employeeAward->update($data);
 
-            return redirect()->route('employee_awards.employee_award.index')
+            return redirect()->route('employee_awards.employee_award.index',$employee)
                 ->with('success_message', 'Employee Award was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -144,13 +146,13 @@ class EmployeeAwardsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function destroy($id)
+    public function destroy($employee, $employeeAwards)
     {
         try {
-            $employeeAward = EmployeeAward::findOrFail($id);
+            $employeeAward = EmployeeAward::findOrFail($employeeAwards);
             $employeeAward->delete();
 
-            return redirect()->route('employee_awards.employee_award.index')
+            return redirect()->route('employee_awards.employee_award.index',$employee)
                 ->with('success_message', 'Employee Award was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -174,7 +176,6 @@ class EmployeeAwardsController extends Controller
     protected function getData(Request $request)
     {
         $rules = [
-            'employee' => 'required',
             'organization' => 'required|string|min:1',
             'description' => 'string|min:1|max:1000|nullable',
             'attachment' => ['file'],

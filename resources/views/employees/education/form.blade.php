@@ -169,20 +169,3 @@
         </div>
     </div>
 </div>
-
-<div class="form-group {{ $errors->has('employee') ? 'has-error' : '' }}">
-    <label for="employee" class="col-md-2 control-label">Employee</label>
-    <div class="col-md-10">
-        <select class="form-control" id="employee" name="employee" required="true">
-            <option value="" style="display: none;"
-                {{ old('employee', optional($employeeEducation)->employee ?: '') == '' ? 'selected' : '' }} disabled
-                selected>Select employee</option>
-            @foreach ($employees as $key => $employee)
-                <option value="{{ $key }}"
-                    {{ old('employee', optional($employeeEducation)->employee) == $key ? 'selected' : '' }}>
-                    {{ $employee }}
-                </option>
-            @endforeach
-        </select>
-    </div>
-</div>

@@ -47,7 +47,7 @@
 
                                 <td>
                                     @if ($employeeDisability->status == 1)
-                                        <a href="{{ route('employee_disabilities.employee_disability.approve', $employeeDisability->id) }}"
+                                        <a href="{{ route('employee_disabilities.employee_disability.approve', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Disability">
                                             Approve
                                         </a>
@@ -66,7 +66,7 @@
                                                         </button>
                                                     </div>
                                                     <form method="POST"
-                                                        action="{!!  route('employee_disabilities.employee_disability.reject', $employeeDisability->id) !!}"
+                                                        action="{!!  route('employee_disabilities.employee_disability.reject', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -86,7 +86,7 @@
                                         </div>
                                     @elseif($employeeDisability->status == 2)
                                         <form method="POST"
-                                            action="{!!  route('employee_disabilities.employee_disability.destroy', $employeeDisability->id) !!}"
+                                            action="{!!  route('employee_disabilities.employee_disability.destroy', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) !!}"
                                             accept-charset="UTF-8">
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
@@ -98,11 +98,11 @@
                                         </form>
                                     @else
                                         <form method="POST"
-                                            action="{!!  route('employee_disabilities.employee_disability.destroy', $employeeDisability->id) !!}"
+                                            action="{!!  route('employee_disabilities.employee_disability.destroy', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) !!}"
                                             accept-charset="UTF-8">
                                             <input name="_method" value="DELETE" type="hidden">
                                             {{ csrf_field() }}
-                                            <a href="{{ route('employee_disabilities.employee_disability.edit', $employeeDisability->id) }}"
+                                            <a href="{{ route('employee_disabilities.employee_disability.edit', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) }}"
                                                 class="btn btn-outline-warning mr-2" title="Edit Disability">
                                                 Edit
                                             </a>
@@ -122,7 +122,7 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_disabilities.employee_disability.create') }}" class="btn btn-success"
+    <a href="{{ route('employee_disabilities.employee_disability.create', $employee) }}" class="btn btn-success"
         title="Create New Disability">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>

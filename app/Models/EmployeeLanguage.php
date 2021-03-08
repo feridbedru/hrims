@@ -77,8 +77,38 @@ class EmployeeLanguage extends Model
      *
      * @return App\Models\LanguageLevel
      */
-    public function languageLevels()
+    public function readings()
     {
-        return $this->belongsTo(LanguageLevel::class,'language_level');
+        return $this->belongsTo(LanguageLevel::class,'reading');
+    }
+
+    /**
+     * Get the languageLevel for this model.
+     *
+     * @return App\Models\LanguageLevel
+     */
+    public function writings()
+    {
+        return $this->belongsTo(LanguageLevel::class,'writing');
+    }
+
+    /**
+     * Get the languageLevel for this model.
+     *
+     * @return App\Models\LanguageLevel
+     */
+    public function speakings()
+    {
+        return $this->belongsTo(LanguageLevel::class,'speaking');
+    }
+
+    /**
+     * Get the languageLevel for this model.
+     *
+     * @return App\Models\LanguageLevel
+     */
+    public function listenings()
+    {
+        return $this->belongsTo(LanguageLevel::class,'listening');
     }
 }

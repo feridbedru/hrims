@@ -2,28 +2,23 @@
 
 @section('content')
 
-<div class="panel panel-default">
-    <div class="panel-heading clearfix">
+<div class="card card-primary">
+    <div class="card-header clearfix">
 
-        <span class="pull-left">
-            <h4 class="mt-5 mb-5">{{ isset($title) ? $title : 'Employee Disaster' }}</h4>
-        </span>
+            <h4 class="card-title">{{ isset($title) ? $title : 'Employee Disaster' }}</h4>
 
-        <div class="pull-right">
+        <div class="card-tools">
 
-            <form method="POST" action="{!! route('employee_disasters.employee_disaster.destroy', $employeeDisaster->id) !!}" accept-charset="UTF-8">
+            <form method="POST" action="{!! route('employee_disasters.employee_disaster.destroy', ['employee' => $employeeDisaster->employees->id, 'employeeDisaster' => $employeeDisaster->id]) !!}" accept-charset="UTF-8">
             <input name="_method" value="DELETE" type="hidden">
             {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
-                    <a href="{{ route('employee_disasters.employee_disaster.index') }}" class="btn btn-primary" title="Show All Employee Disaster">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                    </a>
 
-                    <a href="{{ route('employee_disasters.employee_disaster.create') }}" class="btn btn-success" title="Create New Employee Disaster">
+                    <a href="{{ route('employee_disasters.employee_disaster.create',$employee) }}" class="btn btn-success" title="Create New Employee Disaster">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     </a>
                     
-                    <a href="{{ route('employee_disasters.employee_disaster.edit', $employeeDisaster->id ) }}" class="btn btn-primary" title="Edit Employee Disaster">
+                    <a href="{{ route('employee_disasters.employee_disaster.edit', ['employee' => $employeeDisaster->employees->id, 'employeeDisaster' => $employeeDisaster->id]) }}" class="btn btn-warning" title="Edit Employee Disaster">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
 
@@ -37,16 +32,16 @@
 
     </div>
 
-    <div class="panel-body">
+    <div class="card-body">
         <dl class="dl-horizontal">
             <dt>Employee</dt>
             <dd>{{ optional($employeeDisaster->employee)->en_name }}</dd>
             <dt>Occured On</dt>
             <dd>{{ $employeeDisaster->occured_on }}</dd>
             <dt>Disaster Cause</dt>
-            <dd>{{ optional($employeeDisaster->disasterCause)->name }}</dd>
+            <dd>{{ $employeeDisaster->causes->name }}</dd>
             <dt>Disaster Severity</dt>
-            <dd>{{ optional($employeeDisaster->disasterSeverity)->name }}</dd>
+            <dd>{{ $employeeDisaster->severities->name }}</dd>
             <dt>Description</dt>
             <dd>{{ $employeeDisaster->description }}</dd>
             <dt>Attachment</dt>
@@ -55,14 +50,6 @@
             <dd>{{ ($employeeDisaster->is_mass) ? 'Yes' : 'No' }}</dd>
             <dt>Status</dt>
             <dd>{{ $employeeDisaster->status }}</dd>
-            <dt>Note</dt>
-            <dd>{{ $employeeDisaster->note }}</dd>
-            <dt>Created By</dt>
-            <dd>{{ optional($employeeDisaster->creator)->name }}</dd>
-            <dt>Approved By</dt>
-            <dd>{{ optional($employeeDisaster->approvedBy)->id }}</dd>
-            <dt>Approved At</dt>
-            <dd>{{ $employeeDisaster->approved_at }}</dd>
 
         </dl>
 

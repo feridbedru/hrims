@@ -6,17 +6,17 @@
         <div class="card-header clearfix">
             <h4 class="card-title">{{ isset($title) ? $title : 'Employee Award' }}</h4>
             <div class="card-tools">
-                <form method="POST" action="{!! route('employee_awards.employee_award.destroy', $employeeAward->id) !!}" accept-charset="UTF-8">
+                <form method="POST" action="{!! route('employee_awards.employee_award.destroy', ['employee' => $employeeAward->employees->id, 'employeeAward' => $employeeAward->id]) !!}" accept-charset="UTF-8">
                     <input name="_method" value="DELETE" type="hidden">
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
 
-                        <a href="{{ route('employee_awards.employee_award.create') }}" class="btn btn-success"
+                        <a href="{{ route('employee_awards.employee_award.create',$employee) }}" class="btn btn-success"
                             title="Create New Employee Award">
                             <span class="fa fa-plus" aria-hidden="true"></span>
                         </a>
 
-                        <a href="{{ route('employee_awards.employee_award.edit', $employeeAward->id) }}"
+                        <a href="{{ route('employee_awards.employee_award.edit', ['employee' => $employeeAward->employees->id, 'employeeAward' => $employeeAward->id]) }}"
                             class="btn btn-warning" title="Edit Employee Award">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>

@@ -10,28 +10,24 @@
 
             <div class="card-tools">
 
-                <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', $employeeCertification->id) !!}" accept-charset="UTF-8">
-                    <input name="_method" value="DELETE" type="hidden">
+                <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) !!}" accept-charset="UTF-8">
+                    @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
-                        <a href="{{ route('employee_certifications.employee_certification.index') }}"
-                            class="btn btn-primary" title="Show All Employee Certification">
-                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                        </a>
 
-                        <a href="{{ route('employee_certifications.employee_certification.create') }}"
+                        <a href="{{ route('employee_certifications.employee_certification.create',$employee) }}"
                             class="btn btn-success" title="Create New Employee Certification">
-                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            <span class="fa fa-plus" aria-hidden="true"></span>
                         </a>
 
-                        <a href="{{ route('employee_certifications.employee_certification.edit', $employeeCertification->id) }}"
-                            class="btn btn-primary" title="Edit Employee Certification">
-                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        <a href="{{ route('employee_certifications.employee_certification.edit', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
+                            class="btn btn-warning" title="Edit Employee Certification">
+                            <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
 
                         <button type="submit" class="btn btn-danger" title="Delete Employee Certification"
                             onclick="return confirm(&quot;Click Ok to delete Employee Certification.?&quot;)">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                            <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
                     </div>
                 </form>

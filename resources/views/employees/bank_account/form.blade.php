@@ -71,23 +71,3 @@
         </div>
     </div>
 </div>
-<hr>
-<div class="row">
-    
-    <div class="form-group col-md-6 {{ $errors->has('employee') ? 'has-error' : '' }}">
-        <label for="employee" class="col-md-4 control-label">Employee</label>
-        <div class="col-md-12">
-            <select class="form-control" id="employee" name="employee" required="true">
-                <option value="" style="display: none;"
-                    {{ old('employee', optional($employeeBankAccount)->employee ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select employee</option>
-                @foreach ($employees as $key => $employee)
-                    <option value="{{ $key }}"
-                        {{ old('employee', optional($employeeBankAccount)->employee) == $key ? 'selected' : '' }}>
-                        {{ $employee }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-    </div>
-</div>
