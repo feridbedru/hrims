@@ -35,39 +35,21 @@
     <script src="{{ asset('assets/plugins/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('assets/plugins/ckeditor/adapters/jquery.js') }}"></script>
     <script>
-        // var textarea=$('.ckeditor').attr('id');
-        // $(window).on('load', function() {
-        //     CKEDITOR.replace( 'data' );
-        // });
-    //     var editor = CKEDITOR.instances[data];
-    // if (editor) { editor.destroy(true); }
-    // CKEDITOR.replace(data);
-// });
-function loadEditors() {
-    var $editors = $("textarea.ckeditor");
-    if ($editors.length) {
-        $editors.each(function() {
-            var editorID = $(this).attr("id");
-            var instance = CKEDITOR.instances[editorID];
-            CKEDITOR.replace(editorID);
-        });
-    }
-}
-        CKEDITOR.replace( 'data', {
+        function loadEditors() {
+            var $editors = $("textarea.ckeditor");
+            if ($editors.length) {
+                $editors.each(function() {
+                    var editorID = $(this).attr("id");
+                    var instance = CKEDITOR.instances[editorID];
+                    CKEDITOR.replace(editorID);
+                });
+            }
+        }
+        CKEDITOR.replace('data', {
             filebrowserUploadUrl: "{{ route('helps.help.upload', ['_token' => csrf_token()]) }}",
             filebrowserUploadMethod: 'form'
-} );
-// CKEDITOR.editorConfig = function (config) {
-//         //...other settings 
-//              config.removePlugins = 'easyimage,cloudservices';//Add this line of code to close the easyimage, cloudservices plugin
-//     };
-    </script>
-    {{-- <script type="text/javascript">
-        $(document).ready(function() {
-            $('.ckeditor').ckeditor();
         });
-
-    </script> --}}
+    </script>
     <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
     <script>
         $(function() {
@@ -118,6 +100,5 @@ function loadEditors() {
             });
 
         });
-
     </script>
 @endsection

@@ -7,16 +7,10 @@
     <li class="breadcrumb-item active">Edit</li>
 @endsection
 @section('content')
-
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title mb-1">Edit Organization</h3>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                </button>
-            </div>
         </div>
-
         <div class="card-body">
             <form method="POST" action="{{ route('organizations.organization.update', $organization->id) }}"
                 id="edit_organization_form" name="edit_organization_form" accept-charset="UTF-8" class="form-horizontal"
@@ -26,7 +20,6 @@
                 @include ('structure.organizations.form', [
                 'organization' => $organization,
                 ])
-
                 <div class="form-group text-center mt-2">
                     <div class="col-md-offset-2 col-md-10">
                         <input class="btn btn-primary mr-5" type="submit" value="Update">
@@ -37,8 +30,6 @@
                     </div>
                 </div>
             </form>
-
         </div>
     </div>
-
 @endsection

@@ -290,13 +290,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('reports.report.create') }}" class="nav-link {{ request()->is('reports/create') ? 'active' : ' ' }}">
-                                <i class="fas fa-circle nav-icon"></i>
+                                <i class="fas fa-plus nav-icon"></i>
                                 <p>New</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('reports.report.index') }}" class="nav-link {{ request()->is(['reports','reports/show/*','reports/*/edit']) ? 'active' : ' ' }}">
-                                <i class="fas fa-circle nav-icon"></i>
+                                <i class="fas fa-list nav-icon"></i>
                                 <p>List</p>
                             </a>
                         </li>

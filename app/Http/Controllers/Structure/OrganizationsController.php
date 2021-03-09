@@ -172,8 +172,8 @@ class OrganizationsController extends Controller
                 'address' => 'string|min:1|nullable',
                 'website' => 'string|min:1|nullable',
                 'email' => 'nullable',
-                'phone_number' => 'numeric|nullable|string|min:0',
-                'fax_number' => 'numeric|nullable|string|min:0',
+                'phone_number' => 'numeric|nullable|min:9',
+                'fax_number' => 'numeric|nullable|min:9',
                 'po_box' => 'string|min:1|nullable', 
             ];
 
@@ -217,10 +217,14 @@ class OrganizationsController extends Controller
             return '';
         }
 
-        $path = config('laravel-code-generator.files_upload_path', 'uploads');
-        $saved = $file->store('public/' . $path, config('filesystems.default'));
-
-        return substr($saved, 15);
+        if (!file_exists('uploads/organization'))
+        {
+            mkdir('uploads/organization', 0777 , true);
+        }
+        $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
+        $path = $file->move('uploads/organization', $fileName);
+        
+        return $fileName;
         
     }
 }

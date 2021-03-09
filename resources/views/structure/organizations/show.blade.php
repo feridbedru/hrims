@@ -7,23 +7,20 @@
     <li class="breadcrumb-item active">{{ $organization->en_name }}</li>
 @endsection
 @section('content')
-
     <div class="card card-primary">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4 pr-4 my-auto">
-                    <img src="{{ asset('storage/uploads/' . $organization->logo) }}" class="img-fluid mb-5 mx-auto d-block my-auto"><br>
+                    <img src="{{ asset('uploads/organization/' . $organization->logo) }}"
+                        class="img-fluid mb-5 m-auto d-block"><br>
                     <div class="container text-center">
-                        <form method="POST" action="{!!  route('organizations.organization.destroy', $organization->id) !!}"
-                            accept-charset="UTF-8">
-                            <input name="_method" value="DELETE" type="hidden">
+                        <form method="POST" action="{!! route('organizations.organization.destroy', $organization->id) !!}" accept-charset="UTF-8">
+                            @method('DELETE')
                             {{ csrf_field() }}
-
                             <a href="{{ route('organizations.organization.edit', $organization->id) }}"
                                 class="btn btn-warning text-white mr-5" title="Edit Organization">
                                 <span class="fa fa-edit" aria-hidden="true"> Edit</span>
                             </a>
-
                             <button type="submit" class="btn btn-danger" title="Delete Organization"
                                 onclick="return confirm(&quot;Click Ok to delete Organization.?&quot;)">
                                 <span class="fa fa-trash" aria-hidden="true"> Delete</span>
@@ -86,19 +83,16 @@
                         </div>
                         @if (isset($organization->header))
                             <dt>Header</dt>
-                            <dd>{{ asset('storage/' . $organization->header) }}</dd>
+                            <dd><img src="{{ asset('uploads/organization/' . $organization->header) }}"></dd>
                         @endif
                         @if (isset($organization->footer))
                             <dt>Footer</dt>
-                            <dd>{{ asset('storage/' . $organization->footer) }}</dd>
+                            <dd><img src="{{ asset('uploads/organization/' . $organization->footer) }}"></dd>
                         @endif
-
                     </dl>
                 </div>
             </div>
             <hr>
-
         </div>
     </div>
-
 @endsection

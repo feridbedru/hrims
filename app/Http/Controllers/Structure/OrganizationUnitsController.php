@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Structure;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobCategory;
+use App\Models\Organization;
 use App\Models\OrganizationLocation;
 use App\Models\OrganizationUnit;
 use App\Models\User;
@@ -25,8 +26,9 @@ class OrganizationUnitsController extends Controller
         $organizationUnits = OrganizationUnit::with('chairman', 'jobCategorys', 'locations')->paginate(25);
         $jobCategories = JobCategory::pluck('name', 'id')->all();
         $organizationLocations = OrganizationLocation::pluck('name', 'id')->all();
+        $organizations = Organization::all();
 
-        return view('structure.organization_units.index', compact('organizationUnits', 'jobCategories', 'organizationLocations'));
+        return view('structure.organization_units.index', compact('organizationUnits', 'jobCategories', 'organizationLocations','organizations'));
     }
 
     /**
@@ -36,7 +38,6 @@ class OrganizationUnitsController extends Controller
      */
     public function filter(Request $request, OrganizationUnit $organizationUnits)
     {
-        // $organizationUnits = OrganizationUnit::with('organizationunit','jobcategory','organizationlocation')->paginate(25);
         $organizationUnits = $organizationUnits->newQuery();
         if ($request->has('job_category_id')) {
             $organizationUnits->where('job_category_id', $request->input('job_category_id'));
@@ -68,8 +69,9 @@ class OrganizationUnitsController extends Controller
         $jobCategories = JobCategory::pluck('name', 'id')->all();
         $organizationLocations = OrganizationLocation::pluck('name', 'id')->all();
         $chairmans = User::pluck('name', 'id')->all();
+        $organizations = Organization::all();
 
-        return view('structure.organization_units.create', compact('organizationUnits', 'jobCategories', 'organizationLocations', 'chairmans'));
+        return view('structure.organization_units.create', compact('organizationUnits', 'jobCategories', 'organizationLocations', 'chairmans','organizations'));
     }
 
     /**

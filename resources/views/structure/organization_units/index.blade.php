@@ -40,11 +40,11 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-5">
                         <input type="text" placeholder="enter name here" class="form-control" id="organization_unit_name"
                             name="organization_unit_name">
                     </div>
-                    <div class="form-group col-md-2 text-right">
+                    <div class="form-group col-md-2 d-flex justify-content-between">
                         <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
                         <a href="{{ route('organization_units.organization_unit.index') }}" class="btn btn-danger mr-5"
                             title="Show All Organization Unit">
@@ -74,7 +74,6 @@
                             <th>#</th>
                             <th>English Name</th>
                             <th>Chairman</th>
-                            <th>Job Category</th>
                             <th>Location</th>
                             <th class="text-center">Actions</th>
                         </tr>
@@ -85,20 +84,19 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $organizationUnit->en_name }}</td>
                                 <td>{{ optional($organizationUnit->chairman)->name }}</td>
-                                <td>{{ optional($organizationUnit->jobCategorys)->name }}</td>
                                 <td>{{ optional($organizationUnit->locations)->name }}</td>
                                 <td>
-                                    <div class="text-center">
+                                    <div class="d-flex justify-content-between">
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
-                                        class="btn btn-outline-danger btn-sm mr-4" title="Show Sub Offices">
+                                        class="btn btn-outline-danger btn-sm" title="Show Sub Offices">
                                         Offices
                                     </a>
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
-                                        class="btn btn-outline-primary btn-sm mr-4" title="Show Employees">
+                                        class="btn btn-outline-primary btn-sm" title="Show Employees">
                                         Employees
                                     </a>
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
-                                        class="btn btn-outline-success btn-sm mr-4" title="Show Jobs">
+                                        class="btn btn-outline-success btn-sm" title="Show Jobs">
                                         Jobs
                                     </a>
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
@@ -115,8 +113,10 @@
             @endif
         </div>
     </div>
+    @if (count($organizations) > 0)
         <a href="{{ route('organization_units.organization_unit.create') }}" class="btn btn-success"
             title="Create New Organization Unit">
             <span class="fa fa-plus" aria-hidden="true"> Add New</span>
         </a>
+        @endif
 @endsection

@@ -78,7 +78,7 @@
                 @endif
             </div>
 
-            <section class="content">
+            <section class="content pb-3">
                 <div class="container-fluid">
                     @yield('content')
                 </div>

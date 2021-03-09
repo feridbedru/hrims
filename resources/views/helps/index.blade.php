@@ -42,7 +42,7 @@
                     <div class="form-group col-md-6">
                         <input type="text" placeholder="enter title here" class="form-control" id="title" name="title">
                     </div>
-                    <div class="form-group col-md-2 text-right">
+                    <div class="form-group col-md-2 d-flex justify content-between">
                         <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
                         <a href="{{ route('helps.help.index') }}" class="btn btn-danger mr-5" title="Show All Helps">
                             Reset
@@ -84,8 +84,7 @@
                                 <td>{{ optional($help->languagers)->name }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!!  route('helps.help.destroy', $help->id) !!}"
-                                        accept-charset="UTF-8">
+                                    <form method="POST" action="{!! route('helps.help.destroy', $help->id) !!}" accept-charset="UTF-8">
                                         <input name="_method" value="DELETE" type="hidden">
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">

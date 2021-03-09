@@ -37,7 +37,6 @@ use App\Models\Template;
 use App\Models\Title;
 use App\Models\Woreda;
 use App\Models\Zone;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class SettingsController extends Controller

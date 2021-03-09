@@ -41,7 +41,7 @@
                 rules: {
                     name: {
                         required: true,
-                        minlength: 2,
+                        minlength: 2
                     },
                     description: {
                         minlength: 1

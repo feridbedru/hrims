@@ -64,22 +64,36 @@ class HelpsController extends Controller
 
         return view('helps.create', compact('helps', 'languages'));
     }
-
-    public function image(Request $request)
+    /**
+     * Store a new image of help in the storage.
+     *
+     * */
+    public function upload(Request $request)
     {
         if ($request->hasFile('upload')) {
-            $originName = $request->file('upload')->getClientOriginalName();
-            $fileName = pathinfo($originName, PATHINFO_FILENAME);
+            try{
+            $filenamewithextension = $request->file('upload')->getClientOriginalName();
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
-            $fileName = $fileName . '_' . time() . '.' . $extension;
-            $request->file('upload')->move(public_path('uploads/help'), $fileName);
+            $filenametostore = $filename . '_' . time() . '.' . $extension;
+            $request->file('upload')->move('uploads/help', $filenametostore);
+
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('images/' . $fileName);
+            $url = asset('uploads/help' . $filenametostore);
             $msg = 'Image successfully uploaded';
-            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
 
             @header('Content-type: text/html; charset=utf-8');
-            echo $response;
+            echo $re;
+            }catch(Exception $exception){
+                $systemException = new SystemException();
+                $systemException->function = Route::currentRouteAction();
+                $systemException->path = Route::getCurrentRoute()->uri();
+                $systemException->request = json_encode($request->all());
+                $systemException->message = json_encode([$exception->getMessage()]);
+                $systemException->status = 1;
+                $systemException->save();
+            }
         }
     }
 
@@ -96,23 +110,6 @@ class HelpsController extends Controller
 
             $data = $this->getData($request);
             $data['created_by'] = 1;
-            $editor_content = $request->data;
-            $dom = new \DomDocument('1.0', 'UTF-8');
-            libxml_use_internal_errors(true);
-            $dom->loadHtml($editor_content);
-            $images = $dom->getElementsByTagName('img');
-            foreach ($images as $k => $img) {
-                $data = $img->getAttribute('src');
-                list($type, $data) = explode(';', $data);
-                $data = base64_decode($data);
-                // save to uploads folder
-                $image_name = "/uploads/help/" . 'help_' . time() . $k . '.png';
-                $path = public_path() . $image_name;
-                file_put_contents($path, $data);
-                $img->removeAttribute('src');
-                $img->setAttribute('src', $image_name);
-            };
-            $editor_content_save = utf8_decode($dom->saveHTML($dom));
             Help::create($data);
 
             return redirect()->route('helps.help.index')
@@ -235,7 +232,7 @@ class HelpsController extends Controller
             'topic_for' => 'required|string|min:1',
             'parent' => 'nullable',
             'language' => 'required|numeric|min:0|max:4294967295',
-            'created_by' => 'required',
+            'created_by' => 'nullable',
         ];
 
         $data = $request->validate($rules);

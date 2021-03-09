@@ -11,7 +11,7 @@
         <div class="card-header">
             <h3 class="card-title">{{ $help->title }}</h3>
             <div class="card-tools">
-                <form method="POST" action="{!!  route('helps.help.destroy', $help->id) !!}" accept-charset="UTF-8">
+                <form method="POST" action="{!! route('helps.help.destroy', $help->id) !!}" accept-charset="UTF-8">
                     <input name="_method" value="DELETE" type="hidden">
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">

@@ -199,9 +199,13 @@ class EmployeeDisasterIndeminitiesController extends Controller
             return '';
         }
 
-        $path = config('codegenerator.files_upload_path', 'uploads');
-        $saved = $file->store('public/' . $path, config('filesystems.default'));
-
-        return substr($saved, 7);
+        if (!file_exists('uploads/disaster/indeminity'))
+        {
+            mkdir('uploads/disaster/indeminity', 0777 , true);
+        }
+        $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
+        $path = $file->move('uploads/disaster/indeminity', $fileName);
+        
+        return $fileName;
     }
 }
