@@ -35,7 +35,7 @@
 
                                 <td>
                                     <form method="POST" action="{!! route('employee_disaster_indeminities.employee_disaster_indeminity.destroy', $employeeDisasterIndeminity->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
                                             <a href="{{ route('employee_disaster_indeminities.employee_disaster_indeminity.show', $employeeDisasterIndeminity->id) }}"

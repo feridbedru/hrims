@@ -49,6 +49,7 @@
                         <th colspan="1"  class="text-center">Steps</th> 
                     </tr>
                     <tr>
+                        {{-- {{ dd($salaryHeight->salaryScales->salary_steps) }} --}}
                         <th>ma</th>
                         {{-- @for ($i = 1; $i = {{ $salaryHeight->salaryScales->salary_steps }} ; $i++)
                             <th scope="col">{{ $i }} </th>

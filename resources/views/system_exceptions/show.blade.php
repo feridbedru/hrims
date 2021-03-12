@@ -12,7 +12,7 @@
         <div class="pull-right">
 
             <form method="POST" action="{!! route('system_exceptions.system_exception.destroy', $systemException->id) !!}" accept-charset="UTF-8">
-            <input name="_method" value="DELETE" type="hidden">
+            @method('DELETE')
             {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
                     <a href="{{ route('system_exceptions.system_exception.index') }}" class="btn btn-primary" title="Show All System Exception">

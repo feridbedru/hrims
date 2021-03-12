@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Actions</th>
@@ -29,12 +28,11 @@
                         @foreach ($employeeFiles as $employeeFile)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeFile->employees->en_name }}</td>
                                 <td>{{ $employeeFile->title }}</td>
                                 <td>{{ $employeeFile->description }}</td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_files.employee_file.destroy',['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) !!}" accept-charset="UTF-8">
+                                    <form method="POST" action="{!! route('employee_files.employee_file.destroy', ['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) !!}" accept-charset="UTF-8">
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
@@ -58,7 +56,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_files.employee_file.create', $employee) }}" class="btn btn-success" title="Create New File">
+    <a href="{{ route('employee_files.employee_file.create', $employee) }}" class="btn btn-success mr-2"
+        title="Create New File">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeFiles) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee File">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

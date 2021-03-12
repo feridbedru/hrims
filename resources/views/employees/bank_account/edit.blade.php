@@ -3,7 +3,8 @@
     Edit Bank Account
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}">Bank
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}">Bank
             Account</a></li>
     <li class="breadcrumb-item active">Edit</li>
 @endsection
@@ -14,7 +15,7 @@
         </div>
         <div class="card-body">
             <form method="POST"
-                action="{{ route('employee_bank_accounts.employee_bank_account.update', ['employee'=>$employee->id, 'employeeBankAccount'=>$employeeBankAccount->id]) }}"
+                action="{{ route('employee_bank_accounts.employee_bank_account.update', ['employee' => $employee->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                 id="edit_employee_bank_account_form" name="edit_employee_bank_account_form" accept-charset="UTF-8"
                 class="form-horizontal" enctype="multipart/form-data">
                 {{ csrf_field() }}

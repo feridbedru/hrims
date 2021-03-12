@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Occured On</th>
                             <th>Disaster Cause</th>
                             <th>Disaster Severity</th>
@@ -32,7 +31,6 @@
                         @foreach ($employeeDisasters as $employeeDisaster)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeDisaster->employees->en_name }}</td>
                                 <td>{{ $employeeDisaster->occured_on }}</td>
                                 <td>{{ $employeeDisaster->causes->name }}</td>
                                 <td>{{ $employeeDisaster->severities->name }}</td>
@@ -68,8 +66,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_disasters.employee_disaster.create',$employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_disasters.employee_disaster.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Disaster">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeDisasters) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Disaster">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

@@ -85,7 +85,7 @@
 
                                 <td>
                                     <form method="POST" action="{!! route('helps.help.destroy', $help->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
                                             <a href="{{ route('helps.help.show', $help->id) }}" class="btn btn-primary"

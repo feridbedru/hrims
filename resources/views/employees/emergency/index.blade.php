@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Name</th>
                             <th>Phone Number</th>
                             <th>Relationship</th>
@@ -34,7 +33,6 @@
                         @foreach ($employeeEmergencies as $employeeEmergency)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeEmergency->employees->en_name }}</td>
                                 <td>{{ $employeeEmergency->name }}</td>
                                 <td>{{ $employeeEmergency->phone_number }}</td>
                                 <td>{{ $employeeEmergency->relationships->name }}</td>
@@ -125,8 +123,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_emergencies.employee_emergency.create', $employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_emergencies.employee_emergency.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Emergency">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeEmergencies) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Emergency">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

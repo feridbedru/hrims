@@ -15,7 +15,7 @@
             <h4 class="card-title">{{ isset($report->name) ? $report->name : 'Report' }}</h4>
             <div class="card-tools">
                 <form method="POST" action="{!! route('reports.report.destroy', $report->id) !!}" accept-charset="UTF-8">
-                    <input name="_method" value="DELETE" type="hidden">
+                    @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
                         <a href="{{ route('reports.report.create') }}" class="btn btn-success" title="Create New Report">

@@ -10,7 +10,7 @@
         <div class="card-tools">
 
             <form method="POST" action="{!! route('employee_study_trainings.employee_study_training.destroy', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) !!}" accept-charset="UTF-8">
-            <input name="_method" value="DELETE" type="hidden">
+            @method('DELETE')
             {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
 
@@ -34,8 +34,6 @@
 
     <div class="card-body">
         <dl class="dl-horizontal">
-            <dt>Employee</dt>
-            <dd>{{ $employeeStudyTraining->employees->en_name }}</dd>
             <dt>Type</dt>
             <dd>{{ $employeeStudyTraining->types->name }}</dd>
             <dt>Educational Institution</dt>

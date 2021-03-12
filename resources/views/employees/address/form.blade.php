@@ -4,8 +4,8 @@
         <div class="col-md-12">
             <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
-                    {{ old('type', optional($employeeAddress)->type ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select address type</option>
+                    {{ old('type', optional($employeeAddress)->type ?: '') == '' ? 'selected' : '' }} disabled
+                    selected>Select address type</option>
                 @foreach ($addressTypes as $key => $addressType)
                     <option value="{{ $key }}"
                         {{ old('type', optional($employeeAddress)->type) == $key ? 'selected' : '' }}>
@@ -68,8 +68,8 @@
         <div class="col-md-12">
             <select class="form-control" id="woreda" name="woreda">
                 <option value="" style="display: none;"
-                    {{ old('woreda', optional($employeeAddress)->woreda ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select woreda</option>
+                    {{ old('woreda', optional($employeeAddress)->woreda ?: '') == '' ? 'selected' : '' }} disabled
+                    selected>Select woreda</option>
                 @foreach ($woredas as $key => $woreda)
                     <option value="{{ $key }}"
                         {{ old('woreda', optional($employeeAddress)->woreda) == $key ? 'selected' : '' }}>

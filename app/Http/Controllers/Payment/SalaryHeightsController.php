@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use App\Models\SalaryHeight;
 use App\Models\SalaryScale;
+use App\Models\SalaryStep;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -77,10 +78,10 @@ class SalaryHeightsController extends Controller
     public function show($id)
     {
         $salaryHeight = SalaryHeight::with('salaryScales')->findOrFail($id);
-        $scale = $salaryHeight->salaryScale;
-        // dd($salaryHeight->salaryScale);
+        $scale_id = $salaryHeight->salaryScales->salary_step;
+        
 
-        return view('payment.salary_heights.show', compact('salaryHeight'));
+        return view('payment.salary_heights.show', compact('salaryHeight','scale'));
     }
 
     /**

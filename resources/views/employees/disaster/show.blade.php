@@ -10,7 +10,7 @@
         <div class="card-tools">
 
             <form method="POST" action="{!! route('employee_disasters.employee_disaster.destroy', ['employee' => $employeeDisaster->employees->id, 'employeeDisaster' => $employeeDisaster->id]) !!}" accept-charset="UTF-8">
-            <input name="_method" value="DELETE" type="hidden">
+            @method('DELETE')
             {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
 
@@ -34,8 +34,6 @@
 
     <div class="card-body">
         <dl class="dl-horizontal">
-            <dt>Employee</dt>
-            <dd>{{ optional($employeeDisaster->employee)->en_name }}</dd>
             <dt>Occured On</dt>
             <dd>{{ $employeeDisaster->occured_on }}</dd>
             <dt>Disaster Cause</dt>

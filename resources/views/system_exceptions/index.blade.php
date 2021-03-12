@@ -41,7 +41,7 @@
 
                                 <td>
                                     <form method="POST" action="{!! route('system_exceptions.system_exception.destroy', $systemException->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
                                             <a href="{{ route('system_exceptions.system_exception.show', $systemException->id) }}"

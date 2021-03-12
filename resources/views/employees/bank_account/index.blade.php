@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Bank</th>
                             <th>Bank Account Type</th>
                             <th>Account Number</th>
@@ -32,7 +31,6 @@
                         @foreach ($employeeBankAccounts as $employeeBankAccount)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeBankAccount->employees->en_name }}</td>
                                 <td>{{ $employeeBankAccount->banks->name }}</td>
                                 <td>{{ $employeeBankAccount->types->name }}</td>
                                 <td>{{ $employeeBankAccount->account_number }}</td>
@@ -48,7 +46,7 @@
                                 </td>
                                 <td>
                                     @if ($employeeBankAccount->status == 1)
-                                        <a href="{{ route('employee_bank_accounts.employee_bank_account.approve',['employee'=>$employeeBankAccount->employees->id,'employeeBankAccount'=>$employeeBankAccount->id]) }}"
+                                        <a href="{{ route('employee_bank_accounts.employee_bank_account.approve', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Bank Account">
                                             Approve
                                         </a>
@@ -66,8 +64,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST"
-                                                        action="{!!  route('employee_bank_accounts.employee_bank_account.reject',['employee'=>$employeeBankAccount->employees->id,'employeeBankAccount'=>$employeeBankAccount->id]) !!}"
+                                                    <form method="POST" action="{!! route('employee_bank_accounts.employee_bank_account.reject', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -86,9 +83,7 @@
                                             </div>
                                         </div>
                                     @elseif($employeeBankAccount->status == 2)
-                                        <form method="POST"
-                                            action="{!!  route('employee_bank_accounts.employee_bank_account.destroy',['employee'=>$employeeBankAccount->employees->id,'employeeBankAccount'=>$employeeBankAccount->id]) !!}"
-                                            accept-charset="UTF-8">
+                                        <form method="POST" action="{!! route('employee_bank_accounts.employee_bank_account.destroy', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
@@ -100,13 +95,11 @@
                                             </div>
                                         </form>
                                     @else
-                                        <form method="POST"
-                                            action="{!!  route('employee_bank_accounts.employee_bank_account.destroy',['employee'=>$employeeBankAccount->employees->id,'employeeBankAccount'=>$employeeBankAccount->id]) !!}"
-                                            accept-charset="UTF-8">
+                                        <form method="POST" action="{!! route('employee_bank_accounts.employee_bank_account.destroy', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                                <a href="{{ route('employee_bank_accounts.employee_bank_account.edit',['employee'=>$employeeBankAccount->employees->id,'employeeBankAccount'=>$employeeBankAccount->id]) }}"
+                                                <a href="{{ route('employee_bank_accounts.employee_bank_account.edit', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                                                     class="btn btn-outline-warning mr-3" title="Edit Bank Account">
                                                     Edit
                                                 </a>
@@ -128,8 +121,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_bank_accounts.employee_bank_account.create',$employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_bank_accounts.employee_bank_account.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Bank Account">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeBankAccounts) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Bank Account">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

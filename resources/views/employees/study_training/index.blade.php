@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Type</th>
                             <th>Institution</th>
                             <th>Level</th>
@@ -32,7 +31,6 @@
                         @foreach ($employeeStudyTrainings as $employeeStudyTraining)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeStudyTraining->employees->en_name }}</td>
                                 <td>{{ $employeeStudyTraining->types->name }}</td>
                                 <td>{{ $employeeStudyTraining->institutions->name }}</td>
                                 <td>{{ $employeeStudyTraining->levels->name }}</td>
@@ -68,8 +66,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_study_trainings.employee_study_training.create',$employee) }}" class="btn btn-success"
-        title="Create New Study Training">
+    <a href="{{ route('employee_study_trainings.employee_study_training.create', $employee) }}"
+        class="btn btn-success mr-2" title="Create New Study Training">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeStudyTrainings) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Study Training">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Language</th>
                             <th>Reading</th>
                             <th>Writing</th>
@@ -34,7 +33,6 @@
                         @foreach ($employeeLanguages as $employeeLanguage)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeLanguage->employees->en_name }}</td>
                                 <td>{{ $employeeLanguage->languages->name }}</td>
                                 <td>{{ $employeeLanguage->readings->name }}</td>
                                 <td>{{ $employeeLanguage->writings->name }}</td>
@@ -67,8 +65,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_languages.employee_language.create',$employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_languages.employee_language.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Language">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeLanguages) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Language">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

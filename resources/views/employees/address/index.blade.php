@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Address Type</th>
                             <th>Address</th>
                             <th>House Number</th>
@@ -32,7 +31,6 @@
                         @foreach ($employeeAddresses as $employeeAddress)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeAddress->employees->en_name }}</td>
                                 <td>{{ $employeeAddress->types->name }}</td>
                                 <td>{{ $employeeAddress->address }}</td>
                                 <td>{{ $employeeAddress->house_number }}</td>
@@ -120,8 +118,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_addresses.employee_address.create', $employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_addresses.employee_address.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Address">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeAddresses) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Address">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

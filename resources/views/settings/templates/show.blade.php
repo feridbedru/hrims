@@ -41,7 +41,7 @@
                 </dd>
             </dl><hr>
             <form method="POST" action="{!! route('templates.template.destroy', $template->id) !!}" accept-charset="UTF-8">
-                <input name="_method" value="DELETE" type="hidden">
+                @method('DELETE')
                 {{ csrf_field() }}
                 <div>
                     <a href="{{ route('templates.template.edit', $template->id) }}" class="btn btn-warning mr-2"

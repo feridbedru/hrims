@@ -38,8 +38,6 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Employee</dt>
-                <dd>{{ optional($employeeCertification->employee)->en_name }}</dd>
                 <dt>Name</dt>
                 <dd>{{ $employeeCertification->name }}</dd>
                 <dt>Issued On</dt>

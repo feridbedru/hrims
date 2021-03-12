@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Name</th>
                             <th>Issued On</th>
                             <th>Certification Number</th>
@@ -35,7 +34,6 @@
                         @foreach ($employeeCertifications as $employeeCertification)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeCertification->employees->en_name }}</td>
                                 <td>{{ $employeeCertification->name }}</td>
                                 <td>{{ $employeeCertification->issued_on }}</td>
                                 <td>{{ $employeeCertification->certification_number }}</td>
@@ -74,8 +72,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_certifications.employee_certification.create', $employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_certifications.employee_certification.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Certification">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeCertifications) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Certification">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

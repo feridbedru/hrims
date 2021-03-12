@@ -36,8 +36,6 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Employee</dt>
-                <dd>{{ $employeeEducation->employees->en_name }}</dd>
                 <dt>Level</dt>
                 <dd>{{ $employeeEducation->levels->name }}</dd>
                 <dt>Institute</dt>

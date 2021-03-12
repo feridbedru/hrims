@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Title</th>
                             <th>License Type</th>
                             <th>Issuing Organization</th>
@@ -33,7 +32,6 @@
                         @foreach ($employeeLicenses as $employeeLicense)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeLicense->employees->en_name }}</td>
                                 <td>{{ $employeeLicense->title }}</td>
                                 <td>{{ $employeeLicense->types->name }}</td>
                                 <td>{{ $employeeLicense->issuing_organization }}</td>
@@ -124,8 +122,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_licenses.employee_license.create', $employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_licenses.employee_license.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New License">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeLicenses) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee License">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

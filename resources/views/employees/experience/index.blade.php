@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Type</th>
                             <th>Organization Name</th>
                             <th>Job Position</th>
@@ -32,7 +31,6 @@
                         @foreach ($employeeExperiences as $employeeExperience)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeExperience->employees->en_name }}</td>
                                 <td>{{ $employeeExperience->types->name }}</td>
                                 <td>{{ $employeeExperience->organization_name }}</td>
                                 <td>{{ $employeeExperience->job_position }}</td>
@@ -68,8 +66,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_experiences.employee_experience.create', $employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_experiences.employee_experience.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Experience">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeExperiences) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Experience">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

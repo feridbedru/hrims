@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Organization</th>
                             <th>Award Type</th>
                             <th>Awarded On</th>
@@ -31,7 +30,6 @@
                         @foreach ($employeeAwards as $employeeAward)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeAward->employees->en_name }}</td>
                                 <td>{{ $employeeAward->organization }}</td>
                                 <td>{{ $employeeAward->types->name }}</td>
                                 <td>{{ $employeeAward->awarded_on }}</td>
@@ -66,8 +64,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_awards.employee_award.create',$employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_awards.employee_award.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Award">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeAwards) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Award">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection

@@ -19,7 +19,6 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Employee</th>
                             <th>Type</th>
                             <th>Description</th>
                             <th>Medical Certificate</th>
@@ -31,7 +30,6 @@
                         @foreach ($employeeDisabilities as $employeeDisability)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $employeeDisability->employees->en_name }}</td>
                                 <td>{{ $employeeDisability->types->name }}</td>
                                 <td>{{ $employeeDisability->description }}</td>
                                 <td>{{ $employeeDisability->file }}</td>
@@ -47,7 +45,7 @@
 
                                 <td>
                                     @if ($employeeDisability->status == 1)
-                                        <a href="{{ route('employee_disabilities.employee_disability.approve', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) }}"
+                                        <a href="{{ route('employee_disabilities.employee_disability.approve', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Disability">
                                             Approve
                                         </a>
@@ -65,8 +63,7 @@
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
-                                                    <form method="POST"
-                                                        action="{!!  route('employee_disabilities.employee_disability.reject', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) !!}"
+                                                    <form method="POST" action="{!! route('employee_disabilities.employee_disability.reject', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) !!}"
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
@@ -85,29 +82,23 @@
                                             </div>
                                         </div>
                                     @elseif($employeeDisability->status == 2)
-                                        <form method="POST"
-                                            action="{!!  route('employee_disabilities.employee_disability.destroy', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) !!}"
-                                            accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_disabilities.employee_disability.destroy', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
-                                            <button type="submit" class="btn btn-outline-danger"
-                                                title="Delete Disability"
+                                            <button type="submit" class="btn btn-outline-danger" title="Delete Disability"
                                                 onclick="return confirm(&quot;Click Ok to delete Disability.&quot;)">
                                                 Delete
                                             </button>
                                         </form>
                                     @else
-                                        <form method="POST"
-                                            action="{!!  route('employee_disabilities.employee_disability.destroy', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) !!}"
-                                            accept-charset="UTF-8">
-                                            <input name="_method" value="DELETE" type="hidden">
+                                        <form method="POST" action="{!! route('employee_disabilities.employee_disability.destroy', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
                                             {{ csrf_field() }}
-                                            <a href="{{ route('employee_disabilities.employee_disability.edit', ['employee'=>$employeeDisability->employees->id,'employeeDisability'=>$employeeDisability->id]) }}"
+                                            <a href="{{ route('employee_disabilities.employee_disability.edit', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) }}"
                                                 class="btn btn-outline-warning mr-2" title="Edit Disability">
                                                 Edit
                                             </a>
-                                            <button type="submit" class="btn btn-outline-danger"
-                                                title="Delete Disability"
+                                            <button type="submit" class="btn btn-outline-danger" title="Delete Disability"
                                                 onclick="return confirm(&quot;Click Ok to delete Disability.&quot;)">
                                                 Delete
                                             </button>
@@ -122,8 +113,13 @@
             @endif
         </div>
     </div>
-    <a href="{{ route('employee_disabilities.employee_disability.create', $employee) }}" class="btn btn-success"
+    <a href="{{ route('employee_disabilities.employee_disability.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Disability">
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
+    @if (count($employeeDisabilities) > 0)
+        <a href="#" class="btn btn-primary" title="Print Employee Disability">
+            <span class="fa fa-print" aria-hidden="true"> Print</span>
+        </a>
+    @endif
 @endsection
