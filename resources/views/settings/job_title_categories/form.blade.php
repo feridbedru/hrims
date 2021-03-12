@@ -2,7 +2,7 @@
 <hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : '' }}">
-        <label for="name" class="col-md-2 control-label">Name <span class="text-danger">*</span></label>
+        <label for="name" class="col-md-2 control-label">Job Title Category Name <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($jobTitleCategory)->name) }}" minlength="1" maxlength="255"

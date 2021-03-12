@@ -76,15 +76,15 @@ class HelpsController extends Controller
             $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
             $extension = $request->file('upload')->getClientOriginalExtension();
             $filenametostore = $filename . '_' . time() . '.' . $extension;
-            $request->file('upload')->move('uploads/help', $filenametostore);
+            $request->file('upload')->move(public_path('uploads/help'), $filenametostore);
 
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
             $url = asset('uploads/help' . $filenametostore);
             $msg = 'Image successfully uploaded';
-            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+            $response = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
 
             @header('Content-type: text/html; charset=utf-8');
-            echo $re;
+            echo $response;
             }catch(Exception $exception){
                 $systemException = new SystemException();
                 $systemException->function = Route::currentRouteAction();
