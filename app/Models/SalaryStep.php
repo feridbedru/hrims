@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class SalaryStep extends Model
 {
     
-
     /**
      * The database table used by the model.
      *
@@ -21,6 +20,12 @@ class SalaryStep extends Model
     * @var string
     */
     protected $primaryKey = 'id';
+
+    /**
+    * Disabling timestamps for the table.
+    *
+    */
+    public $timestamps = false;
 
     /**
      * Attributes that should be mass-assignable.

@@ -77,6 +77,8 @@ class SalaryHeightsController extends Controller
     public function show($id)
     {
         $salaryHeight = SalaryHeight::with('salaryScales')->findOrFail($id);
+        $scale = $salaryHeight->salaryScale;
+        // dd($salaryHeight->salaryScale);
 
         return view('payment.salary_heights.show', compact('salaryHeight'));
     }

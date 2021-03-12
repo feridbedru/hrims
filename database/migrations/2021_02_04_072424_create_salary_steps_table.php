@@ -17,7 +17,6 @@ class CreateSalaryStepsTable extends Migration
             $table->bigIncrements('id');
             $table->foreignId('salary_scale')->constrained('salary_scales')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('step');
-            $table->timestamps();
 
         });
     }

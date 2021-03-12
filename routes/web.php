@@ -509,20 +509,8 @@ Route::group([
     Route::get('/show/{salaryScale}',[SalaryScalesController::class, 'show'])->name('salary_scales.salary_scale.show')->whereNumber('id');
     Route::get('/{salaryScale}/edit',[SalaryScalesController::class, 'edit'])->name('salary_scales.salary_scale.edit')->whereNumber('id');
     Route::post('/', [SalaryScalesController::class, 'store'])->name('salary_scales.salary_scale.store');
-    Route::put('salary_scale/{salaryScale}', [SalaryScalesController::class, 'update'])->name('salary_scales.salary_scale.update')->whereNumber('id');
-    Route::delete('/salary_scale/{salaryScale}',[SalaryScalesController::class, 'destroy'])->name('salary_scales.salary_scale.destroy')->whereNumber('id');
-});
-
-Route::group([
-    'prefix' => 'salary_steps',
-], function () {
-    Route::get('/', [SalaryStepsController::class, 'index'])->name('salary_steps.salary_step.index');
-    Route::get('/create',[SalaryStepsController::class, 'create'])->name('salary_steps.salary_step.create');
-    Route::get('/show/{salaryStep}',[SalaryStepsController::class, 'show'])->name('salary_steps.salary_step.show')->whereNumber('id');
-    Route::get('/{salaryStep}/edit',[SalaryStepsController::class, 'edit'])->name('salary_steps.salary_step.edit')->whereNumber('id');
-    Route::post('/', [SalaryStepsController::class, 'store'])->name('salary_steps.salary_step.store');
-    Route::put('salary_step/{salaryStep}', [SalaryStepsController::class, 'update'])->name('salary_steps.salary_step.update')->whereNumber('id');
-    Route::delete('/salary_step/{salaryStep}',[SalaryStepsController::class, 'destroy'])->name('salary_steps.salary_step.destroy')->whereNumber('id');
+    Route::put('/edit/{salaryScale}', [SalaryScalesController::class, 'update'])->name('salary_scales.salary_scale.update')->whereNumber('id');
+    Route::delete('/delete/{salaryScale}',[SalaryScalesController::class, 'destroy'])->name('salary_scales.salary_scale.destroy')->whereNumber('id');
 });
 
 Route::group([
@@ -533,8 +521,8 @@ Route::group([
     Route::get('/show/{salaryHeight}',[SalaryHeightsController::class, 'show'])->name('salary_heights.salary_height.show')->whereNumber('id');
     Route::get('/{salaryHeight}/edit',[SalaryHeightsController::class, 'edit'])->name('salary_heights.salary_height.edit')->whereNumber('id');
     Route::post('/', [SalaryHeightsController::class, 'store'])->name('salary_heights.salary_height.store');
-    Route::put('salary_height/{salaryHeight}', [SalaryHeightsController::class, 'update'])->name('salary_heights.salary_height.update')->whereNumber('id');
-    Route::delete('/salary_height/{salaryHeight}',[SalaryHeightsController::class, 'destroy'])->name('salary_heights.salary_height.destroy')->whereNumber('id');
+    Route::put('/edit/{salaryHeight}', [SalaryHeightsController::class, 'update'])->name('salary_heights.salary_height.update')->whereNumber('id');
+    Route::delete('/delete/{salaryHeight}',[SalaryHeightsController::class, 'destroy'])->name('salary_heights.salary_height.destroy')->whereNumber('id');
 });
 
 Route::group([
@@ -545,8 +533,8 @@ Route::group([
     Route::get('/show/{salary}',[SalariesController::class, 'show'])->name('salaries.salary.show')->whereNumber('id');
     Route::get('/{salary}/edit',[SalariesController::class, 'edit'])->name('salaries.salary.edit')->whereNumber('id');
     Route::post('/', [SalariesController::class, 'store'])->name('salaries.salary.store');
-    Route::put('salary/{salary}', [SalariesController::class, 'update'])->name('salaries.salary.update')->whereNumber('id');
-    Route::delete('/salary/{salary}',[SalariesController::class, 'destroy'])->name('salaries.salary.destroy')->whereNumber('id');
+    Route::put('/edit/{salary}', [SalariesController::class, 'update'])->name('salaries.salary.update')->whereNumber('id');
+    Route::delete('/delete/{salary}',[SalariesController::class, 'destroy'])->name('salaries.salary.destroy')->whereNumber('id');
 });
 
 Route::group([

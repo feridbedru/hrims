@@ -44,7 +44,7 @@
 
                                 <td>
                                     <form method="POST" action="{!! route('salary_scales.salary_scale.destroy', $salaryScale->id) !!}" accept-charset="UTF-8">
-                                        <input name="_method" value="DELETE" type="hidden">
+                                        @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
                                             <a href="{{ route('salary_scales.salary_scale.show', $salaryScale->id) }}"
@@ -71,10 +71,7 @@
             @endif
         </div>
     </div>
-    <div class="btn-group btn-group-sm pull-right" role="group">
-        <a href="{{ route('salary_scales.salary_scale.create') }}" class="btn btn-success"
-            title="Create New Salary Scale">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
-        </a>
-    </div>
+    <a href="{{ route('salary_scales.salary_scale.create') }}" class="btn btn-success" title="Create New Salary Scale">
+        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+    </a>
 @endsection

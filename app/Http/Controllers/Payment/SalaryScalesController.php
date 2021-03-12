@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use App\Models\JobCategory;
 use App\Models\SalaryScale;
+use App\Models\SalaryStep;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use DB;
 use Exception;
 
 class SalaryScalesController extends Controller
@@ -49,11 +51,31 @@ class SalaryScalesController extends Controller
         try {
 
             $data = $this->getData($request);
+            $steps = $request['salary_steps'];
 
             SalaryScale::create($data);
+            try {
+                $salaryScale = DB::getPdo()->lastInsertId();
+                for ($i = 1; $i <= $steps; $i++) {
+                    $salaryStep = new SalaryStep();
+                    $salaryStep->salary_scale = $salaryScale;
+                    $salaryStep->step = $i;
+                    $salaryStep->save();
+                }
 
-            return redirect()->route('salary_scales.salary_scale.index')
-                ->with('success_message', 'Salary Scale was successfully added.');
+                return redirect()->route('salary_scales.salary_scale.index')
+                    ->with('success_message', 'Salary Scale was successfully added.');
+            } catch (Exception $exception) {
+                $systemException = new SystemException();
+                $systemException->function = Route::currentRouteAction();
+                $systemException->path = Route::getCurrentRoute()->uri();
+                $systemException->request = json_encode($request->all());
+                $systemException->message = json_encode([$exception->getMessage()]);
+                $systemException->status = 1;
+                $systemException->save();
+                return back()->withInput()
+                    ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+            }
         } catch (Exception $exception) {
             $systemException = new SystemException();
             $systemException->function = Route::currentRouteAction();
@@ -111,7 +133,39 @@ class SalaryScalesController extends Controller
             $data = $this->getData($request);
 
             $salaryScale = SalaryScale::findOrFail($id);
-            $salaryScale->update($data);
+            try {
+                $steps = $request['salary_steps'];
+                try {
+                    SalaryStep::where('salary_scale', $id)->delete();
+                    for ($i = 1; $i <= $steps; $i++) {
+                        $salaryStep = new SalaryStep();
+                        $salaryStep->salary_scale = $id;
+                        $salaryStep->step = $i;
+                        $salaryStep->save();
+                    }
+                    $salaryScale->update($data);
+                } catch (Exception $exception) {
+                    $systemException = new SystemException();
+                    $systemException->function = Route::currentRouteAction();
+                    $systemException->path = Route::getCurrentRoute()->uri();
+                    $systemException->request = json_encode($request->all());
+                    $systemException->message = json_encode([$exception->getMessage()]);
+                    $systemException->status = 1;
+                    $systemException->save();
+                    return back()->withInput()
+                        ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+                }
+            } catch (Exception $exception) {
+                $systemException = new SystemException();
+                $systemException->function = Route::currentRouteAction();
+                $systemException->path = Route::getCurrentRoute()->uri();
+                $systemException->request = json_encode($request->all());
+                $systemException->message = json_encode([$exception->getMessage()]);
+                $systemException->status = 1;
+                $systemException->save();
+                return back()->withInput()
+                    ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+            }
 
             return redirect()->route('salary_scales.salary_scale.index')
                 ->with('success_message', 'Salary Scale was successfully updated.');
