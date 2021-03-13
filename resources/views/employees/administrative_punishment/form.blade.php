@@ -90,7 +90,7 @@
                     {{ old('status', optional($employeeAdministrativePunishment)->status) == 1 ? 'selected' : '' }}>
                     Active
                 </option>
-                <option value="0"
+                <option value="2"
                     {{ old('status', optional($employeeAdministrativePunishment)->status) == 0 ? 'selected' : '' }}>
                     Closed
                 </option>

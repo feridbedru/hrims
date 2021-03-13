@@ -45,6 +45,7 @@ use App\Http\Controllers\Payment\SalaryHeightsController;
 use App\Http\Controllers\Payment\SalariesController;
 use App\Http\Controllers\Job\JobPositionsController;
 use App\Http\Controllers\Employee\EmployeesController;
+use App\Http\Controllers\Employee\EmployeeAdditionalInfosController;
 use App\Http\Controllers\Employee\EmployeeAddressesController;
 use App\Http\Controllers\Employee\EmployeeAdministrativePunishmentsController;
 use App\Http\Controllers\Employee\EmployeeBankAccountsController;
@@ -619,7 +620,7 @@ Route::group([
 });
 
 Route::group([
-    'prefix' => 'employees/{employee}/emergencies',
+    'prefix' => 'employees/{employee}/emergency',
 ], function () {
     Route::get('/', [EmployeeEmergenciesController::class, 'index'])->name('employee_emergencies.employee_emergency.index');
     Route::get('/create',[EmployeeEmergenciesController::class, 'create'])->name('employee_emergencies.employee_emergency.create');
@@ -784,6 +785,17 @@ Route::group([
     Route::post('/', [EmployeeJudiciaryPunishmentsController::class, 'store'])->name('employee_judiciary_punishments.employee_judiciary_punishment.store');
     Route::put('/update/{employeeJudiciaryPunishment}', [EmployeeJudiciaryPunishmentsController::class, 'update'])->name('employee_judiciary_punishments.employee_judiciary_punishment.update')->whereNumber('id');
     Route::delete('/delete/{employeeJudiciaryPunishment}',[EmployeeJudiciaryPunishmentsController::class, 'destroy'])->name('employee_judiciary_punishments.employee_judiciary_punishment.destroy')->whereNumber('id');
+});
+
+Route::group([
+    'prefix' => 'employees/{employee}/additional_info',
+], function () {
+    Route::get('/', [EmployeeAdditionalInfosController::class, 'index'])->name('employee_additional_infos.employee_additional_info.index');
+    Route::get('/create',[EmployeeAdditionalInfosController::class, 'create'])->name('employee_additional_infos.employee_additional_info.create');
+    Route::get('/{employeeAdditionalInfo}/edit',[EmployeeAdditionalInfosController::class, 'edit'])->name('employee_additional_infos.employee_additional_info.edit')->whereNumber('id');
+    Route::post('/', [EmployeeAdditionalInfosController::class, 'store'])->name('employee_additional_infos.employee_additional_info.store');
+    Route::put('/update/{employeeAdditionalInfo}', [EmployeeAdditionalInfosController::class, 'update'])->name('employee_additional_infos.employee_additional_info.update')->whereNumber('id');
+    Route::delete('/delete/{employeeAdditionalInfo}',[EmployeeAdditionalInfosController::class, 'destroy'])->name('employee_additional_infos.employee_additional_info.destroy')->whereNumber('id');
 });
 
 Route::group([

@@ -1,7 +1,7 @@
 <div class="sidebar">
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item has-treeview {{ request()->is(['employees/*/address*','employees/*/bank_account*','employees/*/disability*','employees/*/education*','employees/*/emergency*','employees/*/family*','employees/*/language*','employees/*/license*']) ? 'menu-open' : ' ' }}">
+            <li class="nav-item has-treeview {{ request()->is(['employees/*/address*','employees/*/bank_account*','employees/*/disability*','employees/*/education*','employees/*/emergency*','employees/*/family*','employees/*/language*','employees/*/license*','employees/*/additional_info*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i>
                     <p>
@@ -63,6 +63,13 @@
                         <a href="{{route('employee_licenses.employee_license.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/license*') ? 'active' : ' ' }}">
                             <i class="fas fa-certificate nav-icon"></i>
                             <p>License </p>
+                            <span class="badge badge-pill badge-primary"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('employee_additional_infos.employee_additional_info.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/additional_info*') ? 'active' : ' ' }}">
+                            <i class="fas fa-certificate nav-icon"></i>
+                            <p>Other Info </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
