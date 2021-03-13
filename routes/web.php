@@ -41,17 +41,18 @@ use App\Http\Controllers\Setting\CertificationVendorsController;
 use App\Http\Controllers\Structure\OrganizationUnitsController;
 use App\Http\Controllers\Help\HelpsController;
 use App\Http\Controllers\Payment\SalaryScalesController;
-use App\Http\Controllers\Payment\SalaryStepsController;
 use App\Http\Controllers\Payment\SalaryHeightsController;
 use App\Http\Controllers\Payment\SalariesController;
 use App\Http\Controllers\Job\JobPositionsController;
 use App\Http\Controllers\Employee\EmployeesController;
 use App\Http\Controllers\Employee\EmployeeAddressesController;
+use App\Http\Controllers\Employee\EmployeeAdministrativePunishmentsController;
 use App\Http\Controllers\Employee\EmployeeBankAccountsController;
 use App\Http\Controllers\Employee\EmployeeDisabilitiesController;
 use App\Http\Controllers\Employee\EmployeeEducationsController;
 use App\Http\Controllers\Employee\EmployeeEmergenciesController;
 use App\Http\Controllers\Employee\EmployeeFamiliesController;
+use App\Http\Controllers\Employee\EmployeeJudiciaryPunishmentsController;
 use App\Http\Controllers\Employee\EmployeeLanguagesController;
 use App\Http\Controllers\Employee\EmployeeLicensesController;
 use App\Http\Controllers\Employee\EmployeeExperiencesController;
@@ -760,6 +761,29 @@ Route::group([
     Route::post('/', [EmployeeFilesController::class, 'store'])->name('employee_files.employee_file.store');
     Route::put('/update/{employeeFile}', [EmployeeFilesController::class, 'update'])->name('employee_files.employee_file.update')->whereNumber('id');
     Route::delete('/delete/{employeeFile}',[EmployeeFilesController::class, 'destroy'])->name('employee_files.employee_file.destroy')->whereNumber('id');
+});
+
+
+Route::group([
+    'prefix' => 'employees/{employee}/administrative',
+], function () {
+    Route::get('/', [EmployeeAdministrativePunishmentsController::class, 'index'])->name('employee_administrative_punishments.employee_administrative_punishment.index');
+    Route::get('/create',[EmployeeAdministrativePunishmentsController::class, 'create'])->name('employee_administrative_punishments.employee_administrative_punishment.create');
+    Route::get('/{employeeAdministrativePunishment}/edit',[EmployeeAdministrativePunishmentsController::class, 'edit'])->name('employee_administrative_punishments.employee_administrative_punishment.edit')->whereNumber('id');
+    Route::post('/', [EmployeeAdministrativePunishmentsController::class, 'store'])->name('employee_administrative_punishments.employee_administrative_punishment.store');
+    Route::put('/update/{employeeAdministrativePunishment}', [EmployeeAdministrativePunishmentsController::class, 'update'])->name('employee_administrative_punishments.employee_administrative_punishment.update')->whereNumber('id');
+    Route::delete('/delete/{employeeAdministrativePunishment}',[EmployeeAdministrativePunishmentsController::class, 'destroy'])->name('employee_administrative_punishments.employee_administrative_punishment.destroy')->whereNumber('id');
+});
+
+Route::group([
+    'prefix' => 'employees/{employee}/judiciary',
+], function () {
+    Route::get('/', [EmployeeJudiciaryPunishmentsController::class, 'index'])->name('employee_judiciary_punishments.employee_judiciary_punishment.index');
+    Route::get('/create',[EmployeeJudiciaryPunishmentsController::class, 'create'])->name('employee_judiciary_punishments.employee_judiciary_punishment.create');
+    Route::get('/{employeeJudiciaryPunishment}/edit',[EmployeeJudiciaryPunishmentsController::class, 'edit'])->name('employee_judiciary_punishments.employee_judiciary_punishment.edit')->whereNumber('id');
+    Route::post('/', [EmployeeJudiciaryPunishmentsController::class, 'store'])->name('employee_judiciary_punishments.employee_judiciary_punishment.store');
+    Route::put('/update/{employeeJudiciaryPunishment}', [EmployeeJudiciaryPunishmentsController::class, 'update'])->name('employee_judiciary_punishments.employee_judiciary_punishment.update')->whereNumber('id');
+    Route::delete('/delete/{employeeJudiciaryPunishment}',[EmployeeJudiciaryPunishmentsController::class, 'destroy'])->name('employee_judiciary_punishments.employee_judiciary_punishment.destroy')->whereNumber('id');
 });
 
 Route::group([

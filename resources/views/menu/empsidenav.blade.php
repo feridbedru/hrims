@@ -91,7 +91,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview">
+            <li class="nav-item has-treeview {{ request()->is(['employees/*/administrative*','employees/*/judiciary*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-gavel"></i>
                     <p>
@@ -101,13 +101,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/administrative*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>Administrative</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.index',['employee'=>$employee])}}" class="nav-link  {{ request()->is('employees/*/judiciary*') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>Judiciary</p>
                         </a>

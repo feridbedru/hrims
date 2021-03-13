@@ -45,7 +45,7 @@ class EmployeeAddressesController extends Controller
         $woredas = Woreda::pluck('name', 'id')->all();
         $zones = Zone::pluck('name', 'id')->all();
 
-        return view('employees.address.create', compact('employee', 'addressTypes', 'regions', 'woredas', 'zones', 'employee'));
+        return view('employees.address.create', compact('employee', 'addressTypes', 'regions', 'woredas', 'zones'));
     }
 
     /**
