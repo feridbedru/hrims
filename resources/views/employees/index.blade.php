@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group col-md-2 text-right">
                         <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
-                        <a href="{{ route('organization_units.organization_unit.index') }}" class="btn btn-danger mr-5"
+                        <a href="{{ route('organization_units.organization_unit.index') }}" class="btn btn-danger mr-5  d-inline"
                             title="Show All Organization Unit">
                             Reset
                         </a>
@@ -117,9 +117,7 @@
             @endif
         </div>
     </div>
-    <div class="btn-group btn-group-sm pull-right" role="group">
         <a href="{{ route('employees.employee.create') }}" class="btn btn-success" title="Create New Employee">
             <span class="fa fa-plus" aria-hidden="true"> Add New</span>
         </a>
-    </div>
 @endsection

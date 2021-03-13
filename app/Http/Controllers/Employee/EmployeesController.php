@@ -55,8 +55,7 @@ class EmployeesController extends Controller
         $titles = Title::pluck('en_title', 'id')->all();
         $sexes = Sex::pluck('name', 'id')->all();
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
-        $jobPositions = JobPosition::pluck('job_title_category', 'id')->all();
-        // $jobPositions = DB::table('job_positions')->where('status','1')->pluck('job_title_category');
+        $jobPositions = JobPosition::where('status','1')->pluck('id', 'job_title_category')->all();
         $employeeStatuses = EmployeeStatus::pluck('name', 'id')->all();
 
         return view('employees.create', compact('titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses'));
