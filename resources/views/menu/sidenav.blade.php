@@ -254,12 +254,6 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('salaries.salary.index') }}" class="nav-link {{ request()->is('salaries*') ? 'active' : ' ' }}">
-                            <i class="fas fa-file-invoice nav-icon"></i>
-                            <p>Salary</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a href="{{ route('salary_scales.salary_scale.index') }}" class="nav-link {{ request()->is('salary_scales*') ? 'active' : ' ' }}">
                             <i class="fas fa-balance-scale nav-icon"></i>
                             <p>Salary Scale</p>

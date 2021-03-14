@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Payment;
 
 use App\Http\Controllers\Controller;
 use App\Models\JobCategory;
+use App\Models\Salary;
+use App\Models\SalaryHeight;
 use App\Models\SalaryScale;
 use App\Models\SalaryStep;
 use App\Models\SystemException;
@@ -99,8 +101,10 @@ class SalaryScalesController extends Controller
     public function show($id)
     {
         $salaryScale = SalaryScale::with('jobCategories')->findOrFail($id);
+        $salaryHeights = SalaryHeight::where('salary_scale',$id)->get();
+        $salaries = Salary::all();
 
-        return view('payment.salary_scales.show', compact('salaryScale'));
+        return view('payment.salary_scales.show', compact('salaryScale','salaryHeights','salaries'));
     }
 
     /**

@@ -52,9 +52,42 @@
                         <dd>{{ $salaryScale->is_enabled ? 'Yes' : 'No' }}</dd>
                     </div>
                 </div>
-            </dl><hr>
-            <h1>Add the final salary scale table here. don't forget</h1>
+            </dl>
+            <hr>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="text-center align-middle">Level</th>
+                        <th rowspan="2" class="text-center align-middle">Base Salary</th>
+                        <th colspan="{{ $salaryScale->salary_steps }}" class="text-center">
+                            Steps({{ $steps = $salaryScale->salary_steps }})</th>
+                        <th rowspan="2" class="text-center align-middle">Maximum Salary</th>
+                    </tr>
+                    <tr>
+                        @for ($i = 1; $i <= $steps; $i++)
+                            <th scope="col" class="text-center">{{ $i }} </th>
+                        @endfor
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($salaryHeights as $salaryHeight)
+                        <tr>
+                            <td class="text-center">{{ $salaryHeight->level }}</td>
+                            <td class="text-center">{{ $salaryHeight->initial_salary }}</td>
+                            @foreach ($salaries as $salary)
+                                @if ($salary->salary_height == $salaryHeight->id)
+                                    <td class="text-center">{{ $salary->amount }}</td>
+                                @endif
+                            @endforeach
+                            <td class="text-center">{{ $salaryHeight->maximum_salary }}</td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
+
     </div>
 
 @endsection
