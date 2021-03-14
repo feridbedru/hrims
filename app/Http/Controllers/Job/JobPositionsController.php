@@ -9,6 +9,8 @@ use App\Models\JobTitleCategory;
 use App\Models\JobType;
 use App\Models\OrganizationUnit;
 use App\Models\Salary;
+use App\Models\SalaryHeight;
+use App\Models\SalaryStep;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -40,9 +42,11 @@ class JobPositionsController extends Controller
         $jobTitleCategories = JobTitleCategory::pluck('name', 'id')->all();
         $jobCategories = JobCategory::pluck('name', 'id')->all();
         $jobTypes = JobType::pluck('name', 'id')->all();
-        $salaries = Salary::pluck('amount', 'id')->all();
+        $salaries = Salary::all();
+        $salarySteps = SalaryStep::all();
+        $salaryHeights = SalaryHeight::all();
 
-        return view('job_positions.create', compact('organizationUnits', 'jobTitleCategories', 'jobCategories', 'jobTypes', 'salaries'));
+        return view('job_positions.create', compact('organizationUnits', 'jobTitleCategories', 'jobCategories', 'jobTypes', 'salaries','salarySteps','salaryHeights'));
     }
 
     /**
@@ -103,9 +107,11 @@ class JobPositionsController extends Controller
         $jobTitleCategories = JobTitleCategory::pluck('name', 'id')->all();
         $jobCategories = JobCategory::pluck('name', 'id')->all();
         $jobTypes = JobType::pluck('name', 'id')->all();
-        $salaries = Salary::pluck('amount', 'id')->all();
+        $salaries = Salary::all();
+        $salarySteps = SalaryStep::all();
+        $salaryHeights = SalaryHeight::all();
 
-        return view('job_positions.edit', compact('jobPosition', 'organizationUnits', 'jobTitleCategories', 'jobCategories', 'jobTypes', 'salaries'));
+        return view('job_positions.edit', compact('jobPosition', 'organizationUnits', 'jobTitleCategories', 'jobCategories', 'jobTypes', 'salaries','salarySteps','salaryHeights'));
     }
 
     /**
