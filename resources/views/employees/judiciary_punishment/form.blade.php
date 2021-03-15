@@ -45,7 +45,7 @@
 
             @if (isset($employeeJudiciaryPunishment->file) && !empty($employeeJudiciaryPunishment->file))
                 <div class="input-group input-width-input">
-                    <span class="input-group-addon">
+                    <span class="input-group-addon mr-2">
                         <input type="checkbox" name="custom_delete_file" class="custom-delete-file" value="1"
                             {{ old('custom_delete_file', '0') == '1' ? 'checked' : '' }}> Delete
                     </span>

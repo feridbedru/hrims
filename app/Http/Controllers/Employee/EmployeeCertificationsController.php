@@ -77,6 +77,66 @@ class EmployeeCertificationsController extends Controller
         }
     }
 
+
+    /**
+     * Approve the specified employee certification
+     *
+     * @param int $id
+     */
+    public function approve($employee, $employeeEducations)
+    {
+        try {
+
+            $employeeCertification = EmployeeCertification::findOrFail($employeeEducations);
+            $employeeCertification->status = 3;
+            $employeeCertification->approved_by = 1;
+            $employeeCertification->approved_at = now();
+            $employeeCertification->save();
+
+            return redirect()->route('employee_certifications.employee_certification.show', ['employee'=>$employee, 'employeeCertification'=>$employeeCertification])
+                ->with('success_message', 'Employee Education was successfully approved.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * reject the specified employee certification
+     *
+     * @param int $id
+     */
+    public function reject($employee, $employeeEducations, Request $request)
+    {
+        try {
+
+            $employeeCertification = EmployeeCertification::findOrFail($employeeEducations);
+            $employeeCertification->status = 2;
+            $employeeCertification->note = $request['note'];
+            $employeeCertification->save();
+
+            return redirect()->route('employee_certifications.employee_certification.show', ['employee'=>$employee, 'employeeCertification'=>$employeeCertification])
+                ->with('success_message', 'Employee Education was successfully rejected.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    
     /**
      * Display the specified employee certification.
      *

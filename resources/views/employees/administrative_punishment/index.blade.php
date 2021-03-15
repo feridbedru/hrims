@@ -28,6 +28,7 @@
                             <th>Decision</th>
                             <th>Start Date</th>
                             <th>End Date</th>
+                            <th>File</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -41,6 +42,10 @@
                                 <td>{{ $employeeAdministrativePunishment->decision }}</td>
                                 <td>{{ $employeeAdministrativePunishment->start_date }}</td>
                                 <td>{{ $employeeAdministrativePunishment->end_date }}</td>
+                                <td>
+                                    <a href="{{ asset('uploads/punishment/' . $employeeAdministrativePunishment->file) }}"
+                                    class="btn btn-primary mr-3" target="_blank">View File</a>
+                                </td>
                                 <td>
                                     @if ($employeeAdministrativePunishment->status == 1)
                                         Active

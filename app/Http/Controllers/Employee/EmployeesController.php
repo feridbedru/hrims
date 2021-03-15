@@ -32,8 +32,9 @@ class EmployeesController extends Controller
         $jobPositions = JobPosition::pluck('job_title_category', 'id');
         $sexl = Sex::pluck('name', 'id');
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
+        $jobTitleCategories = JobTitleCategory::all();
 
-        return view('employees.index', compact('employees', 'jobPositions', 'organizationUnits','sexl'));
+        return view('employees.index', compact('employees', 'jobPositions', 'organizationUnits','sexl','jobTitleCategories'));
     }
 
     /**
@@ -55,7 +56,7 @@ class EmployeesController extends Controller
         $titles = Title::pluck('en_title', 'id')->all();
         $sexes = Sex::pluck('name', 'id')->all();
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
-        $jobPositions = JobPosition::where('status','1')->pluck('id', 'job_title_category')->all();
+        $jobPositions = JobPosition::where('status','1')->pluck('position_code', 'id')->all();
         $employeeStatuses = EmployeeStatus::pluck('name', 'id')->all();
 
         return view('employees.create', compact('titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses'));
@@ -102,8 +103,9 @@ class EmployeesController extends Controller
     public function show($id)
     {
         $employee = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->findOrFail($id);
+        $jobTitleCategories = JobTitleCategory::all();
 
-        return view('employees.dashboard', compact('employee'));
+        return view('employees.dashboard', compact('employee','jobTitleCategories'));
     }
 
     /**

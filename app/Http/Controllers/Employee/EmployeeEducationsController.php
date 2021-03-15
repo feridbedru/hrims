@@ -95,7 +95,7 @@ class EmployeeEducationsController extends Controller
             $employeeEducation->approved_at = now();
             $employeeEducation->save();
 
-            return redirect()->route('employee_educations.employee_education.index', $employee)
+            return redirect()->route('employee_educations.employee_education.show', ['employee'=>$employee, 'employeeEducation'=>$employeeEducation])
                 ->with('success_message', 'Employee Education was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -123,7 +123,7 @@ class EmployeeEducationsController extends Controller
             $employeeEducation->note = $request['note'];
             $employeeEducation->save();
 
-            return redirect()->route('employee_educations.employee_education.index', $employee)
+            return redirect()->route('employee_educations.employee_education.show', ['employee'=>$employee, 'employeeEducation'=>$employeeEducation])
                 ->with('success_message', 'Employee Education was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();

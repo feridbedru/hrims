@@ -3,7 +3,8 @@
     Edit Disability
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_disabilities.employee_disability.index', $employee) }}">Disability</a>
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_disabilities.employee_disability.index', $employee) }}">Disability</a>
     </li>
     <li class="breadcrumb-item active">Edit</li>
 @endsection
@@ -14,7 +15,7 @@
         </div>
         <div class="card-body">
             <form method="POST"
-                action="{{ route('employee_disabilities.employee_disability.update',['employee'=>$employee->id, 'employeeDisability'=>$employeeDisability->id]) }}"
+                action="{{ route('employee_disabilities.employee_disability.update', ['employee' => $employee->id, 'employeeDisability' => $employeeDisability->id]) }}"
                 id="edit_employee_disability_form" name="edit_employee_disability_form" accept-charset="UTF-8"
                 class="form-horizontal" enctype="multipart/form-data">
                 {{ csrf_field() }}

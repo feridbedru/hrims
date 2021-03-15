@@ -23,6 +23,8 @@
                             <th>Sex</th>
                             <th>Relationship</th>
                             <th>Date Of Birth</th>
+                            <th>Photo</th>
+                            <th>Certificate</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -35,6 +37,18 @@
                                 <td>{{ $employeeFamily->sexes->name }}</td>
                                 <td>{{ $employeeFamily->relationships->name }}</td>
                                 <td>{{ $employeeFamily->date_of_birth }}</td>
+                                <td>
+                                    @if (isset($employeeFamily->photo))
+                                        <a href="{{ asset('uploads/family/' . $employeeFamily->photo) }}"
+                                            class="btn btn-outline-primary" target="_blank">View Photo</a>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if (isset($employeeFamily->file))
+                                        <a href="{{ asset('uploads/family/' . $employeeFamily->file) }}"
+                                            class="btn btn-outline-primary" target="_blank">View Certificate</a>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($employeeFamily->status == 1)
                                         Pending

@@ -3,7 +3,8 @@
     New Bank Account
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}">Bank
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}">Bank
             Account</a></li>
     <li class="breadcrumb-item active">New</li>
 @endsection

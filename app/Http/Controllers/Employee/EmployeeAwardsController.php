@@ -75,6 +75,66 @@ class EmployeeAwardsController extends Controller
         }
     }
 
+
+
+    /**
+     * Approve the specified employee certification
+     *
+     * @param int $id
+     */
+    public function approve($employee, $employeeAwards)
+    {
+        try {
+
+            $employeeAward = EmployeeAward::findOrFail($employeeAwards);
+            $employeeAward->status = 3;
+            $employeeAward->approved_by = 1;
+            $employeeAward->approved_at = now();
+            $employeeAward->save();
+
+            return redirect()->route('employee_awards.employee_award.show', ['employee'=>$employee, 'employeeAward'=>$employeeAward])
+                ->with('success_message', 'Employee Award was successfully approved.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * reject the specified employee certification
+     *
+     * @param int $id
+     */
+    public function reject($employee, $employeeAwards, Request $request)
+    {
+        try {
+
+            $employeeAward = EmployeeAward::findOrFail($employeeAwards);
+            $employeeAward->status = 2;
+            $employeeAward->note = $request['note'];
+            $employeeAward->save();
+
+            return redirect()->route('employee_awards.employee_award.show', ['employee'=>$employee, 'employeeAward'=>$employeeAward])
+                ->with('success_message', 'Employee Award was successfully rejected.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
     /**
      * Display the specified employee award.
      *

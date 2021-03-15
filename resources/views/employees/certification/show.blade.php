@@ -1,64 +1,118 @@
 @extends('layouts.employee')
-
+@section('pagetitle')
+    Edit Certification
+@endsection
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_certifications.employee_certification.index', $employee) }}">Certification</a></li>
+    <li class="breadcrumb-item active">Edit</li>
+@endsection
 @section('content')
-
     <div class="card card-primary">
         <div class="card-header clearfix">
-
-            <h4 class="card-title">
-                {{ isset($employeeCertification->name) ? $employeeCertification->name : 'Employee Certification' }}</h4>
-
-            <div class="card-tools">
-
-                <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) !!}" accept-charset="UTF-8">
-                    @method('DELETE')
-                    {{ csrf_field() }}
-                    <div class="btn-group btn-group-sm" role="group">
-
-                        <a href="{{ route('employee_certifications.employee_certification.create',$employee) }}"
-                            class="btn btn-success" title="Create New Employee Certification">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                        </a>
-
-                        <a href="{{ route('employee_certifications.employee_certification.edit', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
-                            class="btn btn-warning" title="Edit Employee Certification">
-                            <span class="fa fa-edit" aria-hidden="true"></span>
-                        </a>
-
-                        <button type="submit" class="btn btn-danger" title="Delete Employee Certification"
-                            onclick="return confirm(&quot;Click Ok to delete Employee Certification.?&quot;)">
-                            <span class="fa fa-trash" aria-hidden="true"></span>
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-
+            <h4 class="card-title">View Certification</h4>
         </div>
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Name</dt>
-                <dd>{{ $employeeCertification->name }}</dd>
-                <dt>Issued On</dt>
-                <dd>{{ $employeeCertification->issued_on }}</dd>
-                <dt>Certification Number</dt>
-                <dd>{{ $employeeCertification->certification_number }}</dd>
-                <dt>Skill Category</dt>
-                <dd>{{ optional($employeeCertification->categories)->name }}</dd>
-                <dt>Verification Link</dt>
-                <dd>{{ $employeeCertification->verification_link }}</dd>
-                <dt>Certification Vendor</dt>
-                <dd>{{ optional($employeeCertification->vendors)->name }}</dd>
-                <dt>Attachment</dt>
-                <dd>{{ asset('storage/' . $employeeCertification->attachment) }}</dd>
-                <dt>Expires On</dt>
-                <dd>{{ $employeeCertification->expires_on }}</dd>
-                <dt>Status</dt>
-                <dd>{{ $employeeCertification->status }}</dd>
+                <div class="row">
+                    <div class="col-md-4">
+                        <dt>Name</dt>
+                        <dd>{{ $employeeCertification->name }}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Skill Category</dt>
+                        <dd>{{ optional($employeeCertification->categories)->name }}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Certification Number</dt>
+                        <dd>{{ $employeeCertification->certification_number }}</dd>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <dt>Certification Vendor</dt>
+                        <dd>{{ optional($employeeCertification->vendors)->name }}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Verification Link</dt>
+                        <dd>{{ $employeeCertification->verification_link }}</dd>
+                    </div>
+                    <div class="col-md-4">
 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <dt>Issued On</dt>
+                        <dd>{{ $employeeCertification->issued_on }}</dd>
+                    </div>
+                    <div class="col-md-4">
+                        <dt>Expires On</dt>
+                        <dd>{{ $employeeCertification->expires_on }}</dd>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+                @if ($employeeCertification->status == 1)
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-12 text-center">
+                            <a href="{{ asset('uploads/certification/' . $employeeCertification->file) }}"
+                                class="btn btn-primary mr-3" target="_blank">View File</a>
+                            <a href="{{ route('employee_certifications.employee_certification.approve', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
+                                class="btn btn-success mr-3" title="Approve Certification">
+                                Approve
+                            </a>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-reject">
+                                Reject
+                            </button>
+                            <div class="modal fade" id="modal-reject">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-primary">
+                                            <h4 class="modal-title">Reject Certification</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form method="POST" action="{!! route('employee_certifications.employee_certification.reject', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) !!}" accept-charset="UTF-8">
+                                            {{ csrf_field() }}
+                                            <div class="modal-body">
+                                                <label for="note">Note</label>
+                                                <textarea class="form-control" name="note" cols="50" rows="10" id="note"
+                                                    minlength="1" maxlength="1000" required="true"></textarea>
+                                            </div>
+                                            <div class="modal-footer justify-content-between">
+                                                <button type="button" class="btn btn-default"
+                                                    data-dismiss="modal">Close</button>
+                                                <input class="btn btn-danger" type="submit" value="Reject">
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @else
+                    <form method="POST" action="{!! route('employee_certifications.employee_certification.destroy', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) !!}" accept-charset="UTF-8">
+                        @method('DELETE')
+                        {{ csrf_field() }}
+                        <div class="text-center">
+                        <a href="{{ asset('uploads/certification/' . $employeeCertification->file) }}"
+                            class="btn btn-primary mr-3" target="_blank">View File</a>
+                        <a href="{{ route('employee_certifications.employee_certification.edit', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
+                            class="btn btn-warning mr-3" title="Edit Employee Certification">
+                            Edit
+                        </a>
+                        <button type="submit" class="btn btn-danger" title="Delete Employee Certification"
+                            onclick="return confirm(&quot;Click Ok to delete Employee Certification.?&quot;)">
+                            Delete
+                        </button>
+                    </div>
+                    </form>
+                @endif
             </dl>
-
         </div>
     </div>
 

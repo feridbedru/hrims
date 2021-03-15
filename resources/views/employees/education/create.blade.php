@@ -3,7 +3,8 @@
     New Education
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_educations.employee_education.index', $employee) }}">Education</a></li>
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_educations.employee_education.index', $employee) }}">Education</a></li>
     <li class="breadcrumb-item active">New</li>
 @endsection
 @section('content')
@@ -23,8 +24,8 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
                         <input class="btn btn-primary mr-5" type="submit" value="Save">
-                        <a href="{{ route('employee_educations.employee_education.index', $employee) }}" class="btn btn-warning mr-5"
-                            title="Show All Education">
+                        <a href="{{ route('employee_educations.employee_education.index', $employee) }}"
+                            class="btn btn-warning mr-5" title="Show All Education">
                             Cancel
                         </a>
                         <input class="btn btn-danger" type="reset">

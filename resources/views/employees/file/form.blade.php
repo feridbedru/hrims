@@ -1,6 +1,8 @@
+<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('title') ? 'has-error' : '' }}">
-        <label for="title" class="col-md-4 control-label">Title</label>
+        <label for="title" class="col-md-4 control-label">Title <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="title" type="text" id="title"
                 value="{{ old('title', optional($employeeFile)->title) }}" minlength="1" maxlength="255"
@@ -9,7 +11,7 @@
     </div>
 
     <div class="form-group col-md-6 {{ $errors->has('attachment') ? 'has-error' : '' }}">
-        <label for="attachment" class="col-md-2 control-label">Attachment</label>
+        <label for="attachment" class="col-md-2 control-label">Attachment <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -22,7 +24,7 @@
 
             @if (isset($employeeFile->attachment) && !empty($employeeFile->attachment))
                 <div class="input-group input-width-input">
-                    <span class="input-group-addon">
+                    <span class="input-group-addon mr-2">
                         <input type="checkbox" name="custom_delete_attachment" class="custom-delete-file" value="1"
                             {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> Delete
                     </span>

@@ -1,6 +1,8 @@
+<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('name') ? 'has-error' : '' }}">
-        <label for="name" class="col-md-4 control-label">Name</label>
+        <label for="name" class="col-md-12 control-label">Name <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeEmergency)->name) }}" minlength="1" maxlength="255"
@@ -18,7 +20,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('relationship') ? 'has-error' : '' }}">
-        <label for="relationship" class="col-md-4 control-label">Relationship</label>
+        <label for="relationship" class="col-md-12 control-label">Relationship <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="relationship" name="relationship" required="true">
                 <option value="" style="display: none;"
@@ -37,7 +39,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('address') ? 'has-error' : '' }}">
-        <label for="address" class="col-md-4 control-label">Address</label>
+        <label for="address" class="col-md-12 control-label">Address <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="address" type="text" id="address"
                 value="{{ old('address', optional($employeeEmergency)->address) }}" minlength="1"
@@ -46,7 +48,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('house_number') ? 'has-error' : '' }}">
-        <label for="house_number" class="col-md-4 control-label">House Number</label>
+        <label for="house_number" class="col-md-12 control-label">House Number</label>
         <div class="col-md-12">
             <input class="form-control" name="house_number" type="text" id="house_number"
                 value="{{ old('house_number', optional($employeeEmergency)->house_number) }}"
@@ -55,7 +57,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('other_phone') ? 'has-error' : '' }}">
-        <label for="other_phone" class="col-md-6 control-label">Other Phone</label>
+        <label for="other_phone" class="col-md-12 control-label">Other Phone</label>
         <div class="col-md-12">
             <input class="form-control" name="other_phone" type="text" id="other_phone"
                 value="{{ old('other_phone', optional($employeeEmergency)->other_phone) }}" minlength="1"

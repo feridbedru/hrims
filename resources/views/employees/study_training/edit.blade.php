@@ -3,7 +3,8 @@
     Edit Study Training
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_study_trainings.employee_study_training.index',$employee) }}">Study
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_study_trainings.employee_study_training.index', $employee) }}">Study
             Training</a></li>
     <li class="breadcrumb-item active">Edit</li>
 @endsection
@@ -26,7 +27,7 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
                         <input class="btn btn-primary mr-5" type="submit" value="Update">
-                        <a href="{{ route('employee_study_trainings.employee_study_training.index',$employee) }}"
+                        <a href="{{ route('employee_study_trainings.employee_study_training.index', $employee) }}"
                             class="btn btn-warning mr-5" title="Show All Study Training">
                             Cancel
                         </a>

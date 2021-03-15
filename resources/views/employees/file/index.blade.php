@@ -21,6 +21,7 @@
                             <th>#</th>
                             <th>Title</th>
                             <th>Description</th>
+                            <th>File</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -30,6 +31,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employeeFile->title }}</td>
                                 <td>{{ $employeeFile->description }}</td>
+                                <td><a href="{{ asset('uploads/misc/' . $employeeFile->attachment) }}"
+                                    class="btn btn-primary mr-3" target="_blank">View File</a></td>
 
                                 <td>
                                     <form method="POST" action="{!! route('employee_files.employee_file.destroy', ['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) !!}" accept-charset="UTF-8">

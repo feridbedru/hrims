@@ -32,7 +32,11 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employeeDisability->types->name }}</td>
                                 <td>{{ $employeeDisability->description }}</td>
-                                <td>{{ $employeeDisability->file }}</td>
+                                <td>
+                                    @if(isset($employeeDisability->medical_certificate ))
+                                    <a href="{{ asset('uploads/disability/' . $employeeDisability->medical_certificate) }}" class="btn btn-outline-primary" target="_blank">View File</a>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($employeeDisability->status == 1)
                                         Pending

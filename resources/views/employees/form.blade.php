@@ -132,7 +132,7 @@
                 @foreach ($jobPositions as $key => $jobPosition)
                     <option value="{{ $key }}"
                         {{ old('job_position', optional($employee)->job_position) == $key ? 'selected' : '' }}>
-                        {{ $jobPosition }}
+                        Position Code {{ $jobPosition }}
                     </option>
                 @endforeach
             </select>

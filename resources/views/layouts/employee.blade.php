@@ -12,52 +12,48 @@
     @yield('stylesheets')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini  layout-fixed">
     <div class="wrapper">
-        <div class="clearfix bg-primary">
-            <div class="float-left">
-                <div class="row ">
-                    <div class="col-md-6">
-                        @if (isset($employee->photo))
-                            image
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="{{ route('employees.employee.show',['employee'=>$employee->id])}}">
+                        <i class="fas fa-bars mr-2"></i>
+                        @if (isset($employee->en_name))
+                            {{ $employee->en_name }} | Dashboard
                         @else
-                            <span class="fas fa-5x fa-user-circle m-2 ml-5"></span>
+                            Employee | Dashboard
                         @endif
-                    </div>
-                    <div class="col-md-6 mt-3">
-                        <ul class="list-unstyled">
-                            <li>
-                                @if (isset($employee->en_name))
-                                    {{ $employee->en_name }}
-                                @else
-                                    Full Name
-                                @endif
-                            </li>
-                            <li>Position</li>
-                            <li>
-                                @if (isset($employee->phone_number))
-                                    {{ $employee->phone_number }}
-                                @else
-                                    Contacts
-                                @endif
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="float-right mt-5">
-                <a href="#" class="btn btn-success mr-3" title="Make CV">
-                    Make CV
-                </a>
-                <a href="#" class="btn btn-light mr-3" title="Print ID Card">
-                    Print ID
-                </a>
-                <a href="#" class="btn btn-warning mr-3" title="Print this employee data">
-                    Print All Data
-                </a>
-            </div>
-        </div>
-        <aside class="main-sidebar sidebar-dark-primary elevation-4" style="margin-top:105px;">
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="btn btn-success mr-3" title="Make CV">
+                        Make CV
+                    </a>
+                </li>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="btn btn-primary mr-3" title="Print ID Card">
+                        Print ID
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="btn btn-warning mr-3" title="Print this employee data">
+                        Print All Data
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
             @include('menu.empsidenav')
         </aside>
         <div class="content-wrapper px-3">
@@ -126,36 +122,14 @@
                 </div>
             </section>
         </div>
-    </div>
 
     <script src="{{ asset('assets/plugins/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/moment/moment.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('assets/plugins/pace-progress/pace.min.js') }}"></script>
-    <script>
-        $('#language').submit(function(e) {
-            e.preventDefault();
-            var form = $(this);
-            var url = form.attr('action');
-
-            $.ajax({
-                type: "POST",
-                url: form.attr('action'),
-                data: form.serialize(),
-                success: function(response) {
-                    location.reload();
-                }
-            })
-
-        });
-        $('#lang').change(function() {
-            $('#language').submit();
-        })
-
-    </script>
+    
     @yield('javascripts')
     </div>
 </body>
-
 </html>

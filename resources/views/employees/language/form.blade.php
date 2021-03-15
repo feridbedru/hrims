@@ -1,6 +1,8 @@
+<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('language') ? 'has-error' : '' }}">
-        <label for="language" class="col-md-4 control-label">Language</label>
+        <label for="language" class="col-md-12 control-label">Language <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="language" name="language" required="true">
                 <option value="" style="display: none;"
@@ -17,7 +19,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('reading') ? 'has-error' : '' }}">
-        <label for="reading" class="col-md-4 control-label">Reading</label>
+        <label for="reading" class="col-md-12 control-label">Reading <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="reading" name="reading" required="true">
                 <option value="" style="display: none;"
@@ -34,7 +36,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('writing') ? 'has-error' : '' }}">
-        <label for="writing" class="col-md-4 control-label">Writing</label>
+        <label for="writing" class="col-md-12 control-label">Writing <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="writing" name="writing" required="true">
                 <option value="" style="display: none;"
@@ -53,7 +55,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('listening') ? 'has-error' : '' }}">
-        <label for="listening" class="col-md-4 control-label">Listening</label>
+        <label for="listening" class="col-md-12 control-label">Listening <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="listening" name="listening" required="true">
                 <option value="" style="display: none;"
@@ -70,7 +72,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('speaking') ? 'has-error' : '' }}">
-        <label for="speaking" class="col-md-4 control-label">Speaking</label>
+        <label for="speaking" class="col-md-12 control-label">Speaking <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="speaking" name="speaking" required="true">
                 <option value="" style="display: none;"
@@ -87,7 +89,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('is_prefered') ? 'has-error' : '' }}">
-        <label for="is_prefered" class="col-md-4 control-label">Is Prefered</label>
+        <label for="is_prefered" class="col-md-12 control-label">Is Prefered</label>
         <div class="col-md-12">
             <div class="checkbox">
                 <label for="is_prefered_1">

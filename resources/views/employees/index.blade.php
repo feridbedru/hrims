@@ -55,8 +55,8 @@
                     </div>
                     <div class="form-group col-md-2 text-right">
                         <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
-                        <a href="{{ route('organization_units.organization_unit.index') }}" class="btn btn-danger mr-5  d-inline"
-                            title="Show All Organization Unit">
+                        <a href="{{ route('organization_units.organization_unit.index') }}"
+                            class="btn btn-danger mr-5  d-inline" title="Show All Organization Unit">
                             Reset
                         </a>
                     </div>
@@ -95,8 +95,13 @@
                                 <td>{{ optional($employee->titles)->en_title }} {{ $employee->en_name }}</td>
                                 <td>{{ $employee->sexes->name }}</td>
                                 <td>{{ $employee->organizationUnitse->en_name }}</td>
-                                <td>{{ $employee->jobPositions->job_title_category }}</td>
-
+                                <td>
+                                    @foreach ($jobTitleCategories as $title)
+                                        @if ($employee->jobPositions->job_title_category == $title->id)
+                                            {{ $title->name }}
+                                        @endif
+                                    @endforeach
+                                </td>
                                 <td>
                                     <div class="btn-group btn-group-xs pull-right" role="group">
                                         <a href="{{ route('employees.employee.show', $employee->id) }}"
@@ -117,7 +122,7 @@
             @endif
         </div>
     </div>
-        <a href="{{ route('employees.employee.create') }}" class="btn btn-success" title="Create New Employee">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
-        </a>
+    <a href="{{ route('employees.employee.create') }}" class="btn btn-success" title="Create New Employee">
+        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+    </a>
 @endsection

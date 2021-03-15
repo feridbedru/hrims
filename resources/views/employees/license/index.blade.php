@@ -36,7 +36,12 @@
                                 <td>{{ $employeeLicense->types->name }}</td>
                                 <td>{{ $employeeLicense->issuing_organization }}</td>
                                 <td>{{ $employeeLicense->expiry_date }}</td>
-                                <td>{{ $employeeLicense->file }}</td>
+                                <td>
+                                    @if (isset($employeeLicense->file))
+                                        <a href="{{ asset('uploads/license/' . $employeeLicense->file) }}"
+                                            class="btn btn-outline-primary" target="_blank">View File</a>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($employeeLicense->status == 1)
                                         Pending

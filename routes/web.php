@@ -666,9 +666,11 @@ Route::group([
     Route::get('/', [EmployeeExperiencesController::class, 'index'])->name('employee_experiences.employee_experience.index');
     Route::get('/create',[EmployeeExperiencesController::class, 'create'])->name('employee_experiences.employee_experience.create');
     Route::get('/show/{employeeExperience}',[EmployeeExperiencesController::class, 'show'])->name('employee_experiences.employee_experience.show')->whereNumber('id');
+    Route::get('/approve/{employeeExperience}',[EmployeeExperiencesController::class, 'approve'])->name('employee_experiences.employee_experience.approve')->whereNumber('id');
+    Route::post('/reject/{employeeExperience}',[EmployeeExperiencesController::class, 'reject'])->name('employee_experiences.employee_experience.reject')->whereNumber('id');
     Route::get('/edit/{employeeExperience}',[EmployeeExperiencesController::class, 'edit'])->name('employee_experiences.employee_experience.edit')->whereNumber('id');
     Route::post('/', [EmployeeExperiencesController::class, 'store'])->name('employee_experiences.employee_experience.store');
-    Route::put('update/{employeeExperience}', [EmployeeExperiencesController::class, 'update'])->name('employee_experiences.employee_experience.update')->whereNumber('id');
+    Route::put('/update/{employeeExperience}', [EmployeeExperiencesController::class, 'update'])->name('employee_experiences.employee_experience.update')->whereNumber('id');
     Route::delete('/delete/{employeeExperience}',[EmployeeExperiencesController::class, 'destroy'])->name('employee_experiences.employee_experience.destroy')->whereNumber('id');
 });
 
@@ -714,6 +716,8 @@ Route::group([
     Route::get('/', [EmployeeCertificationsController::class, 'index'])->name('employee_certifications.employee_certification.index');
     Route::get('/create',[EmployeeCertificationsController::class, 'create'])->name('employee_certifications.employee_certification.create');
     Route::get('/show/{employeeCertification}',[EmployeeCertificationsController::class, 'show'])->name('employee_certifications.employee_certification.show')->whereNumber('id');
+    Route::get('/approve/{employeeCertification}',[EmployeeCertificationsController::class, 'approve'])->name('employee_certifications.employee_certification.approve')->whereNumber('id');
+    Route::get('/reject/{employeeCertification}',[EmployeeCertificationsController::class, 'reject'])->name('employee_certifications.employee_certification.reject')->whereNumber('id');
     Route::get('/edit/{employeeCertification}',[EmployeeCertificationsController::class, 'edit'])->name('employee_certifications.employee_certification.edit')->whereNumber('id');
     Route::post('/', [EmployeeCertificationsController::class, 'store'])->name('employee_certifications.employee_certification.store');
     Route::put('/update/{employeeCertification}', [EmployeeCertificationsController::class, 'update'])->name('employee_certifications.employee_certification.update')->whereNumber('id');
@@ -726,6 +730,8 @@ Route::group([
     Route::get('/', [EmployeeAwardsController::class, 'index'])->name('employee_awards.employee_award.index');
     Route::get('/create',[EmployeeAwardsController::class, 'create'])->name('employee_awards.employee_award.create');
     Route::get('/show/{employeeAward}',[EmployeeAwardsController::class, 'show'])->name('employee_awards.employee_award.show')->whereNumber('id');
+    Route::get('/approve/{employeeAward}',[EmployeeAwardsController::class, 'approve'])->name('employee_awards.employee_award.approve')->whereNumber('id');
+    Route::get('/reject/{employeeAward}',[EmployeeAwardsController::class, 'reject'])->name('employee_awards.employee_award.reject')->whereNumber('id');
     Route::get('/edit/{employeeAward}',[EmployeeAwardsController::class, 'edit'])->name('employee_awards.employee_award.edit')->whereNumber('id');
     Route::post('/', [EmployeeAwardsController::class, 'store'])->name('employee_awards.employee_award.store');
     Route::put('/update/{employeeAward}', [EmployeeAwardsController::class, 'update'])->name('employee_awards.employee_award.update')->whereNumber('id');

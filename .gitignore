@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/uploads
 /resources/laravel-code-generator
 /storage/*.key
 /vendor

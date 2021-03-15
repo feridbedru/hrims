@@ -74,8 +74,8 @@
         </div>
     </div>
     @if (count($employeeAdditionalInfos) == 0)
-        <a href="{{ route('employee_additional_infos.employee_additional_info.create', $employee) }}" class="btn btn-success"
-            title="Create New Additional Info">
+        <a href="{{ route('employee_additional_infos.employee_additional_info.create', $employee) }}"
+            class="btn btn-success" title="Create New Additional Info">
             <span class="fa fa-plus" aria-hidden="true"> Add New</span>
         </a>
     @else

@@ -47,25 +47,32 @@
                                 </td>
 
                                 <td>
-                                    <form method="POST" action="{!! route('employee_educations.employee_education.destroy', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) !!}" accept-charset="UTF-8">
-                                        @method('DELETE')
-                                        {{ csrf_field() }}
-                                        <div class="btn-group btn-group-xs pull-right" role="group">
-                                            <a href="{{ route('employee_educations.employee_education.show', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
-                                                class="btn btn-primary" title="Show Education">
-                                                <span class="fa fa-eye" aria-hidden="true"></span>
-                                            </a>
-                                            <a href="{{ route('employee_educations.employee_education.edit', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
-                                                class="btn btn-warning" title="Edit Education">
-                                                <span class="fa fa-edit text-white" aria-hidden="true"></span>
-                                            </a>
+                                    @if ($employeeEducation->status == 3)
+                                        <form method="POST" action="{!! route('employee_educations.employee_education.destroy', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) !!}" accept-charset="UTF-8">
+                                            @method('DELETE')
+                                            {{ csrf_field() }}
+                                            <div class="btn-group btn-group-xs pull-right" role="group">
+                                                <a href="{{ route('employee_educations.employee_education.show', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
+                                                    class="btn btn-primary" title="Show Education">
+                                                    <span class="fa fa-eye" aria-hidden="true"></span>
+                                                </a>
+                                                <a href="{{ route('employee_educations.employee_education.edit', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
+                                                    class="btn btn-warning" title="Edit Education">
+                                                    <span class="fa fa-edit text-white" aria-hidden="true"></span>
+                                                </a>
 
-                                            <button type="submit" class="btn btn-danger" title="Delete Education"
-                                                onclick="return confirm(&quot;Click Ok to delete Education.&quot;)">
-                                                <span class="fa fa-trash" aria-hidden="true"></span>
-                                            </button>
-                                        </div>
-                                    </form>
+                                                <button type="submit" class="btn btn-danger" title="Delete Education"
+                                                    onclick="return confirm(&quot;Click Ok to delete Education.&quot;)">
+                                                    <span class="fa fa-trash" aria-hidden="true"></span>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    @else
+                                        <a href="{{ route('employee_educations.employee_education.show', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
+                                            class="btn btn-primary" title="Show Education">
+                                            <span class="fa fa-eye" aria-hidden="true"></span>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

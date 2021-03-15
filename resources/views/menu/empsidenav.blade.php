@@ -1,7 +1,37 @@
 <div class="sidebar">
+    <div class="text-center">
+    <div class=" mt-3 pb-3 mb-3 d-flex">
+        <div class="info ">
+            @if (isset($employee->photo))
+                <img src="{{ asset('uploads/photo/' . $employee->photo) }}" height="140px" width="140px"
+                    class="profile-user-img img-fluid img-circle ml-5">
+            @else
+                <span class="fas fa-5x fa-user-circle m-2 ml-5 text-light"></span>
+            @endif
+        </div>
+    </div>
+    <span class="brand-text text-light">
+        @if (isset($employee->en_name))
+            <h5>{{ $employee->en_name }}</h5>
+        @else
+            Full Name
+        @endif
+    </span>
+    <span class="brand-text text-light">
+        @if (isset($employee->phone_number))
+            <span class="fa fa-phone-alt"> </span> {{ $employee->phone_number }}
+        @else
+            Contacts
+        @endif
+    </span>
+</div>
+    <hr class="text-light">
+
     <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item has-treeview {{ request()->is(['employees/*/address*','employees/*/bank_account*','employees/*/disability*','employees/*/education*','employees/*/emergency*','employees/*/family*','employees/*/language*','employees/*/license*','employees/*/additional_info*']) ? 'menu-open' : ' ' }}">
+        <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu"
+            data-accordion="false">
+            <li
+                class="nav-item has-treeview {{ request()->is(['employees/*/address*', 'employees/*/bank_account*', 'employees/*/disability*', 'employees/*/education*', 'employees/*/emergency*', 'employees/*/family*', 'employees/*/language*', 'employees/*/license*', 'employees/*/additional_info*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i>
                     <p>
@@ -11,63 +41,72 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{route('employee_addresses.employee_address.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/address*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_addresses.employee_address.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/address*') ? 'active' : ' ' }}">
                             <i class="fas fa-address-card nav-icon"></i>
                             <p>Address</p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_bank_accounts.employee_bank_account.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/bank_account*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_bank_accounts.employee_bank_account.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/bank_account*') ? 'active' : ' ' }}">
                             <i class="fas fa-piggy-bank nav-icon"></i>
                             <p>Bank Accounts</p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_disabilities.employee_disability.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/disability*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_disabilities.employee_disability.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/disability*') ? 'active' : ' ' }}">
                             <i class="fas fa-blind nav-icon"></i>
                             <p>Disability </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_educations.employee_education.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/education*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_educations.employee_education.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/education*') ? 'active' : ' ' }}">
                             <i class="fas fa-school nav-icon"></i>
                             <p>Education </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_emergencies.employee_emergency.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/emergency*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_emergencies.employee_emergency.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/emergency*') ? 'active' : ' ' }}">
                             <i class="fas fa-ambulance nav-icon"></i>
                             <p>Emeregency </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_families.employee_family.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/family*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_families.employee_family.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/family*') ? 'active' : ' ' }}">
                             <i class="fas fa-users nav-icon"></i>
                             <p>Family </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_languages.employee_language.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/language*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_languages.employee_language.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/language*') ? 'active' : ' ' }}">
                             <i class="fas fa-language nav-icon"></i>
                             <p>Language </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_licenses.employee_license.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/license*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_licenses.employee_license.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/license*') ? 'active' : ' ' }}">
                             <i class="fas fa-certificate nav-icon"></i>
                             <p>License </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_additional_infos.employee_additional_info.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/additional_info*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_additional_infos.employee_additional_info.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/additional_info*') ? 'active' : ' ' }}">
                             <i class="fas fa-certificate nav-icon"></i>
                             <p>Other Info </p>
                             <span class="badge badge-pill badge-primary"></span>
@@ -85,20 +124,23 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_experiences.employee_experience.create',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/experience/create') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_experiences.employee_experience.create', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/experience/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_experiences.employee_experience.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/experience*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_experiences.employee_experience.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/experience','employees/*/experience/show*','employees/*/experience/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview {{ request()->is(['employees/*/administrative*','employees/*/judiciary*']) ? 'menu-open' : ' ' }}">
+            <li
+                class="nav-item has-treeview {{ request()->is(['employees/*/administrative*', 'employees/*/judiciary*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-gavel"></i>
                     <p>
@@ -108,13 +150,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/administrative*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/administrative*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>Administrative</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.index',['employee'=>$employee])}}" class="nav-link  {{ request()->is('employees/*/judiciary*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.index', ['employee' => $employee]) }}"
+                            class="nav-link  {{ request()->is('employees/*/judiciary*') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>Judiciary</p>
                         </a>
@@ -131,13 +175,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_disasters.employee_disaster.create',['employee'=>$employee])}}" class="nav-link  {{ request()->is('employees/*/disaster/create') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_disasters.employee_disaster.create', ['employee' => $employee]) }}"
+                            class="nav-link  {{ request()->is('employees/*/disaster/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('employee_disasters.employee_disaster.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/disaster*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_disasters.employee_disaster.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/disaster','employees/*/disaster/show*','employees/*/disaster/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
@@ -167,7 +213,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview  {{ request()->is(['employees/*/certification*']) ? 'menu-open' : ' ' }}">
+            <li
+                class="nav-item has-treeview  {{ request()->is(['employees/*/certification*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-certificate"></i>
                     <p>
@@ -177,13 +224,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_certifications.employee_certification.create',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/certification/create') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_certifications.employee_certification.create', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/certification/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_certifications.employee_certification.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/certification','employees/*/certification/show*','employees/*/certification/edit*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_certifications.employee_certification.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/certification', 'employees/*/certification/show*', 'employees/*/certification/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
@@ -223,13 +272,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_awards.employee_award.create',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/award/create') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_awards.employee_award.create', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/award/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('employee_awards.employee_award.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/award','employees/*/award/show*','employees/*/award/edit*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_awards.employee_award.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/award', 'employees/*/award/show*', 'employees/*/award/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
@@ -244,7 +295,8 @@
                     </p>
                 </a>
             </li>
-            <li class="nav-item has-treeview {{ request()->is(['employees/*/studytraining*']) ? 'menu-open' : ' ' }}">
+            <li
+                class="nav-item has-treeview {{ request()->is(['employees/*/studytraining*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
@@ -254,13 +306,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_study_trainings.employee_study_training.create',['employee'=>$employee])}}" class="nav-link  {{ request()->is('employees/*/studytraining/create') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_study_trainings.employee_study_training.create', ['employee' => $employee]) }}"
+                            class="nav-link  {{ request()->is('employees/*/studytraining/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{route('employee_study_trainings.employee_study_training.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/studytraining','employees/*/studytraining/show*','employees/*/studytraining/edit*') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_study_trainings.employee_study_training.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/studytraining', 'employees/*/studytraining/show*', 'employees/*/studytraining/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
@@ -277,13 +331,15 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('employee_files.employee_file.index',['employee'=>$employee])}}" class="nav-link {{ request()->is('employees/*/file') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_files.employee_file.index', ['employee' => $employee]) }}"
+                            class="nav-link {{ request()->is('employees/*/file') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
                             <p>List</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('employee_files.employee_file.create',['employee'=>$employee])}}" class="nav-link{{ request()->is('employees/*/file/create') ? 'active' : ' ' }}">
+                        <a href="{{ route('employee_files.employee_file.create', ['employee' => $employee]) }}"
+                            class="nav-link{{ request()->is('employees/*/file/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>
@@ -294,7 +350,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-times-circle"></i>
                     <p>
-                        Termination 
+                        Termination
                     </p>
                 </a>
             </li>

@@ -1,6 +1,8 @@
+<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('type') ? 'has-error' : '' }}">
-        <label for="type" class="col-md-4 control-label">Type</label>
+        <label for="type" class="col-md-4 control-label">Type <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
@@ -17,7 +19,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('institution') ? 'has-error' : '' }}">
-        <label for="institution" class="col-md-4 control-label">Institution</label>
+        <label for="institution" class="col-md-4 control-label">Institution <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="institution" name="institution" required="true">
                 <option value="" style="display: none;"
@@ -34,7 +36,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('level') ? 'has-error' : '' }}">
-        <label for="level" class="col-md-4 control-label">Level</label>
+        <label for="level" class="col-md-4 control-label">Level <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="level" name="level" required="true">
                 <option value="" style="display: none;"
@@ -53,7 +55,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('field') ? 'has-error' : '' }}">
-        <label for="field" class="col-md-4 control-label">Field</label>
+        <label for="field" class="col-md-4 control-label">Field <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="field" name="field" required="true">
                 <option value="" style="display: none;"
@@ -79,7 +81,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('duration') ? 'has-error' : '' }}">
-        <label for="duration" class="col-md-4 control-label">Duration</label>
+        <label for="duration" class="col-md-4 control-label">Duration <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="duration" type="text" id="duration"
                 value="{{ old('duration', optional($employeeStudyTraining)->duration) }}" minlength="1"
@@ -89,12 +91,12 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('has_commitment') ? 'has-error' : '' }}">
-        <label for="has_commitment" class="col-md-4 control-label">Has Commitment</label>
+        <label for="has_commitment" class="col-md-4 control-label">Has Commitment <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="checkbox">
                 <label for="has_commitment_1">
                     <input id="has_commitment_1" class="" name="has_commitment" type="checkbox" value="1"
-                        {{ old('has_commitment', optional($employeeStudyTraining)->has_commitment) == '1' ? 'checked' : '' }}>
+                        {{ old('has_commitment', optional($employeeStudyTraining)->has_commitment) == '1' ? 'checked' : '' }} required="true">
                     Yes
                 </label>
             </div>
@@ -111,7 +113,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('attachment') ? 'has-error' : '' }}">
-        <label for="attachment" class="col-md-4 control-label">Attachment</label>
+        <label for="attachment" class="col-md-4 control-label">Attachment <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -124,7 +126,7 @@
 
             @if (isset($employeeStudyTraining->attachment) && !empty($employeeStudyTraining->attachment))
                 <div class="input-group input-width-input">
-                    <span class="input-group-addon">
+                    <span class="input-group-addon mr-2">
                         <input type="checkbox" name="custom_delete_attachment" class="custom-delete-file" value="1"
                             {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> Delete
                     </span>

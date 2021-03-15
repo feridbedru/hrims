@@ -1,6 +1,8 @@
+<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('occured_on') ? 'has-error' : '' }}">
-        <label for="occured_on" class="col-md-4 control-label">Occured On</label>
+        <label for="occured_on" class="col-md-12 control-label">Occured On <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="occured_on" type="date" id="occured_on"
                 value="{{ old('occured_on', optional($employeeDisaster)->occured_on) }}" required="true"
@@ -9,7 +11,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('cause') ? 'has-error' : '' }}">
-        <label for="cause" class="col-md-4 control-label">Disaster Cause</label>
+        <label for="cause" class="col-md-12 control-label">Disaster Cause <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="cause" name="cause" required="true">
                 <option value="" style="display: none;"
@@ -26,7 +28,8 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('severity') ? 'has-error' : '' }}">
-        <label for="severity" class="col-md-4 control-label">Disaster Severity</label>
+        <label for="severity" class="col-md-12 control-label">Disaster Severity <span
+                class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="severity" name="severity" required="true">
                 <option value="" style="display: none;"
@@ -44,7 +47,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-    <label for="description" class="col-md-4 control-label">Description</label>
+    <label for="description" class="col-md-12 control-label">Description <span class="text-danger">*</span></label>
     <div class="col-md-12">
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000"
@@ -54,7 +57,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('attachment') ? 'has-error' : '' }}">
-        <label for="attachment" class="col-md-4 control-label">Attachment</label>
+        <label for="attachment" class="col-md-12 control-label">Attachment <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -67,7 +70,7 @@
 
             @if (isset($employeeDisaster->attachment) && !empty($employeeDisaster->attachment))
                 <div class="input-group input-width-input">
-                    <span class="input-group-addon">
+                    <span class="input-group-addon mr-2">
                         <input type="checkbox" name="custom_delete_attachment" class="custom-delete-file" value="1"
                             {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> Delete
                     </span>
@@ -81,7 +84,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('is_mass') ? 'has-error' : '' }}">
-        <label for="is_mass" class="col-md-4 control-label">Is Mass</label>
+        <label for="is_mass" class="col-md-12 control-label">Is Mass</label>
         <div class="col-md-12">
             <div class="checkbox">
                 <label for="is_mass_1">

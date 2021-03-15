@@ -3,7 +3,8 @@
     New Emergency
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('employee_emergencies.employee_emergency.index', $employee) }}">Emergency</a></li>
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_emergencies.employee_emergency.index', $employee) }}">Emergency</a></li>
     <li class="breadcrumb-item active">New</li>
 @endsection
 @section('content')

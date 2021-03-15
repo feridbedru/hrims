@@ -36,22 +36,23 @@
                     </div>
                 </form>
             @else
-            <div class="jumbotron bg-white">
-                <div class="info-icons text-center pb-5">
-                <i class="fa fa-5x fa-exclamation-triangle text-danger"></i>
+                <div class="jumbotron bg-white">
+                    <div class="info-icons text-center pb-5">
+                        <i class="fa fa-5x fa-exclamation-triangle text-danger"></i>
+                    </div>
+                    <h2 class="display-5 text-center text-error">Error</h2>
+                    <p class="lead text-center">You can not create more than one entry for a single employee. Kindly edit
+                        the entry using the button below.</p>
+                    <hr class="my-4">
+                    <div class="text-center">
+                        <p class="lead">
+                            <a href="{{ route('employee_additional_infos.employee_additional_info.edit', ['employee' => $employee, 'employeeAdditionalInfo' => $employeeAdditionalInfo->id]) }}"
+                                class="btn btn-warning" title="Edit Additional Information">
+                                <span class="fa fa-edit" aria-hidden="true"> Edit/span>
+                            </a>
+                        </p>
+                    </div>
                 </div>
-                <h2 class="display-5 text-center text-error">Error</h2>
-                <p class="lead text-center">You can not create more than one entry for a single employee. Kindly edit the entry using the button below.</p>
-                <hr class="my-4">
-                <div class="text-center">
-                    <p class="lead">
-                        <a href="{{ route('employee_additional_infos.employee_additional_info.edit', ['employee' => $employee, 'employeeAdditionalInfo' => $employeeAdditionalInfo->id]) }}" class="btn btn-warning"
-                            title="Edit Additional Information">
-                            <span class="fa fa-edit" aria-hidden="true"> Edit/span>
-                        </a>
-                    </p>
-                </div>
-            </div>
             @endif
         </div>
     </div>

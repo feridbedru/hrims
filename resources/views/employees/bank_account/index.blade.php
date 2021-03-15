@@ -34,7 +34,11 @@
                                 <td>{{ $employeeBankAccount->banks->name }}</td>
                                 <td>{{ $employeeBankAccount->types->name }}</td>
                                 <td>{{ $employeeBankAccount->account_number }}</td>
-                                <td>{{ $employeeBankAccount->file }}</td>
+                                <td>
+                                    @if (isset($employeeBankAccount->file))
+                                        <a href="{{ asset('uploads/bankaccount/' . $employeeBankAccount->file) }}" class="btn btn-outline-primary" target="_blank">View File</a>
+                                    @endif
+                                </td>
                                 <td>
                                     @if ($employeeBankAccount->status == 1)
                                         Pending

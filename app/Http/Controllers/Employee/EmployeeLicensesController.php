@@ -254,12 +254,12 @@ class EmployeeLicensesController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/misc'))
+        if (!file_exists('uploads/license'))
         {
-            mkdir('uploads/misc', 0777 , true);
+            mkdir('uploads/license', 0777 , true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
-        $path = $file->move('uploads/misc', $fileName);
+        $path = $file->move('uploads/license', $fileName);
         
         return $fileName;
     }

@@ -76,6 +76,66 @@ class EmployeeExperiencesController extends Controller
         }
     }
 
+
+    /**
+     * Approve the specified employee experience
+     *
+     * @param int $id
+     */
+    public function approve($employee, $employeeExperiences)
+    {
+        try {
+
+            $employeeExperience = EmployeeExperience::findOrFail($employeeExperiences);
+            $employeeExperience->status = 3;
+            $employeeExperience->approved_by = 1;
+            $employeeExperience->approved_at = now();
+            $employeeExperience->save();
+
+            return redirect()->route('employee_experiences.employee_experience.show', ['employee'=>$employee, 'employeeExperience'=>$employeeExperience])
+                ->with('success_message', 'Employee Experience was successfully approved.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * reject the specified employee experience
+     *
+     * @param int $id
+     */
+    public function reject($employee, $employeeExperiences, Request $request)
+    {
+        try {
+
+            $employeeExperience = EmployeeExperience::findOrFail($employeeExperiences);
+            $employeeExperience->status = 2;
+            $employeeExperience->note = $request['note'];
+            $employeeExperience->save();
+
+            return redirect()->route('employee_experiences.employee_experience.show', ['employee'=>$employee, 'employeeExperience'=>$employeeExperience])
+                ->with('success_message', 'Employee Experience was successfully rejected.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+
     /**
      * Display the specified employee experience.
      *
