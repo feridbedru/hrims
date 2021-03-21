@@ -482,6 +482,9 @@ Route::group([
     Route::get('/', [OrganizationUnitsController::class, 'index'])->name('organization_units.organization_unit.index');
     Route::get('/create',[OrganizationUnitsController::class, 'create'])->name('organization_units.organization_unit.create');
     Route::get('/show/{organizationUnit}',[OrganizationUnitsController::class, 'show'])->name('organization_units.organization_unit.show')->whereNumber('id');
+    Route::get('/{organization_id}/offices',[OrganizationUnitsController::class,'offices'])->name('organization_units.organization_unit.offices')->whereNumber('id');
+    Route::get('/{organization_id}/employees',[OrganizationUnitsController::class,'employees'])->name('organization_units.organization_unit.employee')->whereNumber('id');
+    Route::get('/{organization_id}/jobs',[OrganizationUnitsController::class,'jobs'])->name('organization_units.organization_unit.jobs')->whereNumber('id');
     Route::get('/{organizationUnit}/edit',[OrganizationUnitsController::class, 'edit'])->name('organization_units.organization_unit.edit')->whereNumber('id');
     Route::post('/', [OrganizationUnitsController::class, 'store'])->name('organization_units.organization_unit.store');
     Route::post('/filter', [OrganizationUnitsController::class, 'filter'])->name('organization_units.organization_unit.filter');

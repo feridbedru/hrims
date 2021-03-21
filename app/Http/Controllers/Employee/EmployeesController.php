@@ -10,7 +10,6 @@ use App\Models\JobTitleCategory;
 use App\Models\OrganizationUnit;
 use App\Models\Sex;
 use App\Models\Title;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -74,8 +73,8 @@ class EmployeesController extends Controller
         try {
 
             $data = $this->getData($request);
-            // $data['created_by'] = Auth::Id();
-            $data['created_by'] = 1;
+            $data['created_by'] = 2;
+            // dd($data);
             Employee::create($data);
             $id = DB::getPdo()->lastInsertId();
             $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus')->findOrFail($id);
@@ -221,6 +220,7 @@ class EmployeesController extends Controller
             'job_position' => 'required',
             'employment_id' => 'string|min:1|nullable',
             'status' => 'nullable',
+            'created_by' => 'nullable',
         ];
 
         $data = $request->validate($rules);

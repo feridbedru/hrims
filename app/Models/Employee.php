@@ -38,7 +38,8 @@ class Employee extends Model
                   'organization_unit',
                   'job_position',
                   'employment_id',
-                  'status'
+                  'status',
+                  'created_by',
               ];
 
     /**

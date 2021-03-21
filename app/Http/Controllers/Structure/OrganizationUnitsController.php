@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Structure;
 
 use App\Http\Controllers\Controller;
+use App\Models\Employee;
 use App\Models\JobCategory;
+use App\Models\JobTitleCategory;
+use App\Models\JobPosition;
 use App\Models\Organization;
 use App\Models\OrganizationLocation;
 use App\Models\OrganizationUnit;
@@ -28,7 +31,7 @@ class OrganizationUnitsController extends Controller
         $organizationLocations = OrganizationLocation::pluck('name', 'id')->all();
         $organizations = Organization::all();
 
-        return view('structure.organization_units.index', compact('organizationUnits', 'jobCategories', 'organizationLocations','organizations'));
+        return view('structure.organization_units.index', compact('organizationUnits', 'jobCategories', 'organizationLocations', 'organizations'));
     }
 
     /**
@@ -58,6 +61,36 @@ class OrganizationUnitsController extends Controller
         return view('structure.organization_units.index', compact('organizationUnits', 'jobCategories', 'organizationLocations'));
     }
 
+    // A function that will display all the employees in each unit of organization
+
+    public function employees($id)
+    {
+        $employees = Employee::where('organization_unit', $id)->paginate(25);
+        $jobTitleCategories = JobTitleCategory::all();
+
+        return view('structure.organization_units.employees', compact('employees','jobTitleCategories'));
+    }
+
+
+    //  A function that will display all the jobs in each unit of organization
+
+    public function jobs($id)
+    {
+
+        $jobs = JobPosition::where('organization_unit', $id)->paginate(25);
+
+        return view('structure.organization_units.jobs', compact('jobs'));
+    }
+
+    // A function that will display all the offices of each unit in the organization
+
+    public function offices($id)
+    {
+        $units = OrganizationUnit::where('parent',$id)->with('chairman', 'jobCategorys', 'locations', 'parents', 'reportsTo')->paginate(25);
+
+        return view('structure.organization_units.offices', compact('units'));
+    }
+
     /**
      * Show the form for creating a new organization unit.
      *
@@ -71,7 +104,7 @@ class OrganizationUnitsController extends Controller
         $chairmans = User::pluck('name', 'id')->all();
         $organizations = Organization::all();
 
-        return view('structure.organization_units.create', compact('organizationUnits', 'jobCategories', 'organizationLocations', 'chairmans','organizations'));
+        return view('structure.organization_units.create', compact('organizationUnits', 'jobCategories', 'organizationLocations', 'chairmans', 'organizations'));
     }
 
     /**

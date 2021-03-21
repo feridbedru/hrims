@@ -87,15 +87,15 @@
                                 <td>{{ optional($organizationUnit->locations)->name }}</td>
                                 <td>
                                     <div class="d-flex justify-content-between">
-                                    <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
+                                    <a href="{{ route('organization_units.organization_unit.offices', $organizationUnit->id) }}"
                                         class="btn btn-outline-danger btn-sm" title="Show Sub Offices">
                                         Offices
                                     </a>
-                                    <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
+                                    <a href="{{ route('organization_units.organization_unit.employee', $organizationUnit->id) }}"
                                         class="btn btn-outline-primary btn-sm" title="Show Employees">
                                         Employees
                                     </a>
-                                    <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
+                                    <a href="{{ route('organization_units.organization_unit.jobs', $organizationUnit->id) }}"
                                         class="btn btn-outline-success btn-sm" title="Show Jobs">
                                         Jobs
                                     </a>

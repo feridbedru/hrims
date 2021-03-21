@@ -45,8 +45,6 @@ class Title extends Model
      * @var array
      */
     protected $casts = [];
-    
-
 
 
 }
