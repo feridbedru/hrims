@@ -69,10 +69,18 @@
                     </div>
                     @if (isset($employeeStudyTraining->total_commitment))
                         <div class="col-md-4">
-                            <dt>Total Commitment</dt>
+                            <dt>Total Commitment(Months)</dt>
                             <dd>{{ $employeeStudyTraining->total_commitment }}</dd>
                         </div>
                     @endif
+                    @if (isset($employeeStudyTraining->amount))
+                        <div class="col-md-4">
+                            <dt>Total Commitment(Amount)</dt>
+                            <dd>{{ $employeeStudyTraining->amount }}</dd>
+                        </div>
+                    @endif
+                </div>
+                <div class="row">
                     @if (isset($employeeStudyTraining->attachment))
                         <div class="col-md-4">
                             <dt>Attachment</dt>

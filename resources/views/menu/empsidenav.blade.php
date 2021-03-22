@@ -190,7 +190,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview">
+            {{-- <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-clipboard-list"></i>
                     <p>
@@ -212,7 +212,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li
                 class="nav-item has-treeview  {{ request()->is(['employees/*/certification*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
@@ -239,7 +239,7 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item has-treeview">
+            {{-- <li class="nav-item has-treeview">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-sign-out-alt"></i>
                     <p>
@@ -261,7 +261,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class="nav-item has-treeview {{ request()->is(['employees/*/award*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-award"></i>
@@ -287,14 +287,14 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-signature"></i>
                     <p>
                         Attendance
                     </p>
                 </a>
-            </li>
+            </li> --}}
             <li
                 class="nav-item has-treeview {{ request()->is(['employees/*/studytraining*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
@@ -346,14 +346,14 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-times-circle"></i>
                     <p>
                         Termination
                     </p>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </nav>
 </div>

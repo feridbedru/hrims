@@ -90,8 +90,8 @@
     </div>
 </div>
 <div class="row">
-    <div class="form-group col-md-4 {{ $errors->has('has_commitment') ? 'has-error' : '' }}">
-        <label for="has_commitment" class="col-md-4 control-label">Has Commitment <span class="text-danger">*</span></label>
+    <div class="form-group col-md-2 {{ $errors->has('has_commitment') ? 'has-error' : '' }}">
+        <label for="has_commitment" class="col-md-12 control-label">Has Commitment <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="checkbox">
                 <label for="has_commitment_1">
@@ -103,17 +103,26 @@
         </div>
     </div>
 
-    <div class="form-group col-md-4 {{ $errors->has('total_commitment') ? 'has-error' : '' }}">
-        <label for="total_commitment" class="col-md-4 control-label">Total Commitment</label>
+    <div class="form-group col-md-3 {{ $errors->has('total_commitment') ? 'has-error' : '' }}">
+        <label for="total_commitment" class="col-md-12 control-label">Total Commitment(Month)</label>
         <div class="col-md-12">
             <input class="form-control" name="total_commitment" type="number" id="total_commitment"
                 value="{{ old('total_commitment', optional($employeeStudyTraining)->total_commitment) }}"
-                placeholder="Enter total commitment here...">
+                placeholder="Enter total months here...">
+        </div>
+    </div>
+
+    <div class="form-group col-md-3 {{ $errors->has('amount') ? 'has-error' : '' }}">
+        <label for="amount" class="col-md-12 control-label">Total Commitment(Amount)</label>
+        <div class="col-md-12">
+            <input class="form-control" name="amount" type="number" id="amount"
+                value="{{ old('amount', optional($employeeStudyTraining)->amount) }}"
+                placeholder="Enter amount here...">
         </div>
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('attachment') ? 'has-error' : '' }}">
-        <label for="attachment" class="col-md-4 control-label">Attachment <span class="text-danger">*</span></label>
+        <label for="attachment" class="col-md-12 control-label">Attachment <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
