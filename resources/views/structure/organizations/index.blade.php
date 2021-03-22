@@ -37,6 +37,10 @@
                                 <td>{{ $organization->email }}</td>
                                 <td>{{ $organization->phone_number }}</td>
                                 <td>
+                                    <a href="{{ route('organizations.organization.structure') }}"
+                                        class="btn btn-outline-primary mr-3" title="Show Organization Structure">
+                                        Structure
+                                    </a>
                                     <a href="{{ route('organizations.organization.show', $organization->id) }}"
                                         class="btn btn-outline-info mr-3" title="Show Organization">
                                         View

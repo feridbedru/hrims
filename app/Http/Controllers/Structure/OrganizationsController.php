@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Structure;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
+use App\Models\OrganizationUnit;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,21 @@ class OrganizationsController extends Controller
     {
         $organizations = Organization::paginate(25);
         return view('structure.organizations.index', compact('organizations'));
+    }
+
+
+    /**
+     * Display a structure of the organizations.
+     *
+     * @return Illuminate\View\View
+     */
+    public function structure()
+    {
+        $roots = OrganizationUnit::where('is_root_unit','1')->get();
+        $seconds = OrganizationUnit::where('parent','6')->get();
+        $units = OrganizationUnit::get();
+        $teams = OrganizationUnit::whereNotNull('reports_to')->get();
+        return view('structure.organizations.structure', compact('roots','seconds','units','teams'));
     }
 
     /**

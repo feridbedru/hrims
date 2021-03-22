@@ -42,7 +42,6 @@ use App\Http\Controllers\Structure\OrganizationUnitsController;
 use App\Http\Controllers\Help\HelpsController;
 use App\Http\Controllers\Payment\SalaryScalesController;
 use App\Http\Controllers\Payment\SalaryHeightsController;
-use App\Http\Controllers\Payment\SalariesController;
 use App\Http\Controllers\Job\JobPositionsController;
 use App\Http\Controllers\Employee\EmployeesController;
 use App\Http\Controllers\Employee\EmployeeAdditionalInfosController;
@@ -76,6 +75,7 @@ Route::group([
  ], function () {
      Route::get('/', [OrganizationsController::class,'index'])->name('organizations.organization.index');
      Route::get('/create',[OrganizationsController::class,'create'])->name('organizations.organization.create');
+     Route::get('/structure',[OrganizationsController::class,'structure'])->name('organizations.organization.structure');
      Route::get('/show/{organization}',[OrganizationsController::class,'show'])->name('organizations.organization.show')->whereNumber('id');
      Route::get('/{organization}/edit',[OrganizationsController::class,'edit'])->name('organizations.organization.edit')->whereNumber('id');
      Route::post('/', [OrganizationsController::class,'store'])->name('organizations.organization.store');
