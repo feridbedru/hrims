@@ -41,7 +41,8 @@ class Organization extends Model
                   'email',
                   'phone_number',
                   'fax_number',
-                  'po_box'
+                  'po_box',
+                  'abbreviation',
               ];
 
     /**

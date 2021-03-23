@@ -1,7 +1,7 @@
 <h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
 <hr>
 <div class="row">
-    <div class="form-group col-md-6 {{ $errors->has('en_name') ? 'has-error' : '' }}">
+    <div class="form-group col-md-5 {{ $errors->has('en_name') ? 'has-error' : '' }}">
         <label for="en_name" class="col-md-12 control-label">English Name <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="en_name" type="text" id="en_name"
@@ -10,12 +10,21 @@
         </div>
     </div>
 
-    <div class="form-group col-md-6 {{ $errors->has('am_name') ? 'has-error' : '' }}">
+    <div class="form-group col-md-5 {{ $errors->has('am_name') ? 'has-error' : '' }}">
         <label for="am_name" class="col-md-12 control-label">Amharic Name <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="am_name" type="text" id="am_name"
                 value="{{ old('am_name', optional($organization)->am_name) }}" minlength="5"
                 placeholder="Enter amharic name here...">
+        </div>
+    </div>
+
+    <div class="form-group col-md-2 {{ $errors->has('abbreviation') ? 'has-error' : '' }}">
+        <label for="abbreviation" class="col-md-12 control-label">Abbreviation </label>
+        <div class="col-md-12">
+            <input class="form-control" name="abbreviation" type="text" id="abbreviation"
+                value="{{ old('abbreviation', optional($organization)->abbreviation) }}" minlength="2"
+                placeholder="Enter abbreviation here...">
         </div>
     </div>
 </div>

@@ -31,14 +31,20 @@
                 <div class="col-md-8 border-left pl-4">
                     <dl class="dl-horizontal">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <dt>English Name</dt>
                                 <dd>{{ $organization->en_name }}</dd>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <dt>Amharic Name</dt>
                                 <dd>{{ $organization->am_name }}</dd>
                             </div>
+                            @if (isset($organization->abbreviation))
+                            <div class="col-md-2">
+                                <dt>Abbreviation</dt>
+                                <dd>{{ $organization->abbreviation }}</dd>
+                            </div> 
+                            @endif
                         </div>
                         <dt>Motto</dt>
                         <dd>{{ $organization->motto }}</dd>

@@ -17,6 +17,7 @@ class CreateOrganizationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('en_name');
             $table->string('am_name')->nullable();
+            $table->string('abbreviation')->nullable();
             $table->text('motto')->nullable();
             $table->text('mission')->nullable();
             $table->text('vision')->nullable();

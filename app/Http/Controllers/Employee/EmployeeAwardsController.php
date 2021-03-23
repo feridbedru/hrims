@@ -6,11 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\AwardType;
 use App\Models\Employee;
 use App\Models\EmployeeAward;
-use App\Models\User;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Andegna\DateTime;
 use Exception;
 
 class EmployeeAwardsController extends Controller
@@ -58,6 +58,17 @@ class EmployeeAwardsController extends Controller
             $data['created_by'] = 1;
             $data['status'] = 1;
             $data['employee'] = $id;
+            $old_date = $request['awarded_on'];
+            // $old= explode("/",$old_date);
+            // $em=$old[0];
+            // $ed=$old[1];
+            // $ey=$old[2];
+    
+            // $ethipic = $ey.'-'.$em.'-'. $ed;
+            $et = strtotime($old_date);
+            $ethipic = date('Y-m-d',$et);
+            $gregorian = $ethipic->toGregorian();
+            dd($gregorian);
             EmployeeAward::create($data);
 
             return redirect()->route('employee_awards.employee_award.index',$employee)

@@ -1,8 +1,12 @@
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-calendar/css/redmond.calendars.picker.css') }}">
+@endsection
 <h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('organization') ? 'has-error' : '' }}">
-        <label for="organization" class="col-md-12 control-label">Organization <span class="text-danger">*</span></label>
+        <label for="organization" class="col-md-12 control-label">Organization <span
+                class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="organization" type="text" id="organization"
                 value="{{ old('organization', optional($employeeAward)->organization) }}" minlength="1"
@@ -59,9 +63,9 @@
     <div class="form-group col-md-6 {{ $errors->has('awarded_on') ? 'has-error' : '' }}">
         <label for="awarded_on" class="col-md-12 control-label">Awarded On <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="awarded_on" type="date" id="awarded_on"
+            <input class="form-control" name="awarded_on" type="text" id="awarded_on"
                 value="{{ old('awarded_on', optional($employeeAward)->awarded_on) }}"
-                placeholder="Enter awarded on here...">
+                placeholder="Enter awarded on here..." minlength="10" maxlength="10">
         </div>
     </div>
 </div>
@@ -73,3 +77,19 @@
             maxlength="1000">{{ old('description', optional($employeeAward)->description) }}</textarea>
     </div>
 </div>
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.plus.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.picker.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian-am.js') }}"></script>
+    <script>
+        $(function() {
+            var calendar = $.calendars.instance('ethiopian', 'am');
+            $('#awarded_on').calendarsPicker({
+                calendar: calendar
+            });
+        });
+    </script>
+@endsection

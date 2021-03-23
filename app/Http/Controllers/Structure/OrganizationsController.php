@@ -179,6 +179,7 @@ class OrganizationsController extends Controller
         $rules = [
                 'en_name' => 'required|string|min:5',
                 'am_name' => 'string|min:5|nullable',
+                'abbreviation' => 'string|nullable',
                 'motto' => 'string|min:10|nullable',
                 'mission' => 'string|min:10|nullable',
                 'vision' => 'string|min:10|nullable',
