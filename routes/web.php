@@ -568,6 +568,7 @@ Route::group([
     Route::get('/approve/{employeeAddress}',[EmployeeAddressesController::class, 'approve'])->name('employee_addresses.employee_address.approve')->whereNumber('id');
     Route::post('/reject/{employeeAddress}',[EmployeeAddressesController::class, 'reject'])->name('employee_addresses.employee_address.reject')->whereNumber('id');
     Route::get('/edit/{employeeAddress}',[EmployeeAddressesController::class, 'edit'])->name('employee_addresses.employee_address.edit')->whereNumber('id');
+    Route::get('/print',[EmployeeAddressesController::class, 'print'])->name('employee_addresses.employee_address.print');
     Route::post('/', [EmployeeAddressesController::class, 'store'])->name('employee_addresses.employee_address.store');
     Route::put('/update/{employeeAddress}', [EmployeeAddressesController::class, 'update'])->name('employee_addresses.employee_address.update')->whereNumber('id');
     Route::delete('/delete/{employeeAddress}',[EmployeeAddressesController::class, 'destroy'])->name('employee_addresses.employee_address.destroy')->whereNumber('id');
