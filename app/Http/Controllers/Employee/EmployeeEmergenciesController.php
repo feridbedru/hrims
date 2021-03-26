@@ -24,9 +24,9 @@ class EmployeeEmergenciesController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeEmergencies = EmployeeEmergency::where('employee', $employee_id)->with('employees','relationships')->paginate(25);
+        $employeeEmergencies = EmployeeEmergency::where('employee', $employee_id)->with('employees', 'relationships')->paginate(25);
 
-        return view('employees.emergency.index', compact('employeeEmergencies','employee'));
+        return view('employees.emergency.index', compact('employeeEmergencies', 'employee'));
     }
 
     /**
@@ -59,7 +59,7 @@ class EmployeeEmergenciesController extends Controller
             $data['employee'] = $id;
             EmployeeEmergency::create($data);
 
-            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
+            return redirect()->route('employee_emergencies.employee_emergency.index', $employee)
                 ->with('success_message', 'Employee Emergency was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -89,7 +89,7 @@ class EmployeeEmergenciesController extends Controller
             $employeeEmergency->approved_at = now();
             $employeeEmergency->save();
 
-            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
+            return redirect()->route('employee_emergencies.employee_emergency.index', $employee)
                 ->with('success_message', 'Employee Emergency was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -117,7 +117,7 @@ class EmployeeEmergenciesController extends Controller
             $employeeEmergency->note = $request['note'];
             $employeeEmergency->save();
 
-            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
+            return redirect()->route('employee_emergencies.employee_emergency.index', $employee)
                 ->with('success_message', 'Employee Emeregency was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -148,6 +148,16 @@ class EmployeeEmergenciesController extends Controller
         return view('employees.emergency.edit', compact('employeeEmergency', 'employee', 'relationships'));
     }
 
+    //Prints employee emergency
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeEmergencies = EmployeeEmergency::where('employee', $employee_id)->with('employees', 'relationships')->get();
+
+        return view('employees.emergency.print', compact('employeeEmergencies', 'employee'));
+    }
+
     /**
      * Update the specified employee emergency in the storage.
      *
@@ -166,7 +176,7 @@ class EmployeeEmergenciesController extends Controller
             $data['employee'] = $employee;
             $employeeEmergency->update($data);
 
-            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
+            return redirect()->route('employee_emergencies.employee_emergency.index', $employee)
                 ->with('success_message', 'Employee Emergency was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -194,7 +204,7 @@ class EmployeeEmergenciesController extends Controller
             $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
             $employeeEmergency->delete();
 
-            return redirect()->route('employee_emergencies.employee_emergency.index',$employee)
+            return redirect()->route('employee_emergencies.employee_emergency.index', $employee)
                 ->with('success_message', 'Employee Emergency was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();

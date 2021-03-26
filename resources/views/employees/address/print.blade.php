@@ -1,6 +1,6 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Print Address
+    Address
 @endsection
 @section('content')
     <div>

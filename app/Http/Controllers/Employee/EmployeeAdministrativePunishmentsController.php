@@ -88,6 +88,16 @@ class EmployeeAdministrativePunishmentsController extends Controller
         return view('employees.administrative_punishment.edit', compact('employeeAdministrativePunishment', 'employee'));
     }
 
+    //Prints employee administrative punishment
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeAdministrativePunishments = EmployeeAdministrativePunishment::where('employee', $employee_id)->with('employees')->get();
+
+        return view('employees.administrative_punishment.print', compact('employeeAdministrativePunishments', 'employee'));
+    }
+
     /**
      * Update the specified employee administrative punishment in the storage.
      *

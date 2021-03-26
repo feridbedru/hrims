@@ -17,7 +17,7 @@
 
     function process(input){
     let value = input.value;
-    let text = value.replace(/[^A-Z,a-z]/g, "");
+    let text = value.replace(/[^A-Z,a-z ]/g ' "");
     input.value = text;
   }
   </script>

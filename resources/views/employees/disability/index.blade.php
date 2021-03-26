@@ -122,7 +122,7 @@
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
     @if (count($employeeDisabilities) > 0)
-        <a href="#" class="btn btn-primary" title="Print Employee Disability">
+        <a href="{{ route('employee_disabilities.employee_disability.print', $employee) }}" class="btn btn-primary" title="Print Employee Disability" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> Print</span>
         </a>
     @endif

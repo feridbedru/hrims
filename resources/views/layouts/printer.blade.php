@@ -63,6 +63,7 @@
         {{ $employee->organizationUnitse->en_name }}
     </div><br>
 
+    <h2 class="text-center">@yield('pagetitle')</h2>
     @yield('content')
     <br>
     @php

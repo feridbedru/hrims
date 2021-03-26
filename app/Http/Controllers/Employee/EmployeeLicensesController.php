@@ -148,6 +148,16 @@ class EmployeeLicensesController extends Controller
         return view('employees.license.edit', compact('employeeLicense', 'employee', 'licenseTypes'));
     }
 
+        //Prints employee license
+        public function print($employee)
+        {
+            $employee_id = $employee;
+            $employee = Employee::findOrFail($employee_id);
+            $employeeLicenses = EmployeeLicense::where('employee', $employee_id)->with('employees','types')->get();
+
+            return view('employees.license.print', compact('employeeLicenses','employee'));
+        }
+
     /**
      * Update the specified employee license in the storage.
      *

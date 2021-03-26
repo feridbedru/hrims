@@ -25,9 +25,9 @@ class EmployeeAwardsController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeAwards = EmployeeAward::where('employee', $employee_id)->with('types','employees')->paginate(25);
+        $employeeAwards = EmployeeAward::where('employee', $employee_id)->with('types', 'employees')->paginate(25);
 
-        return view('employees.award.index', compact('employeeAwards','employee'));
+        return view('employees.award.index', compact('employeeAwards', 'employee'));
     }
 
     /**
@@ -63,15 +63,15 @@ class EmployeeAwardsController extends Controller
             // $em=$old[0];
             // $ed=$old[1];
             // $ey=$old[2];
-    
+
             // $ethipic = $ey.'-'.$em.'-'. $ed;
             $et = strtotime($old_date);
-            $ethipic = date('Y-m-d',$et);
+            $ethipic = date('Y-m-d', $et);
             $gregorian = $ethipic->toGregorian();
             dd($gregorian);
             EmployeeAward::create($data);
 
-            return redirect()->route('employee_awards.employee_award.index',$employee)
+            return redirect()->route('employee_awards.employee_award.index', $employee)
                 ->with('success_message', 'Employee Award was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -103,7 +103,7 @@ class EmployeeAwardsController extends Controller
             $employeeAward->approved_at = now();
             $employeeAward->save();
 
-            return redirect()->route('employee_awards.employee_award.show', ['employee'=>$employee, 'employeeAward'=>$employeeAward])
+            return redirect()->route('employee_awards.employee_award.show', ['employee' => $employee, 'employeeAward' => $employeeAward])
                 ->with('success_message', 'Employee Award was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -131,7 +131,7 @@ class EmployeeAwardsController extends Controller
             $employeeAward->note = $request['note'];
             $employeeAward->save();
 
-            return redirect()->route('employee_awards.employee_award.show', ['employee'=>$employee, 'employeeAward'=>$employeeAward])
+            return redirect()->route('employee_awards.employee_award.show', ['employee' => $employee, 'employeeAward' => $employeeAward])
                 ->with('success_message', 'Employee Award was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -158,7 +158,7 @@ class EmployeeAwardsController extends Controller
         $employee = Employee::findOrFail($employee);
         $employeeAward = EmployeeAward::with('employees', 'types')->findOrFail($employeeAwards);
 
-        return view('employees.award.show', compact('employeeAward','employee'));
+        return view('employees.award.show', compact('employeeAward', 'employee'));
     }
 
     /**
@@ -175,6 +175,16 @@ class EmployeeAwardsController extends Controller
         $awardTypes = AwardType::pluck('name', 'id')->all();
 
         return view('employees.award.edit', compact('employeeAward', 'employee', 'awardTypes'));
+    }
+
+    //Prints employee award
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeAwards = EmployeeAward::where('employee', $employee_id)->with('types', 'employees')->get();
+
+        return view('employees.award.print', compact('employeeAwards', 'employee'));
     }
 
     /**
@@ -195,7 +205,7 @@ class EmployeeAwardsController extends Controller
             $data['employee'] = $employee;
             $employeeAward->update($data);
 
-            return redirect()->route('employee_awards.employee_award.index',$employee)
+            return redirect()->route('employee_awards.employee_award.index', $employee)
                 ->with('success_message', 'Employee Award was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -223,7 +233,7 @@ class EmployeeAwardsController extends Controller
             $employeeAward = EmployeeAward::findOrFail($employeeAwards);
             $employeeAward->delete();
 
-            return redirect()->route('employee_awards.employee_award.index',$employee)
+            return redirect()->route('employee_awards.employee_award.index', $employee)
                 ->with('success_message', 'Employee Award was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -285,13 +295,12 @@ class EmployeeAwardsController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/awards'))
-        {
-            mkdir('uploads/awards', 0777 , true);
+        if (!file_exists('uploads/awards')) {
+            mkdir('uploads/awards', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/awards', $fileName);
-        
+
         return $fileName;
     }
 }

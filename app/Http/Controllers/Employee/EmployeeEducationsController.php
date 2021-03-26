@@ -95,7 +95,7 @@ class EmployeeEducationsController extends Controller
             $employeeEducation->approved_at = now();
             $employeeEducation->save();
 
-            return redirect()->route('employee_educations.employee_education.show', ['employee'=>$employee, 'employeeEducation'=>$employeeEducation])
+            return redirect()->route('employee_educations.employee_education.show', ['employee' => $employee, 'employeeEducation' => $employeeEducation])
                 ->with('success_message', 'Employee Education was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -123,7 +123,7 @@ class EmployeeEducationsController extends Controller
             $employeeEducation->note = $request['note'];
             $employeeEducation->save();
 
-            return redirect()->route('employee_educations.employee_education.show', ['employee'=>$employee, 'employeeEducation'=>$employeeEducation])
+            return redirect()->route('employee_educations.employee_education.show', ['employee' => $employee, 'employeeEducation' => $employeeEducation])
                 ->with('success_message', 'Employee Education was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -170,6 +170,16 @@ class EmployeeEducationsController extends Controller
         $gpaScales = GPAScale::pluck('name', 'id')->all();
 
         return view('employees.education.edit', compact('employeeEducation', 'employee', 'educationLevels', 'educationalInstitutes', 'educationalFields', 'gpaScales'));
+    }
+
+    //Prints employee education
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeEducations = EmployeeEducation::where('employee', $employee_id)->with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->paginate(25);
+
+        return view('employees.education.print', compact('employeeEducations', 'employee'));
     }
 
     /**
@@ -292,13 +302,12 @@ class EmployeeEducationsController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/education'))
-        {
-            mkdir('uploads/education', 0777 , true);
+        if (!file_exists('uploads/education')) {
+            mkdir('uploads/education', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/education', $fileName);
-        
+
         return $fileName;
     }
 }

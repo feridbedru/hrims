@@ -25,7 +25,7 @@ class EmployeeFilesController extends Controller
         $employee = Employee::findOrFail($employee_id);
         $employeeFiles = EmployeeFile::where('employee', $employee_id)->with('employees')->paginate(25);
 
-        return view('employees.file.index', compact('employeeFiles','employee'));
+        return view('employees.file.index', compact('employeeFiles', 'employee'));
     }
 
     /**
@@ -47,7 +47,7 @@ class EmployeeFilesController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request,$id)
+    public function store(Request $request, $id)
     {
         try {
             $employee = Employee::findOrFail($id);
@@ -56,7 +56,7 @@ class EmployeeFilesController extends Controller
             $data['employee'] = $id;
             EmployeeFile::create($data);
 
-            return redirect()->route('employee_files.employee_file.index',$employee)
+            return redirect()->route('employee_files.employee_file.index', $employee)
                 ->with('success_message', 'Employee File was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -84,6 +84,16 @@ class EmployeeFilesController extends Controller
         $employee = Employee::findOrFail($employee);
 
         return view('employees.file.edit', compact('employeeFile', 'employee'));
+    }
+
+    //Prints employee files
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeFiles = EmployeeFile::where('employee', $employee_id)->with('employees')->get();
+
+        return view('employees.file.print', compact('employeeFiles', 'employee'));
     }
 
     /**
@@ -132,7 +142,7 @@ class EmployeeFilesController extends Controller
             $employeeFile = EmployeeFile::findOrFail($employeeFiles);
             $employeeFile->delete();
 
-            return redirect()->route('employee_files.employee_file.index',$employee)
+            return redirect()->route('employee_files.employee_file.index', $employee)
                 ->with('success_message', 'Employee File was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -186,13 +196,12 @@ class EmployeeFilesController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/misc'))
-        {
-            mkdir('uploads/misc', 0777 , true);
+        if (!file_exists('uploads/misc')) {
+            mkdir('uploads/misc', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/misc', $fileName);
-        
+
         return $fileName;
     }
 }

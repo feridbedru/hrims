@@ -71,7 +71,7 @@
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
     @if (count($employeeDisasters) > 0)
-        <a href="#" class="btn btn-primary" title="Print Employee Disaster">
+        <a href="{{ route('employee_disasters.employee_disaster.print', $employee) }}" class="btn btn-primary" title="Print Employee Disaster" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> Print</span>
         </a>
     @endif

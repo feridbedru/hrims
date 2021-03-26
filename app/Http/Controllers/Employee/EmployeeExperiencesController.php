@@ -168,6 +168,17 @@ class EmployeeExperiencesController extends Controller
         return view('employees.experience.edit', compact('employeeExperience', 'employee', 'experienceTypes', 'leftReasons'));
     }
 
+
+    //Prints employee experience
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeExperiences = EmployeeExperience::where('employee', $employee_id)->with('employees', 'types', 'leftReasons')->get();
+
+        return view('employees.experience.print', compact('employeeExperiences','employee'));
+    }
+
     /**
      * Update the specified employee experience in the storage.
      *

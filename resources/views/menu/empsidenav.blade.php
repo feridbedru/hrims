@@ -339,7 +339,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_files.employee_file.create', ['employee' => $employee]) }}"
-                            class="nav-link{{ request()->is('employees/*/file/create') ? 'active' : ' ' }}">
+                            class="nav-link {{ request()->is('employees/*/file/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
                             <p>New</p>
                         </a>

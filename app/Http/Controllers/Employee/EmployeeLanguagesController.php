@@ -26,9 +26,9 @@ class EmployeeLanguagesController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings','writings','speakings','listenings')->paginate(25);
+        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings', 'writings', 'speakings', 'listenings')->paginate(25);
 
-        return view('employees.language.index', compact('employeeLanguages','employee'));
+        return view('employees.language.index', compact('employeeLanguages', 'employee'));
     }
 
     /**
@@ -61,7 +61,7 @@ class EmployeeLanguagesController extends Controller
             $data['employee'] = $id;
             EmployeeLanguage::create($data);
 
-            return redirect()->route('employee_languages.employee_language.index',$employee)
+            return redirect()->route('employee_languages.employee_language.index', $employee)
                 ->with('success_message', 'Employee Language was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -93,6 +93,16 @@ class EmployeeLanguagesController extends Controller
         return view('employees.language.edit', compact('employeeLanguage', 'employee', 'languages', 'languageLevels'));
     }
 
+    //Prints employee language
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings', 'writings', 'speakings', 'listenings')->paginate(25);
+
+        return view('employees.language.print', compact('employeeLanguages', 'employee'));
+    }
+
     /**
      * Update the specified employee language in the storage.
      *
@@ -111,7 +121,7 @@ class EmployeeLanguagesController extends Controller
             $data['employee'] = $employee;
             $employeeLanguage->update($data);
 
-            return redirect()->route('employee_languages.employee_language.index',$employee)
+            return redirect()->route('employee_languages.employee_language.index', $employee)
                 ->with('success_message', 'Employee Language was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -139,7 +149,7 @@ class EmployeeLanguagesController extends Controller
             $employeeLanguage = EmployeeLanguage::findOrFail($employeeLanguages);
             $employeeLanguage->delete();
 
-            return redirect()->route('employee_languages.employee_language.index',$employee)
+            return redirect()->route('employee_languages.employee_language.index', $employee)
                 ->with('success_message', 'Employee Language was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();

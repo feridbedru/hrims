@@ -86,7 +86,7 @@
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
     @if (count($employeeCertifications) > 0)
-        <a href="#" class="btn btn-primary" title="Print Employee Certification">
+        <a href="{{ route('employee_certifications.employee_certification.print', $employee) }}" class="btn btn-primary" title="Print Employee Certification" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> Print</span>
         </a>
     @endif

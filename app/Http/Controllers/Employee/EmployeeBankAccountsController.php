@@ -151,6 +151,14 @@ class EmployeeBankAccountsController extends Controller
         return view('employees.bank_account.edit', compact('employeeBankAccount', 'employee', 'banks', 'bankAccountTypes'));
     }
 
+    //Prints employee bank account
+    public function print($employee){
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeBankAccounts = EmployeeBankAccount::where('employee', $employee_id)->with('banks', 'types', 'employees')->get();
+
+        return view('employees.bank_account.print', compact('employeeBankAccounts','employee'));
+    }
     /**
      * Update the specified employee bank account in the storage.
      *

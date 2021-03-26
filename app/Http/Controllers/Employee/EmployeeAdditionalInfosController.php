@@ -45,7 +45,7 @@ class EmployeeAdditionalInfosController extends Controller
         $employeeAdditionalInfos = EmployeeAdditionalInfo::all();
         $employeeAdditionalInfo = EmployeeAdditionalInfo::where('employee', $id)->with('employees');
 
-        return view('employees.additional_info.create', compact('employee', 'nationalities', 'religions', 'maritalStatuses','employeeAdditionalInfos','employeeAdditionalInfo'));
+        return view('employees.additional_info.create', compact('employee', 'nationalities', 'religions', 'maritalStatuses', 'employeeAdditionalInfos', 'employeeAdditionalInfo'));
     }
 
     /**
@@ -96,6 +96,16 @@ class EmployeeAdditionalInfosController extends Controller
         $maritalStatuses = MaritalStatus::pluck('name', 'id')->all();
 
         return view('employees.additional_info.edit', compact('employeeAdditionalInfo', 'employee', 'nationalities', 'religions', 'maritalStatuses'));
+    }
+
+    //Prints employee additional information
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeAdditionalInfos = EmployeeAdditionalInfo::with('employees', 'nationalities', 'religions', 'maritalStatuses')->get();
+
+        return view('employees.additional_info.print', compact('employeeAdditionalInfos', 'employee'));
     }
 
     /**

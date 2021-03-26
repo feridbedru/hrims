@@ -169,6 +169,16 @@ class EmployeeCertificationsController extends Controller
         return view('employees.certification.edit', compact('employeeCertification', 'employee', 'skillCategories', 'certificationVendors'));
     }
 
+        //Prints employee certification
+        public function print($employee)
+        {
+            $employee_id = $employee;
+            $employee = Employee::findOrFail($employee_id);
+            $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees','vendors','categories')->get();
+
+            return view('employees.certification.print', compact('employeeCertifications','employee'));
+        }
+
     /**
      * Update the specified employee certification in the storage.
      *

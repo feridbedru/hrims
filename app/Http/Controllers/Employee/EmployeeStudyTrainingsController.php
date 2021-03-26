@@ -27,9 +27,9 @@ class EmployeeStudyTrainingsController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeStudyTrainings = EmployeeStudyTraining::where('employee', $employee_id)->with('employees','types','institutions','fields','levels')->paginate(25);
+        $employeeStudyTrainings = EmployeeStudyTraining::where('employee', $employee_id)->with('employees', 'types', 'institutions', 'fields', 'levels')->paginate(25);
 
-        return view('employees.study_training.index', compact('employeeStudyTrainings','employee'));
+        return view('employees.study_training.index', compact('employeeStudyTrainings', 'employee'));
     }
 
     /**
@@ -55,7 +55,7 @@ class EmployeeStudyTrainingsController extends Controller
      *
      * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
      */
-    public function store(Request $request,$id)
+    public function store(Request $request, $id)
     {
         try {
             $employee = Employee::findOrFail($id);
@@ -64,7 +64,7 @@ class EmployeeStudyTrainingsController extends Controller
             $data['employee'] = $id;
             EmployeeStudyTraining::create($data);
 
-            return redirect()->route('employee_study_trainings.employee_study_training.index',$employee)
+            return redirect()->route('employee_study_trainings.employee_study_training.index', $employee)
                 ->with('success_message', 'Employee Study Training was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -89,9 +89,9 @@ class EmployeeStudyTrainingsController extends Controller
     public function show($employee, $employeeStudyTrainings)
     {
         $employee = Employee::findOrFail($employee);
-        $employeeStudyTraining = EmployeeStudyTraining::with('employees','types','institutions','fields','levels')->findOrFail($employeeStudyTrainings);
+        $employeeStudyTraining = EmployeeStudyTraining::with('employees', 'types', 'institutions', 'fields', 'levels')->findOrFail($employeeStudyTrainings);
 
-        return view('employees.study_training.show', compact('employeeStudyTraining','employee'));
+        return view('employees.study_training.show', compact('employeeStudyTraining', 'employee'));
     }
 
     /**
@@ -113,6 +113,16 @@ class EmployeeStudyTrainingsController extends Controller
         return view('employees.study_training.edit', compact('employeeStudyTraining', 'employee', 'commitmentFors', 'educationalInstitutions', 'educationalLevels', 'educationalFields'));
     }
 
+    //Prints employee studytraining
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeStudyTrainings = EmployeeStudyTraining::where('employee', $employee_id)->with('employees', 'types', 'institutions', 'fields', 'levels')->get();
+
+        return view('employees.study_training.print', compact('employeeStudyTrainings', 'employee'));
+    }
+
     /**
      * Update the specified employee study training in the storage.
      *
@@ -131,7 +141,7 @@ class EmployeeStudyTrainingsController extends Controller
             $data['employee'] = $employee;
             $employeeStudyTraining->update($data);
 
-            return redirect()->route('employee_study_trainings.employee_study_training.index',$employee)
+            return redirect()->route('employee_study_trainings.employee_study_training.index', $employee)
                 ->with('success_message', 'Employee Study Training was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -159,7 +169,7 @@ class EmployeeStudyTrainingsController extends Controller
             $employeeStudyTraining = EmployeeStudyTraining::findOrFail($employeeStudyTrainings);
             $employeeStudyTraining->delete();
 
-            return redirect()->route('employee_study_trainings.employee_study_training.index',$employee)
+            return redirect()->route('employee_study_trainings.employee_study_training.index', $employee)
                 ->with('success_message', 'Employee Study Training was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -221,13 +231,12 @@ class EmployeeStudyTrainingsController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/commitment'))
-        {
-            mkdir('uploads/commitment', 0777 , true);
+        if (!file_exists('uploads/commitment')) {
+            mkdir('uploads/commitment', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/commitment', $fileName);
-        
+
         return $fileName;
     }
 }

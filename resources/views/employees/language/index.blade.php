@@ -70,7 +70,7 @@
         <span class="fa fa-plus" aria-hidden="true"> Add New</span>
     </a>
     @if (count($employeeLanguages) > 0)
-        <a href="#" class="btn btn-primary" title="Print Employee Language">
+        <a href="{{ route('employee_languages.employee_language.print', $employee) }}" class="btn btn-primary" title="Print Employee Language" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> Print</span>
         </a>
     @endif

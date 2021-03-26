@@ -26,7 +26,7 @@ class EmployeeDisabilitiesController extends Controller
         $employee = Employee::findOrFail($employee_id);
         $employeeDisabilities = EmployeeDisability::where('employee', $employee_id)->with('employees', 'types')->paginate(25);
 
-        return view('employees.disability.index', compact('employeeDisabilities','employee'));
+        return view('employees.disability.index', compact('employeeDisabilities', 'employee'));
     }
 
     /**
@@ -117,7 +117,7 @@ class EmployeeDisabilitiesController extends Controller
             $employeeDisability->note = $request['note'];
             $employeeDisability->save();
 
-            return redirect()->route('employee_disabilities.employee_disability.index',$employee)
+            return redirect()->route('employee_disabilities.employee_disability.index', $employee)
                 ->with('success_message', 'Employee Disability was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -148,6 +148,16 @@ class EmployeeDisabilitiesController extends Controller
         return view('employees.disability.edit', compact('employeeDisability', 'employee', 'disabilityTypes'));
     }
 
+    //Prints employee disability
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeDisabilities = EmployeeDisability::where('employee', $employee_id)->with('employees', 'types')->get();
+
+        return view('employees.disability.print', compact('employeeDisabilities', 'employee'));
+    }
+
     /**
      * Update the specified employee disability in the storage.
      *
@@ -166,7 +176,7 @@ class EmployeeDisabilitiesController extends Controller
             $data['employee'] = $employee;
             $employeeDisability->update($data);
 
-            return redirect()->route('employee_disabilities.employee_disability.index',$employee)
+            return redirect()->route('employee_disabilities.employee_disability.index', $employee)
                 ->with('success_message', 'Employee Disability was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -194,7 +204,7 @@ class EmployeeDisabilitiesController extends Controller
             $employeeDisability = EmployeeDisability::findOrFail($employeeDisabilities);
             $employeeDisability->delete();
 
-            return redirect()->route('employee_disabilities.employee_disability.index',$employee)
+            return redirect()->route('employee_disabilities.employee_disability.index', $employee)
                 ->with('success_message', 'Employee Disability was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -252,13 +262,12 @@ class EmployeeDisabilitiesController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/disability'))
-        {
-            mkdir('uploads/disability', 0777 , true);
+        if (!file_exists('uploads/disability')) {
+            mkdir('uploads/disability', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/disability', $fileName);
-        
+
         return $fileName;
     }
 }

@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Exception;
-use PDF;
 
 class EmployeeAddressesController extends Controller
 {
@@ -162,8 +161,6 @@ class EmployeeAddressesController extends Controller
         $regions = Region::all();
         $employeeAddresses = EmployeeAddress::where('employee', $employee_id)->with('employees', 'types', 'woredas')->get();
 
-        // $pdf = PDF::loadView('employees.address.print', compact('employeeAddresses', 'employee','zones','regions'));
-        // return $pdf->download($employee->en_name.' Address.pdf');
         return view('employees.address.print', compact('employeeAddresses', 'employee','zones','regions'));
     }
 

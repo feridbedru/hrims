@@ -79,7 +79,7 @@
             <span class="fa fa-plus" aria-hidden="true"> Add New</span>
         </a>
     @else
-        <a href="#" class="btn btn-primary" title="Print Employee  Additional Info">
+        <a href="{{ route('employee_additional_infos.employee_additional_info.print', $employee) }}" class="btn btn-primary" title="Print Employee Additional Info" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> Print</span>
         </a>
     @endif

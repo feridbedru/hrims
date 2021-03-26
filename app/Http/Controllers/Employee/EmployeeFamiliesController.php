@@ -152,6 +152,16 @@ class EmployeeFamiliesController extends Controller
         return view('employees.family.edit', compact('employeeFamily', 'employee', 'sexes', 'relationships'));
     }
 
+        //Prints employee family
+        public function print($employee)
+        {
+            $employee_id = $employee;
+            $employee = Employee::findOrFail($employee_id);
+            $employeeFamilies = EmployeeFamily::where('employee', $employee_id)->with('employees','relationships','sexes')->get();
+
+            return view('employees.family.print', compact('employeeFamilies','employee'));
+        }
+
     /**
      * Update the specified employee family in the storage.
      *

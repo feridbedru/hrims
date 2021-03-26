@@ -25,9 +25,9 @@ class EmployeeDisastersController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeDisasters = EmployeeDisaster::where('employee', $employee_id)->with('causes','employees','severities')->paginate(25);
+        $employeeDisasters = EmployeeDisaster::where('employee', $employee_id)->with('causes', 'employees', 'severities')->paginate(25);
 
-        return view('employees.disaster.index', compact('employeeDisasters','employee'));
+        return view('employees.disaster.index', compact('employeeDisasters', 'employee'));
     }
 
     /**
@@ -62,7 +62,7 @@ class EmployeeDisastersController extends Controller
             $data['employee'] = $id;
             EmployeeDisaster::create($data);
 
-            return redirect()->route('employee_disasters.employee_disaster.index',$employee)
+            return redirect()->route('employee_disasters.employee_disaster.index', $employee)
                 ->with('success_message', 'Employee Disaster was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -84,12 +84,12 @@ class EmployeeDisastersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function show($employee,$employeeDisasters)
+    public function show($employee, $employeeDisasters)
     {
         $employee = Employee::findOrFail($employee);
-        $employeeDisaster = EmployeeDisaster::with('causes','employees','severities')->findOrFail($employeeDisasters);
+        $employeeDisaster = EmployeeDisaster::with('causes', 'employees', 'severities')->findOrFail($employeeDisasters);
 
-        return view('employees.disaster.show', compact('employeeDisaster','employee'));
+        return view('employees.disaster.show', compact('employeeDisaster', 'employee'));
     }
 
     /**
@@ -107,6 +107,16 @@ class EmployeeDisastersController extends Controller
         $disasterSeverities = DisasterSeverity::pluck('name', 'id')->all();
 
         return view('employees.disaster.edit', compact('employeeDisaster', 'employee', 'disasterCauses', 'disasterSeverities'));
+    }
+
+    //Prints employee disaster
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeDisasters = EmployeeDisaster::where('employee', $employee_id)->with('causes', 'employees', 'severities')->get();
+
+        return view('employees.disaster.print', compact('employeeDisasters', 'employee'));
     }
 
     /**
@@ -127,7 +137,7 @@ class EmployeeDisastersController extends Controller
             $data['employee'] = $employee;
             $employeeDisaster->update($data);
 
-            return redirect()->route('employee_disasters.employee_disaster.index',$employee)
+            return redirect()->route('employee_disasters.employee_disaster.index', $employee)
                 ->with('success_message', 'Employee Disaster was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -155,7 +165,7 @@ class EmployeeDisastersController extends Controller
             $employeeDisaster = EmployeeDisaster::findOrFail($employeeDisasters);
             $employeeDisaster->delete();
 
-            return redirect()->route('employee_disasters.employee_disaster.index',$employee)
+            return redirect()->route('employee_disasters.employee_disaster.index', $employee)
                 ->with('success_message', 'Employee Disaster was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -219,13 +229,12 @@ class EmployeeDisastersController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/disaster'))
-        {
-            mkdir('uploads/disaster', 0777 , true);
+        if (!file_exists('uploads/disaster')) {
+            mkdir('uploads/disaster', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/disaster', $fileName);
-        
+
         return $fileName;
     }
 }
