@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $relationships->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $relationships->links() }}
+                </div>
             @endif
         </div>
     </div>

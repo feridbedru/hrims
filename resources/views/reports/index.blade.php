@@ -56,7 +56,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $reports->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $reports->links() }}
+                </div>
             @endif
         </div>
     </div>

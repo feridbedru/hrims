@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $nationalities->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $nationalities->links() }}
+                </div>
             @endif
         </div>
     </div>

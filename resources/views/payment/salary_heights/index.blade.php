@@ -63,7 +63,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $salaryHeights->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $salaryHeights->links() }}
+                </div>
             @endif
         </div>
     </div>

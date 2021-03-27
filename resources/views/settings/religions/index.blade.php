@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $religions->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $religions->links() }}
+                </div>
             @endif
         </div>
     </div>

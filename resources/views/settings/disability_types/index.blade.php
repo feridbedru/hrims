@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $disabilityTypes->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $disabilityTypes->links() }}
+                </div>
             @endif
         </div>
     </div>

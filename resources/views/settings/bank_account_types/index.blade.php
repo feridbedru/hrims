@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $bankAccountTypes->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $bankAccountTypes->links() }}
+                </div>
             @endif
         </div>
     </div>

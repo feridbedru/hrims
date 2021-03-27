@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $languageLevels->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $languageLevels->links() }}
+                </div>
             @endif
         </div>
     </div>

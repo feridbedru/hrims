@@ -76,7 +76,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $employeeAdministrativePunishments->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $employeeAdministrativePunishments->links() }}
+                </div>
             @endif
         </div>
     </div>

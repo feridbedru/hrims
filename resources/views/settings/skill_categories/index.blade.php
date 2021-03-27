@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $skillCategories->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $skillCategories->links() }}
+                </div>
             @endif
         </div>
     </div>

@@ -64,8 +64,7 @@
         <label for="awarded_on" class="col-md-12 control-label">Awarded On <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="awarded_on" type="text" id="awarded_on"
-                value="{{ old('awarded_on', optional($employeeAward)->awarded_on) }}"
-                placeholder="Enter awarded on here..." minlength="10" maxlength="10">
+                value="{{ old('organization', optional($employeeAward)->awarded_on) }}"  minlength="10" maxlength="10">
         </div>
     </div>
 </div>
@@ -85,11 +84,16 @@
     <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian.js') }}"></script>
     <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian-am.js') }}"></script>
     <script>
-        $(function() {
-            var calendar = $.calendars.instance('ethiopian', 'am');
-            $('#awarded_on').calendarsPicker({
-                calendar: calendar
-            });
+        $('#awarded_on').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            onSelect: toGregorian,
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
         });
+
+        function toGregorian(date) {
+            var jd = $.calendars.instance("ethiopian").newDate(date[0].year(), date[0].month(), date[0].day()).toJD();
+            $('#awarded_on').val($.calendars.instance("gregorian").fromJD(jd));
+        }
     </script>
 @endsection

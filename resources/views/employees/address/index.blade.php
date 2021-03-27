@@ -113,7 +113,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $employeeAddresses->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $employeeAddresses->links() }}
+                </div>
             @endif
         </div>
     </div>

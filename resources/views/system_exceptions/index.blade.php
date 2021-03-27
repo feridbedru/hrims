@@ -64,7 +64,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $systemExceptions->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $systemExceptions->links() }}
+                </div>
             @endif
         </div>
     </div>

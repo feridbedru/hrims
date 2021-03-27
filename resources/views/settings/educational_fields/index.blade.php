@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $educationalFields->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $educationalFields->links() }}
+                </div>
             @endif
         </div>
     </div>

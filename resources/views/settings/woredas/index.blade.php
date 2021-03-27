@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $woredas->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $woredas->links() }}
+                </div>
             @endif
         </div>
     </div>

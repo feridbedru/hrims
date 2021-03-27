@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $regions->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $regions->links() }}
+                </div>
             @endif
         </div>
     </div>

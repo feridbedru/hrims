@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $disasterCauses->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $disasterCauses->links() }}
+                </div>
             @endif
         </div>
     </div>

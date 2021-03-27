@@ -107,7 +107,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $templates->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $templates->links() }}
+                </div>
             @endif
         </div>
     </div>

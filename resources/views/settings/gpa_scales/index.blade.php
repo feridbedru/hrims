@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $gPAScales->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $gPAScales->links() }}
+                </div>
             @endif
         </div>
     </div>

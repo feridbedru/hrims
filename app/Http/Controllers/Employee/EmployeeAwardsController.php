@@ -58,17 +58,6 @@ class EmployeeAwardsController extends Controller
             $data['created_by'] = 1;
             $data['status'] = 1;
             $data['employee'] = $id;
-            $old_date = $request['awarded_on'];
-            // $old= explode("/",$old_date);
-            // $em=$old[0];
-            // $ed=$old[1];
-            // $ey=$old[2];
-
-            // $ethipic = $ey.'-'.$em.'-'. $ed;
-            $et = strtotime($old_date);
-            $ethipic = date('Y-m-d', $et);
-            $gregorian = $ethipic->toGregorian();
-            dd($gregorian);
             EmployeeAward::create($data);
 
             return redirect()->route('employee_awards.employee_award.index', $employee)

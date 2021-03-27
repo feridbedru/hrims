@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $certificationVendors->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $certificationVendors->links() }}
+                </div>
             @endif
         </div>
     </div>

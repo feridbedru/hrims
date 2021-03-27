@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $leftReasons->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $leftReasons->links() }}
+                </div>
             @endif
         </div>
     </div>

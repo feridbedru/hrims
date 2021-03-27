@@ -119,7 +119,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $employeeEmergencies->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $employeeEmergencies->links() }}
+                </div>
             @endif
         </div>
     </div>

@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $addressTypes->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $addressTypes->links() }}
+                </div>
             @endif
         </div>
     </div>

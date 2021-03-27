@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $banks->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $banks->links() }}
+                </div>
             @endif
         </div>
     </div>

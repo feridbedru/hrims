@@ -28,7 +28,6 @@
                             <th>Stair Height</th>
                             <th>Salary Steps</th>
                             <th>Is Enabled</th>
-
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -67,7 +66,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $salaryScales->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $salaryScales->links() }}
+                </div>
             @endif
         </div>
     </div>

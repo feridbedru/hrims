@@ -61,7 +61,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $employeeLanguages->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $employeeLanguages->links() }}
+                </div>
             @endif
         </div>
     </div>

@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $disasterSeverities->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $disasterSeverities->links() }}
+                </div>
             @endif
         </div>
     </div>

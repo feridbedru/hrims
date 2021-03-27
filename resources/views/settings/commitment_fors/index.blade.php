@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $commitmentFors->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $commitmentFors->links() }}
+                </div>
             @endif
         </div>
     </div>

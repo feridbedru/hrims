@@ -96,7 +96,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $licenseTypes->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $licenseTypes->links() }}
+                </div>
             @endif
         </div>
     </div>

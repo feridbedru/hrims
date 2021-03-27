@@ -99,7 +99,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $jobCategories->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $jobCategories->links() }}
+                </div>
             @endif
         </div>
     </div>

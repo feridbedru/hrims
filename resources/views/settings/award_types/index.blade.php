@@ -97,7 +97,9 @@
                         @endforeach
                     </tbody>
                 </table>
-                {!! $awardTypes->render() !!}
+                <div class="d-flex justify-content-center mt-2">
+                {{ $awardTypes->links() }}
+                </div>
             @endif
         </div>
     </div>
