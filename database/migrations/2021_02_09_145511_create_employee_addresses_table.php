@@ -18,7 +18,7 @@ class CreateEmployeeAddressesTable extends Migration
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('type')->constrained('address_types')->onUpdate('cascade')->onDelete('cascade');
             $table->text('address')->nullable();
-            $table->string('house_number')->nullable();
+            $table->string('house_number',30)->nullable();
             $table->foreignId('woreda')->nullable()->constrained('woredas')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');

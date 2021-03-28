@@ -16,9 +16,9 @@ class CreateEmployeeFilesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('title', 255);
+            $table->string('title', 50);
             $table->text('description')->nullable();
-            $table->string('attachment');
+            $table->string('attachment',50);
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 

@@ -15,16 +15,16 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('en_name')->nullable();
-            $table->string('am_name');
+            $table->string('en_name',120)->nullable();
+            $table->string('am_name',120);
             $table->foreignId('title')->nullable()->constrained('titles')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('sex')->constrained('sexes')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date_of_birth');
-            $table->string('photo')->nullable();
-            $table->string('phone_number')->nullable();
+            $table->string('photo',50)->nullable();
+            $table->string('phone_number',20)->nullable();
             $table->foreignId('organization_unit')->constrained('organization_units')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('job_position')->constrained('job_positions')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('employment_id')->nullable();
+            $table->string('employment_id',30)->nullable();
             $table->foreignId('status')->constrained('employee_statuses')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('approve_requests')->nullable();
             $table->boolean('has_delegate')->nullable();

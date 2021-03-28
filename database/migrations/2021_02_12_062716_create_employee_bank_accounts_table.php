@@ -18,8 +18,8 @@ class CreateEmployeeBankAccountsTable extends Migration
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('bank')->constrained('banks')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('account_type')->constrained('bank_account_types')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('account_number');
-            $table->string('file')->nullable();
+            $table->string('account_number',30);
+            $table->string('file',50)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

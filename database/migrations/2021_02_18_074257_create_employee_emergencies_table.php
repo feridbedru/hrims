@@ -16,12 +16,12 @@ class CreateEmployeeEmergenciesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name', 255);
-            $table->string('phone_number')->nullable();
+            $table->string('name', 100);
+            $table->string('phone_number',20)->nullable();
             $table->foreignId('relationship')->constrained('relationships')->onUpdate('cascade')->onDelete('cascade');
             $table->text('address')->nullable();
-            $table->string('house_number')->nullable();
-            $table->string('other_phone')->nullable();
+            $table->string('house_number',35)->nullable();
+            $table->string('other_phone',20)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

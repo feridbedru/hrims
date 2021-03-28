@@ -15,7 +15,7 @@ class CreateZonesTable extends Migration
         Schema::create('zones', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->foreignId('region')->constrained('regions')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 

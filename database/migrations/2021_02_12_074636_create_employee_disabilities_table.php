@@ -18,7 +18,7 @@ class CreateEmployeeDisabilitiesTable extends Migration
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('type')->constrained('disability_types')->onUpdate('cascade')->onDelete('cascade');
             $table->text('description')->nullable();
-            $table->string('medical_certificate')->nullable();
+            $table->string('medical_certificate',50)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

@@ -20,7 +20,7 @@ class CreateEmployeeDisastersTable extends Migration
             $table->foreignId('cause')->constrained('disaster_causes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('severity')->constrained('disaster_severities')->onUpdate('cascade')->onDelete('cascade');
             $table->text('description');
-            $table->string('attachment');
+            $table->string('attachment',50);
             $table->boolean('is_mass');
             $table->integer('status');
             $table->text('note')->nullable();

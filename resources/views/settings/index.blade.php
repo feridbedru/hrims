@@ -310,7 +310,7 @@
         <div class="col-12 col-sm-6 col-md-3">
             <div class="small-box bg-danger">
                 <div class="inner">
-                    <h4>Language Levels</h4>
+                    <h4>Language Proficiency</h4>
                     <p>&nbsp;</p>
                 </div>
                 <div class="icon">
@@ -436,7 +436,7 @@
         </div>
 
         <div class="col-12 col-sm-6 col-md-3">
-            <div class="small-box bg-success">
+            <div class="small-box bg-danger">
                 <div class="inner">
                     <h4>Religion</h4>
                     <p>&nbsp;</p>

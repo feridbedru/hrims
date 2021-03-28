@@ -15,7 +15,7 @@ class CreateTemplateTypesTable extends Migration
         Schema::create('template_types', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 35);
             $table->text('description')->nullable();
             $table->timestamps();
 

@@ -73,7 +73,6 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Address</th>
-                            <th>Coordinates</th>
                             <th class="text-center">Actions</th>
                         </tr>
                     </thead>
@@ -83,7 +82,6 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $organizationLocation->name }}</td>
                                 <td>{{ $organizationLocation->address }}</td>
-                                <td>{{ $organizationLocation->cordinates }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('organization_locations.organization_location.edit', $organizationLocation->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Organization Location">

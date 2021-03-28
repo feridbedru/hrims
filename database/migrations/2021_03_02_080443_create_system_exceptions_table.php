@@ -20,7 +20,7 @@ class CreateSystemExceptionsTable extends Migration
             $table->string('path')->nullable();
             $table->json('request')->nullable();
             $table->json('message')->nullable();
-            $table->string('status')->nullable();
+            $table->intger('status')->nullable();
             $table->timestamps();
 
         });

@@ -98,6 +98,7 @@
                 </table>
                 <div class="d-flex justify-content-center mt-2">
                 {{ $employeeStatuses->links() }}
+                </div>
             @endif
         </div>
     </div>

@@ -16,13 +16,13 @@ class CreateEmployeeCertificationsTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->date('issued_on');
-            $table->string('certification_number')->nullable();
+            $table->string('certification_number',40)->nullable();
             $table->foreignId('category')->constrained('skill_categories')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('verification_link')->nullable();
+            $table->string('verification_link',40)->nullable();
             $table->foreignId('vendor')->nullable()->constrained('certification_vendors')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('attachment')->nullable();
+            $table->string('attachment',50)->nullable();
             $table->date('expires_on')->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');

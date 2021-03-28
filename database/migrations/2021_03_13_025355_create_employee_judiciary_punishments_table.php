@@ -16,12 +16,12 @@ class CreateEmployeeJudiciaryPunishmentsTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('court_name');
+            $table->string('court_name',80);
             $table->text('reason');
-            $table->string('punishment_type');
+            $table->string('punishment_type',30);
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('file');
+            $table->string('file',50);
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();

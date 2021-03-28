@@ -16,11 +16,11 @@ class CreateEmployeeLicensesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('title', 255);
+            $table->string('title', 80);
             $table->foreignId('type')->constrained('license_types')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('issuing_organization');
+            $table->string('issuing_organization',80);
             $table->date('expiry_date')->nullable();
-            $table->string('file')->nullable();
+            $table->string('file',50)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Language Levels
+    Language Proficiency Levels
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">Language Levels</li>
+    <li class="breadcrumb-item active">Language Proficiency Levels</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,11 +61,11 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Language Level List</h3>
+            <h3 class="card-title">Language Proficiency Level List</h3>
         </div>
         <div class="card-body">
             @if (count($languageLevels) == 0)
-                <h4 class="text-center">No Language Levels Available.</h4>
+                <h4 class="text-center">No Language Proficiency Levels Available.</h4>
             @else
                 <table class="table table-striped" id="language_level_table">
                     <thead>

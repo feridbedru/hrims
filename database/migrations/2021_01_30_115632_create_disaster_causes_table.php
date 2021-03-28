@@ -15,7 +15,7 @@ class CreateDisasterCausesTable extends Migration
         Schema::create('disaster_causes', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->text('description')->nullable();
             $table->timestamps();
 

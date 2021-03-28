@@ -25,7 +25,7 @@ class CreateEmployeeStudyTrainingsTable extends Migration
             $table->boolean('has_commitment')->nullable();
             $table->integer('total_commitment')->nullable();
             $table->float('amount',8,2)->nullable();
-            $table->string('attachment')->nullable();
+            $table->string('attachment',50)->nullable();
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 

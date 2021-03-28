@@ -15,7 +15,7 @@ class CreateSkillCategoriesTable extends Migration
         Schema::create('skill_categories', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->text('description')->nullable();
             $table->timestamps();
 

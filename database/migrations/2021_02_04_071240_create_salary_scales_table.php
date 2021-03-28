@@ -15,7 +15,7 @@ class CreateSalaryScalesTable extends Migration
         Schema::create('salary_scales', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->text('description');
             $table->foreignId('job_category')->constrained('job_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('stair_height');

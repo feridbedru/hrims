@@ -16,10 +16,10 @@ class CreateEmployeeDisasterIndeminitiesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('disaster')->constrained('employee_disasters')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('title', 255);
-            $table->string('description', 1000);
+            $table->string('title', 50);
+            $table->longText('description');
             $table->float('cost',8,2)->nullable();
-            $table->string('file')->nullable();
+            $table->string('file',50)->nullable();
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 

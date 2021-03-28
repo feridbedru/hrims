@@ -15,7 +15,7 @@ class CreateExperienceTypesTable extends Migration
         Schema::create('experience_types', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 25);
             $table->text('description')->nullable();
             $table->timestamps();
 

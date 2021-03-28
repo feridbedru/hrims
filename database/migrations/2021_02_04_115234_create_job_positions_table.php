@@ -19,8 +19,8 @@ class CreateJobPositionsTable extends Migration
             $table->foreignId('job_category')->constrained('job_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('job_type')->constrained('job_types')->onUpdate('cascade')->onDelete('cascade');
             $table->text('job_description')->nullable();
-            $table->string('position_code');
-            $table->string('position_id');
+            $table->string('position_code',30);
+            $table->string('position_id',30);
             $table->foreignId('job_title_category')->constrained('job_title_categories')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('salary')->constrained('salaries')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('status');

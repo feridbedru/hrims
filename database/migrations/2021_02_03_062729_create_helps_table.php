@@ -15,10 +15,10 @@ class CreateHelpsTable extends Migration
         Schema::create('helps', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('title', 255);
-            $table->string('description', 1000)->nullable();
+            $table->string('title', 50);
+            $table->text('description')->nullable();
             $table->longText('data');
-            $table->string('topic_for');
+            $table->string('topic_for',50);
             $table->foreignId('parent')->nullable()->constrained('helps')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('language')->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');

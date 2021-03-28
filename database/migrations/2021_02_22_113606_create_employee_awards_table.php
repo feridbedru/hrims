@@ -16,9 +16,9 @@ class CreateEmployeeAwardsTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('organization');
+            $table->string('organization',80);
             $table->text('description')->nullable();
-            $table->string('attachment');
+            $table->string('attachment',80);
             $table->foreignId('type')->constrained('award_types')->onUpdate('cascade')->onDelete('cascade');
             $table->date('awarded_on')->nullable();
             $table->integer('status');

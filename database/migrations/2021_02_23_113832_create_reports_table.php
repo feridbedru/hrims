@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->text('description');
             $table->longText('query');
             $table->boolean('is_active')->nullable();

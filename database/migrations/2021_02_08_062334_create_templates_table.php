@@ -15,12 +15,12 @@ class CreateTemplatesTable extends Migration
         Schema::create('templates', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('title', 255);
+            $table->string('title', 100);
             $table->text('body');
             $table->foreignId('language')->constrained('languages')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('template_type')->constrained('template_types')->onUpdate('cascade')->onDelete('cascade');
             $table->boolean('is_active')->nullable();
-            $table->string('code');
+            $table->string('code',50);
             $table->timestamps();
 
         });

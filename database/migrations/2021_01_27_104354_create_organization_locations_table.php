@@ -15,7 +15,7 @@ class CreateOrganizationLocationsTable extends Migration
         Schema::create('organization_locations', function(Blueprint $table)
         {
             $table->bigIncrements('id');
-            $table->string('name', 255);
+            $table->string('name', 50);
             $table->text('address')->nullable();
             $table->string('cordinates')->nullable();
             $table->timestamps();

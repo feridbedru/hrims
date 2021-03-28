@@ -16,9 +16,9 @@ class CreateEmployeeDisasterWitnessesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('disaster')->constrained('employee_disasters')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name', 255);
-            $table->string('phone')->nullable();
-            $table->string('file')->nullable();
+            $table->string('name', 80);
+            $table->string('phone',20)->nullable();
+            $table->string('file',50)->nullable();
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
 

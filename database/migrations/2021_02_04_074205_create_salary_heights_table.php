@@ -16,7 +16,7 @@ class CreateSalaryHeightsTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('salary_scale')->constrained('salary_scales')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('level');
+            $table->string('level',5);
             $table->float('initial_salary',8,2);
             $table->float('maximum_salary',8,2);
             $table->timestamps();

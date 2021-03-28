@@ -16,12 +16,12 @@ class CreateEmployeeFamiliesTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name', 255);
+            $table->string('name', 70);
             $table->foreignId('sex')->constrained('sexes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('relationship')->constrained('relationships')->onUpdate('cascade')->onDelete('cascade');
             $table->date('date_of_birth');
-            $table->string('photo')->nullable();
-            $table->string('file')->nullable();
+            $table->string('photo',50)->nullable();
+            $table->string('file',50)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');
