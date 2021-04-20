@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Helps
+{{__('setting.Helps')}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Helps</li>
+    <li class="breadcrumb-item active">{{__('setting.Helps')}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Search and Filter</h3>
+            <h3 class="card-title">{{__('setting.SearchandFilter')}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -21,7 +21,7 @@
                     {{ csrf_field() }}
                     <div class="form-group col-md-2">
                         <select class="form-control" name="language" id="language">
-                            <option value="NULL">Select Language</option>
+                            <option value="NULL">{{(__('setting.SelectLanguage'))}}</option>
                             @foreach ($languages as $key => $language)
                                 <option value="{{ $key }}">
                                     {{ $language }}
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <select class="form-control" name="parent_id" id="parent_id">
-                            <option value="NULL">Select Parent</option>
+                            <option value="NULL">{{(__('setting.SelectParent'))}}</option>
                             @foreach ($helpers as $key => $helper)
                                 <option value="{{ $key }}">
                                     {{ $helper }}
@@ -45,7 +45,7 @@
                     <div class="form-group col-md-2 d-flex justify content-between">
                         <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
                         <a href="{{ route('helps.help.index') }}" class="btn btn-danger mr-5" title="Show All Helps">
-                            Reset
+                            {{(__('setting.Reset'))}}
                         </a>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
     </div>
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Helps List</h3>
+            <h3 class="card-title">{{(__('setting.HelpsList'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -63,16 +63,16 @@
 
         <div class="card-body">
             @if (count($helps) == 0)
-                <h4 class="text-center">No Helps Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoHelpsAvailable'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Topic For</th>
-                            <th>Language</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Title'))}}</th>
+                            <th>{{(__('setting.TopicFor'))}}</th>
+                            <th>{{(__('setting.Language'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -115,6 +115,6 @@
         </div>
     </div>
     <a href="{{ route('helps.help.create') }}" class="btn btn-success" title="Create New Help">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

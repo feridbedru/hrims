@@ -1,21 +1,21 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Address
+{{(__('employee.Print Address'))}}
 @endsection
 @section('content')
     <div>
         @if (count($employeeAddresses) == 0)
-            <h4 class="text-center">No Address Available.</h4>
+            <h4 class="text-center">{{(__('employee.No Address Available'))}}.</h4>
         @else
             <table class="table table-striped ">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Address Type</th>
-                        <th>Address</th>
-                        <th>House Number</th>
-                        <th>Heirarchichal Address</th>
-                        <th>Status</th>
+                        <th>{{(__('setting.Number'))}}</th>
+                        <th>{{__('setting.AddressType')}}</th>
+                        <th>{{__('setting.Address')}}</th>
+                        <th>{{(__('employee.House Number'))}}</th>
+                        <th>{{(__('employee.Heirarchichal Address'))}}</th>
+                        <th>{{(__('employee.Status'))}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,11 +39,11 @@
                             </td>
                             <td>
                                 @if ($employeeAddress->status == 1)
-                                    Pending
+                                    {{(__('employee.Pending'))}}
                                 @elseif($employeeAddress->status == 2)
-                                    Rejected
+                                    {{(__('employee.Rejected'))}}
                                 @else
-                                    Approved
+                                    {{(__('employee.Approved'))}}
                                 @endif
                             </td>
                         </tr>

@@ -1,5 +1,5 @@
 <div class="form-group {{ $errors->has('disaster') ? 'has-error' : '' }}">
-    <label for="disaster" class="col-md-2 control-label">Employee Disaster</label>
+    <label for="disaster" class="col-md-2 control-label">{{(__('employee.Employee Disaster'))}}</label>
     <div class="col-md-10">
         <select class="form-control" id="disaster" name="disaster" required="true">
             <option value="" style="display: none;"
@@ -16,7 +16,7 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('name') ? 'has-error' : '' }}">
-        <label for="name" class="col-md-4 control-label">Name</label>
+        <label for="name" class="col-md-4 control-label">{{(__('setting.Name'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeDisasterWitness)->name) }}" minlength="1" maxlength="255"
@@ -25,7 +25,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('phone') ? 'has-error' : '' }}">
-        <label for="phone" class="col-md-4 control-label">Phone</label>
+        <label for="phone" class="col-md-4 control-label">{{(__('setting.PhoneNumber'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="phone" type="text" id="phone"
                 value="{{ old('phone', optional($employeeDisasterWitness)->phone) }}" minlength="1"
@@ -34,7 +34,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('file') ? 'has-error' : '' }}">
-        <label for="file" class="col-md-4 control-label">File</label>
+        <label for="file" class="col-md-4 control-label">{{(__('employee.file'))}}</label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -49,7 +49,7 @@
                 <div class="input-group input-width-input">
                     <span class="input-group-addon">
                         <input type="checkbox" name="custom_delete_file" class="custom-delete-file" value="1"
-                            {{ old('custom_delete_file', '0') == '1' ? 'checked' : '' }}> Delete
+                            {{ old('custom_delete_file', '0') == '1' ? 'checked' : '' }}> {{(__('setting.delete'))}}
                     </span>
 
                     <span class="input-group-addon custom-delete-file-name">

@@ -1,16 +1,16 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-    <label for="name" class="col-md-4 control-label">Woreda Name <span class="text-danger">*</span></label>
+    <label for="name" class="col-md-4 control-label">{{(__('setting.WoredaName '))}} <span class="text-danger">*</span></label>
     <div class="col-md-12">
-        <input class="form-control" name="name" type="text" id="name"
+        <input class="form-control" name="name" type="text" id="name" oninput="process(this)"
             value="{{ old('name', optional($woreda)->name) }}" minlength="1" maxlength="255" required="true"
             placeholder="Enter name here...">
     </div>
 </div>
 
 <div class="form-group {{ $errors->has('zone') ? 'has-error' : '' }}">
-    <label for="zone" class="col-md-4 control-label">Zone <span class="text-danger">*</span></label>
+    <label for="zone" class="col-md-4 control-label">{{(__('setting.zoneName '))}} <span class="text-danger">*</span></label>
     <div class="col-md-12">
         <select class="form-control" id="zone" name="zone" required="true">
             <option value="" style="display: none;"
@@ -25,3 +25,11 @@
         </select>
     </div>
 </div>
+<script>
+
+    function process(input){
+    let value = input.value;
+    let text = value.replace(/[^A-Z,a-z ]/g, "");
+    input.value = text;
+  }
+  </script>

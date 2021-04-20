@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Religion
+{{(__('employee.Edit Religion'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('religions.religion.index') }}">Religion</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('religions.religion.index') }}">{{(__('employee.Religion'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Religion</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Religion'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('religions.religion.update', $religion->id) }}" id="edit_religion_form"
@@ -22,10 +22,10 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('religions.religion.index') }}" class="btn btn-warning"
                             title="Show All Religion">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

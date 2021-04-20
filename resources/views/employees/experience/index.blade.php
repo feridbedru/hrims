@@ -1,30 +1,30 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Experiences
+{{(__('employee.Experience'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Experiences</li>
+    <li class="breadcrumb-item active">{{(__('employee.Experience'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Experiences List</h3>
+            <h3 class="card-title">{{(__('employee.Experiences List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeExperiences) == 0)
-                <h4 class="text-center">No Experiences Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Experiences Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Type</th>
-                            <th>Organization Name</th>
-                            <th>Job Position</th>
-                            <th>Salary</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{('setting.Number')}}</th>
+                            <th>{{(__('employee.Type'))}}</th>
+                            <th>{{(__('employee.Organization Name'))}}</th>
+                            <th>{{(__('employee.Job Position'))}}</th>
+                            <th>{{(__('employee.Salary'))}}</th>
+                            <th>{{(__('employee.Status'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,11 +37,11 @@
                                 <td>{{ $employeeExperience->salary }}</td>
                                 <td>
                                     @if ($employeeExperience->status == 1)
-                                        Pending
+                                        {{(__('employee.Pending'))}}
                                     @elseif($employeeExperience->status == 2)
-                                        Rejected
+                                        {{(__('employee.Rejected'))}}
                                     @else
-                                        Approved
+                                        {{(__('employee.Approved'))}}
                                     @endif
                                 </td>
 
@@ -86,11 +86,11 @@
     </div>
     <a href="{{ route('employee_experiences.employee_experience.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Experience">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeExperiences) > 0)
         <a href="{{ route('employee_experiences.employee_experience.print', $employee) }}" class="btn btn-primary" title="Print Employee Experience" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

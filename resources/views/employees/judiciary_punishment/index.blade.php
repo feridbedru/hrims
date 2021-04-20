@@ -1,32 +1,32 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Judiciary Punishments
+{{(__('employee.Judiciary Punishments'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Judiciary Punishments</li>
+    <li class="breadcrumb-item active">{{(__('employee.Judiciary Punishments'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Judiciary Punishments List</h3>
+            <h3 class="card-title">{{(__('employee.Judiciary Punishments List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeJudiciaryPunishments) == 0)
-                <h4 class="text-center">No Judiciary Punishments Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Judiciary Punishments Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Court Name</th>
-                            <th>Reason</th>
-                            <th>Punishment Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>File</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('employee.Court Name'))}}</th>
+                            <th>{{(__('employee.Reason'))}}</th>
+                            <th>{{(__('employee.Punishment Type'))}}</th>
+                            <th>{{(__('employee.Start Date'))}}</th>
+                            <th>{{(__('employee.End Date'))}}</th>
+                            <th>{{(__('employee.File'))}}</th>
+                            <th>{{(__('employee.Status'))}}</th>
+                            <th>{{(__('employee.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,13 +40,13 @@
                                 <td>{{ $employeeJudiciaryPunishment->end_date }}</td>
                                 <td>
                                     <a href="{{ asset('uploads/punishment/' . $employeeJudiciaryPunishment->file) }}"
-                                    class="btn btn-primary mr-3" target="_blank">View File</a>
+                                    class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
                                 </td>
                                 <td>
                                     @if ($employeeJudiciaryPunishment->status == 1)
-                                        Active
+                                    {{(__('setting.Active'))}}
                                     @else
-                                        Closed
+                                    {{(__('setting.Closed'))}}
                                     @endif
                                 </td>
 
@@ -80,11 +80,11 @@
     </div>
     <a href="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.create', $employee) }}"
         class="btn btn-success mr-2" title="Create New Judiciary Punishment">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeJudiciaryPunishments) > 0)
         <a href="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.print', $employee) }}" class="btn btn-primary" title="Print Employee Judiciary Punishment" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

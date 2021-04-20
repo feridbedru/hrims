@@ -1,29 +1,29 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Awards
+{{(__('employee.Awards'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active"> Awards</li>
+    <li class="breadcrumb-item active"> {{(__('employee.Awards'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title"> Awards List</h3>
+            <h3 class="card-title">{{(__('employee.Awards List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeAwards) == 0)
-                <h4 class="text-center">No Awards Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Awards Available'))}}</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Organization</th>
-                            <th>Award Type</th>
-                            <th>Awarded On</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{__('setting.Organization')}}</th>
+                            <th>{{__('setting.AwardType')}}</th>
+                            <th>{{(__('employee.Awarded On'))}}</th>
+                            <th>{{(__('employee.Status'))}}</th>
+                            <th>{{__('setting.Actions')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,11 +35,11 @@
                                 <td>{{ $employeeAward->awarded_on }}</td>
                                 <td>
                                     @if ($employeeAward->status == 1)
-                                        Pending
+                                        {{(__('employee.Pending'))}}
                                     @elseif($employeeAward->status == 2)
-                                        Rejected
+                                        {{(__('employee.Rejected'))}}
                                     @else
-                                        Approved
+                                        {{(__('employee.Approved'))}}
                                     @endif
                                 </td>
 
@@ -84,11 +84,11 @@
     </div>
     <a href="{{ route('employee_awards.employee_award.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Award">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeAwards) > 0)
         <a href="{{ route('employee_awards.employee_award.print', $employee) }}" class="btn btn-primary" title="Print Employee Award" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

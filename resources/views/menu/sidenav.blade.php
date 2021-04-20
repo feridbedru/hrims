@@ -38,7 +38,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i>
                     <p>
-                        Structure
+                        {{(__('setting.Structure'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -47,14 +47,14 @@
                         <a href="{{ route('organizations.organization.index') }}"
                             class="nav-link {{ request()->is('organizations*') ? 'active' : ' ' }}">
                             <i class="fas fa-building nav-icon"></i>
-                            <p>Organization</p>
+                            <p>{{(__('setting.Organization'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('organization_units.organization_unit.index') }}"
                             class="nav-link {{ request()->is('organization_units*') ? 'active' : ' ' }}">
                             <i class="fas fa-laptop-house nav-icon"></i>
-                            <p>Units</p>
+                            <p>{{(__('setting.OrganizationUnits'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -63,7 +63,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user-tie"></i>
                     <p>
-                        Employees
+                        {{__('setting.Employees')}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -72,14 +72,14 @@
                         <a href="{{ route('employees.employee.create') }}"
                             class="nav-link {{ request()->is('employees/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employees.employee.index') }}"
                             class="nav-link {{ request()->is('employees') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('setting.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -89,7 +89,7 @@
                 <a href="#" class="nav-link ">
                     <i class="nav-icon  fas fa-suitcase"></i>
                     <p>
-                        Jobs
+                        {{__('setting.jobs')}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -98,14 +98,14 @@
                         <a href="{{ route('job_positions.job_position.create') }}"
                             class="nav-link {{ request()->is('job_positions/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('job_positions.job_position.index') }}"
                             class="nav-link {{ request()->is(['job_positions', 'job_positions/show/*', 'job_positions/*/edit']) ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('setting.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -279,7 +279,7 @@
                 <a href="#" class="nav-link ">
                     <i class="nav-icon  fas fa-money-check-alt"></i>
                     <p>
-                        Payment
+                        {{__('setting.payement')}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -288,20 +288,20 @@
                         <a href="{{ route('salary_scales.salary_scale.index') }}"
                             class="nav-link {{ request()->is('salary_scales*') ? 'active' : ' ' }}">
                             <i class="fas fa-balance-scale nav-icon"></i>
-                            <p>Salary Scale</p>
+                            <p>{{(__('setting.SalaryScale'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('salary_heights.salary_height.index') }}"
                             class="nav-link {{ request()->is('salary_heights*') ? 'active' : ' ' }}">
                             <i class="fas fa-sort nav-icon"></i>
-                            <p>Salary Height</p>
+                            <p>{{(__('setting.SalaryHeight'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('#') }}" class="nav-link">
                             <i class="fas fa-receipt nav-icon"></i>
-                            <p>PayRoll</p>
+                            <p>{{(__('setting.Payroll'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -311,7 +311,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-file-invoice-dollar"></i>
                     <p>
-                        Report
+                        {{(__('setting.Report'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -320,20 +320,20 @@
                         <a href="{{ route('reports.report.create') }}"
                             class="nav-link {{ request()->is('reports/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('reports.report.index') }}"
                             class="nav-link {{ request()->is(['reports', 'reports/show/*', 'reports/*/edit']) ? 'active' : ' ' }}">
                             <i class="fas fa-list nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('setting.List'))}}</p>
                         </a>
                     </li>
                 </ul>
             </li>
 
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                     <a href="{{ url('#') }}" class="nav-link">
                         <i class="nav-icon fa fa-users"></i>
                         <p>
@@ -357,18 +357,18 @@
                         <li class="nav-item">
                             <a href="{{ url('#') }}" class="nav-link">
                                 <i class="fas fa-circle nav-icon"></i>
-                                <p>User Group</p>
+                                <p>Role</p>
                             </a>
                         </li>
                     </ul>
-                </li> --}}
+                </li>
 
             <li class="nav-item">
                 <a href="{{ route('settings.setting.index') }}"
                     class="nav-link {{ request()->is('settings*') ? 'active' : ' ' }}">
                     <i class="nav-icon fa fa-cog"></i>
                     <p>
-                        Setting
+                        {{(__('setting.Setting'))}}
                     </p>
                 </a>
             </li>
@@ -378,7 +378,7 @@
                     class="nav-link {{ request()->is('help*') ? 'active' : ' ' }}">
                     <i class="nav-icon fa fa-question"></i>
                     <p>
-                        Help
+                        {{(__('setting.help'))}}
                     </p>
                 </a>
             </li>

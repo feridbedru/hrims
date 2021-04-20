@@ -9,7 +9,7 @@
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>{{(__('setting.Number'))}}</th>
                     <th>Place Of Birth</th>
                     <th>Other Phone Number</th>
                     <th>Nationality</th>

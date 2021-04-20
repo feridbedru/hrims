@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Regions
+{{(__('setting.Regions'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">Regions</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Regions'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,19 +61,19 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Regions List</h3>
+            <h3 class="card-title">{{(__('setting.RegionsList'))}}</h3>
         </div>
         <div class="card-body">
             @if (count($regions) == 0)
-                <h4 class="text-center">No Regions Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoRegionsAvailable'))}}.</h4>
             @else
                 <table class="table table-striped" id="region_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Code'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@
         </div>
     </div>
     <a href="{{ route('regions.region.create') }}" class="btn btn-success" title="Create New Region">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

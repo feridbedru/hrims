@@ -9,8 +9,8 @@
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Name</th>
+                    <th>{{(__('setting.Number'))}}</th>
+                    <th>{{(__('setting.Name'))}}</th>
                     <th>Phone Number</th>
                     <th>Relationship</th>
                     <th>Address</th>

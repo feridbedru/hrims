@@ -1,8 +1,8 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('language') ? 'has-error' : '' }}">
-        <label for="language" class="col-md-12 control-label">Language <span class="text-danger">*</span></label>
+        <label for="language" class="col-md-12 control-label">{{(__('employee.Languages'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="language" name="language" required="true">
                 <option value="" style="display: none;"
@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('reading') ? 'has-error' : '' }}">
-        <label for="reading" class="col-md-12 control-label">Reading <span class="text-danger">*</span></label>
+        <label for="reading" class="col-md-12 control-label">{{(__('employee.Reading'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="reading" name="reading" required="true">
                 <option value="" style="display: none;"
@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('writing') ? 'has-error' : '' }}">
-        <label for="writing" class="col-md-12 control-label">Writing <span class="text-danger">*</span></label>
+        <label for="writing" class="col-md-12 control-label">{{(__('employee.Writing'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="writing" name="writing" required="true">
                 <option value="" style="display: none;"
@@ -55,7 +55,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('listening') ? 'has-error' : '' }}">
-        <label for="listening" class="col-md-12 control-label">Listening <span class="text-danger">*</span></label>
+        <label for="listening" class="col-md-12 control-label">{{(__('employee.Listening'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="listening" name="listening" required="true">
                 <option value="" style="display: none;"
@@ -72,7 +72,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('speaking') ? 'has-error' : '' }}">
-        <label for="speaking" class="col-md-12 control-label">Speaking <span class="text-danger">*</span></label>
+        <label for="speaking" class="col-md-12 control-label">{{(__('employee.Speaking'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="speaking" name="speaking" required="true">
                 <option value="" style="display: none;"
@@ -89,13 +89,13 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('is_prefered') ? 'has-error' : '' }}">
-        <label for="is_prefered" class="col-md-12 control-label">Is Prefered</label>
+        <label for="is_prefered" class="col-md-12 control-label">{{(__('employee.Is Prefered'))}}</label>
         <div class="col-md-12">
             <div class="checkbox">
                 <label for="is_prefered_1">
                     <input id="is_prefered_1" class="" name="is_prefered" type="checkbox" value="1"
                         {{ old('is_prefered', optional($employeeLanguage)->is_prefered) == '1' ? 'checked' : '' }}>
-                    Yes
+                    {{(__('setting.Yes'))}}
                 </label>
             </div>
         </div>

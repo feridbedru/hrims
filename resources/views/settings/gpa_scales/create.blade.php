@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    New GPA Scale
+{{__('setting.NewGPAScale')}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('gpa_scales.gpa_scale.index') }}">GPA Scale</a></li>
-    <li class="breadcrumb-item active">New</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('gpa_scales.gpa_scale.index') }}">{{(__('setting.GPAScales'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.New'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Create New GPA Scale</h3>
+            <h3 class="card-title mb-1">{{(__('setting.CreateNewGPAScale'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('gpa_scales.gpa_scale.store') }}" accept-charset="UTF-8"
@@ -21,12 +21,12 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Save">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.save'))}}">
                         <a href="{{ route('gpa_scales.gpa_scale.index') }}" class="btn btn-warning mr-5"
                             title="Show All GPA Scale">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
-                        <input class="btn btn-danger" type="reset">
+                        <input class="btn btn-danger" type="reset" value="{{(__('setting.Reset'))}}">
                     </div>
                 </div>
             </form>

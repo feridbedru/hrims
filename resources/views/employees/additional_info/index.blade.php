@@ -1,14 +1,14 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Additional Infos
+{{(__('emplyee.Additional Infos'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Additional Infos</li>
+    <li class="breadcrumb-item active">{{(__('emplyee.Additional Infos'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Additional Infos List</h3>
+            <h3 class="card-title">{{(__('employee.{{(__('emplyee.Additional Infos'))}}'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -17,21 +17,21 @@
 
         <div class="card-body">
             @if (count($employeeAdditionalInfos) == 0)
-                <h4 class="text-center">No Additional Infos Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Additional Infos Available'))}}</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Place Of Birth</th>
-                            <th>Other Phone Number</th>
-                            <th>Nationality</th>
-                            <th>Religion</th>
-                            <th>Blood Group</th>
-                            <th>Tin Number</th>
-                            <th>Pension</th>
-                            <th>Marital Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('employee.Number'))}}</th>
+                            <th>{{(__('employee.Place Of Birth'))}}</th>
+                            <th>{{(__('employee.Other Phone Number'))}}</th>
+                            <th>{{(__('employee.Nationality'))}}</th>
+                            <th>{{(__('employee.Religions'))}}</th>
+                            <th>{{(__('employee.Blood Group'))}}</th>
+                            <th>{{(___('employee.Tin Number'))}}</th>
+                            <th>{{(__('employee.Pension'))}}</th>
+                            <th>{{__('employee.MaritalStatus')}}</th>
+                            <th>{{((__('setting.Actions')))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,11 +78,11 @@
     @if (count($employeeAdditionalInfos) == 0)
         <a href="{{ route('employee_additional_infos.employee_additional_info.create', $employee) }}"
             class="btn btn-success" title="Create New Additional Info">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+            <span class="fa fa-plus" aria-hidden="true"> {{__('setting.AddNew')}}</span>
         </a>
     @else
         <a href="{{ route('employee_additional_infos.employee_additional_info.print', $employee) }}" class="btn btn-primary" title="Print Employee Additional Info" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{__('setting.AddNew')}}</span>
         </a>
     @endif
 @endsection

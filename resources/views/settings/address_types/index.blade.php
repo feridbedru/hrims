@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Address Types
+{{(__('setting.AddressTypes'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">Address Types</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.AddressTypes'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,7 +61,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Address Types List</h3>
+            <h3 class="card-title">{{(__('setting.AddressTypeList'))}}</h3>
         </div>
         <div class="card-body">
             @if (count($addressTypes) == 0)
@@ -70,10 +70,10 @@
                 <table class="table table-striped" id="address_type_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Description'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@
         </div>
     </div>
     <a href="{{ route('address_types.address_type.create') }}" class="btn btn-success" title="Create New Address Type">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

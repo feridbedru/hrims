@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    License Types
+{{(__('setting.LicenseType'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">License Types</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.LicenseType'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,19 +61,19 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">License Types List</h3>
+            <h3 class="card-title">{{(__('setting.LicenseTypesList'))}}</h3>
         </div>
         <div class="card-body">
             @if (count($licenseTypes) == 0)
-                <h4 class="text-center">No License Types Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoLicenseTypesAvailable'))}}.</h4>
             @else
                 <table class="table table-striped" id="license_type_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Description'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@
         </div>
     </div>
     <a href="{{ route('license_types.license_type.create') }}" class="btn btn-success" title="Create New License Type">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

@@ -1,8 +1,8 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('salary_scale') ? 'has-error' : '' }}">
-        <label for="salary_scale" class="col-md-12 control-label">Salary Scale <span
+        <label for="salary_scale" class="col-md-12 control-label">{{(__('setting.SalaryScale'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="salary_scale" name="salary_scale" required="true">
@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group col-md-6 {{ $errors->has('level') ? 'has-error' : '' }}">
-        <label for="level" class="col-md-12 control-label">Level <span class="text-danger">*</span></label>
+        <label for="level" class="col-md-12 control-label">{{(__('setting.level'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="level" type="text" id="level"
                 value="{{ old('level', optional($salaryHeight)->level) }}" minlength="1" required="true"
@@ -31,7 +31,7 @@
 
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('initial_salary') ? 'has-error' : '' }}">
-        <label for="initial_salary" class="col-md-12 control-label">Base Salary <span
+        <label for="initial_salary" class="col-md-12 control-label">{{(__('setting.BaseSalary'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="initial_salary" type="text" id="initial_salary"
@@ -41,7 +41,7 @@
     </div>
 
     <div class="form-group col-md-6 {{ $errors->has('maximum_salary') ? 'has-error' : '' }}">
-        <label for="maximum_salary" class="col-md-12 control-label">Maximum Salary <span
+        <label for="maximum_salary" class="col-md-12 control-label">{{(__('setting.MaximumSalary'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="maximum_salary" type="text" id="maximum_salary"

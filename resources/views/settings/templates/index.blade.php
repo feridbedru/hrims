@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Templates
+{{(__('setting.Templates'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">Templates</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Templates'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,23 +61,23 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Templates List</h3>
+            <h3 class="card-title">{{(__('setting.TemplatesList'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($templates) == 0)
-                <h4 class="text-center">No Templates Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoTemplatesAvailable'))}}.</h4>
             @else
                 <table class="table table-striped" id="template_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Language</th>
-                            <th>Template Type</th>
-                            <th>Is Active</th>
-                            <th>Code</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{{(__('setting.Title'))}}}</th>
+                            <th>{{(__('setting.Languages'))}}</th>
+                            <th>{{((__('setting.TemplateType')))}}</th>
+                            <th>{{(__('setting.IsActive'))}}</th>
+                            <th>{{(__('setting.Code'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,7 +114,7 @@
         </div>
     </div>
     <a href="{{ route('templates.template.create') }}" class="btn btn-success" title="Create New Template">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

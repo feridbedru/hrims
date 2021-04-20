@@ -3,7 +3,7 @@
     {{ $organization->en_name }}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('organizations.organization.index') }}">Organization</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('organizations.organization.index') }}">{{(__('setting.Organization'))}}</a></li>
     <li class="breadcrumb-item active">{{ $organization->en_name }}</li>
 @endsection
 @section('content')
@@ -32,25 +32,25 @@
                     <dl class="dl-horizontal">
                         <div class="row">
                             <div class="col-md-5">
-                                <dt>English Name</dt>
+                                <dt>{{(__('employee.English Name'))}}</dt>
                                 <dd>{{ $organization->en_name }}</dd>
                             </div>
                             <div class="col-md-5">
-                                <dt>Amharic Name</dt>
+                                <dt>{{(__('employee.Amharic Name'))}}</dt>
                                 <dd>{{ $organization->am_name }}</dd>
                             </div>
                             @if (isset($organization->abbreviation))
                             <div class="col-md-2">
-                                <dt>Abbreviation</dt>
+                                <dt>{{(__('setting.Abbreviation'))}}</dt>
                                 <dd>{{ $organization->abbreviation }}</dd>
                             </div> 
                             @endif
                         </div>
-                        <dt>Motto</dt>
+                        <dt>{{(__('setting.Motto'))}}</dt>
                         <dd>{{ $organization->motto }}</dd>
-                        <dt>Mission</dt>
+                        <dt>{{(__('setting.Mission'))}}</dt>
                         <dd>{{ $organization->mission }}</dd>
-                        <dt>Vision</dt>
+                        <dt>{{(__('setting.Vision'))}}</dt>
                         <dd>{{ $organization->vision }}</dd>
                         <div class="row mt-4">
                             @if (isset($organization->address))

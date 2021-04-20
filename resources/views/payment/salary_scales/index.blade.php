@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Salary Scales
+{{(__('setting.Salary Scales'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Salary Scales</li>
+    <li class="breadcrumb-item active">{{(__('setting.Salary Scales'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Salary Scales List</h3>
+            <h3 class="card-title">{{(__('setting.Salary Scales List'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -17,18 +17,18 @@
 
         <div class="card-body">
             @if (count($salaryScales) == 0)
-                <h4 class="text-center">No Salary Scales Available.</h4>
+                <h4 class="text-center">{{(__('setting.No Salary Scales Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Job Category</th>
-                            <th>Stair Height</th>
-                            <th>Salary Steps</th>
-                            <th>Is Enabled</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.JobCategory'))}}</th>
+                            <th>{{(__('setting.Stair Height'))}}</th>
+                            <th>{{(__('setting.Salary Steps'))}}</th>
+                            <th>{{(__('setting.Is Enabled'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,6 +73,6 @@
         </div>
     </div>
     <a href="{{ route('salary_scales.salary_scale.create') }}" class="btn btn-success" title="Create New Salary Scale">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

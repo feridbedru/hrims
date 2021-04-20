@@ -22,7 +22,7 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
+                            <th>{{(__('setting.Number'))}}</th>
                             <th>Job Title</th>
                             <th>Organization Unit</th>
                             <th>Position Code</th>
@@ -79,6 +79,6 @@
         </div>
     </div>
     <a href="{{ route('job_positions.job_position.create') }}" class="btn btn-success" title="Create New Job Position">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

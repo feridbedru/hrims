@@ -1,17 +1,16 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Show Study Training
+{{(__('setting.Show Study Training'))}}
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
-            href="{{ route('employee_study_trainings.employee_study_training.index', $employee) }}">Study
-            Training</a></li>
+            href="{{ route('employee_study_trainings.employee_study_training.index', $employee) }}">{{(__('employee.Study Training'))}}</a></li>
     <li class="breadcrumb-item active">Show</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h4 class="card-title">Show Study Training</h4>
+            <h4 class="card-title">{{(__('setting.Show Study Training'))}}</h4>
             <div class="card-tools">
                 <form method="POST" action="{!! route('employee_study_trainings.employee_study_training.destroy', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) !!}" accept-charset="UTF-8">
                     @method('DELETE')
@@ -34,48 +33,48 @@
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Type</dt>
+                        <dt>{{(__('employee.Type'))}}</dt>
                         <dd>{{ $employeeStudyTraining->types->name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Educational Institution</dt>
+                        <dt>{{(__('employee.Educational Institution'))}}</dt>
                         <dd>{{ $employeeStudyTraining->institutions->name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Educational Level</dt>
+                        <dt>{{(__('employee.Educational Level'))}}</dt>
                         <dd>{{ $employeeStudyTraining->levels->name }}</dd>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Educational Field</dt>
+                        <dt>{{(__('employee.Educational Field'))}}</dt>
                         <dd>{{ $employeeStudyTraining->fields->name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Duration</dt>
+                        <dt>{{(__('employee.Duration'))}}</dt>
                         <dd>{{ $employeeStudyTraining->duration }}</dd>
                     </div>
                     @if (isset($employeeStudyTraining->start_date))
                         <div class="col-md-4">
-                            <dt>Start Date</dt>
+                            <dt>{{(__('employee.Start Date'))}}</dt>
                             <dd>{{ $employeeStudyTraining->start_date }}</dd>
                         </div>
                     @endif
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Has Commitment</dt>
+                        <dt>{{(__('employee.Has Commitment'))}}</dt>
                         <dd>{{ $employeeStudyTraining->has_commitment ? 'Yes' : 'No' }}</dd>
                     </div>
                     @if (isset($employeeStudyTraining->total_commitment))
                         <div class="col-md-4">
-                            <dt>Total Commitment(Months)</dt>
+                            <dt>{{(__('employee.Total Commitment(Month)'))}}</dt>
                             <dd>{{ $employeeStudyTraining->total_commitment }}</dd>
                         </div>
                     @endif
                     @if (isset($employeeStudyTraining->amount))
                         <div class="col-md-4">
-                            <dt>Total Commitment(Amount)</dt>
+                            <dt>{{(__('employee.Total Commitment(Amount)'))}}</dt>
                             <dd>{{ $employeeStudyTraining->amount }}</dd>
                         </div>
                     @endif
@@ -83,10 +82,10 @@
                 <div class="row">
                     @if (isset($employeeStudyTraining->attachment))
                         <div class="col-md-4">
-                            <dt>Attachment</dt>
+                            <dt>{{(__('employee.Attachment'))}}</dt>
                             <dd>
                                 <a href="{{ asset('uploads/commitment/' . $employeeStudyTraining->attachment) }}"
-                                    class="btn btn-primary mr-3" target="_blank">View File</a>
+                                    class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
                             </dd>
                         </div>
                     @endif

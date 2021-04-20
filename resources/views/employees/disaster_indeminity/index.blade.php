@@ -1,28 +1,28 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Disaster Indeminities
+{{(__('employee.Disaster Indeminities'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Disaster Indeminities</li>
+    <li class="breadcrumb-item active">{{(__('employee.Disaster Indeminities'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Disaster Indeminities List</h3>
+            <h3 class="card-title">{{(__('employee.Disaster Indeminities List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeDisasterIndeminities) == 0)
-                <h4 class="text-center">No Disaster Indeminities Available.</h4>
+                <h4 class="text-center">{{(___('employee.No Disaster Indeminities Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Disaster</th>
-                            <th>Title</th>
-                            <th>Cost</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('employee.Disaster'))}}</th>
+                            <th>{{(__('setting.Title'))}}</th>
+                            <th>{{(__('employee.Cost'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +66,6 @@
     </div>
     <a href="{{ route('employee_disaster_indeminities.employee_disaster_indeminity.create') }}" class="btn btn-success"
         title="Create New Disaster Indeminity">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

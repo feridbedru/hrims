@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    New Experience Type
+{{(__('setting.NewExperienceType'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('experience_types.experience_type.index') }}">Experience Type</a></li>
-    <li class="breadcrumb-item active">New</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('experience_types.experience_type.index') }}">{{(__('setting.ExperienceType'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.New'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Create New Experience Type</h3>
+            <h3 class="card-title mb-1">{{(__('setting.CreateNewExperienceType'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('experience_types.experience_type.store') }}" accept-charset="UTF-8"
@@ -21,12 +21,12 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Save">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.save'))}}">
                         <a href="{{ route('experience_types.experience_type.index') }}" class="btn btn-warning mr-5"
                             title="Show All Experience Type">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
-                        <input class="btn btn-danger" type="reset">
+                        <input class="btn btn-danger" type="reset" value="{{(__('setting.Reset'))}}">
                     </div>
                 </div>
             </form>

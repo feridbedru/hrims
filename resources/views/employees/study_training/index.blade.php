@@ -1,30 +1,30 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Study Trainings
+{{(__('employee.Study Trainings'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Study Trainings</li>
+    <li class="breadcrumb-item active">{{(__('employee.Study Trainings'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Study Trainings List</h3>
+            <h3 class="card-title">{{(__('employee.Study Training List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeStudyTrainings) == 0)
-                <h4 class="text-center">No Study Trainings Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Study Trainings Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Type</th>
-                            <th>Institution</th>
-                            <th>Level</th>
-                            <th>Field</th>
-                            <th>Has Commitment</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Type'))}}</th>
+                            <th>{{(__('employee.Institution'))}}</th>
+                            <th>{{(__('setting.Level'))}}</th>
+                            <th>{{(__('employee.Field'))}}</th>
+                            <th>{{(__('employee.Has Commitment'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,11 +70,11 @@
     </div>
     <a href="{{ route('employee_study_trainings.employee_study_training.create', $employee) }}"
         class="btn btn-success mr-2" title="Create New Study Training">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeStudyTrainings) > 0)
         <a href="{{ route('employee_study_trainings.employee_study_training.print', $employee) }}" class="btn btn-primary" title="Print Employee Study Training" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

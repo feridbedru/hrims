@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Languages
+{{(__('setting.Languages'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">Languages</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Languages'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,20 +61,20 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Language List</h3>
+            <h3 class="card-title">{{(__('setting.LanguageList'))}}</h3>
         </div>
         <div class="card-body">
             @if (count($languages) == 0)
-                <h4 class="text-center">No Languages Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoLanguagesAvailable'))}}.</h4>
             @else
                 <table class="table table-striped" id="language_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Code</th>
-                            <th>Is Default</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Code'))}}</th>
+                            <th>{{(__('setting.IsDefault'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +105,7 @@
         </div>
     </div>
     <a href="{{ route('languages.language.create') }}" class="btn btn-success" title="Create New Language">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

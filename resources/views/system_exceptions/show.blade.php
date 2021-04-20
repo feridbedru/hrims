@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('pagetitle')
-    View Exception
+{{(__('employee.View System Exception'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('system_exceptions.system_exception.index') }}">Exceptions</a></li>
-    <li class="breadcrumb-item active">View</li>
+    <li class="breadcrumb-item"><a href="{{ route('system_exceptions.system_exception.index') }}">{{(__('employee.System Exception'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h4 class="card-title">System Exception</h4>
+            <h4 class="card-title">{{(__('employee.View System Exception'))}}</h4>
             <div class="card-tools">
                 <form method="POST" action="{!! route('system_exceptions.system_exception.destroy', $systemException->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
@@ -31,17 +31,17 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Title</dt>
+                <dt>{{(__('setting.Title'))}}</dt>
                 <dd>{{ $systemException->title }}</dd>
-                <dt>Function</dt>
+                <dt>{{(__('setting.Function'))}}</dt>
                 <dd>{{ $systemException->function }}</dd>
-                <dt>Path</dt>
+                <dt>{{(__('setting.Path'))}}</dt>
                 <dd>{{ $systemException->path }}</dd>
-                <dt>Request</dt>
+                <dt>{{(__('setting.Request'))}}</dt>
                 <dd>{{ $systemException->request }}</dd>
-                <dt>Message</dt>
+                <dt>{{(__('setting.Message'))}}</dt>
                 <dd>{{ $systemException->message }}</dd>
-                <dt>Status</dt>
+                <dt>{{(__('setting.Status'))}}</dt>
                 <dd>{{ $systemException->status }}</dd>
             </dl>
         </div>

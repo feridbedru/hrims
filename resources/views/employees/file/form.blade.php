@@ -1,8 +1,8 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('title') ? 'has-error' : '' }}">
-        <label for="title" class="col-md-4 control-label">Title <span class="text-danger">*</span></label>
+        <label for="title" class="col-md-4 control-label">{{(__('employee.Title'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="title" type="text" id="title"
                 value="{{ old('title', optional($employeeFile)->title) }}" minlength="1" maxlength="255"
@@ -11,7 +11,7 @@
     </div>
 
     <div class="form-group col-md-6 {{ $errors->has('attachment') ? 'has-error' : '' }}">
-        <label for="attachment" class="col-md-2 control-label">Attachment <span class="text-danger">*</span></label>
+        <label for="attachment" class="col-md-2 control-label">{{(__('employee.Attachment'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -26,7 +26,7 @@
                 <div class="input-group input-width-input">
                     <span class="input-group-addon mr-2">
                         <input type="checkbox" name="custom_delete_attachment" class="custom-delete-file" value="1"
-                            {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> Delete
+                            {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> {{(__('setting.delete'))}}
                     </span>
 
                     <span class="input-group-addon custom-delete-file-name">
@@ -38,7 +38,7 @@
     </div>
 </div>
 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-    <label for="description" class="col-md-4 control-label">Description</label>
+    <label for="description" class="col-md-4 control-label">{{(__('employee.Description'))}}</label>
     <div class="col-md-12">
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000">{{ old('description', optional($employeeFile)->description) }}</textarea>

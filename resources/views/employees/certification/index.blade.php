@@ -1,30 +1,30 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Certifications
+{{(__('employee.Certifications'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Certifications</li>
+    <li class="breadcrumb-item active">{{(__('employee.Certifications'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Certifications List</h3>
+            <h3 class="card-title">{{(__('employee.Certifications List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeCertifications) == 0)
-                <h4 class="text-center">No Certifications Available.</h4>
+                <h4 class="text-center">{{__('setting.NoCommitmentForsAvailable')}}</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Issued On</th>
-                            <th>Skill Category</th>
-                            <th>Certification Vendor</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('employee.Issued On'))}}</th>
+                            <th>{{(__('employee.Skill Category'))}}</th>
+                            <th>{{(__('setting.CertificationVendors'))}}</th>
+                            <th>{{(__('employee.Status'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,11 +37,11 @@
                                 <td>{{ optional($employeeCertification->vendors)->name }}</td>
                                 <td>
                                     @if ($employeeCertification->status == 1)
-                                        Pending
+                                        {{(__('employee.Pending'))}}
                                     @elseif($employeeCertification->status == 2)
-                                        Rejected
+                                        {{(__('employee.Rejected'))}}
                                     @else
-                                        Approved
+                                        {{(__('employee.Approved'))}}
                                     @endif
                                 </td>
 
@@ -85,11 +85,11 @@
     </div>
     <a href="{{ route('employee_certifications.employee_certification.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Certification">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeCertifications) > 0)
         <a href="{{ route('employee_certifications.employee_certification.print', $employee) }}" class="btn btn-primary" title="Print Employee Certification" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

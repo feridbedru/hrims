@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    New Job Category
+{{(__('setting.NewJobCategory'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('job_categories.job_category.index') }}">Job Category</a></li>
-    <li class="breadcrumb-item active">New</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('job_categories.job_category.index') }}">{{(__('setting.JobCategory'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.New'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Create New Job Category</h3>
+            <h3 class="card-title mb-1">{{(__('setting.CreateNewJobCategory'))}}</h3>
         </div>
 
         <div class="card-body">
@@ -22,10 +22,10 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10 text-center mt-4 m-2">
-                        <input class="btn btn-primary mr-5" type="submit" value="Save">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.save'))}}">
                         <a href="{{ route('job_categories.job_category.index') }}" class="btn btn-warning mr-5"
-                            title="Show All Job Category">Cancel</a>
-                        <input class="btn btn-danger" type="reset">
+                            title="Show All Job Category">{{(__('setting.cancel'))}}</a>
+                        <input class="btn btn-danger" type="reset" value="{{(__('setting.Reset'))}}">
                     </div>
                 </div>
             </form>

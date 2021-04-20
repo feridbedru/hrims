@@ -1,31 +1,31 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Employees
+{{(__('setting.Employees'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('organization_units.organization_unit.index') }}">Organization Unit</a>
+    <li class="breadcrumb-item"><a href="{{ route('organization_units.organization_unit.index') }}">{{('setting.OrganizationUnit')}}</a>
     </li>
-    <li class="breadcrumb-item active">Employees</li>
+    <li class="breadcrumb-item active">{{(__('setting.Employees'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employee List</h3>
+            <h3 class="card-title">{{(__('employee.Employee List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employees) == 0)
-                <h4 class="text-center">No Employees in this Units.</h4>
+                <h4 class="text-center">{{(__('employee.No Employees in this Units'))}}.</h4>
             @else
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Full Name</th>
-                            <th>Sex</th>
-                            <th>Organization Unit</th>
-                            <th>Job Title</th>
-                            <th>Action</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Full Name'))}}</th>
+                            <th>{{(__('setting.Sex'))}}</th>
+                            <th>{{(__('setting.OrganizationUnit'))}}</th>
+                            <th>{{(__('setting.Job Title'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -45,7 +45,7 @@
                                 <td>
                                     <a href="{{ route('employees.employee.show', $employee->id) }}"
                                         class="btn btn-primary" title="Show Employee">
-                                        View Details
+                                        {{(__('setting.View Details'))}}
                                     </a>
                                 </td>
                             </tr>

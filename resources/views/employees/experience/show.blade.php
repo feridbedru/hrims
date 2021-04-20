@@ -1,32 +1,32 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    View Experience
+{{(__('employee.View Experience'))}}
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
-            href="{{ route('employee_experiences.employee_experience.index', $employee) }}">Experience</a>
+            href="{{ route('employee_experiences.employee_experience.index', $employee) }}">{{(__('employee.Experience'))}}</a>
     </li>
-    <li class="breadcrumb-item active">View</li>
+    <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h4 class="card-title">View Experience</h4>
+            <h4 class="card-title">{{(__('employee.View Experience'))}}</h4>
         </div>
 
         <div class="card-body">
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Experience Type</dt>
+                        <dt>{{(__('employee.Experience Type'))}}</dt>
                         <dd>{{ $employeeExperience->types->name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Organization Name</dt>
+                        <dt>{{(__('employee.Organization Name'))}}</dt>
                         <dd>{{ $employeeExperience->organization_name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Organization Address</dt>
+                        <dt>{{(__('employee.Organization Address'))}}</dt>
                         <dd>{{ $employeeExperience->organization_address }}</dd>
                     </div>
                 </div>
@@ -50,11 +50,11 @@
                         <dd>{{ $employeeExperience->leftReasons->name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Start Date</dt>
+                        <dt>{{(__('employee.Start Date'))}}</dt>
                         <dd>{{ $employeeExperience->start_date }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>End Date</dt>
+                        <dt>{{(__('employee.End Date'))}}</dt>
                         <dd>{{ $employeeExperience->end_date }}</dd>
                     </div>
                 </div>
@@ -62,19 +62,19 @@
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-12 text-center">
                             <a href="{{ asset('uploads/experience/' . $employeeExperience->attachment) }}"
-                                class="btn btn-primary mr-3" target="_blank">View File</a>
+                                class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
                             <a href="{{ route('employee_experiences.employee_experience.approve', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}"
                                 class="btn btn-success mr-3" title="Approve Experience">
-                                Approve
+                                {{(__('employee.Approve'))}}
                             </a>
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-reject">
-                                Reject
+                                {{(__('employee.Reject'))}}
                             </button>
                             <div class="modal fade" id="modal-reject">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header bg-primary">
-                                            <h4 class="modal-title">Reject Experience</h4>
+                                            <h4 class="modal-title">{{(__('employee.Reject Experience'))}}</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -82,13 +82,13 @@
                                         <form method="POST" action="{!! route('employee_experiences.employee_experience.reject', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) !!}" accept-charset="UTF-8">
                                             {{ csrf_field() }}
                                             <div class="modal-body">
-                                                <label for="note">Note</label>
+                                                <label for="note">{{(__('employee.Note'))}}</label>
                                                 <textarea class="form-control" name="note" cols="50" rows="10" id="note"
                                                     minlength="1" maxlength="1000" required="true"></textarea>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-default"
-                                                    data-dismiss="modal">Close</button>
+                                                    data-dismiss="modal">{{(__('employee.Close'))}}</button>
                                                 <input class="btn btn-danger" type="submit" value="Reject">
                                             </div>
                                         </form>
@@ -103,14 +103,14 @@
                         {{ csrf_field() }}
                         <div class="text-center">
                         <a href="{{ asset('uploads/experience/' . $employeeExperience->attachment) }}"
-                            class="btn btn-primary mr-3" target="_blank">View File</a>
+                            class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
                         <a href="{{ route('employee_experiences.employee_experience.edit', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}"
                             class="btn btn-warning mr-3" title="Edit Experience">
-                            Edit
+                            {{(__('setting.edit'))}}
                         </a>
                         <button type="submit" class="btn btn-danger" title="Delete Experience"
                             onclick="return confirm(&quot;Click Ok to delete Experience.?&quot;)">
-                            Delete
+                            {{(__('setting.delete'))}}
                         </button>
                         </div>
                     </form>

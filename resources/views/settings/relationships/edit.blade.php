@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Relationship
+{{(__('employee.Edit Relationship'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('relationships.relationship.index') }}">Relationships</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('relationships.relationship.index') }}">{{(__('employee.Relationship'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Relationship</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Relationship'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('relationships.relationship.update', $relationship->id) }}"
@@ -22,10 +22,10 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('relationships.relationship.index') }}" class="btn btn-warning"
                             title="Show All Relationship">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

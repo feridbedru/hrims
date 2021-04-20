@@ -30,7 +30,7 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Name</dt>
+                <dt>{{(__('setting.Name'))}}</dt>
                 <dd>{{ $salaryScale->name }}</dd>
                 <dt>Description</dt>
                 <dd>{{ $salaryScale->description }}</dd>

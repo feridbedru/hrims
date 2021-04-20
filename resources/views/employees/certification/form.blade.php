@@ -1,8 +1,8 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('name') ? 'has-error' : '' }}">
-        <label for="name" class="col-md-12 control-label">Name <span class="text-danger">*</span></label>
+        <label for="name" class="col-md-12 control-label">{{(__('setting.Name'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeCertification)->name) }}" minlength="1" maxlength="255"
@@ -11,7 +11,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('issued_on') ? 'has-error' : '' }}">
-        <label for="issued_on" class="col-md-12 control-label">Issued On <span class="text-danger">*</span></label>
+        <label for="issued_on" class="col-md-12 control-label">{{(__('employee.Issued On'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="issued_on" type="date" id="issued_on"
                 value="{{ old('issued_on', optional($employeeCertification)->issued_on) }}" minlength="1"
@@ -20,7 +20,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('certification_number') ? 'has-error' : '' }}">
-        <label for="certification_number" class="col-md-12 control-label">Certification Number</label>
+        <label for="certification_number" class="col-md-12 control-label">{{(__('employee.Certification Number'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="certification_number" type="text" id="certification_number"
                 value="{{ old('certification_number', optional($employeeCertification)->certification_number) }}"
@@ -31,7 +31,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('category') ? 'has-error' : '' }}">
-        <label for="category" class="col-md-12 control-label">Category <span class="text-danger">*</span></label>
+        <label for="category" class="col-md-12 control-label">{{(__('employee.Category'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="category" name="category" required="true">
                 <option value="" style="display: none;"
@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('verification_link') ? 'has-error' : '' }}">
-        <label for="verification_link" class="col-md-12 control-label">Verification Link</label>
+        <label for="verification_link" class="col-md-12 control-label">{{(__('employee.Verification Link'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="verification_link" type="text" id="verification_link"
                 value="{{ old('verification_link', optional($employeeCertification)->verification_link) }}"
@@ -57,7 +57,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('vendor') ? 'has-error' : '' }}">
-        <label for="vendor" class="col-md-12 control-label">Vendor</label>
+        <label for="vendor" class="col-md-12 control-label">{{(__('employee.Vendor'))}}</label>
         <div class="col-md-12">
             <select class="form-control" id="vendor" name="vendor">
                 <option value="" style="display: none;"
@@ -76,7 +76,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('attachment') ? 'has-error' : '' }}">
-        <label for="attachment" class="col-md-12 control-label">Attachment <span class="text-danger">*</span></label>
+        <label for="attachment" class="col-md-12 control-label">{{(__('employee.Attachment'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -91,7 +91,7 @@
                 <div class="input-group input-width-input">
                     <span class="input-group-addon mr-2">
                         <input type="checkbox" name="custom_delete_attachment" class="custom-delete-file" value="1"
-                            {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> Delete
+                            {{ old('custom_delete_attachment', '0') == '1' ? 'checked' : '' }}> {{(__('setting.delete'))}}
                     </span>
 
                     <span class="input-group-addon custom-delete-file-name">
@@ -103,7 +103,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('expires_on') ? 'has-error' : '' }}">
-        <label for="expires_on" class="col-md-12 control-label">Expires On</label>
+        <label for="expires_on" class="col-md-12 control-label">{{(__('employee.Expires On'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="expires_on" type="date" id="expires_on"
                 value="{{ old('expires_on', optional($employeeCertification)->expires_on) }}"

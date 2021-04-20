@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('pagetitle')
-    {{ $help->title }} Help
+    {{ $help->title }} {{(__('setting.Helps'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('helps.help.index') }}">Helps</a></li>
-    <li class="breadcrumb-item active">View</li>
+    <li class="breadcrumb-item"><a href="{{ route('helps.help.index') }}">{{(__('setting.Helps'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -35,27 +35,27 @@
                 <div class="row">
                     @if (isset($help->description))
                         <div class="col-md-4">
-                            <dt>Description</dt>
+                            <dt>{{(__('setting.Description'))}}</dt>
                             <dd>{{ $help->description }}</dd>
                         </div>
                     @endif
                     <div class="col-md-3">
-                        <dt>Topic For</dt>
+                        <dt>{{(__('setting.Topic For'))}}</dt>
                         <dd>{{ $help->topic_for }}</dd>
                     </div>
                     @if (isset($help->parent))
                         <div class="col-md-2">
-                            <dt>Parent</dt>
+                            <dt>{{(__('setting.Parent'))}}</dt>
                             <dd>{{ optional($help->helpes)->id }}</dd>
                         </div>
                     @endif
                     <div class="col-md-2">
-                        <dt>Language</dt>
+                        <dt>{{(__('setting.Language'))}}</dt>
                         <dd>{{ optional($help->languagers)->name }}</dd>
                     </div>
                 </div>
                 <hr>
-                <dt>Data</dt>
+                <dt>{{(__('setting.Data'))}}</dt>
                 <dd>{!! $help->data !!}</dd>
             </dl>
         </div>

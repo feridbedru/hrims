@@ -1,17 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Educational Institute
+{{(__('employee.Edit Educational Institute'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('educational_institutes.educational_institute.index') }}">Educational
-            Institute</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('educational_institutes.educational_institute.index') }}">{{(__('employee.Educational Institute'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Educational Institute</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Educational Institute'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST"
@@ -25,10 +24,10 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('educational_institutes.educational_institute.index') }}"
                             class="btn btn-warning mr-5" title="Show All Educational Institute">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

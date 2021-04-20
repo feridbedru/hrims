@@ -3,10 +3,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Woredas
+{{(__('setting.Woredas'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Woredas</li>
+    <li class="breadcrumb-item active">{{(__('setting.Woredas'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -60,20 +60,20 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Woredas List</h3>
+            <h3 class="card-title">{{(__('setting.WoredasList'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($woredas) == 0)
-                <h4 class="text-center">No Woredas Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoWoredasAvailable'))}}.</h4>
             @else
                 <table class="table table-striped" id="woreda_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Woreda Name</th>
-                            <th>Zone</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.woredaName'))}}</th>
+                            <th>{{(__('setting.zoneName'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,7 +103,7 @@
         </div>
     </div>
     <a href="{{ route('woredas.woreda.create') }}" class="btn btn-success" title="Create New Woreda">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

@@ -4,7 +4,7 @@
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('salary_scales.salary_scale.index') }}">Salary Scale</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -22,10 +22,10 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('salary_scales.salary_scale.index') }}" class="btn btn-warning mr-5"
                             title="Show All Salary Scale">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

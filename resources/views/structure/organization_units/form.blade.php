@@ -1,7 +1,7 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6><hr>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6><hr>
 <div class="row">
     <div class="form-group col-md-8 {{ $errors->has('en_name') ? 'has-error' : '' }}">
-        <label for="en_name" class="col-md-12 control-label">English Name  <span class="text-danger">*</span></label>
+        <label for="en_name" class="col-md-12 control-label">{{(__('setting.EnglishName'))}}  <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="en_name" type="text" id="en_name"
                 value="{{ old('en_name', optional($organizationUnit)->en_name) }}" minlength="1"
@@ -10,7 +10,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('en_acronym') ? 'has-error' : '' }}">
-        <label for="en_acronym" class="col-md-12 control-label">English Acronym</label>
+        <label for="en_acronym" class="col-md-12 control-label">{{(__('setting.EnglishAcronym'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="en_acronym" type="text" id="en_acronym"
                 value="{{ old('en_acronym', optional($organizationUnit)->en_acronym) }}" minlength="1"
@@ -20,7 +20,7 @@
 </div>
 <div class="row">
     <div class="form-group col-md-8 {{ $errors->has('am_name') ? 'has-error' : '' }}">
-        <label for="am_name" class="col-md-12 control-label">Amharic Name</label>
+        <label for="am_name" class="col-md-12 control-label">{{(__('setting.AmharicName'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="am_name" type="text" id="am_name"
                 value="{{ old('am_name', optional($organizationUnit)->am_name) }}" minlength="1"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('am_acronym') ? 'has-error' : '' }}">
-        <label for="am_acronym" class="col-md-12 control-label">Amharic Acronym</label>
+        <label for="am_acronym" class="col-md-12 control-label">{{(__('setting.AmharicAcronym'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="am_acronym" type="text" id="am_acronym"
                 value="{{ old('am_acronym', optional($organizationUnit)->am_acronym) }}" minlength="1"
@@ -40,7 +40,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('parent') ? 'has-error' : '' }}">
-        <label for="parent" class="col-md-12 control-label">Parent</label>
+        <label for="parent" class="col-md-12 control-label">{{(__('setting.Parent'))}}</label>
         <div class="col-md-12">
             <select class="form-control" id="parent" name="parent">
                 <option value="" style="display: none;"
@@ -57,7 +57,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('job_category') ? 'has-error' : '' }}">
-        <label for="job_category" class="col-md-12 control-label">Job Category  <span class="text-danger">*</span></label>
+        <label for="job_category" class="col-md-12 control-label">{{(__('setting.JobCategory'))}}  <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="job_category" name="job_category" required="true">
                 <option value="" style="display: none;"
@@ -73,7 +73,7 @@
         </div>
     </div>
     <div class="form-group col-md-4 {{ $errors->has('location') ? 'has-error' : '' }}">
-        <label for="location" class="col-md-12 control-label">Location  <span class="text-danger">*</span></label>
+        <label for="location" class="col-md-12 control-label">{{(__('setting.Location'))}}  <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="location" name="location" required="true">
                 <option value="" style="display: none;"
@@ -92,7 +92,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('reports_to') ? 'has-error' : '' }}">
-        <label for="reports_id" class="col-md-12 control-label">Reports To</label>
+        <label for="reports_id" class="col-md-12 control-label">{{((__('setting.ReportsTo')))}}</label>
         <div class="col-md-12">
             <select class="form-control" id="reports_to" name="reports_to">
                 <option value="" style="display: none;"
@@ -108,7 +108,7 @@
         </div>
     </div>
     <div class="form-group col-md-4 {{ $errors->has('chairman') ? 'has-error' : '' }}">
-        <label for="chairman" class="col-md-12 control-label">Chairman</label>
+        <label for="chairman" class="col-md-12 control-label">{{(__('setting.Chairman'))}}</label>
         <div class="col-md-12">
             <select class="form-control" id="chairman" name="chairman">
                 <option value="" style="display: none;"
@@ -124,26 +124,26 @@
         </div>
     </div>
     <div class="form-group col-md-2 {{ $errors->has('is_root_unit') ? 'has-error' : '' }}">
-        <label for="is_root_unit" class="col-md-12 control-label">Is Root Unit</label>
+        <label for="is_root_unit" class="col-md-12 control-label">{{(__('setting.IsRootUnit'))}}</label>
         <div class="col-md-10">
             <div class="checkbox">
                 <label for="is_root_unit_1">
                     <input id="is_root_unit_1" class="mt-2 mr-2" name="is_root_unit" type="checkbox" value="1"
                         {{ old('is_root_unit', optional($organizationUnit)->is_root_unit) == '1' ? 'checked' : '' }}>
-                    Yes
+                    {{(__('setting.Yes'))}}
                 </label>
             </div>
         </div>
     </div>
 
     <div class="form-group col-md-2 {{ $errors->has('is_category') ? 'has-error' : '' }}">
-        <label for="is_category" class="col-md-12 control-label">Is Category</label>
+        <label for="is_category" class="col-md-12 control-label">{{(__('setting.IsCategory'))}}</label>
         <div class="col-md-10">
             <div class="checkbox">
                 <label for="is_category_1">
                     <input id="is_category_1" class="mt-2 mr-2" name="is_category" type="checkbox" value="1"
                         {{ old('is_category', optional($organizationUnit)->is_category) == '1' ? 'checked' : '' }}>
-                    Yes
+                    {{(__('setting.Yes'))}}
                 </label>
             </div>
         </div>
@@ -152,7 +152,7 @@
 
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('phone_number') ? 'has-error' : '' }}">
-        <label for="phone_number" class="col-md-12 control-label">Phone Number</label>
+        <label for="phone_number" class="col-md-12 control-label">{{(__('setting.PhoneNumber'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="phone_number" type="number" id="phone_number"
                 value="{{ old('phone_number', optional($organizationUnit)->phone_number) }}"
@@ -161,7 +161,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('email_address') ? 'has-error' : '' }}">
-        <label for="email_address" class="col-md-12 control-label">Email Address</label>
+        <label for="email_address" class="col-md-12 control-label">{{(__('setting.Email'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="email_address" type="email" id="email_address"
                 value="{{ old('email_address', optional($organizationUnit)->email_address) }}"
@@ -170,7 +170,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('web_page') ? 'has-error' : '' }}">
-        <label for="web_page" class="col-md-12 control-label">Web Page</label>
+        <label for="web_page" class="col-md-12 control-label">{{(__('setting.Website'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="web_page" type="text" id="web_page"
                 value="{{ old('web_page', optional($organizationUnit)->web_page) }}"

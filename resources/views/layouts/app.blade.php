@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @yield('meta')
-    <title>@yield('pagetitle') | HRMS</title>
+    <title>@yield('pagetitle') | {{(__('setting.HRMS'))}}</title>
     <link rel="stylesheet" href="{{ asset('assets/plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/dist/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/plugins/pace-progress/themes/black/pace-theme-minimal.css') }}">
@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-sm-6 pt-3 pb-2">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">{{(__('setting.Home'))}}</a></li>
                                 @yield('breadcrumb')
                             </ol>
                         </div>

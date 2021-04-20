@@ -1,28 +1,28 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Disaster Witnesses
+{{(__('employee.Disaster Witnesses'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Disaster Witnesses</li>
+    <li class="breadcrumb-item active">{{(__('employee.Disaster Witnesses'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Disaster Witnesses List</h3>
+            <h3 class="card-title">{{(__('employee.Disaster Witnesses List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeDisasterWitnesses) == 0)
-                <h4 class="text-center">No Disaster Witnesses Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Disaster Witnesses Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Employee Disaster</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('employee.Employee Disaster'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.PhoneNumber'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -66,6 +66,6 @@
     </div>
     <a href="{{ route('employee_disaster_witnesses.employee_disaster_witness.create') }}" class="btn btn-success"
         title="Create New Disaster Witness">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('pagetitle')
-    System Exceptions
+{{(__('employee.System Exception'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">System Exceptions</li>
+    <li class="breadcrumb-item active">{{(__('employee.System Exception'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">System Exceptions List</h3>
+            <h3 class="card-title">{{(__('employee.System Exception List'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -17,17 +17,17 @@
 
         <div class="card-body">
             @if (count($systemExceptions) == 0)
-                <h4 class="text-center">No System Exceptions Available.</h4>
+                <h4 class="text-center">{{(__('employee.No System Exceptions Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Function</th>
-                            <th>Message</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Title'))}}</th>
+                            <th>{{(__('setting.Function'))}}</th>
+                            <th>{{(__('setting.Message'))}}</th>
+                            <th>{{(__('setting.Status'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>

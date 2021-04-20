@@ -1,17 +1,16 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Edit Bank Account
+{{(__('employee.Edit Bank Account'))}}
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
-            href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}">Bank
-            Account</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+            href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}">{{(__('employee.Bank Account'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Bank Account</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Bank Account'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST"
@@ -26,10 +25,10 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('employee_bank_accounts.employee_bank_account.index', $employee) }}"
                             class="btn btn-warning mr-5" title="Show All Bank Account">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

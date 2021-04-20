@@ -9,7 +9,7 @@
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>{{(__('setting.Number'))}}</th>
                     <th>Type</th>
                     <th>Organization Name</th>
                     <th>Job Position</th>

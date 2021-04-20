@@ -9,11 +9,11 @@
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>{{(__('setting.Number'))}}</th>
                     <th>Occured On</th>
                     <th>Disaster Cause</th>
                     <th>Disaster Severity</th>
-                    <th>Description</th>
+                    <th>{{(__('setting.Description'))}}</th>
                     <th>Status</th>
                 </tr>
             </thead>

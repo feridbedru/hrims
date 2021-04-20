@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Salary Heights
+{{(__('setting.Salary Heights'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Salary Heights</li>
+    <li class="breadcrumb-item active">{{(__('setting.Salary Heights'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Salary Heights List</h3>
+            <h3 class="card-title">{{(__('setting.Salary Heights List'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -17,17 +17,17 @@
 
         <div class="card-body">
             @if (count($salaryHeights) == 0)
-                <h4 class="text-center">No Salary Heights Available.</h4>
+                <h4 class="text-center">{{(__('setting.No Salary Heights Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Salary Scale</th>
-                            <th>Level</th>
-                            <th>Initial Salary</th>
-                            <th>Maximum Salary</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Salary Scale'))}}</th>
+                            <th>{{(__('setting.Level'))}}</th>
+                            <th>{{(__('setting.Initial Salary'))}}</th>
+                            <th>{{(__('setting.MaximumSalary'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -70,6 +70,6 @@
         </div>
     </div>
     <a href="{{ route('salary_heights.salary_height.create') }}" class="btn btn-success" title="Create New Salary Height">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

@@ -1,28 +1,28 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Reports
+{{(__('setting.Reports'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Reports</li>
+    <li class="breadcrumb-item active">{{(__('setting.Reports'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Reports List</h3>
+            <h3 class="card-title">{{(__('setting.Reports List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($reports) == 0)
-                <h4 class="text-center">No Reports Available.</h4>
+                <h4 class="text-center">{{(__('setting.No Reports Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Active</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Description'))}}</th>
+                            <th>{{(__('setting.Active'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,6 +63,6 @@
         </div>
     </div>
         <a href="{{ route('reports.report.create') }}" class="btn btn-success" title="Create New Report">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+            <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
         </a>
 @endsection

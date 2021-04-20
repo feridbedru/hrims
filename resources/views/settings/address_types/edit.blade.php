@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Address Type
+{{(__('employee.Edit Address Type'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('address_types.address_type.index') }}">Address Type</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('address_types.address_type.index') }}">{{(__('employee.Address Type'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Address Type</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Address Type'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('address_types.address_type.update', $addressType->id) }}"
@@ -22,10 +22,10 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('address_types.address_type.index') }}" class="btn btn-warning mr-5"
                             title="Show All Address Type">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

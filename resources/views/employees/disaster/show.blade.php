@@ -1,17 +1,17 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    View Disaster
+{{(__('employee.View Disaster'))}}
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
-            href="{{ route('employee_disasters.employee_disaster.index', $employee) }}">Disaster</a>
+            href="{{ route('employee_disasters.employee_disaster.index', $employee) }}">{{(__('employee.Disaster'))}}</a>
     </li>
-    <li class="breadcrumb-item active">View</li>
+    <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h4 class="card-title">{{ isset($title) ? $title : 'Employee Disaster' }}</h4>
+            <h4 class="card-title">    {{(__('employee.View Disaster'))}}</h4>
             <div class="card-tools">
                 <form method="POST" action="{!! route('employee_disasters.employee_disaster.destroy', ['employee' => $employeeDisaster->employees->id, 'employeeDisaster' => $employeeDisaster->id]) !!}" accept-charset="UTF-8">
                     @method('DELETE')
@@ -32,21 +32,21 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Occured On</dt>
+                <dt>{{(__('employee.Occured On'))}}</dt>
                 <dd>{{ $employeeDisaster->occured_on }}</dd>
-                <dt>Disaster Cause</dt>
+                <dt>{{(__('employee.Disaster Cause'))}}</dt>
                 <dd>{{ $employeeDisaster->causes->name }}</dd>
-                <dt>Disaster Severity</dt>
+                <dt>{{(__('employee.Disaster Severity'))}}</dt>
                 <dd>{{ $employeeDisaster->severities->name }}</dd>
-                <dt>Description</dt>
+                <dt>{{(__('setting.Description'))}}</dt>
                 <dd>{{ $employeeDisaster->description }}</dd>
-                <dt>Is Mass</dt>
+                <dt>{{(__('employee.Is Mass'))}}</dt>
                 <dd>{{ $employeeDisaster->is_mass ? 'Yes' : 'No' }}</dd>
-                <dt>Status</dt>
+                <dt>{{(__('employee.Status'))}}</dt>
                 <dd>{{ $employeeDisaster->status }}</dd>
-                <dt>Attachment</dt>
+                <dt>{{(__('employee.Attachment'))}}</dt>
                 <dd><a href="{{ asset('uploads/disaster/' . $employeeDisaster->attachment) }}"
-                    class="btn btn-primary mr-3" target="_blank">View File</a></dd>
+                    class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a></dd>
             </dl>
         </div>
     </div>

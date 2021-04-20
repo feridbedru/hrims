@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Organization
+{{(__('employee.Edit Organization'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('organizations.organization.index') }}">Organization</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item"><a href="{{ route('organizations.organization.index') }}">{{(__('setting.Organization'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Organization</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Organization'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('organizations.organization.update', $organization->id) }}"
@@ -22,10 +22,10 @@
                 ])
                 <div class="form-group text-center mt-2">
                     <div class="col-md-offset-2 col-md-10">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('organizations.organization.index') }}" class="btn btn-warning mr-5"
                             title="Show All Organization">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

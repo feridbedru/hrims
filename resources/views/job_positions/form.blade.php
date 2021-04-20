@@ -1,8 +1,8 @@
-<h6 class="ml-2">Fields denoted with <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-8 {{ $errors->has('organization_unit') ? 'has-error' : '' }}">
-        <label for="organization_unit" class="col-md-12 control-label">Organization Unit <span
+        <label for="organization_unit" class="col-md-12 control-label">{{(__('setting.OrganizationUnit'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control " id="organization_unit" name="organization_unit" required="true">
@@ -19,13 +19,13 @@
         </div>
     </div>
     <div class="form-group col-md-4{{ $errors->has('status') ? 'has-error' : '' }}">
-        <label for="status" class="col-md-12 control-label">Is Available <span class="text-danger">*</span></label>
+        <label for="status" class="col-md-12 control-label">{{(__('setting.IsAvailable'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <div class="checkbox">
                 <label for="status_1">
                     <input id="status_1" class="" name="status" type="checkbox" value="1"
                         {{ old('status', optional($jobPosition)->status) == '1' ? 'checked' : '' }}>
-                    Yes
+                    {{(__('setting.Yes'))}}
                 </label>
             </div>
         </div>
@@ -33,7 +33,7 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('job_title_category') ? 'has-error' : '' }}">
-        <label for="job_title_category" class="col-md-12 ">Job Title <span class="text-danger">*</span></label>
+        <label for="job_title_category" class="col-md-12 ">{{(__('setting.JobTitle'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="job_title_category" name="job_title_category" required="true">
                 <option value="" style="display: none;"
@@ -50,7 +50,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('job_category') ? 'has-error' : '' }}">
-        <label for="job_category" class="col-md-12 control-label">Job Category <span
+        <label for="job_category" class="col-md-12 control-label">{{(__('setting.JobCategory'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="job_category" name="job_category" required="true">
@@ -68,7 +68,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('job_type') ? 'has-error' : '' }}">
-        <label for="job_type" class="col-md-12 control-label">Job Type <span class="text-danger">*</span></label>
+        <label for="job_type" class="col-md-12 control-label">{{(__('setting.JobType'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="job_type" name="job_type" required="true">
                 <option value="" style="display: none;"
@@ -86,7 +86,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('job_description') ? 'has-error' : '' }}">
-    <label for="job_description" class="col-md-12 control-label">Job Description</label>
+    <label for="job_description" class="col-md-12 control-label">{{(__('setting.JobDescription'))}}</label>
     <div class="col-md-12">
         <textarea class="form-control" name="job_description" cols="50" rows="10" id="job_description" minlength="1"
             placeholder="Enter job description here...">{{ old('job_description', optional($jobPosition)->job_description) }}</textarea>
@@ -94,7 +94,7 @@
 </div>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('position_code') ? 'has-error' : '' }}">
-        <label for="position_code" class="col-md-12 control-label">Position Code <span
+        <label for="position_code" class="col-md-12 control-label">{{(__('setting.PositionCode '))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="position_code" type="text" id="position_code"
@@ -104,7 +104,7 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('position_id') ? 'has-error' : '' }}">
-        <label for="position_id" class="col-md-12 control-label">Position ID <span class="text-danger">*</span></label>
+        <label for="position_id" class="col-md-12 control-label">{{(__('setting.PositionID '))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="position_id" type="text" id="position_id"
                 value="{{ old('position_id', optional($jobPosition)->position_id) }}" minlength="1"
@@ -113,27 +113,27 @@
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('salary') ? 'has-error' : '' }}">
-        <label for="salary" class="col-md-12 control-label">Salary <span class="text-danger">*</span></label>
+        <label for="salary" class="col-md-12 control-label">{{(__('setting.Salary'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <select class="form-control" id="salary" name="salary" required="true">
                 <option value="" style="display: none;"
                     {{ old('salary', optional($jobPosition)->salary ?: '') == '' ? 'selected' : '' }} disabled
                     selected>
-                    Select salary</option>
+                    {{(__('setting.Select salary'))}}</option>
                 @foreach ($salaries as $key => $salary)
                     <option value="{{ $salary }}"
                         {{ old('salary', optional($jobPosition)->salary) == $salary->id ? 'selected' : '' }}>
                         @foreach ($salaryHeights as $salaryHeight)
                             @if ($salary->salary_height == $salaryHeight->id)
-                                Level {{ $salaryHeight->level }},
+                            {{(__('setting.Level'))}} {{ $salaryHeight->level }},
                             @endif
                         @endforeach
                         @foreach ($salarySteps as $salaryStep)
                             @if ($salary->salary_step == $salaryStep->id)
-                                Step {{ $salaryStep->step }},
+                            {{(__('setting.Step'))}} {{ $salaryStep->step }},
                             @endif
                         @endforeach
-                        Br. {{ $salary->amount }}
+                        {{(__('setting.br'))}}. {{ $salary->amount }}
                     </option>
                 @endforeach
             </select>

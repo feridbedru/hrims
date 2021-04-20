@@ -1,14 +1,14 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Employees
+{{(__('employee.Employees'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Employees</li>
+    <li class="breadcrumb-item active">{{(__('employee.Employees'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Search and Filter</h3>
+            <h3 class="card-title">{{(__('setting.SearchandFilter'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -21,7 +21,7 @@
                     {{ csrf_field() }}
                     <div class="form-group col-md-2">
                         <select class="form-control" name="job_position_id" id="job_position_id">
-                            <option value="NULL">Select Job Position</option>
+                            <option value="NULL">{{(__('employee.Select Job Position'))}}</option>
                             @foreach ($jobPositions as $key => $jobPosition)
                                 <option value="{{ $key }}">
                                     {{ $jobPosition }}
@@ -31,7 +31,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <select class="form-control" name="sex_id" id="sex_id">
-                            <option value="NULL">Select Sex</option>
+                            <option value="NULL">{{(__('employee.Select Sex'))}}</option>
                             @foreach ($sexl as $key => $sex)
                                 <option value="{{ $key }}">
                                     {{ $sex }}
@@ -41,7 +41,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <select class="form-control" name="organization_unit_id" id="organization_unit_id">
-                            <option value="NULL">Select Organization Unit</option>
+                            <option value="NULL">{{(__('employee.Select Organization Unit'))}}</option>
                             @foreach ($organizationUnits as $key => $organizationUnit)
                                 <option value="{{ $key }}">
                                     {{ $organizationUnit }}
@@ -54,10 +54,10 @@
                             name="organization_unit_name">
                     </div>
                     <div class="form-group col-md-2 text-right">
-                        <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
+                        <input type="submit" class="btn btn-success btn-md  mr-3" value="{{(__('setting.Filter'))}}">
                         <a href="{{ route('organization_units.organization_unit.index') }}"
                             class="btn btn-danger mr-5  d-inline" title="Show All Organization Unit">
-                            Reset
+                            {{(__('setting.Reset'))}}
                         </a>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
     </div>
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Employees List</h3>
+            <h3 class="card-title">{{(__('employee.Employees List'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -75,17 +75,17 @@
 
         <div class="card-body">
             @if (count($employees) == 0)
-                <h4 class="text-center">No Employees Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Employees Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Sex</th>
-                            <th>Organization Unit</th>
-                            <th>Position</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Sex'))}}</th>
+                            <th>{{(__('setting.OrganizationUnit'))}}</th>
+                            <th>{{(__('setting.Position'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,6 +125,6 @@
         </div>
     </div>
     <a href="{{ route('employees.employee.create') }}" class="btn btn-success" title="Create New Employee">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection

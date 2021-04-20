@@ -6,7 +6,7 @@
     <div class="panel-heading clearfix">
 
         <span class="pull-left">
-            <h4 class="mt-5 mb-5">{{ isset($employeeDisasterWitness->name) ? $employeeDisasterWitness->name : 'Employee Disaster Witness' }}</h4>
+            <h4 class="mt-5 mb-5">Employee Disaster Witness</h4>
         </span>
 
         <div class="pull-right">
@@ -39,13 +39,13 @@
 
     <div class="panel-body">
         <dl class="dl-horizontal">
-            <dt>Employee Disaster</dt>
+            <dt>{{(__('employee.Employee Disaster'))}}</dt>
             <dd>{{ $employeeDisasterWitness->disasters->occured_on }}</dd>
-            <dt>Name</dt>
+            <dt>{{(__('setting.Name'))}}</dt>
             <dd>{{ $employeeDisasterWitness->name }}</dd>
-            <dt>Phone</dt>
+            <dt>{{(__('setting.PhoneNumber'))}}</dt>
             <dd>{{ $employeeDisasterWitness->phone }}</dd>
-            <dt>File</dt>
+            <dt>{{(__('employee.File'))}}</dt>
             <dd>{{ asset('storage/' . $employeeDisasterWitness->file) }}</dd>
 
         </dl>

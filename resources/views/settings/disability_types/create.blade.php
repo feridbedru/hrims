@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    New Disability Type
+{{(__('setting.NewDisabilityType'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('disability_types.disability_type.index') }}">Disability Type</a></li>
-    <li class="breadcrumb-item active">New</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('disability_types.disability_type.index') }}">{{(__('setting.DisabilityType'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.New'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Create New Disability Type</h3>
+            <h3 class="card-title mb-1">{{(__('setting.createNewDisabilityType'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('disability_types.disability_type.store') }}" accept-charset="UTF-8"
@@ -22,12 +22,12 @@
 
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Save">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.save'))}}">
                         <a href="{{ route('disability_types.disability_type.index') }}" class="btn btn-warning mr-5"
                             title="Show All Disability Type">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
-                        <input class="btn btn-danger" type="reset">
+                        <input class="btn btn-danger" type="reset" value="{{(__('setting.Reset'))}}">
                     </div>
                 </div>
             </form>

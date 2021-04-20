@@ -1,11 +1,11 @@
 @extends('layouts.app')
 @section('pagetitle')
-    View Template
+{{(__('setting.View Template'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('templates.template.index') }}">Templates</a></li>
-    <li class="breadcrumb-item active">View</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('templates.template.index') }}">{{(__('setting.Templates'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
 @endsection
 @section('content')
 
@@ -18,24 +18,24 @@
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-3">
-                        <dt>Language</dt>
+                        <dt>{{(__('setting.Language'))}}</dt>
                         <dd>{{ $template->languages->name }}</dd>
                     </div>
                     <div class="col-md-3">
-                        <dt>Template Type</dt>
+                        <dt>{{(__('setting.Template Type'))}}</dt>
                         <dd>{{ $template->types->name }}</dd>
                     </div>
                     <div class="col-md-3">
-                        <dt>Is Active</dt>
+                        <dt>{{(__('setting.Is Active'))}}</dt>
                         <dd>{{ $template->is_active ? 'Yes' : 'No' }}</dd>
                     </div>
                     <div class="col-md-3">
-                        <dt>Code</dt>
+                        <dt>{{(__('setting.Code'))}}</dt>
                         <dd>{{ $template->code }}</dd>
                     </div>
                 </div>
                 <hr>
-                <dt>Body</dt>
+                <dt>{{(__('setting.Body'))}}</dt>
                 <dd>
                     {!! $template->body !!}
                 </dd>

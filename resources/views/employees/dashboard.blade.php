@@ -1,14 +1,14 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Employee Dashboard
+{{(__('employee.Employee Dashboard'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Dashboard</li>
+    <li class="breadcrumb-item active">{{(__('employee.Dashboard'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h3 class="card-title">Employee Dashboard</h3>
+            <h3 class="card-title">{{(__('employee.Employee Dashboard'))}}</h3>
             <div class="card-tools">
                 <form method="POST" action="{!! route('employees.employee.destroy', $employee->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
@@ -45,21 +45,21 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Date Of Birth</dt>
+                        <dt>{{(__('employee.Date Of Birth'))}}</dt>
                         <dd>{{ $employee->date_of_birth }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Phone Number</dt>
+                        <dt>{{(__('employee.Phone Number'))}}</dt>
                         <dd>{{ $employee->phone_number }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Organization Unit</dt>
+                        <dt>{{(__('employee.Organization Unit'))}}</dt>
                         <dd>{{ $employee->organizationUnitse->en_name }}</dd>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Job Position</dt>
+                        <dt>{{(__('employee.Job Position'))}}</dt>
                         <dd>
                             @foreach ($jobTitleCategories as $title)
                                 @if ($employee->jobPositions->job_title_category == $title->id)
@@ -69,7 +69,7 @@
                         </dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Employment ID</dt>
+                        <dt>{{(__('employee.Employment ID'))}}</dt>
                         <dd>{{ $employee->employment_id }}</dd>
                     </div>
                     <div class="col-md-4">

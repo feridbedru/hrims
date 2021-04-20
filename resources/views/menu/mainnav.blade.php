@@ -2,7 +2,7 @@
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#">
-                <i class="fas fa-bars mr-2"></i> Human Resource Management System
+                <i class="fas fa-bars mr-2"></i> {{__('setting.title')}}
             </a>
         </li>
     </ul>
@@ -10,9 +10,14 @@
     <ul class="navbar-nav ml-auto">
         <form class="form-inline mr-3" id="language">
             <div class="input-group input-group-sm">
-                <select name="lang" id="lang" class="form-control ">
-                    <option value="en">English</option>
-                    <option value="am">አማርኛ</option>
+                <select onchange="location = this.value;" name="lang" id="lang" class="form-control ">
+                    @if(Config::get('app.locale')=='am')
+                    <option hidden="true" value="{{ url('locale/am') }}">አማርኛ</option>
+                    @else
+                    <option hidden="true" value="{{ url('locale/en') }}">English</option>
+                    @endif
+                    <option value="{{ url('locale/am') }}">አማርኛ</option>
+                    <option value="{{ url('locale/en') }}">English</option>
                 </select>
             </div>
         </form>

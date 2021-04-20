@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Organization Units
+{{(__('setting.rganizationUnits'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a href="{{ route('organizations.organization.index') }}"> Organization </a></li>
-    <li class="breadcrumb-item active">Units</li>
+    <li class="breadcrumb-item active"><a href="{{ route('organizations.organization.index') }}"> {{(__('setting.organizations'))}} </a></li>
+    <li class="breadcrumb-item active">{{(__('setting.units'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Search and Filter</h3>
+            <h3 class="card-title">{{(__('setting.SearchandFilter'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -22,7 +22,7 @@
                     {{ csrf_field() }}
                     <div class="form-group col-md-2">
                         <select class="form-control" name="job_category_id" id="job_category_id">
-                            <option value="NULL">Select Job Category</option>
+                            <option value="NULL">{{(__('setting.SelectJobCategory'))}}</option>
                             @foreach ($jobCategories as $key => $jobCategory)
                                 <option value="{{ $key }}">
                                     {{ $jobCategory }}
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group col-md-2">
                         <select class="form-control" name="organization_location_id" id="organization_location_id">
-                            <option value="NULL">Select Organization Location</option>
+                            <option value="NULL">{{(__('setting.Selectorganizationlocation'))}}</option>
                             @foreach ($organizationLocations as $key => $organizationLocation)
                                 <option value="{{ $key }}">
                                     {{ $organizationLocation }}
@@ -48,7 +48,7 @@
                         <input type="submit" class="btn btn-success btn-md  mr-3" value="Filter">
                         <a href="{{ route('organization_units.organization_unit.index') }}" class="btn btn-danger mr-5"
                             title="Show All Organization Unit">
-                            Reset
+                            {{(__('setting.Reset'))}}
                         </a>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
     </div>
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Organization Units List</h3>
+            <h3 class="card-title">{{(__('setting.NewOrganizationUnitsList'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
@@ -66,16 +66,16 @@
 
         <div class="card-body">
             @if (count($organizationUnits) == 0)
-                <h4 class="text-center">No Organization Units Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoOrganizationUnitsFound.'))}}.</h4>
             @else
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>English Name</th>
-                            <th>Chairman</th>
-                            <th>Location</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.EnglishName'))}}</th>
+                            <th>{{(__('setting.Chairman'))}}</th>
+                            <th>{{(__('setting.Location'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -89,19 +89,19 @@
                                     <div class="d-flex justify-content-between">
                                     <a href="{{ route('organization_units.organization_unit.offices', $organizationUnit->id) }}"
                                         class="btn btn-outline-danger btn-sm" title="Show Sub Offices">
-                                        Offices
+                                        {{(__('setting.Offices'))}}
                                     </a>
                                     <a href="{{ route('organization_units.organization_unit.employee', $organizationUnit->id) }}"
                                         class="btn btn-outline-primary btn-sm" title="Show Employees">
-                                        Employees
+                                        {{(__('setting.Employees'))}}
                                     </a>
                                     <a href="{{ route('organization_units.organization_unit.jobs', $organizationUnit->id) }}"
                                         class="btn btn-outline-success btn-sm" title="Show Jobs">
-                                        Jobs
+                                        {{(__('setting.Jobs'))}}
                                     </a>
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
                                         class="btn btn-outline-warning btn-sm" title="Show Organization Unit">
-                                        Details
+                                        {{(__('setting.Details'))}}
                                     </a>
                                 </div>
                                 </td>
@@ -118,7 +118,7 @@
     @if (count($organizations) > 0)
         <a href="{{ route('organization_units.organization_unit.create') }}" class="btn btn-success"
             title="Create New Organization Unit">
-            <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+            <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
         </a>
         @endif
 @endsection

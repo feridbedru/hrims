@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Structure
+{{(__('setting.Structure'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ url('organizations') }}">Organization</a></li>
-    <li class="breadcrumb-item active">Structure</li>
+    <li class="breadcrumb-item"><a href="{{ url('organizations') }}">{{(__('setting.Organization'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Structure'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/orgChart/orgChart.css') }}">
@@ -12,7 +12,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h4 class="card-title">Organization Structure</h4>
+            <h4 class="card-title">{{(__('setting.Organization Structure'))}}</h4>
         </div>
         <div class="card-body">
             <ol class="organizational-chart">

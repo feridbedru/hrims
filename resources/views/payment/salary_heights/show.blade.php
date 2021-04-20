@@ -158,8 +158,8 @@
                 </table>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Save">
-                        <input class="btn btn-danger" type="reset">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.save'))}}">
+                        <input class="btn btn-danger" type="reset" value="{{(__('setting.Reset'))}}">
                     </div>
                 </div>
             </form>

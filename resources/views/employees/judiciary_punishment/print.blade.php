@@ -9,7 +9,7 @@
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>{{(__('setting.Number'))}}</th>
                     <th>Court Name</th>
                     <th>Reason</th>
                     <th>Punishment Type</th>

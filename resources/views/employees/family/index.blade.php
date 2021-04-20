@@ -18,8 +18,8 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
                             <th>Sex</th>
                             <th>Relationship</th>
                             <th>Date Of Birth</th>
@@ -51,11 +51,11 @@
                                 </td>
                                 <td>
                                     @if ($employeeFamily->status == 1)
-                                        Pending
+                                        {{(__('employee.Pending'))}}
                                     @elseif($employeeFamily->status == 2)
-                                        Rejected
+                                        {{(__('employee.Rejected'))}}
                                     @else
-                                        Approved
+                                        {{(__('employee.Approved'))}}
                                     @endif
                                 </td>
 
@@ -63,11 +63,11 @@
                                     @if ($employeeFamily->status == 1)
                                         <a href="{{ route('employee_families.employee_family.approve', ['employee' => $employeeFamily->employees->id, 'employeeFamily' => $employeeFamily->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Family">
-                                            Approve
+                                            {{(__('employee.Approve'))}}
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal"
                                             data-target="#modal-reject">
-                                            Reject
+                                            {{(__('employee.Reject'))}}
                                         </button>
                                         <div class="modal fade" id="modal-reject">
                                             <div class="modal-dialog">
@@ -83,14 +83,14 @@
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
-                                                            <label for="note">Note</label>
+                                                            <label for="note">{{(__('employee.Note'))}}</label>
                                                             <textarea class="form-control" name="note" cols="50" rows="10"
                                                                 id="note" minlength="1" maxlength="1000"
                                                                 required="true"></textarea>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">{{(__('employee.Close'))}}</button>
                                                             <input class="btn btn-danger" type="submit" value="Reject">
                                                         </div>
                                                     </form>
@@ -138,11 +138,11 @@
     </div>
     <a href="{{ route('employee_families.employee_family.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Family">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeFamilies) > 0)
         <a href="{{ route('employee_families.employee_family.print', $employee) }}" class="btn btn-primary" title="Print Employee Family" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

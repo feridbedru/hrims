@@ -3,11 +3,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 @section('pagetitle')
-    Bank Account Types
+{{(__('setting.BankAccountType'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item active">Bank Account Types</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.BankAccountType'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.css') }}">
@@ -61,20 +61,20 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Bank Account Types List</h3>
+            <h3 class="card-title">{{(__('setting.BankAccountTypesList'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($bankAccountTypes) == 0)
-                <h4 class="text-center">No Bank Account Types Available.</h4>
+                <h4 class="text-center">{{(__('setting.NoBankAccountTypesAvailable'))}}.</h4>
             @else
                 <table class="table table-striped" id="bank_account_type_table">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th class="text-center">Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Description'))}}</th>
+                            <th class="text-center">{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -105,7 +105,7 @@
     </div>
     <a href="{{ route('bank_account_types.bank_account_type.create') }}" class="btn btn-success"
         title="Create New Bank Account Type">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
 @endsection
 @section('javascripts')

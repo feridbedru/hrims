@@ -1,30 +1,30 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Bank Accounts
+{{(__('employee.Bank Accounts'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Bank Accounts</li>
+    <li class="breadcrumb-item active">{{(__('employee.Bank Accounts'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Bank Accounts List</h3>
+            <h3 class="card-title">{{(__('employee.Bank Accounts List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeBankAccounts) == 0)
-                <h4 class="text-center">No Bank Accounts Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Bank Accounts Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Bank</th>
-                            <th>Bank Account Type</th>
-                            <th>Account Number</th>
-                            <th>File</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Banks'))}}</th>
+                            <th>{{(__('setting.BankAccountType'))}}</th>
+                            <th>{{(__('employee.Account Number'))}}</th>
+                            <th>{{(__('employee.File'))}}</th>
+                            <th>{{(__('employee.Status'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,33 +36,33 @@
                                 <td>{{ $employeeBankAccount->account_number }}</td>
                                 <td>
                                     @if (isset($employeeBankAccount->file))
-                                        <a href="{{ asset('uploads/bankaccount/' . $employeeBankAccount->file) }}" class="btn btn-outline-primary" target="_blank">View File</a>
+                                        <a href="{{ asset('uploads/bankaccount/' . $employeeBankAccount->file) }}" class="btn btn-outline-primary" target="_blank">{{(__('employee.View File'))}}</a>
                                     @endif
                                 </td>
                                 <td>
                                     @if ($employeeBankAccount->status == 1)
-                                        Pending
+                                        {{(__('employee.Pending'))}}
                                     @elseif($employeeBankAccount->status == 2)
-                                        Rejected
+                                        {{(__('employee.Rejected'))}}
                                     @else
-                                        Approved
+                                        {{(__('employee.Approved'))}}
                                     @endif
                                 </td>
                                 <td>
                                     @if ($employeeBankAccount->status == 1)
                                         <a href="{{ route('employee_bank_accounts.employee_bank_account.approve', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Bank Account">
-                                            Approve
+                                            {{(__('employee.Approve'))}}
                                         </a>
                                         <button type="button" class="btn btn-outline-danger" data-toggle="modal"
                                             data-target="#modal-reject">
-                                            Reject
+                                            {{(__('employee.Reject'))}}
                                         </button>
                                         <div class="modal fade" id="modal-reject">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Bank Account</h4>
+                                                        <h4 class="modal-title">{{(__('employee.Reject Bank Account'))}}</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
@@ -72,14 +72,14 @@
                                                         accept-charset="UTF-8">
                                                         {{ csrf_field() }}
                                                         <div class="modal-body">
-                                                            <label for="note">Note</label>
+                                                            <label for="note">{{(__('employee.Note'))}}</label>
                                                             <textarea class="form-control" name="note" cols="50" rows="10"
                                                                 id="note" minlength="1" maxlength="1000"
                                                                 required="true"></textarea>
                                                         </div>
                                                         <div class="modal-footer justify-content-between">
                                                             <button type="button" class="btn btn-default"
-                                                                data-dismiss="modal">Close</button>
+                                                                data-dismiss="modal">{{(__('employee.Close'))}}</button>
                                                             <input class="btn btn-danger" type="submit" value="Reject">
                                                         </div>
                                                     </form>
@@ -94,7 +94,7 @@
                                                 <button type="submit" class="btn btn-outline-danger"
                                                     title="Delete Bank Account"
                                                     onclick="return confirm(&quot;Click Ok to delete Bank Account.&quot;)">
-                                                    Delete
+                                                    {{(__('setting.delete'))}}
                                                 </button>
                                             </div>
                                         </form>
@@ -105,13 +105,13 @@
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <a href="{{ route('employee_bank_accounts.employee_bank_account.edit', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                                                     class="btn btn-outline-warning mr-3" title="Edit Bank Account">
-                                                    Edit
+                                                    {{(__('setting.edit'))}}
                                                 </a>
 
                                                 <button type="submit" class="btn btn-outline-danger"
                                                     title="Delete Bank Account"
                                                     onclick="return confirm(&quot;Click Ok to delete Bank Account.&quot;)">
-                                                    Delete
+                                                    {{(__('setting.delete'))}}
                                                 </button>
                                             </div>
                                         </form>
@@ -129,11 +129,11 @@
     </div>
     <a href="{{ route('employee_bank_accounts.employee_bank_account.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Bank Account">
-        <span class="fa fa-plus" aria-hidden="true"> Add New</span>
+        <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
     @if (count($employeeBankAccounts) > 0)
         <a href="{{ route('employee_bank_accounts.employee_bank_account.print', $employee) }}" class="btn btn-primary" title="Print Employee Bank Account" target="_blank">
-            <span class="fa fa-print" aria-hidden="true"> Print</span>
+            <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
 @endsection

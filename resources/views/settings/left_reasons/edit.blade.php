@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Left Reason
+{{(__('employee.Edit Left Reason'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">Setting</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('left_reasons.left_reason.index') }}">Left Reason</a></li>
-    <li class="breadcrumb-item active">Edit</li>
+    <li class="breadcrumb-item"><a href="{{ route('settings.setting.index') }}">{{(__('setting.Setting'))}}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('left_reasons.left_reason.index') }}">{{(__('employee.Left Reason'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Left Reason</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Left Reason'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('left_reasons.left_reason.update', $leftReason->id) }}"
@@ -22,10 +22,10 @@
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-12 text-center">
-                        <input class="btn btn-primary mr-5" type="submit" value="Update">
+                        <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
                         <a href="{{ route('left_reasons.left_reason.index') }}" class="btn btn-warning mr-5"
                             title="Show All Left Reason">
-                            Cancel
+                            {{(__('setting.cancel'))}}
                         </a>
                     </div>
                 </div>

@@ -1,31 +1,31 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Organization
+{{__('setting.Organization')}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Organization</li>
+    <li class="breadcrumb-item active">{{__('setting.Organization')}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Organization List</h3>
+            <h3 class="card-title">{{(__('setting.OrganizationList'))}}</h3>
         </div>
         <div class="card-body">
             @if (count($organizations) == 0)
                 <div class="panel-body text-center">
-                    <h4>No Organizations Available.</h4>
+                    <h4>{{__('setting.NoOrganizationLocationsAvailable')}}.</h4>
                 </div>
             @else
 
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Website</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Actions</th>
+                            <th>{{(__('setting.Number'))}}</th>
+                            <th>{{(__('setting.Name'))}}</th>
+                            <th>{{(__('setting.Website'))}}</th>
+                            <th>{{(__('setting.Email'))}}</th>
+                            <th>{{(__('setting.PhoneNumber'))}} </th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,15 +39,15 @@
                                 <td>
                                     <a href="{{ route('organizations.organization.structure') }}"
                                         class="btn btn-outline-primary mr-3" title="Show Organization Structure">
-                                        Structure
+                                        {{(__('setting.Structure'))}}
                                     </a>
                                     <a href="{{ route('organizations.organization.show', $organization->id) }}"
                                         class="btn btn-outline-info mr-3" title="Show Organization">
-                                        View
+                                        {{(__('setting.view'))}}
                                     </a>
                                     <a href="{{ route('organizations.organization.edit', $organization->id) }}"
                                         class="btn btn-outline-warning mr-3" title="Edit Organization">
-                                        Edit
+                                        {{(__('setting.edit'))}}
                                     </a>
                                     <form method="POST" class="d-inline" action="{!! route('organizations.organization.destroy', $organization->id) !!}"
                                         accept-charset="UTF-8">
@@ -55,7 +55,7 @@
                                         {{ csrf_field() }}
                                         <button type="submit" class="btn btn-outline-danger" title="Delete Organization"
                                             onclick="return confirm(&quot;Click Ok to delete Organization.&quot;)">
-                                            Delete
+                                            {{(__('setting.delete'))}}
                                         </button>
                                     </form>
                                 </td>
@@ -72,7 +72,7 @@
     @if (count($organizations) == 0)
         <a href="{{ route('organizations.organization.create') }}" class="btn btn-success"
             title="Create New Organization">
-            <span class="fas fa-plus" aria-hidden="true"> Add New</span>
+            <span class="fas fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
         </a>
     @endif
 @endsection

@@ -1,17 +1,17 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    New Additional Info
+{{(__('employee.New Additional Info'))}}
 @endsection
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
             href="{{ route('employee_additional_infos.employee_additional_info.index', $employee) }}">
-            Additional Info</a></li>
-    <li class="breadcrumb-item active">New</li>
+            {{(__('employee.Additional Info'))}}</a></li>
+    <li class="breadcrumb-item active">{{__('setting.New')}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Create New Additional Info</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Create New Additional Info'))}}</h3>
         </div>
         <div class="card-body">
             @if (count($employeeAdditionalInfos) == 0)
@@ -29,9 +29,9 @@
                             <input class="btn btn-primary mr-5" type="submit" value="Add">
                             <a href="{{ route('employee_additional_infos.employee_additional_info.index', $employee) }}"
                                 class="btn btn-warning mr-5" title="Show All Additional Info">
-                                Cancel
+                                {{__('setting.cancel')}}
                             </a>
-                            <input class="btn btn-danger" type="reset">
+                            <input class="btn btn-danger" type="reset" value="{{(__('setting.Reset'))}}">
                         </div>
                     </div>
                 </form>
@@ -40,15 +40,15 @@
                     <div class="info-icons text-center pb-5">
                         <i class="fa fa-5x fa-exclamation-triangle text-danger"></i>
                     </div>
-                    <h2 class="display-5 text-center text-error">Error</h2>
-                    <p class="lead text-center">You can not create more than one entry for a single employee. Kindly edit
-                        the entry using the button below.</p>
+                    <h2 class="display-5 text-center text-error">{{(__('setting.Error'))}}</h2>
+                    <p class="lead text-center">{{(__('employee.You can not create more than one entry for a single employee. Kindly edit
+                        the entry using the button below'))}}</p>
                     <hr class="my-4">
                     <div class="text-center">
                         <p class="lead">
                             <a href="{{ route('employee_additional_infos.employee_additional_info.edit', ['employee' => $employee, 'employeeAdditionalInfo' => $employeeAdditionalInfo->id]) }}"
                                 class="btn btn-warning" title="Edit Additional Information">
-                                <span class="fa fa-edit" aria-hidden="true"> Edit/span>
+                                <span class="fa fa-edit" aria-hidden="true"> {{__('setting.edit')}}</span>
                             </a>
                         </p>
                     </div>

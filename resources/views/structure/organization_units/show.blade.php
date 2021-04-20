@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Show Unit
+{{(__('setting.ShowUnit'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active"><a href="{{ route('organization_units.organization_unit.index') }}"> Units</a></li>
-    <li class="breadcrumb-item active">Show</li>
+    <li class="breadcrumb-item active"><a href="{{ route('organization_units.organization_unit.index') }}"> {{(__('setting.Units'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.View'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -35,43 +35,43 @@
         <div class="card-body">
             <dl class="dl-horizontal">
                 @if (isset($organizationUnit->am_name))
-                    <dt>Amharic Name</dt>
+                <dt>{{(__('setting.AmharicName'))}}</dt>
                     <dd>{{ $organizationUnit->am_name }} ({{ $organizationUnit->am_acronym }})</dd>
                 @endif
                 @if (isset($organizationUnit->parents))
-                    <dt>Parent</dt>
+                <dt>{{(__('setting.Parent'))}}</dt>
                     <dd>{{ $organizationUnit->parents->en_name }}</dd>
                 @endif
-                <dt>Job Category</dt>
+                <dt>{{(__('setting.JobCategory'))}}</dt>
                 <dd>{{ $organizationUnit->jobCategorys->name }}</dd>
                 @if (isset($organizationUnit->locations))
-                    <dt>Location</dt>
+                <dt>{{(__('setting.Location'))}}</dt>
                     <dd>{{ $organizationUnit->locations->name }}</dd>
                 @endif
                 @if (isset($organizationUnit->chairman))
-                    <dt>Chairman</dt>
+                <dt>{{(__('setting.Chairman'))}}</dt>
                     <dd>{{ $organizationUnit->chairman->name }}</dd>
                 @endif
-                <dt>Is Root Unit</dt>
+                <dt>{{(__('setting.IsRootUnit'))}}t</dt>
                 <dd>{{ $organizationUnit->is_root_unit ? 'Yes' : 'No' }}</dd>
-                <dt>Is Category</dt>
+                <dt>{{(__('setting.IsCategory'))}}</dt>
                 <dd>{{ $organizationUnit->is_category ? 'Yes' : 'No' }}</dd>
                 <div class="row">
                     @if (isset($organizationUnit->phone_number))
                         <div class="col-md-4">
-                            <dt>Phone Number</dt>
+                            <dt>{{(__('setting.PhoneNumber'))}}</dt>
                             <dd>{{ $organizationUnit->phone_number }}</dd>
                         </div>
                     @endif
                     @if (isset($organizationUnit->email_address))
                         <div class="col-md-4">
-                            <dt>Email Address</dt>
+                            <dt>{{(__('setting.Email'))}}</dt>
                             <dd>{{ $organizationUnit->email_address }}</dd>
                         </div>
                     @endif
                     @if (isset($organizationUnit->web_page))
                         <div class="col-md-4">
-                            <dt>Web Page</dt>
+                            <dt>{{(__('setting.Website'))}}</dt>
                             <dd>{{ $organizationUnit->web_page }}</dd>
                         </div>
                     @endif

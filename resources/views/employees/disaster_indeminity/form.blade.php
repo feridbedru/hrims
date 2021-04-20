@@ -1,5 +1,5 @@
 <div class="form-group {{ $errors->has('disaster') ? 'has-error' : '' }}">
-    <label for="disaster" class="col-md-2 control-label">Employee Disaster</label>
+    <label for="disaster" class="col-md-2 control-label">{{(__('employee.Employee Disaster'))}}</label>
     <div class="col-md-10">
         <select class="form-control" id="disaster" name="disaster" required="true">
             <option value="" style="display: none;"
@@ -16,7 +16,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
-    <label for="title" class="col-md-2 control-label">Title</label>
+    <label for="title" class="col-md-2 control-label">{{(__('setting.Title'))}}</label>
     <div class="col-md-12">
         <input class="form-control" name="title" type="text" id="title"
             value="{{ old('title', optional($employeeDisasterIndeminity)->title) }}" minlength="1" maxlength="255"
@@ -25,7 +25,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
-    <label for="description" class="col-md-2 control-label">Description</label>
+    <label for="description" class="col-md-2 control-label">{{(__('setting.Description'))}}</label>
     <div class="col-md-12">
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000"
@@ -35,7 +35,7 @@
 
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('cost') ? 'has-error' : '' }}">
-        <label for="cost" class="col-md-4 control-label">Cost</label>
+        <label for="cost" class="col-md-4 control-label">{{(__('employee.Cost'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="cost" type="text" id="cost"
                 value="{{ old('cost', optional($employeeDisasterIndeminity)->cost) }}" minlength="1"
@@ -44,7 +44,7 @@
     </div>
 
     <div class="form-group col-md-6 {{ $errors->has('file') ? 'has-error' : '' }}">
-        <label for="file" class="col-md-4 control-label">File</label>
+        <label for="file" class="col-md-4 control-label">{{(__('employee.File'))}}</label>
         <div class="col-md-12">
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
@@ -59,7 +59,7 @@
                 <div class="input-group input-width-input">
                     <span class="input-group-addon">
                         <input type="checkbox" name="custom_delete_file" class="custom-delete-file" value="1"
-                            {{ old('custom_delete_file', '0') == '1' ? 'checked' : '' }}> Delete
+                            {{ old('custom_delete_file', '0') == '1' ? 'checked' : '' }}> {{(__('setting.delete'))}}
                     </span>
 
                     <span class="input-group-addon custom-delete-file-name">
