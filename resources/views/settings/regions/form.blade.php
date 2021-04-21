@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" type="text" id="name" oninput="processs(this)"
             value="{{ old('name', optional($region)->name) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter name here...">
+            placeholder="{{(__('setting.Enterregionnamehere'))}}">
     </div>
 </div>
 
@@ -14,7 +14,7 @@
     <label for="code" class="col-md-4 control-label">{{ __('setting.Code') }}</label>
     <div class="col-md-12">
         <input class="form-control" name="code" type="text" oninput="processs(this)" id="code"
-            value="{{ old('code', optional($region)->code) }}" minlength="1" placeholder="Enter code here...">
+            value="{{ old('code', optional($region)->code) }}" minlength="1" placeholder="{{(__('setting.enterthecodehere'))}}">
     </div>
 </div>
 <script>

@@ -8,7 +8,7 @@
             <div class="col-md-12">
                 <input class="form-control" name="name" type="text" id="name" oninput="process(this)"
                     value="{{ old('name', optional($organizationLocation)->name) }}" minlength="1" maxlength="255"
-                    required="true" placeholder="Enter name here...">
+                    required="true" placeholder="{{(__('employee.Enter Organization Location Name Here'))}}">
             </div>
         </div>
     </div>
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <input class="form-control" name="address" type="text" id="address" oninput="process(this)"
                     value="{{ old('address', optional($organizationLocation)->address) }}" minlength="1"
-                    maxlength="255" required="true" placeholder="Enter address here...">
+                    maxlength="255" required="true" placeholder="{{(__('employee.Enter address here'))}}">
             </div>
         </div>
     </div>

@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <input class="form-control" name="title" type="text" id="title" oninput="process(this)"
             value="{{ old('title', optional($template)->title) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter title here...">
+            placeholder="{{ __('setting.enterthetitlehere') }}">
     </div>
 </div>
 
@@ -15,7 +15,7 @@
             class="text-danger">*</span></label>
     <div class="col-md-12">
         <textarea class="form-control" name="body" cols="50" rows="10" id="body" minlength="1" required="true"
-            placeholder="Enter body here...">{{ old('body', optional($template)->body) }}</textarea>
+            placeholder="{{ __('setting.enterthedescriptionhere') }}">{{ old('body', optional($template)->body) }}</textarea>
     </div>
 </div>
 
@@ -27,7 +27,7 @@
             <select class="form-control" id="language" name="language" required="true">
                 <option value="" style="display: none;"
                     {{ old('language', optional($template)->language ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Enter language here...</option>
+                    selected>{{ __('employee.Select language') }}</option>
                 @foreach ($languages as $key => $language)
                     <option value="{{ $key }}"
                         {{ old('language', optional($template)->language) == $key ? 'selected' : '' }}>
@@ -45,7 +45,7 @@
             <select class="form-control" id="template_type" name="template_type" required="true">
                 <option value="" style="display: none;"
                     {{ old('template_type', optional($template)->template_type ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select template type</option>
+                    disabled selected>{{ __('employee.Select template type') }}</option>
                 @foreach ($templateTypes as $key => $templateType)
                     <option value="{{ $key }}"
                         {{ old('template_type', optional($template)->template_type) == $key ? 'selected' : '' }}>
@@ -64,7 +64,7 @@
         <div class="col-md-12">
             <input class="form-control" name="code" type="text" id="code"
                 value="{{ old('code', optional($template)->code) }}" minlength="1" required="true"
-                placeholder="Enter code here...">
+                placeholder="{{ __('setting.enterthecodehere') }}">
         </div>
     </div>
 

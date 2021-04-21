@@ -1,11 +1,19 @@
 @extends('layouts.employee')
-
+@section('pagetitle')
+{{(__('employee.View Disaster Indeminity'))}}
+@endsection
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a
+            href="{{ route('employee_disaster_indeminities.employee_disaster_indeminity.index', $employee) }}">{{(__('employee.Disaster Indeminity'))}}</a>
+    </li>
+    <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
+@endsection
 @section('content')
 
     <div class="card card-primary">
         <div class="card-header clearfix">
             <span class="card-title">
-                <h4 class="mt-5 mb-5">{{ __('employee.Employee Disaster Indeminity') }}</h4>
+                <h4>{{ __('employee.Employee Disaster Indeminity') }}</h4>
             </span>
 
             <div class="card-tools">

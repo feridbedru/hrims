@@ -1,23 +1,23 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Additional Information
+{{(__('emplyee.Additional Infos'))}}
 @endsection
 @section('content')
     @if (count($employeeAdditionalInfos) == 0)
-        <h4 class="text-center">No Additional Infos Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Additional Infos Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>Place Of Birth</th>
-                    <th>Other Phone Number</th>
-                    <th>Nationality</th>
-                    <th>Religion</th>
-                    <th>Blood Group</th>
-                    <th>Tin Number</th>
-                    <th>Pension</th>
-                    <th>Marital Status</th>
+                    <th>{{(__('employee.Number'))}}</th>
+                    <th>{{(__('employee.Place Of Birth'))}}</th>
+                    <th>{{(__('employee.Other Phone Number'))}}</th>
+                    <th>{{(__('employee.Nationality'))}}</th>
+                    <th>{{(__('employee.Religions'))}}</th>
+                    <th>{{(__('employee.Blood Group'))}}</th>
+                    <th>{{(___('employee.Tin Number'))}}</th>
+                    <th>{{(__('employee.Pension'))}}</th>
+                    <th>{{__('employee.MaritalStatus')}}</th>
                 </tr>
             </thead>
             <tbody>

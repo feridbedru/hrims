@@ -1,18 +1,18 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Disabilities
+{{(__('employee.Disabilities'))}}
 @endsection
 @section('content')
     @if (count($employeeDisabilities) == 0)
-        <h4 class="text-center">No Disabilities Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Disabilities Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>Type</th>
-                    <th>{{(__('setting.Description'))}}</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('setting.Type') }}</th>
+                    <th>{{ __('setting.Description') }}</th>
+                    <th>{{ __('employee.Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,11 +23,11 @@
                         <td>{{ $employeeDisability->description }}</td>
                         <td>
                             @if ($employeeDisability->status == 1)
-                                Pending
+                                {{ __('employee.Pending') }}
                             @elseif($employeeDisability->status == 2)
-                                Rejected
+                                {{ __('employee.Rejected') }}
                             @else
-                                Approved
+                                {{ __('employee.Approved') }}
                             @endif
                         </td>
                     </tr>

@@ -44,7 +44,7 @@ return [
     'TemplatesType'=>"Templates type",
     'Title'=>"Title",
     'Woredas'=>"Woredas",
-    'update'=>"Update",
+    'update'=>"update",
     'Zones'=>"Zones",
     'Configure'=>"Configure",
     'Employees'=>"Employees",
@@ -72,7 +72,7 @@ return [
     'CreateNewAddressType'=>"Create New Address Type",
     'requiredField'=>"Fields denoted with * are required.",
     'AddressTypeName'=>"Address Type Name",
-    'enterthedescriptionhere'=>"enter the description here",
+    'enterthedescriptionhere'=>"Enter the description here",
     'enterthetitlehere'=>"enter the title here",
     'enterthecodehere'=>"enter the code here",
     'Enternamehere'=>"Enter name here",
@@ -267,6 +267,7 @@ return [
     'NewSkillCategory'=>"New Skill Category",
     'CreateNewSkillCategory'=>"Create New Skill Category",
     'SkillCategoryName'=>"Skill Category Name",
+     'Sex'=>"Sex",
 
     'Templates'=>"Templates",
     'NoTemplatesAvailable'=>"No Templates Available",
@@ -376,8 +377,8 @@ return [
     'NewJobPosition'=>"  New Job Position",
     'JobPosition'=>"Job Position",
     'IsAvailable'=>"Is Available",
-    'JobTitle'=>"የስራ መደቡ መጠሪያ",
-    'JobCategory'=>"የሥራ ምድብ",
+    'JobTitle'=>"Job Title",
+    'JobCategory'=>"Job Category",
     'JobDescription'=>"Job Description",
     'PositionCode '=>"Position Code ",
     'PositionID '=>"Position ID ",
@@ -427,7 +428,7 @@ return [
     'Reports'=>"Reports",
     'Reports List'=>"Reports List",
     'No Reports Available'=>"No Reports Availabl",
-
+    'Enter Job Title Name Here'=>"Enter Job Title Name Here",
     'Edit Report'=>"Edit Report",
 
 

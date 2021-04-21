@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" type="text" id="name"
             value="{{ old('name', optional($language)->name) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter name here...">
+            placeholder="{{(__('employee.Enter Language Name Here'))}}">
     </div>
 </div>
 
@@ -13,7 +13,7 @@
     <label for="code" class="col-md-4 control-label">{{(__('setting.Code'))}} <span class="text-danger">*</span></label>
     <div class="col-md-12">
         <input class="form-control" name="code" type="text" id="code"
-            value="{{ old('code', optional($language)->code) }}" minlength="1" placeholder="Enter code here..."
+            value="{{ old('code', optional($language)->code) }}" minlength="1" placeholder="{{(__('setting.Code'))}}"
             required="true">
     </div>
 </div>

@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" type="text" oninput="process(this)" id="name"
             value="{{ old('name', optional($commitmentFor)->name) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter name here...">
+            placeholder="{{(__('employee.Commitment Name'))}}">
     </div>
 </div>
 

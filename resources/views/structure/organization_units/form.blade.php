@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <input class="form-control" name="en_name" type="text" id="en_name"
                 value="{{ old('en_name', optional($organizationUnit)->en_name) }}" minlength="1"
-                placeholder="Enter english name here...">
+                placeholder="{{(__('employee.Enter english name here'))}}">
         </div>
     </div>
 
@@ -14,7 +14,7 @@
         <div class="col-md-12">
             <input class="form-control" name="en_acronym" type="text" id="en_acronym"
                 value="{{ old('en_acronym', optional($organizationUnit)->en_acronym) }}" minlength="1"
-                placeholder="Enter english acronym here...">
+                placeholder="{{(__('employee.Enter english acronym here'))}}">
         </div>
     </div>
 </div>
@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <input class="form-control" name="am_name" type="text" id="am_name"
                 value="{{ old('am_name', optional($organizationUnit)->am_name) }}" minlength="1"
-                placeholder="Enter amharic name here...">
+                placeholder="{{(__('employee.Enter amharic name here'))}}">
         </div>
     </div>
 
@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <input class="form-control" name="am_acronym" type="text" id="am_acronym"
                 value="{{ old('am_acronym', optional($organizationUnit)->am_acronym) }}" minlength="1"
-                placeholder="Enter amharic acronym here...">
+                placeholder="{{(__('employee.Enter amharic acronym here'))}}">
         </div>
     </div>
 </div>
@@ -45,7 +45,7 @@
             <select class="form-control" id="parent" name="parent">
                 <option value="" style="display: none;"
                     {{ old('parent', optional($organizationUnit)->parent ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select organization unit</option>
+                    selected>{{(__('setting.Selectorganizationunit'))}}</option>
                 @foreach ($organizationUnits as $key => $organizationUnit)
                     <option value="{{ $key }}"
                         {{ old('parent', optional($organizationUnit)->parent) == $key ? 'selected' : '' }}>
@@ -62,7 +62,7 @@
             <select class="form-control" id="job_category" name="job_category" required="true">
                 <option value="" style="display: none;"
                     {{ old('job_category', optional($organizationUnit)->job_category ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select job category</option>
+                    disabled selected>{{(__('setting.JobCategory'))}}</option>
                 @foreach ($jobCategories as $key => $jobCategory)
                     <option value="{{ $key }}"
                         {{ old('job_category', optional($organizationUnit)->job_category) == $key ? 'selected' : '' }}>
@@ -78,7 +78,7 @@
             <select class="form-control" id="location" name="location" required="true">
                 <option value="" style="display: none;"
                     {{ old('location', optional($organizationUnit)->location ?: '') == '' ? 'selected' : 'selected' }}
-                    disabled selected>Select organization location</option>
+                    disabled selected>{{(__('employee.Select organization location'))}}</option>
                 @foreach ($organizationLocations as $key => $organizationLocation)
                     <option value="{{ $key }}"
                         {{ old('location', optional($organizationUnit)->location) == $key ? 'selected' : '' }}>
@@ -97,7 +97,7 @@
             <select class="form-control" id="reports_to" name="reports_to">
                 <option value="" style="display: none;"
                     {{ old('reports_to', optional($organizationUnit)->reports_to ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select organization unit</option>
+                    disabled selected>{{(__('employee.Select organization unit'))}}</option>
                 @foreach ($organizationUnits as $key => $organizationUnit)
                     <option value="{{ $key }}"
                         {{ old('reports_to', optional($organizationUnit)->reports_to) == $key ? 'selected' : '' }}>
@@ -113,7 +113,7 @@
             <select class="form-control" id="chairman" name="chairman">
                 <option value="" style="display: none;"
                     {{ old('chairman', optional($organizationUnit)->chairman ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select Chairman</option>
+                    disabled selected>{{(__('employee.Select chairman'))}}</option>
                 @foreach ($chairmans as $key => $chairman)
                     <option value="{{ $key }}"
                         {{ old('chairman', optional($chairman)->chairman) == $key ? 'selected' : '' }}>
@@ -156,7 +156,7 @@
         <div class="col-md-12">
             <input class="form-control" name="phone_number" type="number" id="phone_number"
                 value="{{ old('phone_number', optional($organizationUnit)->phone_number) }}"
-                placeholder="Enter phone number here...">
+                placeholder="{{(__('employee.Enter phone number here'))}}">
         </div>
     </div>
 
@@ -165,7 +165,7 @@
         <div class="col-md-12">
             <input class="form-control" name="email_address" type="email" id="email_address"
                 value="{{ old('email_address', optional($organizationUnit)->email_address) }}"
-                placeholder="Enter email address here...">
+                placeholder="{{(__('employee.Enter email address here'))}}">
         </div>
     </div>
 
@@ -174,7 +174,7 @@
         <div class="col-md-12">
             <input class="form-control" name="web_page" type="text" id="web_page"
                 value="{{ old('web_page', optional($organizationUnit)->web_page) }}"
-                placeholder="Enter web page here...">
+                placeholder="{{(__('employee.Enter web page here'))}}">
         </div>
     </div>
 </div>

@@ -7,7 +7,7 @@
             <select class="form-control" id="level" name="level" required="true">
                 <option value="" style="display: none;"
                     {{ old('level', optional($employeeEducation)->level ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select education level</option>
+                    selected>{{(__('employee.Select educational level'))}}</option>
                 @foreach ($educationLevels as $key => $educationLevel)
                     <option value="{{ $key }}"
                         {{ old('level', optional($employeeEducation)->level) == $key ? 'selected' : '' }}>
@@ -24,7 +24,7 @@
             <select class="form-control" id="institute" name="institute" required="true">
                 <option value="" style="display: none;"
                     {{ old('institute', optional($employeeEducation)->institute ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select educational institute</option>
+                    disabled selected>{{(__('employee.Select educational institute'))}}</option>
                 @foreach ($educationalInstitutes as $key => $educationalInstitute)
                     <option value="{{ $key }}"
                         {{ old('institute', optional($employeeEducation)->institute) == $key ? 'selected' : '' }}>
@@ -41,7 +41,7 @@
             <select class="form-control" id="field" name="field" required="true">
                 <option value="" style="display: none;"
                     {{ old('field', optional($employeeEducation)->field ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select educational field</option>
+                    selected>{{(__('employee.Select educational field'))}}</option>
                 @foreach ($educationalFields as $key => $educationalField)
                     <option value="{{ $key }}"
                         {{ old('field', optional($employeeEducation)->field) == $key ? 'selected' : '' }}>
@@ -60,7 +60,7 @@
             <select class="form-control" id="gpa_scale" name="gpa_scale" required="true">
                 <option value="" style="display: none;"
                     {{ old('gpa_scale', optional($employeeEducation)->gpa_scale ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select gpa scale</option>
+                    disabled selected>{{(__('employee.Select gpa scale'))}}</option>
                 @foreach ($gpaScales as $key => $gpaScale)
                     <option value="{{ $key }}"
                         {{ old('gpa_scale', optional($employeeEducation)->gpa_scale) == $key ? 'selected' : '' }}>
@@ -76,7 +76,7 @@
         <div class="col-md-12">
             <input class="form-control" name="gpa" type="text" id="gpa"
                 value="{{ old('gpa', optional($employeeEducation)->gpa) }}" minlength="1" required="true"
-                placeholder="Enter gpa here...">
+                placeholder="{{(__('employee.Enter gpa here'))}}">
         </div>
     </div>
 
@@ -104,7 +104,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -140,9 +140,8 @@
     <div class="form-group col-md-4 {{ $errors->has('coc_issued_date') ? 'has-error' : '' }}">
         <label for="coc_issued_date" class="col-md-12 control-label">{{(__('employee.COC Issued Date'))}}</label>
         <div class="col-md-12">
-            <input class="form-control" name="coc_issued_date" type="text" id="coc_issued_date"
-                value="{{ old('coc_issued_date', optional($employeeEducation)->coc_issued_date) }}"
-                placeholder="Enter coc issued date here...">
+            <input class="form-control" name="coc_issued_date" type="date" id="coc_issued_date"
+                value="{{ old('coc_issued_date', optional($employeeEducation)->coc_issued_date) }}">
         </div>
     </div>
 
@@ -152,7 +151,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="coc_file" id="coc_file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="coc_file" id="coc_file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>

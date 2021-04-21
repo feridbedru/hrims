@@ -13,7 +13,7 @@
 
         <div class="card-body">
             @if (count($employeeCertifications) == 0)
-                <h4 class="text-center">{{__('setting.NoCommitmentForsAvailable')}}</h4>
+                <h4 class="text-center">{{__('setting.No Certifications Available')}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>

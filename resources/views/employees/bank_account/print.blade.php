@@ -1,19 +1,19 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Bank Account
+{{(__('employee.Bank Accounts'))}}
 @endsection
 @section('content')
     @if (count($employeeBankAccounts) == 0)
-        <h4 class="text-center">No Bank Accounts Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Bank Accounts Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>Bank</th>
-                    <th>Bank Account Type</th>
-                    <th>Account Number</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('setting.Banks') }}</th>
+                    <th>{{ __('setting.BankAccountType') }}</th>
+                    <th>{{ __('employee.Account Number') }}</th>
+                    <th>{{ __('employee.Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,11 +25,11 @@
                         <td>{{ $employeeBankAccount->account_number }}</td>
                         <td>
                             @if ($employeeBankAccount->status == 1)
-                                Pending
+                                {{ __('employee.Pending') }}
                             @elseif($employeeBankAccount->status == 2)
-                                Rejected
+                                {{ __('employee.Rejected') }}
                             @else
-                                Approved
+                                {{ __('employee.Approved') }}
                             @endif
                         </td>
                     </tr>

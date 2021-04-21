@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-md-4">
                         @if (isset($employeeEducation->end_date))
-                            <dt>{{(__('employee.End Date<'))}}</dt>
+                            <dt>{{(__('employee.End Date'))}}</dt>
                             <dd>{{ $employeeEducation->end_date }}</dd>
                         @endif
                     </div>
@@ -125,7 +125,6 @@
                         </div>
                     </div>
                 @endif
-
             </dl>
         </div>
     </div>

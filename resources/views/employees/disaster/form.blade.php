@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <input class="form-control" name="occured_on" type="date" id="occured_on"
                 value="{{ old('occured_on', optional($employeeDisaster)->occured_on) }}" required="true"
-                placeholder="Enter occured on here...">
+                placeholder="{{(__('employee.Enter occured on here'))}}">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <select class="form-control" id="cause" name="cause" required="true">
                 <option value="" style="display: none;"
                     {{ old('cause', optional($employeeDisaster)->cause ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select disaster cause</option>
+                    selected>{{(__('employee.Select disaster cause'))}}</option>
                 @foreach ($disasterCauses as $key => $disasterCause)
                     <option value="{{ $key }}"
                         {{ old('cause', optional($employeeDisaster)->cause) == $key ? 'selected' : '' }}>
@@ -34,7 +34,7 @@
             <select class="form-control" id="severity" name="severity" required="true">
                 <option value="" style="display: none;"
                     {{ old('severity', optional($employeeDisaster)->severity ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select disaster severity</option>
+                    disabled selected>{{(__('employee.Select disaster severity'))}}</option>
                 @foreach ($disasterSeverities as $key => $disasterSeverity)
                     <option value="{{ $key }}"
                         {{ old('severity', optional($employeeDisaster)->severity) == $key ? 'selected' : '' }}>
@@ -62,7 +62,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="attachment" id="attachment" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="attachment" id="attachment" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Show Salary Height
+{{(__('employee.Show Salary Height'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('salary_heights.salary_height.index') }}">Salary Height</a></li>
-    <li class="breadcrumb-item active">Show</li>
+    <li class="breadcrumb-item"><a href="{{ route('salary_heights.salary_height.index') }}">{{(__('employee.Salary Height'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Show'))}}</li>
 @endsection
 @section('content')
 
@@ -31,16 +31,16 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Initial Salary</dt>
+                <dt>{{(__('employee.Initial Salary'))}}</dt>
                 <dd>{{ $salaryHeight->initial_salary }}</dd>
-                <dt>Maximum Salary</dt>
+                <dt>{{(__('employee.Maximum Salary'))}}</dt>
                 <dd>{{ $salaryHeight->maximum_salary }}</dd>
             </dl>
             <table class="table">
                 <thead>
                     <tr>
                         <th rowspan="2" class="text-center">Level</th>
-                        <th colspan="{{ $salaryHeight->salaryScales['salary_steps'] }}" class="text-center">Steps
+                        <th colspan="{{ $salaryHeight->salaryScales['salary_steps'] }}" class="text-center">{{(__('employee.Steps'))}}
                             ({{ $myscale = $salaryHeight->salaryScales['salary_steps'] }})</th>
                     </tr>
                     <tr>
@@ -61,21 +61,21 @@
             </table>
             <div class="text-center mt-4">
                 <button type="button" class="btn btn-warning mr-5" data-toggle="modal" data-target="#edit_salary_modal">
-                    <span class="fa fa-edit text-white"> Edit</span>
+                    <span class="fa fa-edit text-white"> {{(__('setting.Edit'))}}</span>
                 </button>
                 <form class="d-inline" method="POST" action="{!! route('salary_heights.salary_height.deletesalary', $salaryHeight->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
                     {{ csrf_field() }}
                         <button type="submit" class="btn btn-danger" title="Delete Total Salaries"
                             onclick="return confirm(&quot;Click Ok to delete total Salary within this height.?&quot;)">
-                            <span class="fa fa-trash" aria-hidden="true"> Delete</span>
+                            <span class="fa fa-trash" aria-hidden="true"> {{(__('setting.Delete'))}}</span>
                         </button>
                 </form>
                 <div class="modal fade" id="edit_salary_modal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Edit Salary</h4>
+                                <h4 class="modal-title">{{(__('employee.Edit Salary'))}}/h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -84,9 +84,9 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th rowspan="2" class="text-center">Level</th>
+                                            <th rowspan="2" class="text-center">{{(__('setting.Level'))}}</th>
                                             <th colspan="{{ $salaryHeight->salaryScales['salary_steps'] }}"
-                                                class="text-center">Steps
+                                                class="text-center">{{(__('setting.Steps'))}}
                                                 ({{ $myscale = $salaryHeight->salaryScales['salary_steps'] }})</th>
                                         </tr>
                                         <tr>

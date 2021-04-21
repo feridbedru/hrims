@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" type="text" id="name" oninput="process(this)"
             value="{{ old('name', optional($relationship)->name) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter name here...">
+            placeholder="{{(__('employee.Enter Relationship Name Here'))}}">
     </div>
 </div>
 

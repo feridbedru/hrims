@@ -7,7 +7,7 @@
             <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
                     {{ old('type', optional($employeeExperience)->type ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select experience type</option>
+                    selected>{{(__('employee.Select experience type'))}}</option>
                 @foreach ($experienceTypes as $key => $experienceType)
                     <option value="{{ $key }}"
                         {{ old('type', optional($employeeExperience)->type) == $key ? 'selected' : '' }}>
@@ -21,9 +21,9 @@
     <div class="form-group col-md-4 {{ $errors->has('organization_name') ? 'has-error' : '' }}">
         <label for="organization_name" class="col-md-12 control-label">{{(__('employee.Organization Name'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="organization_name" type="text" id="organization_name"
+            <input class="form-control" name="organization_name" type="text" id="organization_name" oninput="process(this)"
                 value="{{ old('organization_name', optional($employeeExperience)->organization_name) }}" minlength="1" required="true"
-                placeholder="Enter organization name here...">
+                placeholder="{{(__('employee.Enter organization name here'))}}">
         </div>
     </div>
 
@@ -32,7 +32,7 @@
         <div class="col-md-12">
             <input class="form-control" name="organization_address" type="text" id="organization_address"
                 value="{{ old('organization_address', optional($employeeExperience)->organization_address) }}" minlength="1"
-                placeholder="Enter organization organization_address here...">
+                placeholder="{{(__('employee.Enter organization_address here'))}}">
         </div>
     </div>
 </div>
@@ -41,9 +41,9 @@
     <div class="form-group col-md-4 {{ $errors->has('job_position') ? 'has-error' : '' }}">
         <label for="job_position" class="col-md-12 control-label">{{(__('employee.Job Position'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="job_position" type="text" id="job_position"
+            <input class="form-control" name="job_position" type="text" id="job_position" oninput="process(this)"
                 value="{{ old('job_position', optional($employeeExperience)->job_position) }}" minlength="1"
-                required="true" placeholder="Enter job position here...">
+                required="true" placeholder="{{(__('employee.Enter job position here'))}}">
         </div>
     </div>
 
@@ -52,16 +52,16 @@
         <div class="col-md-12">
             <input class="form-control" name="level" type="text" id="level"
                 value="{{ old('level', optional($employeeExperience)->level) }}" minlength="1" required="true"
-                placeholder="Enter level here...">
+                placeholder="{{(__('employee.Enter level here'))}}">
         </div>
     </div>
 
     <div class="form-group col-md-4 {{ $errors->has('salary') ? 'has-error' : '' }}">
         <label for="salary" class="col-md-12 control-label">{{(__('setting.Salary'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="salary" type="text" id="salary"
+            <input class="form-control" name="salary" type="text" id="salary" oninput="processs(this)"
                 value="{{ old('salary', optional($employeeExperience)->salary) }}" minlength="1" required="true"
-                placeholder="Enter salary here...">
+                placeholder="{{(__('employee.Enter salary here'))}}">
         </div>
     </div>
 </div>
@@ -73,7 +73,7 @@
             <select class="form-control" id="left_reason" name="left_reason" required="true">
                 <option value="" style="display: none;"
                     {{ old('left_reason', optional($employeeExperience)->left_reason ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select left reason</option>
+                    disabled selected>{{(__('employee.Select left reason'))}}</option>
                 @foreach ($leftReasons as $key => $leftReason)
                     <option value="{{ $key }}"
                         {{ old('left_reason', optional($employeeExperience)->left_reason) == $key ? 'selected' : '' }}>
@@ -88,9 +88,7 @@
         <label for="start_date" class="col-md-12 control-label">{{(__('employee.Start Date'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="start_date" type="date" id="start_date"
-                value="{{ old('start_date', optional($employeeExperience)->start_date) }}" required="true"
-                placeholder="Enter start date here...">
-            {!! $errors->first('start_date', '<p class="help-block">:message</p>') !!}
+                value="{{ old('start_date', optional($employeeExperience)->start_date) }}" required="true">
         </div>
     </div>
 
@@ -98,8 +96,7 @@
         <label for="end_date" class="col-md-12 control-label">{{(__('employee.End Date'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="end_date" type="date" id="end_date"
-                value="{{ old('end_date', optional($employeeExperience)->end_date) }}"
-                placeholder="Enter end date here...">
+                value="{{ old('end_date', optional($employeeExperience)->end_date) }}">
         </div>
     </div>
 </div>
@@ -111,7 +108,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="attachment" id="attachment" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="attachment" id="attachment" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -132,3 +129,19 @@
         </div>
     </div>
 </div>
+<script>
+
+    function process(input){
+    let value = input.value;
+    let text = value.replace(/[^A-Z,a-z, ]/g, "");
+    input.value = text;
+  }
+  </script>
+  <script>
+
+    function processs(input){
+    let value = input.value;
+    let text = value.replace(/[^0-9,.,:, ]/g, "");
+    input.value = text;
+  }
+  </script>

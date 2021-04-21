@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" type="text" oninput="processs(this)" id="name"
             value="{{ old('name', optional($religion)->name) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter name here...">
+            placeholder="{{(__('employee.Enter Religion Name Here'))}}">
     </div>
 </div>
 

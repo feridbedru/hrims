@@ -32,21 +32,21 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Job Position</dt>
+                        <dt>{{(__('employee.Job Position'))}}</dt>
                         <dd>{{ $employeeExperience->job_position }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Level</dt>
+                        <dt>{{(__('setting.Level'))}}</dt>
                         <dd>{{ $employeeExperience->level }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Salary</dt>
+                        <dt>{{(__('setting.Salary'))}}</dt>
                         <dd>{{ $employeeExperience->salary }}</dd>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>Left Reason</dt>
+                        <dt>{{(__('employee.Left Reason'))}}</dt>
                         <dd>{{ $employeeExperience->leftReasons->name }}</dd>
                     </div>
                     <div class="col-md-4">

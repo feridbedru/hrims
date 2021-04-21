@@ -4,7 +4,7 @@
         <select class="form-control" id="disaster" name="disaster" required="true">
             <option value="" style="display: none;"
                 {{ old('disaster', optional($employeeDisasterIndeminity)->disaster ?: '') == '' ? 'selected' : '' }}
-                disabled selected>Select employee disaster</option>
+                disabled selected>{{(__('employee.Select employee disaster'))}}</option>
             @foreach ($employeeDisasters as $key => $employeeDisaster)
                 <option value="{{ $key }}"
                     {{ old('disaster', optional($employeeDisasterIndeminity)->disaster) == $key ? 'selected' : '' }}>
@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <input class="form-control" name="title" type="text" id="title"
             value="{{ old('title', optional($employeeDisasterIndeminity)->title) }}" minlength="1" maxlength="255"
-            required="true" placeholder="Enter title here...">
+            required="true" placeholder="{{(__('employee.Enter title here'))}}">
     </div>
 </div>
 
@@ -39,7 +39,7 @@
         <div class="col-md-12">
             <input class="form-control" name="cost" type="text" id="cost"
                 value="{{ old('cost', optional($employeeDisasterIndeminity)->cost) }}" minlength="1"
-                placeholder="Enter cost here...">
+                placeholder="{{(__('employee.Enter cost here'))}}">
         </div>
     </div>
 
@@ -49,7 +49,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>

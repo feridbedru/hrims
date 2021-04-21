@@ -4,9 +4,9 @@
     <div class="form-group col-md-6 {{ $errors->has('title') ? 'has-error' : '' }}">
         <label for="title" class="col-md-4 control-label">{{(__('employee.Title'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="title" type="text" id="title"
+            <input class="form-control" name="title" type="text" id="title" oninput="process(this)"
                 value="{{ old('title', optional($employeeFile)->title) }}" minlength="1" maxlength="255"
-                required="true" placeholder="Enter title here...">
+                required="true" placeholder="{{(__('employee.Enter title here'))}}">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="attachment" id="attachment" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="attachment" id="attachment" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -44,3 +44,11 @@
             maxlength="1000">{{ old('description', optional($employeeFile)->description) }}</textarea>
     </div>
 </div>
+<script>
+
+    function process(input){
+    let value = input.value;
+    let text = value.replace(/[^A-Z,a-z, ]/g, "");
+    input.value = text;
+  }
+  </script>

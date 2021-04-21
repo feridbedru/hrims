@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Edit Salary Scale
+{{(__('employee.Edit Salary Scale'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('salary_scales.salary_scale.index') }}">Salary Scale</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('salary_scales.salary_scale.index') }}">{{(__('employee.Salary Scale'))}}</a></li>
     <li class="breadcrumb-item active">{{(__('setting.edit'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title mb-1">Edit Salary Scale</h3>
+            <h3 class="card-title mb-1">{{(__('employee.Edit Salary Scale'))}}</h3>
         </div>
         <div class="card-body">
             <form method="POST" action="{{ route('salary_scales.salary_scale.update', $salaryScale->id) }}"

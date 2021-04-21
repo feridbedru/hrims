@@ -1,20 +1,20 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Awards
+{{(__('employee.Awards'))}}
 @endsection
 @section('content')
     @if (count($employeeAwards) == 0)
-        <h4 class="text-center">No Awards Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Awards Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
                     <th>{{(__('setting.Number'))}}</th>
-                    <th>Organization</th>
-                    <th>Award Type</th>
-                    <th>Awarded On</th>
-                    <th>{{(__('setting.Description'))}}</th>
-                    <th>Status</th>
+                    <th>{{__('setting.Organization')}}</th>
+                    <th>{{__('setting.AwardType')}}</th>
+                    <th>{{(__('employee.Awarded On'))}}</th>
+                    <th>{{(__('employee.Description'))}}</th>
+                    <th>{{(__('employee.Status'))}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,11 +27,11 @@
                         <td>{{ $employeeAward->description }}</td>
                         <td>
                             @if ($employeeAward->status == 1)
-                                Pending
+                            {{(__('employee.Pending'))}}
                             @elseif($employeeAward->status == 2)
-                                Rejected
+                            {{(__('employee.Rejected'))}}
                             @else
-                                Approved
+                            {{(__('employee.Approved'))}}
                             @endif
                         </td>
                     </tr>

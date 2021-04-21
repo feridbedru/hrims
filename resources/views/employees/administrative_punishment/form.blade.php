@@ -1,12 +1,12 @@
-<h6 class="ml-2">{{(__('setting.requiredField'))}} <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}} <span class="text-danger">*</span></h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('organization_name') ? 'has-error' : '' }}">
         <label for="organization_name" class="col-md-12 control-label">{{(__('employee.Organization Name'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="organization_name" type="text" id="organization_name"
+            <input class="form-control" name="organization_name" type="text" oninput="process(this)" id="organization_name"
                 value="{{ old('organization_name', optional($employeeAdministrativePunishment)->organization_name) }}"
-                minlength="1" required="true" placeholder="Enter organization name here...">
+                minlength="1" required="true" placeholder="{{(__('employee.Enter organization name here'))}}">
         </div>
     </div>
 
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <input class="form-control" name="decision" type="text" id="decision"
                 value="{{ old('decision', optional($employeeAdministrativePunishment)->decision) }}" minlength="1"
-                required="true" placeholder="Enter decision here...">
+                required="true" placeholder="{{(__('employee.Enter decision here'))}}">
         </div>
     </div>
 </div>
@@ -26,7 +26,7 @@
         <div class="col-md-12">
             <input class="form-control" name="reason" type="text" id="reason"
                 value="{{ old('reason', optional($employeeAdministrativePunishment)->reason) }}" minlength="1"
-                required="true" placeholder="Enter reason here...">
+                required="true" placeholder="{{(__('employee.Enter reason here'))}}">
         </div>
     </div>
 
@@ -36,7 +36,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.{{(__('employee.Browse'))}}'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -63,8 +63,7 @@
         <label for="start_date" class="col-md-12 control-label">{{(__('employee.Start Date'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="start_date" type="date" id="start_date"
-                value="{{ old('start_date', optional($employeeAdministrativePunishment)->start_date) }}"
-                placeholder="Enter start date here...">
+                value="{{ old('start_date', optional($employeeAdministrativePunishment)->start_date) }}">
         </div>
     </div>
 
@@ -72,8 +71,7 @@
         <label for="end_date" class="col-md-12 control-label">{{(__('employee.End Date'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="end_date" type="date" id="end_date"
-                value="{{ old('end_date', optional($employeeAdministrativePunishment)->end_date) }}"
-                placeholder="Enter end date here...">
+                value="{{ old('end_date', optional($employeeAdministrativePunishment)->end_date) }}">
         </div>
     </div>
 
@@ -84,15 +82,15 @@
                 <option value="" style="display: none;"
                     {{ old('status', optional($employeeAdministrativePunishment)->status ?: '') == '' ? 'selected' : '' }}
                     disabled selected>
-                    Select status</option>
+                    {{(__('employee.Select status'))}}</option>
 
                 <option value="1"
                     {{ old('status', optional($employeeAdministrativePunishment)->status) == 1 ? 'selected' : '' }}>
-                    Active
+                    {{(__('employee.Active'))}}
                 </option>
                 <option value="2"
                     {{ old('status', optional($employeeAdministrativePunishment)->status) == 0 ? 'selected' : '' }}>
-                    Closed
+                    {{(__('employee.Closed'))}}
                 </option>
             </select>
         </div>

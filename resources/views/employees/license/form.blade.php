@@ -4,9 +4,9 @@
     <div class="form-group col-md-4 {{ $errors->has('title') ? 'has-error' : '' }}">
         <label for="title" class="col-md-12 control-label">{{(__('employee.Title'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="title" type="text" id="title"
+            <input class="form-control" name="title" type="text" id="title" oninput="process(this)"
                 value="{{ old('title', optional($employeeLicense)->title) }}" minlength="1" maxlength="255"
-                required="true" placeholder="Enter title here...">
+                required="true" placeholder="{{(__('employee.Enter title here'))}}">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
                     {{ old('type', optional($employeeLicense)->type ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select license type</option>
+                    selected>{{(__('employee.Select license Type'))}}</option>
                 @foreach ($licenseTypes as $key => $licenseType)
                     <option value="{{ $key }}"
                         {{ old('type', optional($employeeLicense)->type) == $key ? 'selected' : '' }}>
@@ -32,7 +32,7 @@
         <div class="col-md-12">
             <input class="form-control" name="issuing_organization" type="text" id="issuing_organization"
                 value="{{ old('issuing_organization', optional($employeeLicense)->issuing_organization) }}"
-                minlength="1" required="true" placeholder="Enter issuing organization here...">
+                minlength="1" required="true" placeholder="{{(__('employee.Enter issuing organization here'))}}">
         </div>
     </div>
 </div>
@@ -42,8 +42,7 @@
         <label for="expiry_date" class="col-md-12 control-label">{{(__('employee.Expiry Date'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="expiry_date" type="date" id="expiry_date"
-                value="{{ old('expiry_date', optional($employeeLicense)->expiry_date) }}"
-                placeholder="Enter expiry date here...">
+                value="{{ old('expiry_date', optional($employeeLicense)->expiry_date) }}">
         </div>
     </div>
 
@@ -53,7 +52,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -74,3 +73,11 @@
         </div>
     </div>
 </div>
+<script>
+
+    function process(input){
+    let value = input.value;
+    let text = value.replace(/[^A-Z,a-z, ]/g, "");
+    input.value = text;
+  }
+  </script>

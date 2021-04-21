@@ -7,7 +7,7 @@
             <select class="form-control" id="title" name="title">
                 <option value="" style="display: none;"
                     {{ old('title', optional($employee)->title ?: '') == '' ? 'selected' : '' }} disabled selected>
-                    Select title</option>
+                    {{(__('employee.Select title'))}}</option>
                 @foreach ($titles as $key => $title)
                     <option value="{{ $key }}"
                         {{ old('title', optional($employee)->title) == $key ? 'selected' : '' }}>
@@ -23,7 +23,7 @@
         <div class="col-md-12">
             <input class="form-control" name="en_name" type="text" id="en_name"
                 value="{{ old('en_name', optional($employee)->en_name) }}" minlength="1"
-                placeholder="Enter english name here...">
+                placeholder="{{(__('employee.Enter english name here'))}}">
         </div>
     </div>
 
@@ -32,7 +32,7 @@
         <div class="col-md-12">
             <input class="form-control" name="am_name" type="text" id="am_name"
                 value="{{ old('am_name', optional($employee)->am_name) }}" minlength="1" required="true"
-                placeholder="Enter amharic name here...">
+                placeholder="{{(__('employee.Enter amharic name here'))}}">
         </div>
     </div>
 </div>
@@ -44,8 +44,7 @@
         <div class="col-md-12">
             <select class="form-control" id="sex" name="sex" required="true">
                 <option value="" style="display: none;"
-                    {{ old('sex', optional($employee)->sex ?: '') == '' ? 'selected' : '' }} disabled selected>Select
-                    sex</option>
+                    {{ old('sex', optional($employee)->sex ?: '') == '' ? 'selected' : '' }} disabled selected>{{(__('employee.Select Sex'))}}</option>
                 @foreach ($sexes as $key => $sex)
                     <option value="{{ $key }}"
                         {{ old('sex', optional($employee)->sex) == $key ? 'selected' : '' }}>
@@ -61,8 +60,7 @@
                 class="text-danger">*</span></label>
         <div class="col-md-12">
             <input class="form-control" name="date_of_birth" type="date" id="date_of_birth"
-                value="{{ old('date_of_birth', optional($employee)->date_of_birth) }}" required="true"
-                placeholder="Enter date of birth here...">
+                value="{{ old('date_of_birth', optional($employee)->date_of_birth) }}" required="true">
         </div>
     </div>
 
@@ -99,7 +97,7 @@
         <div class="col-md-12">
             <input class="form-control" name="phone_number" type="number" id="phone_number"
                 value="{{ old('phone_number', optional($employee)->phone_number) }}"
-                placeholder="Enter phone number here...">
+                placeholder="{{(__('employee.Enter phone number here'))}}">
         </div>
     </div>
 
@@ -110,7 +108,7 @@
             <select class="form-control" id="organization_unit" name="organization_unit" required="true">
                 <option value="" style="display: none;"
                     {{ old('organization_unit', optional($employee)->organization_unit ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select organization unit</option>
+                    disabled selected>{{(__('employee.Select organization unit'))}}</option>
                 @foreach ($organizationUnits as $key => $organizationUnit)
                     <option value="{{ $key }}"
                         {{ old('organization_unit', optional($employee)->organization_unit) == $key ? 'selected' : '' }}>
@@ -128,7 +126,7 @@
             <select class="form-control" id="job_position" name="job_position" required="true">
                 <option value="" style="display: none;"
                     {{ old('job_position', optional($employee)->job_position ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select job position</option>
+                    disabled selected>{{(__('employee.Select job position'))}}</option>
                 @foreach ($jobPositions as $key => $jobPosition)
                     <option value="{{ $key }}"
                         {{ old('job_position', optional($employee)->job_position) == $key ? 'selected' : '' }}>
@@ -147,7 +145,7 @@
         <div class="col-md-12">
             <input class="form-control" name="employment_id" type="text" id="employment_id"
                 value="{{ old('employment_id', optional($employee)->employment_id) }}"
-                placeholder="Enter employment ID here ...">
+                placeholder="{{(__('employee.Enter employment ID here'))}}">
         </div>
     </div>
 
@@ -157,7 +155,7 @@
             <select class="form-control" id="status" name="status" required="true">
                 <option value="" style="display: none;"
                     {{ old('status', optional($employee)->status ?: '') == '' ? 'selected' : '' }} disabled selected>
-                    Select employee status</option>
+                    {{(__('employee.Select employee status'))}}</option>
                 @foreach ($employeeStatuses as $key => $employeeStatus)
                     <option value="{{ $key }}"
                         {{ old('status', optional($employee)->status) == $key ? 'selected' : '' }}>

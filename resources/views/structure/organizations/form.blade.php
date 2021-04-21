@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <input class="form-control" name="en_name" type="text" id="en_name"
                 value="{{ old('en_name', optional($organization)->en_name) }}" minlength="5" required="true"
-                placeholder="Enter English name here...">
+                placeholder="{{(__('employee.Enter english name here'))}}">
         </div>
     </div>
 
@@ -15,7 +15,7 @@
         <div class="col-md-12">
             <input class="form-control" name="am_name" type="text" id="am_name"
                 value="{{ old('am_name', optional($organization)->am_name) }}" minlength="5"
-                placeholder="Enter amharic name here...">
+                placeholder="{{(__('employee.Enter amharic name here'))}}">
         </div>
     </div>
 
@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <input class="form-control" name="abbreviation" type="text" id="abbreviation"
                 value="{{ old('abbreviation', optional($organization)->abbreviation) }}" minlength="2"
-                placeholder="Enter abbreviation here...">
+                placeholder="{{(__('employee.Enter abbreviation here'))}}">
         </div>
     </div>
 </div>
@@ -35,7 +35,7 @@
         <div class="col-md-12">
             <input class="form-control" name="motto" type="text" id="motto"
                 value="{{ old('motto', optional($organization)->motto) }}" minlength="10"
-                placeholder="Enter motto here...">
+                placeholder="{{(__('employee.Enter motto here'))}}">
         </div>
     </div>
 
@@ -44,7 +44,7 @@
         <div class="col-md-12">
             <input class="form-control" name="mission" type="text" id="mission"
                 value="{{ old('mission', optional($organization)->mission) }}" minlength="10"
-                placeholder="Enter mission here...">
+                placeholder="{{(__('employee.Enter mission here'))}}">
         </div>
     </div>
 
@@ -53,7 +53,7 @@
         <div class="col-md-12">
             <input class="form-control" name="vision" type="text" id="vision"
                 value="{{ old('vision', optional($organization)->vision) }}" minlength="10"
-                placeholder="Enter vision here...">
+                placeholder="{{(__('employee.Enter vision here'))}}">
         </div>
     </div>
 </div>
@@ -143,7 +143,7 @@
         <div class="col-md-12">
             <input class="form-control" name="address" type="text" id="address"
                 value="{{ old('address', optional($organization)->address) }}" minlength="10"
-                placeholder="Enter address here...">
+                placeholder="{{(__('employee.Enter address here'))}}">
         </div>
     </div>
 
@@ -152,7 +152,7 @@
         <div class="col-md-12">
             <input class="form-control" name="website" type="text" id="website"
                 value="{{ old('website', optional($organization)->website) }}" minlength="5"
-                placeholder="Enter website here...">
+                placeholder="{{(__('employee.Enter web page here'))}}">
         </div>
     </div>
 
@@ -160,7 +160,7 @@
         <label for="email" class="col-md-12 control-label">{{(__('setting.Email'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="email" type="email" id="email"
-                value="{{ old('email', optional($organization)->email) }}" placeholder="Enter email here...">
+                value="{{ old('email', optional($organization)->email) }}" placeholder="{{(__('employee.Enter email address here'))}}">
         </div>
     </div>
 </div>
@@ -171,7 +171,7 @@
         <div class="col-md-12">
             <input class="form-control" name="phone_number" type="tel" id="phone_number"
                 value="{{ old('phone_number', optional($organization)->phone_number) }}" min="0"
-                placeholder="Enter phone number here...">
+                placeholder="{{(__('employee.Enter phone number here'))}}">
         </div>
     </div>
 
@@ -180,7 +180,7 @@
         <div class="col-md-12">
             <input class="form-control" name="fax_number" type="tel" id="fax_number"
                 value="{{ old('fax_number', optional($organization)->fax_number) }}" min="0"
-                placeholder="Enter fax number here...">
+                placeholder="{{(__('employee.Enter fax number here'))}}">
         </div>
     </div>
 
@@ -189,7 +189,7 @@
         <div class="col-md-12">
             <input class="form-control" name="po_box" type="text" id="po_box"
                 value="{{ old('po_box', optional($organization)->po_box) }}" minlength="1"
-                placeholder="Enter PO Box here...">
+                placeholder="{{(__('employee.Enter PO Box here'))}}">
         </div>
     </div>
 </div>

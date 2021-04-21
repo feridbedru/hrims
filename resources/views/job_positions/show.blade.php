@@ -1,16 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Show Job Position
+{{(__('setting.Show Job Position'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('job_positions.job_position.index') }}">Job Position</a></li>
-    <li class="breadcrumb-item active">Show</li>
+    <li class="breadcrumb-item"><a href="{{ route('job_positions.job_position.index') }}">{{(__('setting.JobPosition'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Show'))}}</li>
 @endsection
 @section('content')
 
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h4 class="card-title">Show Job Position</h4>
+            <h4 class="card-title">{{(__('setting.Show Job Position'))}}</h4>
             <div class="card-tools">
                 <form method="POST" action="{!! route('job_positions.job_position.destroy', $jobPosition->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
@@ -31,23 +31,23 @@
 
         <div class="card-body">
             <dl class="dl-horizontal">
-                <dt>Organization Unit</dt>
+                <dt>{{(__('employee.Organization Unit'))}}</dt>
                 <dd>{{ $jobPosition->organizationUnits->en_name }}</dd>
-                <dt>Job Title Category</dt>
+                <dt>{{(__('employee.Job Title Category'))}}</dt>
                 <dd>{{ $jobPosition->jobTitleCategories->name }}</dd>
-                <dt>Job Category</dt>
+                <dt>{{(__('employee.Job Category'))}}</dt>
                 <dd>{{ $jobPosition->jobCategorys->name }}</dd>
-                <dt>Job Type</dt>
+                <dt>{{(__('employee.Job Type'))}}</dt>
                 <dd>{{ $jobPosition->jobTypes->name }}</dd>
-                <dt>Job Description</dt>
+                <dt>{{(__('employee.Job Description'))}}</dt>
                 <dd>{{ $jobPosition->job_description }}</dd>
-                <dt>Position Code</dt>
+                <dt>{{(__('employee.Position Code'))}}</dt>
                 <dd>{{ $jobPosition->position_code }}</dd>
-                <dt>Position ID</dt>
+                <dt>{{(__('employee.Position ID'))}}</dt>
                 <dd>{{ $jobPosition->position_id }}</dd>
-                <dt>Salary</dt>
+                <dt>{{(__('employee.Salary'))}}</dt>
                 <dd>{{ $jobPosition->salarys->amount }}</dd>
-                <dt>Available</dt>
+                <dt>{{(__('employee.Available'))}}</dt>
                 <dd>{{ $jobPosition->status ? 'Yes' : 'No' }}</dd>
             </dl>
             <h2> List benefits here </h2>

@@ -31,15 +31,15 @@
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
-                        <dt>English Name</dt>
+                        <dt>{{(__('employee.English Name'))}}</dt>
                         <dd>{{ $employee->titles->en_title }} {{ $employee->en_name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Amharic Name</dt>
+                        <dt>{{(__('employee.Amharic Name'))}}</dt>
                         <dd>{{ $employee->titles->am_title }} {{ $employee->am_name }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Sex</dt>
+                        <dt>{{(__('setting.Sex'))}}</dt>
                         <dd>{{ $employee->sexes->name }}</dd>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <dd>{{ $employee->employment_id }}</dd>
                     </div>
                     <div class="col-md-4">
-                        <dt>Status</dt>
+                        <dt>{{(__('setting.Status'))}}</dt>
                         <dd>{{ $employee->employeeStatuses->name }}</dd>
                     </div>
                 </div>

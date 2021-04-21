@@ -4,9 +4,9 @@
     <div class="form-group col-md-4 {{ $errors->has('name') ? 'has-error' : '' }}">
         <label for="name" class="col-md-12 control-label">{{(__('setting.Name'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="name" type="text" id="name"
+            <input class="form-control" name="name" type="text" id="name" oninput="process(this)"
                 value="{{ old('name', optional($salaryScale)->name) }}" minlength="1" maxlength="255" required="true"
-                placeholder="Enter name here...">
+                placeholder="{{(__('employee.Enter name here'))}}">
         </div>
     </div>
 
@@ -40,7 +40,7 @@
             <select class="form-control" id="job_category" name="job_category" required="true">
                 <option value="" style="display: none;"
                     {{ old('job_category', optional($salaryScale)->job_category ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select job category</option>
+                    disabled selected>{{(__('setting.Select job category'))}}</option>
                 @foreach ($jobCategories as $key => $jobCategory)
                     <option value="{{ $key }}"
                         {{ old('job_category', optional($salaryScale)->job_category) == $key ? 'selected' : '' }}>
@@ -55,9 +55,9 @@
         <label for="stair_height" class="col-md-12 control-label">{{(__('setting.Stair Height'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="stair_height" type="number" id="stair_height"
+            <input class="form-control" name="stair_height" type="number" id="stair_height" oninput="processs(this)"
                 value="{{ old('stair_height', optional($salaryScale)->stair_height) }}" minlength="1" required="true"
-                placeholder="Enter stair height here...">
+                placeholder="{{(__('employee.Enter stair height here'))}}">
         </div>
     </div>
 
@@ -65,9 +65,25 @@
         <label for="salary_steps" class="col-md-12 control-label">{{(__('setting.Salary Steps'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="salary_steps" type="number" id="salary_steps"
+            <input class="form-control" name="salary_steps" type="number" id="salary_steps" oninput="processs(this)"
                 value="{{ old('salary_steps', optional($salaryScale)->salary_steps) }}" minlength="1" required="true"
-                placeholder="Enter salary steps here...">
+                placeholder="{{(__('employee.Enter salary steps here'))}}">
         </div>
     </div>
 </div>
+<script>
+    //function to accept only letter and space character
+    function process(input){
+     let value = input.value;
+     let text = value.replace(/[^A-Z,a-z, ]/g, "");
+     input.value = text;
+    }
+</script>
+<script>
+    //function to accept only letter and space character
+    function processs(input){
+     let value = input.value;
+     let text = value.replace(/[^0-9,.,:, ]/g, "");
+     input.value = text;
+    }
+</script>

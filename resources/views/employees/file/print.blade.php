@@ -1,16 +1,16 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Files
+{{(__('employee.Files'))}}
 @endsection
 @section('content')
     @if (count($employeeFiles) == 0)
-        <h4 class="text-center">No Files Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Files Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
                     <th>{{(__('setting.Number'))}}</th>
-                    <th>Title</th>
+                    <th>{{(__('employee.Title'))}}</th>
                     <th>{{(__('setting.Description'))}}</th>
                 </tr>
             </thead>

@@ -75,7 +75,7 @@ return [
     'enterthetitlehere'=>"ርዕስ እዚህ ያስገቡ",
     'enterthecodehere'=>"ኮድ እዚህ ያስገቡ",
     'Enternamehere'=>"ስም እዚህ ያስገቡ",
-    'Enterregionnamehere'=>"ስም እዚህ ያስገቡ",
+    'Enterregionnamehere'=>"የ ከልል ስም እዚህ ያስገቡ",
     'AwardTypeName'=>"የሽልማት ዓይነት ስም",
     'NoAwardTypesAvailable'=>"ምንም የሽልማት ዓይነቶች የሉም",
     'CreateNewAwardType'=>"አዲስ የሽልማት ዓይነት ይፍጠሩ",
@@ -259,6 +259,7 @@ return [
     'SexName'=>"የሥርዓተ-ፆታ ስም",
     'NewSex'=>"አዲስ ፆታ",
     'CreateNewSex'=>"አዲስ ጾታ ይፍጠሩ",
+    'Sex'=>"ፆታ",
 
     'NoSkillCategoriesAvailable'=>"ምንም የሙያ ምድቦች የሉም",
     'SkillCategories'=>"ችሎታ ምድቦች",

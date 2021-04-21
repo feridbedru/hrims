@@ -4,9 +4,9 @@
     <div class="form-group col-md-10 {{ $errors->has('name') ? 'has-error' : '' }}">
         <label for="name" class="col-md-12 control-label">{{(__('setting.Name'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="name" type="text" id="name"
+            <input class="form-control" name="name" type="text" id="name" oninput="process(this)"
                 value="{{ old('name', optional($report)->name) }}" minlength="1" maxlength="255" required="true"
-                placeholder="Enter name here...">
+                placeholder="{{(__('employee.Enter Name here'))}}">
         </div>
     </div>
 
@@ -28,7 +28,7 @@
     <div class="col-md-12">
         <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1"
             maxlength="1000" required="true"
-            placeholder="enter description here...">{{ old('description', optional($report)->description) }}</textarea>
+            placeholder="{{(__('setting.enterthedescriptionhere'))}}">{{ old('description', optional($report)->description) }}</textarea>
     </div>
 </div>
 
@@ -36,6 +36,14 @@
     <label for="query" class="col-md-12 control-label">{{(__('setting.Query'))}}<span class="text-danger">*</span></label>
     <div class="col-md-12">
         <textarea class="form-control" name="query" cols="50" rows="10" id="query" minlength="1" required="true"
-            placeholder="Enter query here...">{{ old('query', optional($report)->query) }}</textarea>
+            placeholder="{{(__('employee.Enter query here'))}}">{{ old('query', optional($report)->query) }}</textarea>
     </div>
 </div>
+<script>
+    //function to accept only letter and space character
+    function process(input){
+     let value = input.value;
+     let text = value.replace(/[^A-Z,a-z, ]/g, "");
+     input.value = text;
+    }
+</script>

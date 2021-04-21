@@ -1,20 +1,20 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Studies and Trainings
+{{(__('employee.Study Trainings'))}}
 @endsection
 @section('content')
     @if (count($employeeStudyTrainings) == 0)
-        <h4 class="text-center">No Study Trainings Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Study Trainings Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
                     <th>{{(__('setting.Number'))}}</th>
-                    <th>Type</th>
-                    <th>Institution</th>
-                    <th>Level</th>
-                    <th>Field</th>
-                    <th>Has Commitment</th>
+                    <th>{{(__('setting.Type'))}}</th>
+                    <th>{{(__('employee.Institution'))}}</th>
+                    <th>{{(__('setting.Level'))}}</th>
+                    <th>{{(__('employee.Field'))}}</th>
+                    <th>{{(__('employee.Has Commitment'))}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,10 +28,10 @@
                         <td>{{ $employeeStudyTraining->has_commitment ? 'Yes' : 'No' }}
                             @if ($employeeStudyTraining->has_commitment == 1)
                                 @if (isset($employeeStudyTraining->amount))
-                                    Br. {{ $employeeStudyTraining->amount }}
+                                {{(__('employee.Br'))}}. {{ $employeeStudyTraining->amount }}
                                 @endif
                                 @if (isset($employeeStudyTraining->total_commitment))
-                                    {{ $employeeStudyTraining->total_commitment }} Months
+                                    {{ $employeeStudyTraining->total_commitment }} {{(__('employee.Months'))}}
                                 @endif
                             @endif
                         </td>

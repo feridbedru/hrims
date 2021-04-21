@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" oninput="process(this)" type="text" id="name"
             value="{{ old('name', optional($disasterCause)->name) }}" minlength="1" maxlength="255" required="true"
-            placeholder="Enter name here...">
+            placeholder="{{(__('employee.Disaster Cause Name'))}}">
     </div>
 </div>
 

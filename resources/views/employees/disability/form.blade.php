@@ -7,7 +7,7 @@
             <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
                     {{ old('type', optional($employeeDisability)->type ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select disability type</option>
+                    selected>{{(__('employee.Select disability type'))}}</option>
                 @foreach ($disabilityTypes as $key => $disabilityType)
                     <option value="{{ $key }}"
                         {{ old('type', optional($employeeDisability)->type) == $key ? 'selected' : '' }}>
@@ -24,7 +24,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="medical_certificate" id="medical_certificate" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="medical_certificate" id="medical_certificate" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>

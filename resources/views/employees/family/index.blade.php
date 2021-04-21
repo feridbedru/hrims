@@ -1,32 +1,32 @@
 @extends('layouts.employee')
 @section('pagetitle')
-    Families
+{{(__('employee.Families'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Families</li>
+    <li class="breadcrumb-item active">{{(__('employee.Families'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Families List</h3>
+            <h3 class="card-title">{{(__('employee.Families List'))}}</h3>
         </div>
 
         <div class="card-body">
             @if (count($employeeFamilies) == 0)
-                <h4 class="text-center">No Families Available.</h4>
+                <h4 class="text-center">{{(__('employee.No Families Available'))}}.</h4>
             @else
                 <table class="table table-striped ">
                     <thead>
                         <tr>
                             <th>{{(__('setting.Number'))}}</th>
                             <th>{{(__('setting.Name'))}}</th>
-                            <th>Sex</th>
-                            <th>Relationship</th>
-                            <th>Date Of Birth</th>
-                            <th>Photo</th>
-                            <th>Certificate</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>{{(__('employee.Sex'))}}</th>
+                            <th>{{(__('setting.Relationships'))}}</th>
+                            <th>{{(__('employee.Date Of Birth'))}}</th>
+                            <th>{{(__('employee.Photo'))}}</th>
+                            <th>{{(__('employee.Certificate'))}}</th>
+                            <th>{{(__('employee.Status'))}}</th>
+                            <th>{{(__('employee.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -40,13 +40,13 @@
                                 <td>
                                     @if (isset($employeeFamily->photo))
                                         <a href="{{ asset('uploads/family/' . $employeeFamily->photo) }}"
-                                            class="btn btn-outline-primary" target="_blank">View Photo</a>
+                                            class="btn btn-outline-primary" target="_blank">{{(__('employee.View Photo'))}}</a>
                                     @endif
                                 </td>
                                 <td>
                                     @if (isset($employeeFamily->file))
                                         <a href="{{ asset('uploads/family/' . $employeeFamily->file) }}"
-                                            class="btn btn-outline-primary" target="_blank">View Certificate</a>
+                                            class="btn btn-outline-primary" target="_blank">{{(__('employee.View Certificate'))}}</a>
                                     @endif
                                 </td>
                                 <td>
@@ -73,7 +73,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-primary">
-                                                        <h4 class="modal-title">Reject Family</h4>
+                                                        <h4 class="modal-title">{{(__('employee.Reject Family'))}}</h4>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>

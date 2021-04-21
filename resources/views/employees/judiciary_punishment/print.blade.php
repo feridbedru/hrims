@@ -1,21 +1,21 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Judiciary Punishments
+    {{ __('employee.Judiciary Punishments') }}
 @endsection
 @section('content')
     @if (count($employeeJudiciaryPunishments) == 0)
-        <h4 class="text-center">No Judiciary Punishments Available.</h4>
+        <h4 class="text-center">{{ __('employee.No Judiciary Punishments Available') }}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>Court Name</th>
-                    <th>Reason</th>
-                    <th>Punishment Type</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('employee.Court Name') }}</th>
+                    <th>{{ __('employee.Reason') }}</th>
+                    <th>{{ __('employee.Punishment Type') }}</th>
+                    <th>{{ __('employee.Start Date') }}</th>
+                    <th>{{ __('employee.End Date') }}</th>
+                    <th>{{ __('employee.Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +29,9 @@
                         <td>{{ $employeeJudiciaryPunishment->end_date }}</td>
                         <td>
                             @if ($employeeJudiciaryPunishment->status == 1)
-                                Active
+                                {{ __('setting.Active') }}
                             @else
-                                Closed
+                                {{ __('setting.Closed') }}
                             @endif
                         </td>
                     </tr>

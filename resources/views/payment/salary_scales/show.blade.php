@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Show Salary Scale
+{{(__('employee.Show Salary Scale'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('salary_scales.salary_scale.index') }}">Salary Scale</a></li>
-    <li class="breadcrumb-item active">Show</li>
+    <li class="breadcrumb-item"><a href="{{ route('salary_scales.salary_scale.index') }}">{{(__('employee.Salary Scale'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Show'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
@@ -32,23 +32,23 @@
             <dl class="dl-horizontal">
                 <dt>{{(__('setting.Name'))}}</dt>
                 <dd>{{ $salaryScale->name }}</dd>
-                <dt>Description</dt>
+                <dt>{{(__('setting.Description'))}}</dt>
                 <dd>{{ $salaryScale->description }}</dd>
                 <div class="row">
                     <div class="col-md-3">
-                        <dt>Job Category</dt>
+                        <dt>{{(__('employee.Job Category'))}}</dt>
                         <dd>{{ $salaryScale->jobCategories->name }}</dd>
                     </div>
                     <div class="col-md-3">
-                        <dt>Stair Height</dt>
+                        <dt>{{(__('employee.Stair Height'))}}</dt>
                         <dd>{{ $salaryScale->stair_height }}</dd>
                     </div>
                     <div class="col-md-3">
-                        <dt>Salary Steps</dt>
+                        <dt>{{(__('employee.Salary Steps'))}}</dt>
                         <dd>{{ $salaryScale->salary_steps }}</dd>
                     </div>
                     <div class="col-md-3">
-                        <dt>Is Enabled</dt>
+                        <dt>{{(__('employee.Is Enabled Salary Scale'))}}</dt>
                         <dd>{{ $salaryScale->is_enabled ? 'Yes' : 'No' }}</dd>
                     </div>
                 </div>
@@ -58,11 +58,11 @@
             <table class="table">
                 <thead>
                     <tr>
-                        <th rowspan="2" class="text-center align-middle">Level</th>
-                        <th rowspan="2" class="text-center align-middle">Base Salary</th>
+                        <th rowspan="2" class="text-center align-middle">{{(__('employee.Level'))}}</th>
+                        <th rowspan="2" class="text-center align-middle">{{(__('employee.Base Salary'))}}</th>
                         <th colspan="{{ $salaryScale->salary_steps }}" class="text-center">
-                            Steps({{ $steps = $salaryScale->salary_steps }})</th>
-                        <th rowspan="2" class="text-center align-middle">Maximum Salary</th>
+                            {{(__('employee.Steps'))}}({{ $steps = $salaryScale->salary_steps }})</th>
+                        <th rowspan="2" class="text-center align-middle">{{(__('employee.Maximum Salary'))}}</th>
                     </tr>
                     <tr>
                         @for ($i = 1; $i <= $steps; $i++)
@@ -87,7 +87,6 @@
                 </tbody>
             </table>
         </div>
-
     </div>
 
 @endsection

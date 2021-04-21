@@ -1,20 +1,20 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Disasters
+{{(__('employee.Disasters'))}}
 @endsection
 @section('content')
     @if (count($employeeDisasters) == 0)
-        <h4 class="text-center">No Disasters Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Disaster Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
                     <th>{{(__('setting.Number'))}}</th>
-                    <th>Occured On</th>
-                    <th>Disaster Cause</th>
-                    <th>Disaster Severity</th>
+                    <th>{{(__('employee.Occured On'))}}</th>
+                    <th>{{(__('employee.Disaster Cause'))}}</th>
+                    <th>{{(__('employee.Disaster Severity'))}}</th>
                     <th>{{(__('setting.Description'))}}</th>
-                    <th>Status</th>
+                    <th>{{(__('employee.Status'))}}</th>
                 </tr>
             </thead>
             <tbody>

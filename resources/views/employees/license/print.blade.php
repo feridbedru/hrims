@@ -1,20 +1,20 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Licenses
+    {{ __('employee.Licenses') }}
 @endsection
 @section('content')
     @if (count($employeeLicenses) == 0)
-        <h4 class="text-center">No Licenses Available.</h4>
+        <h4 class="text-center">{{ __('employee.No Licenses Available') }}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>Title</th>
-                    <th>License Type</th>
-                    <th>Issuing Organization</th>
-                    <th>Expiry Date</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('setting.Title') }}</th>
+                    <th>{{ __('employee.License Type') }}</th>
+                    <th>{{ __('employee.Issuing Organization') }}</th>
+                    <th>{{ __('employee.Issuing Expiry Date') }}</th>
+                    <th>{{ __('employee.Issuing Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,11 +27,11 @@
                         <td>{{ $employeeLicense->expiry_date }}</td>
                         <td>
                             @if ($employeeLicense->status == 1)
-                                Pending
+                                {{ __('employee.Pending') }}
                             @elseif($employeeLicense->status == 2)
-                                Rejected
+                                {{ __('employee.Rejected') }}
                             @else
-                                Approved
+                                {{ __('employee.Approved') }}
                             @endif
                         </td>
                     </tr>

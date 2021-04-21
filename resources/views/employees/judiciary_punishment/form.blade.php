@@ -4,9 +4,9 @@
     <div class="form-group col-md-6 {{ $errors->has('court_name') ? 'has-error' : '' }}">
         <label for="court_name" class="col-md-12 control-label">{{(__('setting.Court Name'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="court_name" type="text" id="court_name"
+            <input class="form-control" name="court_name" type="text" id="court_name" oninput="process(this)"
                 value="{{ old('court_name', optional($employeeJudiciaryPunishment)->court_name) }}" minlength="1"
-                required="true" placeholder="Enter court name here...">
+                required="true" placeholder="{{(__('employee.Enter court name here'))}}">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <input class="form-control" name="punishment_type" type="text" id="punishment_type"
                 value="{{ old('punishment_type', optional($employeeJudiciaryPunishment)->punishment_type) }}"
-                minlength="1" required="true" placeholder="Enter punishment type here...">
+                minlength="1" required="true" placeholder="{{(__('employee.Enter punishment type here'))}}">
         </div>
     </div>
 </div>
@@ -27,7 +27,7 @@
         <div class="col-md-12">
             <input class="form-control" name="reason" type="text" id="reason"
                 value="{{ old('reason', optional($employeeJudiciaryPunishment)->reason) }}" minlength="1"
-                required="true" placeholder="Enter reason here...">
+                required="true" placeholder="{{(__('employee.Enter reason here'))}}">
         </div>
     </div>
 
@@ -37,7 +37,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -64,8 +64,7 @@
         <label for="start_date" class="col-md-12 control-label">{{(__('employee.Start Date'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="start_date" type="date" id="start_date"
-                value="{{ old('start_date', optional($employeeJudiciaryPunishment)->start_date) }}"
-                placeholder="Enter start date here...">
+                value="{{ old('start_date', optional($employeeJudiciaryPunishment)->start_date) }}">
         </div>
     </div>
 
@@ -73,8 +72,7 @@
         <label for="end_date" class="col-md-12 control-label">{{(__('employee.End Date'))}}</label>
         <div class="col-md-12">
             <input class="form-control" name="end_date" type="date" id="end_date"
-                value="{{ old('end_date', optional($employeeJudiciaryPunishment)->end_date) }}"
-                placeholder="Enter end date here...">
+                value="{{ old('end_date', optional($employeeJudiciaryPunishment)->end_date) }}">
         </div>
     </div>
 
@@ -86,17 +84,25 @@
                 <option value="" style="display: none;"
                     {{ old('status', optional($employeeJudiciaryPunishment)->status ?: '') == '' ? 'selected' : '' }}
                     disabled selected>
-                    Select status</option>
+                    {{(__('employee.Select status'))}}</option>
 
                 <option value="1"
                     {{ old('status', optional($employeeJudiciaryPunishment)->status) == 1 ? 'selected' : '' }}>
-                    Active
+                    {{(__('setting.Active'))}}
                 </option>
                 <option value="2"
                     {{ old('status', optional($employeeJudiciaryPunishment)->status) == 0 ? 'selected' : '' }}>
-                    Closed
+                    {{(__('employee.Closed'))}}
                 </option>
             </select>
         </div>
     </div>
 </div>
+<script>
+
+    function process(input){
+    let value = input.value;
+    let text = value.replace(/[^A-Z,a-z, ]/g, "");
+    input.value = text;
+  }
+  </script>

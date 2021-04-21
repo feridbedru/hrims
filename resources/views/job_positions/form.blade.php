@@ -8,7 +8,7 @@
             <select class="form-control " id="organization_unit" name="organization_unit" required="true">
                 <option value="" style="display: none;"
                     {{ old('organization_unit', optional($jobPosition)->organization_unit ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select organization unit</option>
+                    disabled selected>{{(__('setting.Selectorganizationunit'))}}</option>
                 @foreach ($organizationUnits as $key => $organizationUnit)
                     <option value="{{ $key }}"
                         {{ old('organization_unit', optional($jobPosition)->organization_unit) == $key ? 'selected' : '' }}>
@@ -38,7 +38,7 @@
             <select class="form-control" id="job_title_category" name="job_title_category" required="true">
                 <option value="" style="display: none;"
                     {{ old('job_title_category', optional($jobPosition)->job_title_category ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select job title category</option>
+                    disabled selected>{{(__('setting.Selectjobtitlecategory'))}}</option>
                 @foreach ($jobTitleCategories as $key => $jobTitleCategory)
                     <option value="{{ $key }}"
                         {{ old('job_title_category', optional($jobPosition)->job_title_category) == $key ? 'selected' : '' }}>
@@ -56,7 +56,7 @@
             <select class="form-control" id="job_category" name="job_category" required="true">
                 <option value="" style="display: none;"
                     {{ old('job_category', optional($jobPosition)->job_category ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select job category</option>
+                    disabled selected>{{(__('setting.Selectjobcategory'))}}</option>
                 @foreach ($jobCategories as $key => $jobCategory)
                     <option value="{{ $key }}"
                         {{ old('job_category', optional($jobPosition)->job_category) == $key ? 'selected' : '' }}>
@@ -73,7 +73,7 @@
             <select class="form-control" id="job_type" name="job_type" required="true">
                 <option value="" style="display: none;"
                     {{ old('job_type', optional($jobPosition)->job_type ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Select job type</option>
+                    selected>{{(__('setting.Selectjobtype'))}}</option>
                 @foreach ($jobTypes as $key => $jobType)
                     <option value="{{ $key }}"
                         {{ old('job_type', optional($jobPosition)->job_type) == $key ? 'selected' : '' }}>
@@ -89,7 +89,7 @@
     <label for="job_description" class="col-md-12 control-label">{{(__('setting.JobDescription'))}}</label>
     <div class="col-md-12">
         <textarea class="form-control" name="job_description" cols="50" rows="10" id="job_description" minlength="1"
-            placeholder="Enter job description here...">{{ old('job_description', optional($jobPosition)->job_description) }}</textarea>
+            placeholder="{{(__('setting.enterthedescriptionhere'))}}">{{ old('job_description', optional($jobPosition)->job_description) }}</textarea>
     </div>
 </div>
 <div class="row">
@@ -99,7 +99,7 @@
         <div class="col-md-12">
             <input class="form-control" name="position_code" type="text" id="position_code"
                 value="{{ old('position_code', optional($jobPosition)->position_code) }}" minlength="1"
-                placeholder="Enter position code here...">
+                placeholder="{{(__('employee.Enter position code here'))}}">
         </div>
     </div>
 
@@ -108,7 +108,7 @@
         <div class="col-md-12">
             <input class="form-control" name="position_id" type="text" id="position_id"
                 value="{{ old('position_id', optional($jobPosition)->position_id) }}" minlength="1"
-                placeholder="Enter position ID here...">
+                placeholder="{{(__('employee.Enter position ID here'))}}">
         </div>
     </div>
 

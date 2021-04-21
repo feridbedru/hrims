@@ -1,23 +1,23 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Experiences
+{{(__('employee.Experience'))}}
 @endsection
 @section('content')
     @if (count($employeeExperiences) == 0)
-        <h4 class="text-center">No Experiences Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Experiences Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>Type</th>
-                    <th>Organization Name</th>
-                    <th>Job Position</th>
-                    <th>Level</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Salary</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('employee.Type') }}</th>
+                    <th>{{ __('employee.Organization Name') }}</th>
+                    <th>{{ __('employee.Job Position') }}</th>
+                    <th>{{ __('employee.Level') }}</th>
+                    <th>{{ __('employee.Start Date') }}</th>
+                    <th>{{ __('employee.End Date') }}</th>
+                    <th>{{ __('employee.Salary') }}</th>
+                    <th>{{ __('employee.Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,11 +33,11 @@
                         <td>{{ $employeeExperience->salary }}</td>
                         <td>
                             @if ($employeeExperience->status == 1)
-                                Pending
+                                {{ __('employee.Pending') }}
                             @elseif($employeeExperience->status == 2)
-                                Rejected
+                                {{ __('employee.Rejected') }}
                             @else
-                                Approved
+                                {{ __('employee.Approved') }}
                             @endif
                         </td>
                     </tr>

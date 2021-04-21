@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <input class="form-control" name="name" type="text" oninput="process(this)" id="name"
             value="{{ old('name', optional($educationalInstitute)->name) }}" minlength="1" maxlength="255"
-            required="true" placeholder="Enter name here...">
+            required="true" placeholder="{{(__('employee.Enter Educational Level Name'))}}">
     </div>
 </div>
 
@@ -14,7 +14,7 @@
     <div class="col-md-12">
         <input class="form-control" name="abbreviation" type="text" id="abbreviation"
             value="{{ old('abbreviation', optional($educationalInstitute)->abbreviation) }}" minlength="1"
-            placeholder="Enter abbreviation here...">
+            placeholder="{{(__('setting.Enter Abbreviation here'))}}">
     </div>
 </div>
 <script>

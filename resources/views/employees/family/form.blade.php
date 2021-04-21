@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <input class="form-control" name="name" type="text" id="name"
                 value="{{ old('name', optional($employeeFamily)->name) }}" minlength="1" maxlength="255"
-                required="true" placeholder="Enter name here...">
+                required="true" placeholder="{{(__('employee.Enter name here'))}}">
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <select class="form-control" id="sex" name="sex" required="true">
                 <option value="" style="display: none;"
                     {{ old('sex', optional($employeeFamily)->sex ?: '') == '' ? 'selected' : '' }} disabled selected>
-                    Select sex</option>
+                    {{(__('employee.Select Sex'))}}</option>
                 @foreach ($sexes as $key => $sex)
                     <option value="{{ $key }}"
                         {{ old('sex', optional($employeeFamily)->sex) == $key ? 'selected' : '' }}>
@@ -33,7 +33,7 @@
             <select class="form-control" id="relationship" name="relationship" required="true">
                 <option value="" style="display: none;"
                     {{ old('relationship', optional($employeeFamily)->relationship ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Select relationship</option>
+                    disabled selected>{{(__('employee.Select relationship'))}}</option>
                 @foreach ($relationships as $key => $relationship)
                     <option value="{{ $key }}"
                         {{ old('relationship', optional($employeeFamily)->relationship) == $key ? 'selected' : '' }}>
@@ -51,7 +51,7 @@
         <div class="col-md-12">
             <input class="form-control" name="date_of_birth" type="date" id="date_of_birth"
                 value="{{ old('date_of_birth', optional($employeeFamily)->date_of_birth) }}" required="true"
-                placeholder="Enter date of birth here...">
+                placeholder="{{(__('employee.Enter date of birth here'))}}">
         </div>
     </div>
 
@@ -61,7 +61,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="photo" id="photo" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="photo" id="photo" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -87,7 +87,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -107,3 +107,11 @@
         </div>
     </div>
 </div>
+<script>
+
+    function process(input){
+    let value = input.value;
+    let text = value.replace(/[^A-Z,a-z, ]/g, "");
+    input.value = text;
+  }
+  </script>

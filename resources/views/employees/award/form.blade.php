@@ -1,7 +1,7 @@
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-calendar/css/redmond.calendars.picker.css') }}">
 @endsection
-<h6 class="ml-2">{{(__('setting.requiredField'))}} <span class="text-danger">*</span> are required.</h6>
+<h6 class="ml-2">{{(__('setting.requiredField'))}} <span class="text-danger">*</span></h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-6 {{ $errors->has('organization') ? 'has-error' : '' }}">
@@ -10,7 +10,7 @@
         <div class="col-md-12">
             <input class="form-control" name="organization" type="text" id="organization"
                 value="{{ old('organization', optional($employeeAward)->organization) }}" minlength="1"
-                required="true" placeholder="Enter organization here...">
+                required="true" placeholder="{{(__('employee.Enter organization here'))}}">
         </div>
     </div>
 
@@ -20,7 +20,7 @@
             <select class="form-control" id="type" name="type" required="true">
                 <option value="" style="display: none;"
                     {{ old('type', optional($employeeAward)->type ?: '') == '' ? 'selected' : '' }} disabled selected>
-                    Select award type</option>
+                    {{(__('employee.Select award type'))}}</option>
                 @foreach ($awardTypes as $key => $awardType)
                     <option value="{{ $key }}"
                         {{ old('type', optional($employeeAward)->type) == $key ? 'selected' : '' }}>
@@ -39,7 +39,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        Browse <input type="file" name="attachment" id="attachment" class="hidden">
+                        {{(__('employee.{{(__('employee.Browse'))}}'))}} <input type="file" name="attachment" id="attachment" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>

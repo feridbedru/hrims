@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('pagetitle')
-    Show Report
+{{(__('setting.Show Report'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('reports.report.index') }}">Report</a></li>
-    <li class="breadcrumb-item active">Show</li>
+    <li class="breadcrumb-item"><a href="{{ route('reports.report.index') }}">{{(__('setting.Report'))}}</a></li>
+    <li class="breadcrumb-item active">{{(__('setting.Show'))}}</li>
 @endsection
 @section('stylesheets')
     <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/datatables.min.css') }}">
@@ -12,7 +12,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-header clearfix">
-            <h4 class="card-title">{{ isset($report->name) ? $report->name : 'Report' }}</h4>
+            <h4 class="card-title">{{(__('setting.Report'))}}</h4>
             <div class="card-tools">
                 <form method="POST" action="{!! route('reports.report.destroy', $report->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
@@ -37,11 +37,11 @@
             <dl class="dl-horizontal">
                 <dt>{{(__('setting.Name'))}}</dt>
                 <dd>{{ $report->name }}</dd>
-                <dt>Description</dt>
+                <dt>{{(__('setting.Description'))}}</dt>
                 <dd>{{ $report->description }}</dd>
-                <dt>Query</dt>
+                <dt>{{(__('setting.Query'))}}</dt>
                 <dd>{{ $report->query }}</dd>
-                <dt>Is Active</dt>
+                <dt>{{(__('setting.Is Active'))}}</dt>
                 <dd>{{ $report->is_active ? 'Yes' : 'No' }}</dd>
             </dl>
         </div>

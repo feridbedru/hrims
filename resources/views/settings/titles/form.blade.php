@@ -6,7 +6,7 @@
     <div class="col-md-12">
         <input class="form-control" name="en_title" type="text" oninput="process(this)" id="en_title"
             value="{{ old('en_title', optional($title)->en_title) }}" minlength="1" required="true"
-            placeholder="Enter english title here...">
+            placeholder="{{(__('employee.Enter englsh title here'))}}">
     </div>
 </div>
 
@@ -16,7 +16,7 @@
     <div class="col-md-12">
         <input class="form-control" name="am_title" type="text" id="am_title" oninput="process(this)"
             value="{{ old('am_title', optional($title)->am_title) }}" minlength="1" required="true"
-            placeholder="Enter amharic title here...">
+            placeholder="{{(__('employee.Enter amharic title here'))}}">
     </div>
 </div>
 <script>

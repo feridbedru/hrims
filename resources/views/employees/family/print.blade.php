@@ -1,20 +1,20 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Families
+    {{ __('employee.Families') }}
 @endsection
 @section('content')
     @if (count($employeeFamilies) == 0)
-        <h4 class="text-center">No Families Available.</h4>
+        <h4 class="text-center">{{ __('employee.No Families Available') }}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>{{(__('setting.Name'))}}</th>
-                    <th>Sex</th>
-                    <th>Relationship</th>
-                    <th>Date Of Birth</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('setting.Name') }}</th>
+                    <th>{{ __('employee.Sex') }}</th>
+                    <th>{{ __('setting.Relationships') }}</th>
+                    <th>{{ __('employee.Date Of Birth') }}</th>
+                    <th>{{ __('employee.Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,11 +27,11 @@
                         <td>{{ $employeeFamily->date_of_birth }}</td>
                         <td>
                             @if ($employeeFamily->status == 1)
-                                Pending
+                                {{ __('employee.Pending') }}
                             @elseif($employeeFamily->status == 2)
-                                Rejected
+                                {{ __('employee.Rejected') }}
                             @else
-                                Approved
+                                {{ __('employee.Approved') }}
                             @endif
                         </td>
                     </tr>

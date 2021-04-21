@@ -7,7 +7,7 @@
             <select class="form-control" id="language" name="language" required="true">
                 <option value="" style="display: none;"
                     {{ old('language', optional($employeeLanguage)->language ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Enter language here...</option>
+                    disabled selected>{{(__('employee.Select language'))}}</option>
                 @foreach ($languages as $key => $language)
                     <option value="{{ $key }}"
                         {{ old('language', optional($employeeLanguage)->language) == $key ? 'selected' : '' }}>
@@ -24,7 +24,7 @@
             <select class="form-control" id="reading" name="reading" required="true">
                 <option value="" style="display: none;"
                     {{ old('reading', optional($employeeLanguage)->reading ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Enter Reading level here...</option>
+                    selected>{{(__('employee.Select Reading level'))}}</option>
                 @foreach ($languageLevels as $key => $languageLevel)
                     <option value="{{ $key }}"
                         {{ old('reading', optional($employeeLanguage)->reading) == $key ? 'selected' : '' }}>
@@ -41,7 +41,7 @@
             <select class="form-control" id="writing" name="writing" required="true">
                 <option value="" style="display: none;"
                     {{ old('writing', optional($employeeLanguage)->writing ?: '') == '' ? 'selected' : '' }} disabled
-                    selected>Enter Writing level here...</option>
+                    selected>{{(__('employee.Select Writing level'))}}</option>
                 @foreach ($languageLevels as $key => $languageLevel)
                     <option value="{{ $key }}"
                         {{ old('writing', optional($employeeLanguage)->writing) == $key ? 'selected' : '' }}>
@@ -60,7 +60,7 @@
             <select class="form-control" id="listening" name="listening" required="true">
                 <option value="" style="display: none;"
                     {{ old('listening', optional($employeeLanguage)->listening ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Enter Listening level here...</option>
+                    disabled selected>{{(__('employee.Select Listening level'))}}</option>
                 @foreach ($languageLevels as $key => $languageLevel)
                     <option value="{{ $key }}"
                         {{ old('listening', optional($employeeLanguage)->listening) == $key ? 'selected' : '' }}>
@@ -77,7 +77,7 @@
             <select class="form-control" id="speaking" name="speaking" required="true">
                 <option value="" style="display: none;"
                     {{ old('speaking', optional($employeeLanguage)->speaking ?: '') == '' ? 'selected' : '' }}
-                    disabled selected>Enter Speaking level here...</option>
+                    disabled selected>{{(__('employee.Select Speaking level'))}}</option>
                 @foreach ($languageLevels as $key => $languageLevel)
                     <option value="{{ $key }}"
                         {{ old('speaking', optional($employeeLanguage)->speaking) == $key ? 'selected' : '' }}>

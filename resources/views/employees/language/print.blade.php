@@ -1,21 +1,21 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Languages
+{{(__('employee.Languages'))}}
 @endsection
 @section('content')
     @if (count($employeeLanguages) == 0)
-        <h4 class="text-center">No Languages Available.</h4>
+        <h4 class="text-center">{{(__('employee.No Languages Available'))}}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
                     <th>{{(__('setting.Number'))}}</th>
-                    <th>Language</th>
-                    <th>Reading</th>
-                    <th>Writing</th>
-                    <th>Listening</th>
-                    <th>Speaking</th>
-                    <th>Is Prefered</th>
+                    <th>{{(__('employee.Languages'))}}</th>
+                    <th>{{(__('employee.Reading'))}}</th>
+                    <th>{{(__('employee.Writing'))}}</th>
+                    <th>{{(__('employee.Listening'))}}</th>
+                    <th>{{(__('employee.Speaking'))}}</th>
+                    <th>{{(__('employee.Is Prefered'))}}</th>
                 </tr>
             </thead>
             <tbody>

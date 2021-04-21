@@ -1,22 +1,22 @@
 @extends('layouts.printer')
 @section('pagetitle')
-    Emergencies
+    {{ __('employee.Emergencies') }}
 @endsection
 @section('content')
     @if (count($employeeEmergencies) == 0)
-        <h4 class="text-center">No Emergencies Available.</h4>
+        <h4 class="text-center">{{ __('employee.No Emergencies Available') }}.</h4>
     @else
         <table class="table table-striped ">
             <thead>
                 <tr>
-                    <th>{{(__('setting.Number'))}}</th>
-                    <th>{{(__('setting.Name'))}}</th>
-                    <th>Phone Number</th>
-                    <th>Relationship</th>
-                    <th>Address</th>
-                    <th>House Number</th>
-                    <th>Other Phone</th>
-                    <th>Status</th>
+                    <th>{{ __('setting.Number') }}</th>
+                    <th>{{ __('setting.Name') }}</th>
+                    <th>{{ __('setting.PhoneNumber') }}</th>
+                    <th>{{ __('setting.Relationship') }}</th>
+                    <th>{{ __('setting.Address') }}</th>
+                    <th>{{ __('employee.House Number') }}</th>
+                    <th>{{ __('employee.Other Phone') }}</th>
+                    <th>{{ __('employee.Status') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -31,11 +31,11 @@
                         <td>{{ $employeeEmergency->other_phone }}</td>
                         <td>
                             @if ($employeeEmergency->status == 1)
-                                Pending
+                                {{ __('employee.Pending') }}
                             @elseif($employeeEmergency->status == 2)
-                                Rejected
+                                {{ __('employee.Rejected') }}
                             @else
-                                Approved
+                                {{ __('employee.Approved') }}
                             @endif
                         </td>
                     </tr>

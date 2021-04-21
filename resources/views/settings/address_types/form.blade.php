@@ -2,14 +2,14 @@
 <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
     <label for="name" class="col-md-4 control-label">{{(__('setting.AddressType'))}} <span class="text-danger">*</span></label>
     <div class="col-md-12">
-        <input class="form-control" name="name" type="text" oninput="process(this)" id="name" value="{{ old('name', optional($addressType)->name) }}" minlength="1" maxlength="255" required="true" placeholder="Enter name here...">
+        <input class="form-control" name="name" type="text" oninput="process(this)" id="name" value="{{ old('name', optional($addressType)->name) }}" minlength="1" maxlength="255" required="true" placeholder="{{(__('setting.Name'))}}">
     </div>
 </div>
 
 <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
     <label for="description" class="col-md-4 control-label">{{(__('setting.Description'))}}</label>
     <div class="col-md-12">
-        <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1" maxlength="1000" placeholder="enter the description here">{{ old('description', optional($addressType)->description) }}</textarea>
+        <textarea class="form-control" name="description" cols="50" rows="10" id="description" minlength="1" maxlength="1000" placeholder="{{(__('setting.enterthedescriptionhere'))}}">{{ old('description', optional($addressType)->description) }}</textarea>
     </div>
 </div>
 <script>

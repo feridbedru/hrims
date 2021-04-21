@@ -5,7 +5,7 @@
 @section('breadcrumb')
     <li class="breadcrumb-item"><a
             href="{{ route('employee_study_trainings.employee_study_training.index', $employee) }}">{{(__('employee.Study Training'))}}</a></li>
-    <li class="breadcrumb-item active">Show</li>
+    <li class="breadcrumb-item active">{{(__('setting.Show'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
