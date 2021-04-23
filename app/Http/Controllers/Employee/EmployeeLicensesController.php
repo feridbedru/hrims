@@ -54,9 +54,14 @@ class EmployeeLicensesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if('thisUserIsASuperAdmin'){
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+                }
             EmployeeLicense::create($data);
 
             return redirect()->route('employee_licenses.employee_license.index', $employee)
@@ -85,7 +90,7 @@ class EmployeeLicensesController extends Controller
 
             $employeeLicense = EmployeeLicense::findOrFail($employeeLicenses);
             $employeeLicense->status = 3;
-            $employeeLicense->approved_by = 1;
+            $employeeLicense->approved_by = Auth::Id();
             $employeeLicense->approved_at = now();
             $employeeLicense->save();
 

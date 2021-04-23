@@ -55,7 +55,7 @@ class EmployeeBankAccountsController extends Controller
 
             $employeeBankAccount = EmployeeBankAccount::findOrFail($employeeBankAccounts);
             $employeeBankAccount->status = 3;
-            $employeeBankAccount->approved_by = 1;
+            $employeeBankAccount->approved_by = Auth::Id();
             $employeeBankAccount->approved_at = now();
             $employeeBankAccount->save();
 
@@ -114,9 +114,14 @@ class EmployeeBankAccountsController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if('thisUserIsASuperAdmin'){
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+                }
             EmployeeBankAccount::create($data);
 
             return redirect()->route('employee_bank_accounts.employee_bank_account.index',$employee)

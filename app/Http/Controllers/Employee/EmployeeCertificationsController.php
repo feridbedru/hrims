@@ -25,9 +25,9 @@ class EmployeeCertificationsController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees','vendors','categories')->paginate(25);
+        $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees', 'vendors', 'categories')->paginate(25);
 
-        return view('employees.certification.index', compact('employeeCertifications','employee'));
+        return view('employees.certification.index', compact('employeeCertifications', 'employee'));
     }
 
     /**
@@ -57,12 +57,17 @@ class EmployeeCertificationsController extends Controller
 
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if ('thisUserIsASuperAdmin') {
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+            }
             EmployeeCertification::create($data);
 
-            return redirect()->route('employee_certifications.employee_certification.index',$employee)
+            return redirect()->route('employee_certifications.employee_certification.index', $employee)
                 ->with('success_message', 'Employee Certification was successfully added.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -89,11 +94,11 @@ class EmployeeCertificationsController extends Controller
 
             $employeeCertification = EmployeeCertification::findOrFail($employeeEducations);
             $employeeCertification->status = 3;
-            $employeeCertification->approved_by = 1;
+            $employeeCertification->approved_by = Auth::Id();
             $employeeCertification->approved_at = now();
             $employeeCertification->save();
 
-            return redirect()->route('employee_certifications.employee_certification.show', ['employee'=>$employee, 'employeeCertification'=>$employeeCertification])
+            return redirect()->route('employee_certifications.employee_certification.show', ['employee' => $employee, 'employeeCertification' => $employeeCertification])
                 ->with('success_message', 'Employee Education was successfully approved.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -121,7 +126,7 @@ class EmployeeCertificationsController extends Controller
             $employeeCertification->note = $request['note'];
             $employeeCertification->save();
 
-            return redirect()->route('employee_certifications.employee_certification.show', ['employee'=>$employee, 'employeeCertification'=>$employeeCertification])
+            return redirect()->route('employee_certifications.employee_certification.show', ['employee' => $employee, 'employeeCertification' => $employeeCertification])
                 ->with('success_message', 'Employee Education was successfully rejected.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -136,7 +141,7 @@ class EmployeeCertificationsController extends Controller
         }
     }
 
-    
+
     /**
      * Display the specified employee certification.
      *
@@ -147,9 +152,9 @@ class EmployeeCertificationsController extends Controller
     public function show($employee, $employeeCertifications)
     {
         $employee = Employee::findOrFail($employee);
-        $employeeCertification = EmployeeCertification::with('employees','vendors','categories')->findOrFail($employeeCertifications);
+        $employeeCertification = EmployeeCertification::with('employees', 'vendors', 'categories')->findOrFail($employeeCertifications);
 
-        return view('employees.certification.show', compact('employeeCertification','employee'));
+        return view('employees.certification.show', compact('employeeCertification', 'employee'));
     }
 
     /**
@@ -169,15 +174,15 @@ class EmployeeCertificationsController extends Controller
         return view('employees.certification.edit', compact('employeeCertification', 'employee', 'skillCategories', 'certificationVendors'));
     }
 
-        //Prints employee certification
-        public function print($employee)
-        {
-            $employee_id = $employee;
-            $employee = Employee::findOrFail($employee_id);
-            $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees','vendors','categories')->get();
+    //Prints employee certification
+    public function print($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees', 'vendors', 'categories')->get();
 
-            return view('employees.certification.print', compact('employeeCertifications','employee'));
-        }
+        return view('employees.certification.print', compact('employeeCertifications', 'employee'));
+    }
 
     /**
      * Update the specified employee certification in the storage.
@@ -197,7 +202,7 @@ class EmployeeCertificationsController extends Controller
             $data['employee'] = $employee;
             $employeeCertification->update($data);
 
-            return redirect()->route('employee_certifications.employee_certification.index',$employee)
+            return redirect()->route('employee_certifications.employee_certification.index', $employee)
                 ->with('success_message', 'Employee Certification was successfully updated.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -225,7 +230,7 @@ class EmployeeCertificationsController extends Controller
             $employeeCertification = EmployeeCertification::findOrFail($employeeCertifications);
             $employeeCertification->delete();
 
-            return redirect()->route('employee_certifications.employee_certification.index',$employee)
+            return redirect()->route('employee_certifications.employee_certification.index', $employee)
                 ->with('success_message', 'Employee Certification was successfully deleted.');
         } catch (Exception $exception) {
             $systemException = new SystemException();
@@ -288,13 +293,12 @@ class EmployeeCertificationsController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/certification'))
-        {
-            mkdir('uploads/certification', 0777 , true);
+        if (!file_exists('uploads/certification')) {
+            mkdir('uploads/certification', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/certification', $fileName);
-        
+
         return $fileName;
     }
 }

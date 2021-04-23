@@ -60,9 +60,14 @@ class EmployeeEducationsController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if ('thisUserIsASuperAdmin') {
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+            }
             EmployeeEducation::create($data);
 
             return redirect()->route('employee_educations.employee_education.index', $employee)
@@ -91,7 +96,7 @@ class EmployeeEducationsController extends Controller
 
             $employeeEducation = EmployeeEducation::findOrFail($employeeEducations);
             $employeeEducation->status = 3;
-            $employeeEducation->approved_by = 1;
+            $employeeEducation->approved_by = Auth::Id();
             $employeeEducation->approved_at = now();
             $employeeEducation->save();
 

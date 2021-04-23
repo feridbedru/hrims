@@ -60,9 +60,14 @@ class EmployeeAddressesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
             $data['status'] = 1;
             $data['employee'] = $id;
+            $data['created_by'] = Auth::Id();
+            if ('thisUserIsASuperAdmin') {
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+            }
             EmployeeAddress::create($data);
 
             return redirect()->route('employee_addresses.employee_address.index', $employee)
@@ -90,7 +95,7 @@ class EmployeeAddressesController extends Controller
         try {
             $employeeAddress = EmployeeAddress::findOrFail($employeeAddresses);
             $employeeAddress->status = 3;
-            $employeeAddress->approved_by = 1;
+            $employeeAddress->approved_by = Auth::Id();
             $employeeAddress->approved_at = now();
             $employeeAddress->save();
             return redirect()->route('employee_addresses.employee_address.index', $employee)
@@ -154,14 +159,15 @@ class EmployeeAddressesController extends Controller
     }
 
     //Prints employee address
-    public function print($employee){
+    public function print($employee)
+    {
         $employee_id = $employee;
         $employee = Employee::findOrFail($employee_id);
         $zones = Zone::all();
         $regions = Region::all();
         $employeeAddresses = EmployeeAddress::where('employee', $employee_id)->with('employees', 'types', 'woredas')->get();
 
-        return view('employees.address.print', compact('employeeAddresses', 'employee','zones','regions'));
+        return view('employees.address.print', compact('employeeAddresses', 'employee', 'zones', 'regions'));
     }
 
     /**

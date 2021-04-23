@@ -54,9 +54,14 @@ class EmployeeDisabilitiesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if('thisUserIsASuperAdmin'){
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+                }
             EmployeeDisability::create($data);
 
             return redirect()->route('employee_disabilities.employee_disability.index', $employee)
@@ -85,7 +90,7 @@ class EmployeeDisabilitiesController extends Controller
 
             $employeeDisability = EmployeeDisability::findOrFail($employeeDisabilities);
             $employeeDisability->status = 3;
-            $employeeDisability->approved_by = 1;
+            $employeeDisability->approved_by = Auth::Id();
             $employeeDisability->approved_at = now();
             $employeeDisability->save();
 

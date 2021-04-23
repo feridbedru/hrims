@@ -57,9 +57,14 @@ class EmployeeFamiliesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if('thisUserIsASuperAdmin'){
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+                }
             EmployeeFamily::create($data);
 
             return redirect()->route('employee_families.employee_family.index', $employee)
@@ -88,7 +93,7 @@ class EmployeeFamiliesController extends Controller
 
             $employeeFamily = EmployeeFamily::findOrFail($employeeFamilies);
             $employeeFamily->status = 3;
-            $employeeFamily->approved_by = 1;
+            $employeeFamily->approved_by = Auth::Id();
             $employeeFamily->approved_at = now();
             $employeeFamily->save();
 

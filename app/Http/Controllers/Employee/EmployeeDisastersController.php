@@ -58,7 +58,7 @@ class EmployeeDisastersController extends Controller
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['status'] = 1;
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['employee'] = $id;
             EmployeeDisaster::create($data);
 

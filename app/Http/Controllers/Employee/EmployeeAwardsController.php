@@ -55,9 +55,14 @@ class EmployeeAwardsController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if ('thisUserIsASuperAdmin') {
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+            }
             EmployeeAward::create($data);
 
             return redirect()->route('employee_awards.employee_award.index', $employee)
@@ -88,7 +93,7 @@ class EmployeeAwardsController extends Controller
 
             $employeeAward = EmployeeAward::findOrFail($employeeAwards);
             $employeeAward->status = 3;
-            $employeeAward->approved_by = 1;
+            $employeeAward->approved_by = Auth::Id();
             $employeeAward->approved_at = now();
             $employeeAward->save();
 

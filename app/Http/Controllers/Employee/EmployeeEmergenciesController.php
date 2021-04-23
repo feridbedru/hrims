@@ -54,9 +54,14 @@ class EmployeeEmergenciesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
+            if('thisUserIsASuperAdmin'){
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+                }
             EmployeeEmergency::create($data);
 
             return redirect()->route('employee_emergencies.employee_emergency.index', $employee)
@@ -85,7 +90,7 @@ class EmployeeEmergenciesController extends Controller
 
             $employeeEmergency = EmployeeEmergency::findOrFail($employeeEmergencies);
             $employeeEmergency->status = 3;
-            $employeeEmergency->approved_by = 1;
+            $employeeEmergency->approved_by = Auth::Id();
             $employeeEmergency->approved_at = now();
             $employeeEmergency->save();
 

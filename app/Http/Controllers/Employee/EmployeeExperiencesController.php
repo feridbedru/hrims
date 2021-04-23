@@ -57,8 +57,13 @@ class EmployeeExperiencesController extends Controller
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['status'] = 1;
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['employee'] = $id;
+            if('thisUserIsASuperAdmin'){
+                $data['status'] = 3;
+                $data['approved_by'] = Auth::Id();
+                $data['approved_at'] = now();
+                }
             EmployeeExperience::create($data);
 
             return redirect()->route('employee_experiences.employee_experience.index', $employee)
@@ -88,7 +93,7 @@ class EmployeeExperiencesController extends Controller
 
             $employeeExperience = EmployeeExperience::findOrFail($employeeExperiences);
             $employeeExperience->status = 3;
-            $employeeExperience->approved_by = 1;
+            $employeeExperience->approved_by = Auth::Id();
             $employeeExperience->approved_at = now();
             $employeeExperience->save();
 
