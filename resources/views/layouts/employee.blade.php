@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="btn btn-warning mr-3" title="Print this employee data">
+                    <a href="{{ route('employees.employee.printall',['employee'=>$employee->id])}}" class="btn btn-warning mr-3" title="Print this employee data" target="_blank">
                         Print All Data
                     </a>
                 </li>

@@ -4,6 +4,23 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
+use App\Models\EmployeeAdditionalInfo;
+use App\Models\EmployeeAddress;
+use App\Models\EmployeeAdministrativePunishment;
+use App\Models\EmployeeAward;
+use App\Models\EmployeeBankAccount;
+use App\Models\EmployeeCertification;
+use App\Models\EmployeeDisability;
+use App\Models\EmployeeDisaster;
+use App\Models\EmployeeEducation;
+use App\Models\EmployeeEmergency;
+use App\Models\EmployeeExperience;
+use App\Models\EmployeeFamily;
+use App\Models\EmployeeFile;
+use App\Models\EmployeeJudiciaryPunishment;
+use App\Models\EmployeeLanguage;
+use App\Models\EmployeeLicense;
+use App\Models\EmployeeStudyTraining;
 use App\Models\EmployeeStatus;
 use App\Models\JobPosition;
 use App\Models\JobTitleCategory;
@@ -33,7 +50,7 @@ class EmployeesController extends Controller
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
         $jobTitleCategories = JobTitleCategory::all();
 
-        return view('employees.index', compact('employees', 'jobPositions', 'organizationUnits','sexl','jobTitleCategories'));
+        return view('employees.index', compact('employees', 'jobPositions', 'organizationUnits', 'sexl', 'jobTitleCategories'));
     }
 
     /**
@@ -55,7 +72,7 @@ class EmployeesController extends Controller
         $titles = Title::pluck('en_title', 'id')->all();
         $sexes = Sex::pluck('name', 'id')->all();
         $organizationUnits = OrganizationUnit::pluck('en_name', 'id')->all();
-        $jobPositions = JobPosition::where('status','1')->pluck('position_code', 'id')->all();
+        $jobPositions = JobPosition::where('status', '1')->pluck('position_code', 'id')->all();
         $employeeStatuses = EmployeeStatus::pluck('name', 'id')->all();
 
         return view('employees.create', compact('titles', 'sexes', 'organizationUnits', 'jobPositions', 'employeeStatuses'));
@@ -103,7 +120,7 @@ class EmployeesController extends Controller
         $employee = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->findOrFail($id);
         $jobTitleCategories = JobTitleCategory::all();
 
-        return view('employees.dashboard', compact('employee','jobTitleCategories'));
+        return view('employees.dashboard', compact('employee', 'jobTitleCategories'));
     }
 
     /**
@@ -118,6 +135,32 @@ class EmployeesController extends Controller
         $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus')->findOrFail($id);
 
         return view('employees.success', compact('employee'));
+    }
+
+    //Prints employee all data
+    public function printall($employee)
+    {
+        $employee_id = $employee;
+        $employee = Employee::findOrFail($employee_id);
+        $employeeAdditionalInfos = EmployeeAdditionalInfo::with('employees', 'nationalities', 'religions', 'maritalStatuses')->get();
+        $employeeAddresses = EmployeeAddress::where('employee', $employee_id)->with('employees', 'types', 'woredas')->get();
+        $employeeAdministrativePunishments = EmployeeAdministrativePunishment::where('employee', $employee_id)->with('employees')->get();
+        $employeeAwards = EmployeeAward::where('employee', $employee_id)->with('types', 'employees')->get();
+        $employeeBankAccounts = EmployeeBankAccount::where('employee', $employee_id)->with('banks', 'types', 'employees')->get();
+        $employeeCertifications = EmployeeCertification::where('employee', $employee_id)->with('employees', 'vendors', 'categories')->get();
+        $employeeDisabilities = EmployeeDisability::where('employee', $employee_id)->with('employees', 'types')->get();
+        $employeeDisasters = EmployeeDisaster::where('employee', $employee_id)->with('causes', 'employees', 'severities')->get();
+        $employeeEducations = EmployeeEducation::where('employee', $employee_id)->with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->get();
+        $employeeEmergencies = EmployeeEmergency::where('employee', $employee_id)->with('employees', 'relationships')->get();
+        $employeeExperiences = EmployeeExperience::where('employee', $employee_id)->with('employees', 'types', 'leftReasons')->get();
+        $employeeFamilies = EmployeeFamily::where('employee', $employee_id)->with('employees', 'relationships', 'sexes')->get();
+        $employeeFiles = EmployeeFile::where('employee', $employee_id)->with('employees')->get();
+        $employeeJudiciaryPunishments = EmployeeJudiciaryPunishment::where('employee', $employee_id)->with('employees')->get();
+        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings', 'writings', 'speakings', 'listenings')->get();
+        $employeeLicenses = EmployeeLicense::where('employee', $employee_id)->with('employees', 'types')->get();
+        $employeeStudyTrainings = EmployeeStudyTraining::where('employee', $employee_id)->with('employees', 'types', 'institutions', 'fields', 'levels')->get();
+
+        return view('employees.printall', compact('employee', 'employeeAdditionalInfos', 'employeeAddresses', 'employeeAdministrativePunishments', 'employeeAwards', 'employeeBankAccounts', 'employeeCertifications', 'employeeDisabilities', 'employeeDisasters', 'employeeEducations', 'employeeEmergencies', 'employeeExperiences', 'employeeFamilies', 'employeeFiles', 'employeeJudiciaryPunishments', 'employeeLanguages', 'employeeLicenses', 'employeeStudyTrainings'));
     }
 
     /**
@@ -247,13 +290,12 @@ class EmployeesController extends Controller
             return '';
         }
 
-        if (!file_exists('uploads/photo'))
-        {
-            mkdir('uploads/photo', 0777 , true);
+        if (!file_exists('uploads/photo')) {
+            mkdir('uploads/photo', 0777, true);
         }
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/photo', $fileName);
-        
+
         return $fileName;
     }
 }

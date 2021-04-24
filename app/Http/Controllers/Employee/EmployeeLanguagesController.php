@@ -98,7 +98,7 @@ class EmployeeLanguagesController extends Controller
     {
         $employee_id = $employee;
         $employee = Employee::findOrFail($employee_id);
-        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings', 'writings', 'speakings', 'listenings')->paginate(25);
+        $employeeLanguages = EmployeeLanguage::where('employee', $employee_id)->with('employees', 'languages', 'readings', 'writings', 'speakings', 'listenings')->get();
 
         return view('employees.language.print', compact('employeeLanguages', 'employee'));
     }

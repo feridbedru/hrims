@@ -553,6 +553,7 @@ Route::group([
     Route::get('/', [EmployeesController::class, 'index'])->name('employees.employee.index');
     Route::get('/filter',[EmployeesController::class, 'filter'])->name('employees.employee.filter');
     Route::get('/{employee}/success',[EmployeesController::class, 'success'])->name('employees.employee.success');
+    Route::get('/{employee}/printall',[EmployeesController::class, 'printall'])->name('employees.employee.printall');
     Route::get('/create',[EmployeesController::class, 'create'])->name('employees.employee.create');
     Route::get('/{employee}',[EmployeesController::class, 'show'])->name('employees.employee.show')->whereNumber('id');
     Route::get('/{employee}/edit',[EmployeesController::class, 'edit'])->name('employees.employee.edit')->whereNumber('id');

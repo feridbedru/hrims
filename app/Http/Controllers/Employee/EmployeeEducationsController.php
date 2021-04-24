@@ -182,7 +182,7 @@ class EmployeeEducationsController extends Controller
     {
         $employee_id = $employee;
         $employee = Employee::findOrFail($employee_id);
-        $employeeEducations = EmployeeEducation::where('employee', $employee_id)->with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->paginate(25);
+        $employeeEducations = EmployeeEducation::where('employee', $employee_id)->with('employees', 'levels', 'institutes', 'fields', 'gpaScales')->get();
 
         return view('employees.education.print', compact('employeeEducations', 'employee'));
     }
