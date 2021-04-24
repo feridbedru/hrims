@@ -176,7 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\FortifyServiceProvider::class,
-        App\Http\Middleware\Locale::class,
+        // App\Http\Middleware\Locale::class,
 
     ],
 

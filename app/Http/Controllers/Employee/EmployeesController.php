@@ -73,11 +73,10 @@ class EmployeesController extends Controller
         try {
 
             $data = $this->getData($request);
-            $data['created_by'] = 2;
-            // dd($data);
+            $data['created_by'] = 1;
             Employee::create($data);
             $id = DB::getPdo()->lastInsertId();
-            $employee = Employee::with('title', 'sex', 'organizationunit', 'jobposition', 'employeestatus')->findOrFail($id);
+            $employee = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->findOrFail($id);
             return view('employees.success', compact('employee'));
         } catch (Exception $exception) {
             $systemException = new SystemException();

@@ -15,7 +15,7 @@
                     <th>{{(__('employee.Nationality'))}}</th>
                     <th>{{(__('employee.Religions'))}}</th>
                     <th>{{(__('employee.Blood Group'))}}</th>
-                    <th>{{(___('employee.Tin Number'))}}</th>
+                    <th>{{(__('employee.Tin Number'))}}</th>
                     <th>{{(__('employee.Pension'))}}</th>
                     <th>{{__('employee.MaritalStatus')}}</th>
                 </tr>

@@ -59,7 +59,7 @@ class Employee extends Model
     /**
      * Get the title for this model.
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return App\Models\Title
      */
     public function titles()
     {
@@ -89,7 +89,7 @@ class Employee extends Model
     /**
      * Get the jobPosition for this model.
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return App\Models\JobPosition
      */
     public function jobPositions()
     {

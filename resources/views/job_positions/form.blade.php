@@ -121,7 +121,7 @@
                     selected>
                     {{(__('setting.Select salary'))}}</option>
                 @foreach ($salaries as $key => $salary)
-                    <option value="{{ $salary }}"
+                    <option value="{{ $salary->id }}"
                         {{ old('salary', optional($jobPosition)->salary) == $salary->id ? 'selected' : '' }}>
                         @foreach ($salaryHeights as $salaryHeight)
                             @if ($salary->salary_height == $salaryHeight->id)

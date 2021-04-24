@@ -22,7 +22,7 @@
     </div>
     <div class="card card-default">
         <div class="card-body m-5">
-            <h3>{{(___('employee.What is next'))}}</h3>
+            <h3>{{(__('employee.What is next'))}}</h3>
             <hr class="my-4">
             <ul>
                 <li class="lead">{{(__('employee.If your organization has an Active Directory service then you can sync to it so that the
