@@ -23,8 +23,8 @@ class CreateEmployeeExperiencesTable extends Migration
             $table->string('level',15)->nullable();
             $table->float('salary',8,2);
             $table->foreignId('left_reason')->constrained('left_reasons')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->string('start_date',10);
+            $table->string('end_date',10);
             $table->string('attachment',50);
             $table->integer('status');
             $table->text('note')->nullable();

@@ -1,10 +1,13 @@
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-calendar/css/redmond.calendars.picker.css') }}">
+@endsection
 <h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
     <div class="form-group col-md-4 {{ $errors->has('occured_on') ? 'has-error' : '' }}">
         <label for="occured_on" class="col-md-12 control-label">{{(__('employee.Occured On'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="occured_on" type="date" id="occured_on"
+            <input class="form-control" name="occured_on" type="text" id="occured_on"
                 value="{{ old('occured_on', optional($employeeDisaster)->occured_on) }}" required="true"
                 placeholder="{{(__('employee.Enter occured on here'))}}">
         </div>
@@ -96,3 +99,18 @@
         </div>
     </div>
 </div>
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.plus.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.picker.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian-am.js') }}"></script>
+    <script>
+        $('#occured_on').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
+        });
+    </script>
+@endsection

@@ -19,7 +19,7 @@ class CreateEmployeeLicensesTable extends Migration
             $table->string('title', 80);
             $table->foreignId('type')->constrained('license_types')->onUpdate('cascade')->onDelete('cascade');
             $table->string('issuing_organization',80);
-            $table->date('expiry_date')->nullable();
+            $table->string('expiry_date',10)->nullable();
             $table->string('file',50)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');

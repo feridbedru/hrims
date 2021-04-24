@@ -16,7 +16,7 @@ class CreateEmployeeDisastersTable extends Migration
         {
             $table->bigIncrements('id');
             $table->foreignId('employee')->constrained('employees')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('occured_on');
+            $table->string('occured_on',10);
             $table->foreignId('cause')->constrained('disaster_causes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('severity')->constrained('disaster_severities')->onUpdate('cascade')->onDelete('cascade');
             $table->text('description');

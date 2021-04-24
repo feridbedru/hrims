@@ -39,7 +39,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        {{(__('employee.{{(__('employee.Browse'))}}'))}} <input type="file" name="attachment" id="attachment" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="attachment" id="attachment" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -63,8 +63,8 @@
     <div class="form-group col-md-6 {{ $errors->has('awarded_on') ? 'has-error' : '' }}">
         <label for="awarded_on" class="col-md-12 control-label">{{(__('employee.Awarded On'))}} <span class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="awarded_on" type="text" id="awarded_on"
-                value="{{ old('organization', optional($employeeAward)->awarded_on) }}"  minlength="10" maxlength="10">
+            <input class="form-control" name="awarded_on" type="calendar" id="awarded_on"
+                value="{{ old('organization', optional($employeeAward)->awarded_on) }}" minlength="10" maxlength="10" pattern="YYYY-MM-DD">
         </div>
     </div>
 </div>
@@ -86,14 +86,8 @@
     <script>
         $('#awarded_on').calendarsPicker({
             calendar: $.calendars.instance('ethiopian', 'am'),
-            onSelect: toGregorian,
             pickerClass: 'myPicker',
             dateFormat: 'yyyy-mm-dd'
         });
-
-        function toGregorian(date) {
-            var jd = $.calendars.instance("ethiopian").newDate(date[0].year(), date[0].month(), date[0].day()).toJD();
-            $('#awarded_on').val($.calendars.instance("gregorian").fromJD(jd));
-        }
     </script>
 @endsection

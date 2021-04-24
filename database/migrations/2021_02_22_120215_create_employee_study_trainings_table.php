@@ -20,7 +20,7 @@ class CreateEmployeeStudyTrainingsTable extends Migration
             $table->foreignId('institution')->constrained('educational_institutes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('level')->constrained('education_levels')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('field')->constrained('educational_fields')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('start_date')->nullable();
+            $table->string('start_date',10)->nullable();
             $table->integer('duration')->nullable();
             $table->boolean('has_commitment')->nullable();
             $table->integer('total_commitment')->nullable();

@@ -1,3 +1,6 @@
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-calendar/css/redmond.calendars.picker.css') }}">
+@endsection
 <h6 class="ml-2">{{ __('setting.requiredField') }}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
@@ -15,7 +18,7 @@
         <label for="issued_on" class="col-md-12 control-label">{{ __('employee.Issued On') }} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="issued_on" type="date" id="issued_on"
+            <input class="form-control" name="issued_on" type="text" id="issued_on"
                 value="{{ old('issued_on', optional($employeeCertification)->issued_on) }}" minlength="1"
                 required="true">
         </div>
@@ -112,16 +115,38 @@
     <div class="form-group col-md-4 {{ $errors->has('expires_on') ? 'has-error' : '' }}">
         <label for="expires_on" class="col-md-12 control-label">{{ __('employee.Expires On') }}</label>
         <div class="col-md-12">
-            <input class="form-control" name="expires_on" type="date" id="expires_on"
+            <input class="form-control" name="expires_on" type="text" id="expires_on"
                 value="{{ old('expires_on', optional($employeeCertification)->expires_on) }}"
                 placeholder="{{ __('employee.Enter expires on here') }}">
         </div>
     </div>
 </div>
-<script>
-    function process(input) {
-        let value = input.value;
-        let text = value.replace(/[^A-Z,a-z, ]/g, "");
-        input.value = text;
-    }
-</script>
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.plus.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.picker.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian-am.js') }}"></script>
+    <script>
+        $('#issued_on').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
+        });
+    </script>
+    <script>
+        $('#expires_on').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
+        });
+    </script>
+    <script>
+        function process(input) {
+            let value = input.value;
+            let text = value.replace(/[^A-Z,a-z, ]/g, "");
+            input.value = text;
+        }
+    </script>
+@endsection

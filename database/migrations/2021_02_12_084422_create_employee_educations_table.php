@@ -21,11 +21,11 @@ class CreateEmployeeEducationsTable extends Migration
             $table->foreignId('field')->constrained('educational_fields')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('gpa_scale')->constrained('gpa_scales')->onUpdate('cascade')->onDelete('cascade');
             $table->string('gpa',20);
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('start_date',10)->nullable();
+            $table->string('end_date',10)->nullable();
             $table->string('file',50);
             $table->boolean('has_coc')->nullable();
-            $table->date('coc_issued_date')->nullable();
+            $table->string('coc_issued_date',10)->nullable();
             $table->string('coc_file',50)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');

@@ -19,7 +19,7 @@ class CreateEmployeeFamiliesTable extends Migration
             $table->string('name', 70);
             $table->foreignId('sex')->constrained('sexes')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('relationship')->constrained('relationships')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('date_of_birth');
+            $table->string('date_of_birth',10);
             $table->string('photo',50)->nullable();
             $table->string('file',50)->nullable();
             $table->integer('status');

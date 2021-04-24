@@ -1,3 +1,6 @@
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-calendar/css/redmond.calendars.picker.css') }}">
+@endsection
 <h6 class="ml-2">{{(__('setting.requiredField'))}} <span class="text-danger">*</span></h6>
 <hr>
 <div class="row">
@@ -36,7 +39,7 @@
             <div class="input-group uploaded-file-group">
                 <label class="input-group-btn">
                     <span class="btn btn-default">
-                        {{(__('employee.{{(__('employee.Browse'))}}'))}} <input type="file" name="file" id="file" class="hidden">
+                        {{(__('employee.Browse'))}} <input type="file" name="file" id="file" class="hidden">
                     </span>
                 </label>
                 <input type="text" class="form-control uploaded-file-name" readonly>
@@ -62,7 +65,7 @@
     <div class="form-group col-md-4 {{ $errors->has('start_date') ? 'has-error' : '' }}">
         <label for="start_date" class="col-md-12 control-label">{{(__('employee.Start Date'))}}</label>
         <div class="col-md-12">
-            <input class="form-control" name="start_date" type="date" id="start_date"
+            <input class="form-control" name="start_date" type="text" id="start_date"
                 value="{{ old('start_date', optional($employeeAdministrativePunishment)->start_date) }}">
         </div>
     </div>
@@ -70,7 +73,7 @@
     <div class="form-group col-md-4 {{ $errors->has('end_date') ? 'has-error' : '' }}">
         <label for="end_date" class="col-md-12 control-label">{{(__('employee.End Date'))}}</label>
         <div class="col-md-12">
-            <input class="form-control" name="end_date" type="date" id="end_date"
+            <input class="form-control" name="end_date" type="text" id="end_date"
                 value="{{ old('end_date', optional($employeeAdministrativePunishment)->end_date) }}">
         </div>
     </div>
@@ -96,3 +99,27 @@
         </div>
     </div>
 </div>
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.plus.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.picker.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian-am.js') }}"></script>
+    <script>
+        $('#start_date').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
+        });
+
+    </script>
+    <script>
+        $('#end_date').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
+        });
+
+    </script>
+@endsection

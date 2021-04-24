@@ -20,7 +20,7 @@ class CreateEmployeeAwardsTable extends Migration
             $table->text('description')->nullable();
             $table->string('attachment',80);
             $table->foreignId('type')->constrained('award_types')->onUpdate('cascade')->onDelete('cascade');
-            $table->date('awarded_on')->nullable();
+            $table->string('awarded_on',10)->nullable();
             $table->integer('status');
             $table->foreignId('created_by')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('approved_by')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('cascade');

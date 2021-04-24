@@ -1,3 +1,6 @@
+@section('stylesheets')
+    <link rel="stylesheet" href="{{ asset('assets/plugins/jquery-calendar/css/redmond.calendars.picker.css') }}">
+@endsection
 <h6 class="ml-2">{{(__('setting.requiredField'))}}<span class="text-danger">*</span> </h6>
 <hr>
 <div class="row">
@@ -59,7 +62,7 @@
         <label for="date_of_birth" class="col-md-12 control-label">{{(__('employee.Date Of Birth'))}} <span
                 class="text-danger">*</span></label>
         <div class="col-md-12">
-            <input class="form-control" name="date_of_birth" type="date" id="date_of_birth"
+            <input class="form-control" name="date_of_birth" type="text" id="date_of_birth"
                 value="{{ old('date_of_birth', optional($employee)->date_of_birth) }}" required="true">
         </div>
     </div>
@@ -166,3 +169,18 @@
         </div>
     </div>
 </div>
+@section('javascripts')
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.plugin.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.plus.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.picker.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian.js') }}"></script>
+    <script src="{{ asset('assets/plugins/jquery-calendar/js/jquery.calendars.ethiopian-am.js') }}"></script>
+    <script>
+        $('#date_of_birth').calendarsPicker({
+            calendar: $.calendars.instance('ethiopian', 'am'),
+            pickerClass: 'myPicker',
+            dateFormat: 'yyyy-mm-dd'
+        });
+    </script>
+@endsection
