@@ -7,6 +7,8 @@ use App\Models\DisasterCause;
 use App\Models\DisasterSeverity;
 use App\Models\Employee;
 use App\Models\EmployeeDisaster;
+use App\Models\EmployeeDisasterIndeminity;
+use App\Models\EmployeeDisasterWitness;
 use App\Models\SystemException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -58,7 +60,7 @@ class EmployeeDisastersController extends Controller
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['status'] = 1;
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
             $data['employee'] = $id;
             EmployeeDisaster::create($data);
 
@@ -88,8 +90,10 @@ class EmployeeDisastersController extends Controller
     {
         $employee = Employee::findOrFail($employee);
         $employeeDisaster = EmployeeDisaster::with('causes', 'employees', 'severities')->findOrFail($employeeDisasters);
+        $employeeDisasterWitnesses = EmployeeDisasterWitness::where('disaster', $employeeDisasters)->get();
+        $employeeDisasterIndeminities = EmployeeDisasterIndeminity::where('disaster', $employeeDisasters)->get();
 
-        return view('employees.disaster.show', compact('employeeDisaster', 'employee'));
+        return view('employees.disaster.show', compact('employeeDisaster', 'employee', 'employeeDisasterWitnesses','employeeDisasterIndeminities'));
     }
 
     /**
@@ -235,6 +239,285 @@ class EmployeeDisastersController extends Controller
         $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
         $path = $file->move('uploads/disaster', $fileName);
 
+        return $fileName;
+    }
+
+    /**
+     * Store a new employee disaster witness in the storage.
+     *
+     * @param Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
+     */
+    public function storewitness(Request $request)
+    {
+        try {
+
+            $data = $this->getWitnessData($request);
+            $data['created_by'] = 1;
+
+            EmployeeDisasterWitness::create($data);
+
+            return back()
+                ->with('success_message', 'Employee Disaster Witness was successfully added.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * Update the specified employee disaster witness in the storage.
+     *
+     * @param int $id
+     * @param Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
+     */
+    public function updatewitness($employee, $employeeDisasterWitness, Request $request)
+    {
+        try {
+
+            $data = $this->getWitnessData($request);
+            $employeeDisasterWitness = EmployeeDisasterWitness::findOrFail($employeeDisasterWitness);
+            $employeeDisasterWitness->update($data);
+
+            return back()
+                ->with('success_message', 'Employee Disaster Witness was successfully updated.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * Remove the specified employee disaster witness from the storage.
+     *
+     * @param int $id
+     *
+     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
+     */
+    public function destroywitness($employee, $employeeDisasterWitness)
+    {
+        try {
+            $employeeDisasterWitness = EmployeeDisasterWitness::findOrFail($employeeDisasterWitness);
+            $employeeDisasterWitness->delete();
+
+            return back()
+                ->with('success_message', 'Employee Disaster Witness was successfully deleted.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * Get the request's data from the request.
+     *
+     * @param Illuminate\Http\Request\Request $request 
+     * @return array
+     */
+    protected function getWitnessData(Request $request)
+    {
+        $rules = [
+            'disaster' => 'nullable',
+            'name' => 'required|string|nullable',
+            'phone' => 'string|min:1|nullable',
+            'file' => ['file', 'nullable'],
+            'created_by' => 'nullable',
+        ];
+
+        $data = $request->validate($rules);
+        if ($request->has('custom_delete_file')) {
+            $data['file'] = null;
+        }
+        if ($request->hasFile('file')) {
+            $data['file'] = $this->moveWitnessFile($request->file('file'));
+        }
+
+        return $data;
+    }
+
+    /**
+     * Moves the attached file to the server.
+     *
+     * @param Symfony\Component\HttpFoundation\File\UploadedFile $file
+     *
+     * @return string
+     */
+    protected function moveWitnessFile($file)
+    {
+        if (!$file->isValid()) {
+            return '';
+        }
+
+        if (!file_exists('uploads/disaster/witness')) {
+            mkdir('uploads/disaster/witness', 0777, true);
+        }
+        $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
+        $path = $file->move('uploads/disaster/witness', $fileName);
+
+        return $fileName;
+    }
+
+    /**
+     * Store a new employee disaster indeminity in the storage.
+     *
+     * @param Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
+     */
+    public function storeindeminity(Request $request)
+    {
+        try {
+
+            $data = $this->getIndeminityData($request);
+            $data['created_by'] = 1;
+            EmployeeDisasterIndeminity::create($data);
+
+            return back()
+                ->with('success_message', 'Employee Disaster Indeminity was successfully added.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+        /**
+     * Update the specified employee disaster indeminity in the storage.
+     *
+     * @param int $id
+     * @param Illuminate\Http\Request $request
+     *
+     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
+     */
+    public function updateindeminity($id, Request $request)
+    {
+        try {
+
+            $data = $this->getIndeminityData($request);
+
+            $employeeDisasterIndeminity = EmployeeDisasterIndeminity::findOrFail($id);
+            $employeeDisasterIndeminity->update($data);
+
+            return back()
+                ->with('success_message', 'Employee Disaster Indeminity was successfully updated.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->request = json_encode($request->all());
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * Remove the specified employee disaster indeminity from the storage.
+     *
+     * @param int $id
+     *
+     * @return Illuminate\Http\RedirectResponse | Illuminate\Routing\Redirector
+     */
+    public function destroyindeminity($id)
+    {
+        try {
+            $employeeDisasterIndeminity = EmployeeDisasterIndeminity::findOrFail($id);
+            $employeeDisasterIndeminity->delete();
+
+            return back()
+                ->with('success_message', 'Employee Disaster Indeminity was successfully deleted.');
+        } catch (Exception $exception) {
+            $systemException = new SystemException();
+            $systemException->function = Route::currentRouteAction();
+            $systemException->path = Route::getCurrentRoute()->uri();
+            $systemException->message = json_encode([$exception->getMessage()]);
+            $systemException->status = 1;
+            $systemException->save();
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+
+    /**
+     * Get the request's data from the request.
+     *
+     * @param Illuminate\Http\Request\Request $request 
+     * @return array
+     */
+    protected function getIndeminityData(Request $request)
+    {
+        $rules = [
+            'disaster' => 'required',
+            'title' => 'required|string|min:1|max:255',
+            'description' => 'required|string|min:1|max:1000',
+            'cost' => 'string|min:1|nullable',
+            'file' => ['file', 'nullable'],
+            'created_by' => 'nullable',
+        ];
+
+        $data = $request->validate($rules);
+        if ($request->has('custom_delete_file')) {
+            $data['file'] = null;
+        }
+        if ($request->hasFile('file')) {
+            $data['file'] = $this->moveIndeminityFile($request->file('file'));
+        }
+
+        return $data;
+    }
+
+    /**
+     * Moves the attached file to the server.
+     *
+     * @param Symfony\Component\HttpFoundation\File\UploadedFile $file
+     *
+     * @return string
+     */
+    protected function moveIndeminityFile($file)
+    {
+        if (!$file->isValid()) {
+            return '';
+        }
+
+        if (!file_exists('uploads/disaster/indeminity'))
+        {
+            mkdir('uploads/disaster/indeminity', 0777 , true);
+        }
+        $fileName = sprintf('%s.%s', uniqid(), $file->getClientOriginalExtension());
+        $path = $file->move('uploads/disaster/indeminity', $fileName);
+        
         return $fileName;
     }
 }

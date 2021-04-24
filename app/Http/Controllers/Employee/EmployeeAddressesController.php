@@ -62,7 +62,7 @@ class EmployeeAddressesController extends Controller
             $data = $this->getData($request);
             $data['status'] = 1;
             $data['employee'] = $id;
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
             if ('thisUserIsASuperAdmin') {
                 $data['status'] = 3;
                 $data['approved_by'] = Auth::Id();

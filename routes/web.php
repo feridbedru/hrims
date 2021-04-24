@@ -59,7 +59,6 @@ use App\Http\Controllers\Employee\EmployeeLicensesController;
 use App\Http\Controllers\Employee\EmployeeExperiencesController;
 use App\Http\Controllers\Employee\EmployeeDisastersController;
 use App\Http\Controllers\Employee\EmployeeDisasterIndeminitiesController;
-use App\Http\Controllers\Employee\EmployeeDisasterWitnessesController;
 use App\Http\Controllers\Employee\EmployeeCertificationsController;
 use App\Http\Controllers\Employee\EmployeeAwardsController;
 use App\Http\Controllers\Employee\EmployeeStudyTrainingsController;
@@ -699,30 +698,12 @@ Route::group([
     Route::post('/', [EmployeeDisastersController::class, 'store'])->name('employee_disasters.employee_disaster.store');
     Route::put('/update/{employeeDisaster}', [EmployeeDisastersController::class, 'update'])->name('employee_disasters.employee_disaster.update')->whereNumber('id');
     Route::delete('/delete/{employeeDisaster}',[EmployeeDisastersController::class, 'destroy'])->name('employee_disasters.employee_disaster.destroy')->whereNumber('id');
-});
-
-Route::group([
-    'prefix' => 'employee_disaster_indeminities',
-], function () {
-    Route::get('/', [EmployeeDisasterIndeminitiesController::class, 'index'])->name('employee_disaster_indeminities.employee_disaster_indeminity.index');
-    Route::get('/create',[EmployeeDisasterIndeminitiesController::class, 'create'])->name('employee_disaster_indeminities.employee_disaster_indeminity.create');
-    Route::get('/show/{employeeDisasterIndeminity}',[EmployeeDisasterIndeminitiesController::class, 'show'])->name('employee_disaster_indeminities.employee_disaster_indeminity.show')->whereNumber('id');
-    Route::get('/{employeeDisasterIndeminity}/edit',[EmployeeDisasterIndeminitiesController::class, 'edit'])->name('employee_disaster_indeminities.employee_disaster_indeminity.edit')->whereNumber('id');
-    Route::post('/', [EmployeeDisasterIndeminitiesController::class, 'store'])->name('employee_disaster_indeminities.employee_disaster_indeminity.store');
-    Route::put('employee_disaster_indeminity/{employeeDisasterIndeminity}', [EmployeeDisasterIndeminitiesController::class, 'update'])->name('employee_disaster_indeminities.employee_disaster_indeminity.update')->whereNumber('id');
-    Route::delete('/employee_disaster_indeminity/{employeeDisasterIndeminity}',[EmployeeDisasterIndeminitiesController::class, 'destroy'])->name('employee_disaster_indeminities.employee_disaster_indeminity.destroy')->whereNumber('id');
-});
-
-Route::group([
-    'prefix' => 'employee_disaster_witnesses',
-], function () {
-    Route::get('/', [EmployeeDisasterWitnessesController::class, 'index'])->name('employee_disaster_witnesses.employee_disaster_witness.index');
-    Route::get('/create',[EmployeeDisasterWitnessesController::class, 'create'])->name('employee_disaster_witnesses.employee_disaster_witness.create');
-    Route::get('/show/{employeeDisasterWitness}',[EmployeeDisasterWitnessesController::class, 'show'])->name('employee_disaster_witnesses.employee_disaster_witness.show')->whereNumber('id');
-    Route::get('/{employeeDisasterWitness}/edit',[EmployeeDisasterWitnessesController::class, 'edit'])->name('employee_disaster_witnesses.employee_disaster_witness.edit')->whereNumber('id');
-    Route::post('/', [EmployeeDisasterWitnessesController::class, 'store'])->name('employee_disaster_witnesses.employee_disaster_witness.store');
-    Route::put('employee_disaster_witness/{employeeDisasterWitness}', [EmployeeDisasterWitnessesController::class, 'update'])->name('employee_disaster_witnesses.employee_disaster_witness.update')->whereNumber('id');
-    Route::delete('/employee_disaster_witness/{employeeDisasterWitness}',[EmployeeDisasterWitnessesController::class, 'destroy'])->name('employee_disaster_witnesses.employee_disaster_witness.destroy')->whereNumber('id');
+    Route::post('/show/{employeeDisaster}', [EmployeeDisastersController::class, 'storewitness'])->name('employee_disaster_witnesses.employee_disaster_witness.store');
+    Route::post('/witness/{employeeDisasterWitness}/update', [EmployeeDisastersController::class, 'updatewitness'])->name('employee_disaster_witnesses.employee_disaster_witness.update')->whereNumber('id');
+    Route::delete('/witness/{employeeDisasterWitness}/delete',[EmployeeDisastersController::class, 'destroywitness'])->name('employee_disaster_witnesses.employee_disaster_witness.destroy')->whereNumber('id');
+    Route::post('/', [EmployeeDisastersController::class, 'storeindeminity'])->name('employee_disaster_indeminities.employee_disaster_indeminity.store');
+    Route::put('/indeminity/{employeeDisasterIndeminity}', [EmployeeDisastersController::class, 'updateindeminity'])->name('employee_disaster_indeminities.employee_disaster_indeminity.update')->whereNumber('id');
+    Route::delete('/indeminity/{employeeDisasterIndeminity}',[EmployeeDisastersController::class, 'destroyindeminity'])->name('employee_disaster_indeminities.employee_disaster_indeminity.destroy')->whereNumber('id');
 });
 
 Route::group([

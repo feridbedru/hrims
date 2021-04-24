@@ -60,7 +60,7 @@ class EmployeeEducationsController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
             $data['status'] = 1;
             $data['employee'] = $id;
             if ('thisUserIsASuperAdmin') {

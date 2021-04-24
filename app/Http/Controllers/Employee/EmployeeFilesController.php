@@ -52,7 +52,7 @@ class EmployeeFilesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = Auth::Id();
+            $data['created_by'] = 1;
             $data['employee'] = $id;
             EmployeeFile::create($data);
 
