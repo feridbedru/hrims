@@ -25,6 +25,7 @@ use App\Models\EmployeeStatus;
 use App\Models\JobPosition;
 use App\Models\JobTitleCategory;
 use App\Models\OrganizationUnit;
+use App\Models\User;
 use App\Models\Sex;
 use App\Models\Title;
 use App\Models\SystemException;
@@ -61,7 +62,6 @@ class EmployeesController extends Controller
     public function filter(Request $request, Employee $employees)
     {
     }
-
     /**
      * Show the form for creating a new employee.
      *
@@ -91,10 +91,32 @@ class EmployeesController extends Controller
 
             $data = $this->getData($request);
             $data['created_by'] = 1;
-            Employee::create($data);
-            $id = DB::getPdo()->lastInsertId();
-            $employee = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->findOrFail($id);
-            return view('employees.success', compact('employee'));
+            $full_name = $data['en_name'];
+            $success = Employee::create($data);
+            $employee_id = DB::getPdo()->lastInsertId();
+            $password = $this->randomPassword();
+            $username = $this->makeUsername($full_name);
+            $domain = "";
+            $website = DB::table('organizations')->whereNotNull('website')->pluck('website')->first();
+            if($website){
+                $domain = '@'.$website;
+            }
+            $user = new User();
+            $user->name = $username;
+            $user->password = bcrypt($password);
+            $user->employee = $employee_id;
+            $user->email = $username.$domain;
+            $user->save();
+
+            if ($success) {
+                // dd($data['job_position']);
+                $position_id = $data['job_position'];
+                $jobPosition = JobPosition::findOrFail($position_id);
+                $jobPosition->status = 0;
+                $jobPosition->save();
+            }
+            $employee = Employee::with('titles', 'sexes', 'organizationUnitse', 'jobPositions', 'employeeStatuses')->findOrFail($employee_id);
+            return view('employees.success', compact('employee','password'));
         } catch (Exception $exception) {
             $systemException = new SystemException();
             $systemException->function = Route::currentRouteAction();
@@ -105,6 +127,65 @@ class EmployeesController extends Controller
             $systemException->save();
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
+    /**
+     * generates random password
+     *
+     */
+    private function randomPassword()
+    {
+        $alphabet = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnPpQqRrSsTtUuVvWwXxYyZz1234567890!@#$%^&*().?';
+        $pass = array();
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        $password = implode($pass);
+        return $password; 
+    }
+
+
+    /**
+     * generates username
+     *
+     */
+    private function makeUsername($fullname)
+    {
+        $fullname = strtolower($fullname);
+        $name = explode(' ',$fullname);
+        $firstname=$name[0];
+        $middlename=$name[1];
+
+        $username = $firstname.'.'.$middlename;
+        $verify = $this->checkUsername($username);
+        if($verify == TRUE){
+            $numbers="0123456789";
+            $number=str_shuffle($numbers);
+            $ids=substr($number,0,2);
+            $username = $username.$ids;
+            return $username;
+        }
+        else{
+            return $username;
+        }
+    }
+
+
+    /**
+     * checks if a username exists
+     *
+     */
+    private function checkUsername($name)
+    {
+        $username = User::where('name','=', $name)->first();
+        if($username === null){
+            return false;
+        }
+        else{
+            return true;
         }
     }
 

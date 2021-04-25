@@ -13,7 +13,7 @@
 
         <div class="card-body">
             @if (count($employeeDisabilities) == 0)
-                <h4 class="text-center">{{(__('setting.NoDisabilityTypesAvailable'))}}</h4>
+                <h4 class="text-center">{{(__('employee.No Disability Available'))}}</h4>
             @else
                 <table class="table table-striped ">
                     <thead>

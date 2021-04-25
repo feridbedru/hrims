@@ -13,7 +13,7 @@
     <div class="form-group col-md-4 {{ $errors->has('phone_number') ? 'has-error' : '' }}">
         <label for="phone_number" class="col-md-4 control-label">{{(__('setting.PhoneNumber'))}}</label>
         <div class="col-md-12">
-            <input class="form-control" name="phone_number" type="number" oninput="processs(this)" id="phone_number"
+            <input class="form-control" name="phone_number" type="tel" oninput="processs(this)" id="phone_number"
                 value="{{ old('phone_number', optional($employeeEmergency)->phone_number) }}"
                 placeholder="{{(__('employee.Enter phone number here'))}}">
         </div>

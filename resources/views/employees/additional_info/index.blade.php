@@ -1,20 +1,19 @@
 @extends('layouts.employee')
 @section('pagetitle')
-{{(__('emplyee.Additional Infos'))}}
+{{(__('employee.Additional Infos'))}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">{{(__('emplyee.Additional Infos'))}}</li>
+    <li class="breadcrumb-item active">{{(__('employee.Additional Infos'))}}</li>
 @endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">{{(__('employee.{{(__('emplyee.Additional Infos'))}}'))}}</h3>
+            <h3 class="card-title">{{(__('employee.Additional Infos'))}}</h3>
             <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
                 </button>
             </div>
         </div>
-
         <div class="card-body">
             @if (count($employeeAdditionalInfos) == 0)
                 <h4 class="text-center">{{(__('employee.No Additional Infos Available'))}}</h4>
@@ -22,16 +21,16 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th>{{(__('employee.Number'))}}</th>
+                            <th>{{(__('setting.Number'))}}</th>
                             <th>{{(__('employee.Place Of Birth'))}}</th>
                             <th>{{(__('employee.Other Phone Number'))}}</th>
                             <th>{{(__('employee.Nationality'))}}</th>
-                            <th>{{(__('employee.Religions'))}}</th>
+                            <th>{{(__('setting.Religions'))}}</th>
                             <th>{{(__('employee.Blood Group'))}}</th>
                             <th>{{(__('employee.Tin Number'))}}</th>
                             <th>{{(__('employee.Pension'))}}</th>
-                            <th>{{__('employee.MaritalStatus')}}</th>
-                            <th>{{((__('setting.Actions')))}}</th>
+                            <th>{{__('setting.MaritalStatus')}}</th>
+                            <th>{{(__('setting.Actions'))}}</th>
                         </tr>
                     </thead>
                     <tbody>

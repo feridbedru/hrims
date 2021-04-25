@@ -29,6 +29,7 @@
                     employee can start accessing all service using one account'))}}</li>
                 <li class="lead">{{(__('employee.You can start adding mandatory information regarding the employee'))}}</li>
                 <li class="lead">{{(__('Employee can add additional information such as certification and other details'))}}</li>
+                <li class="lead">Employee password is {{ $password }}</li>
             </ul>
         </div>
     </div>

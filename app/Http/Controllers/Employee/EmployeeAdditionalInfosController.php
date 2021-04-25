@@ -26,7 +26,7 @@ class EmployeeAdditionalInfosController extends Controller
     {
         $employee_id = $id;
         $employee = Employee::findOrFail($employee_id);
-        $employeeAdditionalInfos = EmployeeAdditionalInfo::with('employees', 'nationalities', 'religions', 'maritalStatuses')->paginate(25);
+        $employeeAdditionalInfos = EmployeeAdditionalInfo::where('employee', $employee_id)->with('employees', 'nationalities', 'religions', 'maritalStatuses')->paginate(25);
 
         return view('employees.additional_info.index', compact('employeeAdditionalInfos', 'employee'));
     }
