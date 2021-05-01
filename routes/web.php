@@ -821,3 +821,5 @@ Route::group([
     Route::put('system_exception/{systemException}', [SystemExceptionsController::class, 'update'])->name('system_exceptions.system_exception.update')->whereNumber('id');
     Route::delete('/system_exception/{systemException}',[SystemExceptionsController::class, 'destroy'])->name('system_exceptions.system_exception.destroy')->whereNumber('id');
 });
+
+Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');

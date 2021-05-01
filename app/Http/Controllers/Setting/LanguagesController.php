@@ -64,6 +64,13 @@ class LanguagesController extends Controller
         }
     }
 
+    public function switch(Request $request, $Locale)
+    {
+        session(['APP_LOCALE' =>$Locale]);
+        return redirect()->back();
+
+    }
+
     /**
      * Show the form for editing the specified language.
      *
