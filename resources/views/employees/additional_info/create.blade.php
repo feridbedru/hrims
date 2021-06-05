@@ -46,7 +46,8 @@
                     <hr class="my-4">
                     <div class="text-center">
                         <p class="lead">
-                            <a href="{{ route('employee_additional_infos.employee_additional_info.edit', ['employee' => $employee, 'employeeAdditionalInfo' => $employeeAdditionalInfo->id]) }}"
+                            {{-- {{ dd ($employeeAdditionalInfo)}} --}}
+                            <a href="{{ route('employee_additional_infos.employee_additional_info.edit', ['employee' => $employee, 'employeeAdditionalInfo' => $employeeAdditionalInfo[0]->id]) }}"
                                 class="btn btn-warning" title="Edit Additional Information">
                                 <span class="fa fa-edit" aria-hidden="true"> {{__('setting.edit')}}</span>
                             </a>

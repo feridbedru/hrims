@@ -43,7 +43,7 @@ class EmployeeAdditionalInfosController extends Controller
         $religions = Religion::pluck('name', 'id')->all();
         $maritalStatuses = MaritalStatus::pluck('name', 'id')->all();
         $employeeAdditionalInfos = EmployeeAdditionalInfo::all();
-        $employeeAdditionalInfo = EmployeeAdditionalInfo::where('employee', $id)->with('employees');
+        $employeeAdditionalInfo = EmployeeAdditionalInfo::where('employee', $id)->get();
 
         return view('employees.additional_info.create', compact('employee', 'nationalities', 'religions', 'maritalStatuses', 'employeeAdditionalInfos', 'employeeAdditionalInfo'));
     }

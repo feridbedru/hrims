@@ -8,7 +8,6 @@ use App\Http\Controllers\Setting\JobCategoriesController;
 use App\Http\Controllers\Setting\JobTitleCategoriesController;
 use App\Http\Controllers\Setting\JobTypesController;
 use App\Http\Controllers\Setting\LanguagesController;
-use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\Setting\LanguageLevelsController;
 use App\Http\Controllers\Setting\MaritalStatusesController;
 use App\Http\Controllers\Setting\NationalitiesController;
@@ -140,7 +139,7 @@ Route::group([
     Route::get('/create',[LanguagesController::class, 'create'])->name('languages.language.create');
     Route::get('/{language}/edit',[LanguagesController::class, 'edit'])->name('languages.language.edit')->whereNumber('id');
     Route::post('/', [LanguagesController::class, 'store'])->name('languages.language.store');
-    Route::get('/locale/locale', [LanguageController::class, 'switch'])->name('languages.language.switch');
+    Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');
     Route::put('language/{language}', [LanguagesController::class, 'update'])->name('languages.language.update')->whereNumber('id');
     Route::post('/delete/{language}',[LanguagesController::class, 'destroy'])->name('languages.language.destroy')->whereNumber('id');
 });
@@ -822,4 +821,4 @@ Route::group([
     Route::delete('/system_exception/{systemException}',[SystemExceptionsController::class, 'destroy'])->name('system_exceptions.system_exception.destroy')->whereNumber('id');
 });
 
-Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');
+// Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');
