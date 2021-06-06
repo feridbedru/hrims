@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('languages_edit')
             <form method="POST"
                 action="{{ route('employee_languages.employee_language.update', ['employee' => $employee->id, 'employeeLanguage' => $employeeLanguage->id]) }}"
                 id="edit_employee_language_form" name="edit_employee_language_form" accept-charset="UTF-8"
@@ -37,6 +38,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

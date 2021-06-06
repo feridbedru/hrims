@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewAwardType'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_AwardType_AddNew')
             <form method="POST" action="{{ route('award_types.award_type.store') }}" accept-charset="UTF-8"
                 id="create_award_type_form" name="create_award_type_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

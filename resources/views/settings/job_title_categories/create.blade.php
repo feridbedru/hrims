@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewJobTitleCategory'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_JobTitleCategory_AddNew')
             <form method="POST" action="{{ route('job_title_categories.job_title_category.store') }}"
                 accept-charset="UTF-8" id="create_job_title_category_form" name="create_job_title_category_form"
                 class="form-horizontal">
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

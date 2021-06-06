@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewMaritalStatus'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_MaritalStatus_AddNew')
             <form method="POST" action="{{ route('marital_statuses.marital_status.store') }}" accept-charset="UTF-8"
                 id="create_marital_status_form" name="create_marital_status_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

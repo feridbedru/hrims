@@ -14,6 +14,7 @@
         </div>
 
         <div class="card-body">
+            @permission('awards_show')
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
@@ -77,21 +78,25 @@
                         <div class="text-center">
                             <a href="{{ asset('uploads/award/' . $employeeAward->attachment) }}"
                                 class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                                @permission('awards_edit')
                             <a href="{{ route('employee_awards.employee_award.edit', ['employee' => $employeeAward->employees->id, 'employeeAward' => $employeeAward->id]) }}"
                                 class="btn btn-warning mr-3" title="Edit Employee Award">
                                 {{(__('setting.edit'))}}
                             </a>
-
+                            @endpermission
+                            @permission('awards_delete')
                             <button type="submit" class="btn btn-danger" title="Delete Employee Award"
                                 onclick="return confirm(&quot;Click Ok to delete Employee Award.?&quot;)">
                                 {{(__('setting.delete'))}}
                             </button>
+                            @endpermission
                         </div>
                     </form>
                 @endif
                 </dd>
             </dl>
         </div>
+        @endpermission
     </div>
 
 @endsection

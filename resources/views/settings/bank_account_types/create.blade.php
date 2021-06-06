@@ -14,6 +14,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewBankType'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_BankAccountTypes_AddNew')
             <form method="POST" action="{{ route('bank_account_types.bank_account_type.store') }}" accept-charset="UTF-8"
                 id="create_bank_account_type_form" name="create_bank_account_type_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

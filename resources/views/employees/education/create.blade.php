@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Education'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('educations_addNew')
             <form method="POST" action="{{ route('employee_educations.employee_education.store', $employee) }}"
                 accept-charset="UTF-8" id="create_employee_education_form" name="create_employee_education_form"
                 class="form-horizontal" enctype="multipart/form-data">
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

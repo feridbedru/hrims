@@ -15,6 +15,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_OrganizationLocation_Edit')
             <form method="POST"
                 action="{{ route('organization_locations.organization_location.update', $organizationLocation->id) }}"
                 id="edit_organization_location_form" name="edit_organization_location_form" accept-charset="UTF-8"
@@ -34,6 +35,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

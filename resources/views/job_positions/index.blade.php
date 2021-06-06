@@ -16,6 +16,7 @@
         </div>
 
         <div class="card-body">
+            @permission('jobsPosition_list')
             @if (count($jobPositions) == 0)
                 <h4 class="text-center">{{(__('setting.No Job Positions Available'))}}.</h4>
             @else
@@ -48,23 +49,30 @@
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('jobsPosition_benefits')
                                             <a href="{{ route('job_positions.job_position.benefits', $jobPosition->id) }}"
                                                 class="btn btn-outline-success" title="Benefits">
                                                 {{(__('setting.Benefits'))}}
                                             </a>
+                                            @endpermission
+                                            @permission('jobsPosition_show')
                                             <a href="{{ route('job_positions.job_position.show', $jobPosition->id) }}"
                                                 class="btn btn-primary" title="Show Job Position">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
+                                            @endpermission
+                                            @permission('jobsPosition_edit')
                                             <a href="{{ route('job_positions.job_position.edit', $jobPosition->id) }}"
                                                 class="btn btn-warning" title="Edit Job Position">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
-
+                                            @endpermission
+                                            @permission('jobsPosition_delete')
                                             <button type="submit" class="btn btn-danger" title="Delete Job Position"
                                                 onclick="return confirm(&quot;Click Ok to delete Job Position.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -76,9 +84,12 @@
                 {{ $jobPositions->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('jobsPosition_AddNew')
     <a href="{{ route('job_positions.job_position.create') }}" class="btn btn-success" title="Create New Job Position">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection

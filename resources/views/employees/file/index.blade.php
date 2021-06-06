@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('files_list')
             @if (count($employeeFiles) == 0)
                 <h4 class="text-center">{{(__('employee.No Files Available'))}}.</h4>
             @else
@@ -31,23 +32,30 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $employeeFile->title }}</td>
                                 <td>{{ $employeeFile->description }}</td>
-                                <td><a href="{{ asset('uploads/misc/' . $employeeFile->attachment) }}"
-                                    class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a></td>
+                                <td>
+                                    @permission('files_show')
+                                    <a href="{{ asset('uploads/misc/' . $employeeFile->attachment) }}"
+                                    class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                                    @endpermission
+                                </td>
 
                                 <td>
                                     <form method="POST" action="{!! route('employee_files.employee_file.destroy', ['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) !!}" accept-charset="UTF-8">
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('files_edit')
                                             <a href="{{ route('employee_files.employee_file.edit', ['employee' => $employeeFile->employees->id, 'employeeFile' => $employeeFile->id]) }}"
                                                 class="btn btn-warning" title="Edit File">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
-
+                                            @endpermission
+                                            @permission('files_delete')
                                             <button type="submit" class="btn btn-danger" title="Delete File"
                                                 onclick="return confirm(&quot;Click Ok to delete File.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -59,15 +67,20 @@
                 {{ $employeeFiles->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('files_addNew')
     <a href="{{ route('employee_files.employee_file.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New File">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeFiles) > 0)
+    @permission('files_print')
         <a href="{{ route('employee_files.employee_file.print', $employee) }}" class="btn btn-primary" title="Print Employee File" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

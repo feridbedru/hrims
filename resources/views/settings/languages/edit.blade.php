@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_Language_Delete')
             <form method="POST" action="{{ route('languages.language.update', $language->id) }}" id="edit_language_form"
                 name="edit_language_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -34,6 +35,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

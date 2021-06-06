@@ -63,6 +63,7 @@
         <div class="card-header">
             <h3 class="card-title">{{(__('setting.LicenseTypesList'))}}</h3>
         </div>
+        @permission('licenseTypes_list')
         <div class="card-body">
             @if (count($licenseTypes) == 0)
                 <h4 class="text-center">{{(__('setting.NoLicenseTypesAvailable'))}}.</h4>
@@ -83,14 +84,18 @@
                                 <td>{{ $licenseType->name }}</td>
                                 <td>{{ $licenseType->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_LicenseType_Edit')
                                     <a href="{{ route('license_types.license_type.edit', $licenseType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit License Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_LicenseType_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $licenseType->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -100,11 +105,14 @@
                 {{ $licenseTypes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_LicenseType_AddNew')
     <a href="{{ route('license_types.license_type.create') }}" class="btn btn-success" title="Create New License Type">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

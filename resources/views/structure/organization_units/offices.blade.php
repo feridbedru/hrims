@@ -15,6 +15,7 @@
         </div>
 
         <div class="card-body">
+            @permission('organization_units_offices')
             @if (count($units) == 0)
                 <h4 class="text-center">{{(__('setting.No Offices Available'))}}.</h4>
             @else
@@ -45,6 +46,7 @@
                     </tbody>
                 </table>
             @endif
+            @endpermission
         </div>
     </div>
 @endsection

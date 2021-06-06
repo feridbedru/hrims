@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('certificationVendor_list')
             @if (count($certificationVendors) == 0)
                 <h4 class="text-center">{{(__('setting.No Certification Vendors Available'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $certificationVendor->name }}</td>
                                 <td>{{ $certificationVendor->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_CertificationVendor_Edit')
                                     <a href="{{ route('certification_vendors.certification_vendor.edit', $certificationVendor->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Certification Vendor">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_CertificationVendor_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $certificationVendor->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,12 +106,15 @@
                 {{ $certificationVendors->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_CertificationVendor_AddNew')
     <a href="{{ route('certification_vendors.certification_vendor.create') }}" class="btn btn-success"
         title="Create New Certification Vendor">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

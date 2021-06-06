@@ -64,6 +64,7 @@
             <h3 class="card-title">{{(__('setting.RelationshipsList'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('relationships_list')
             @if (count($relationships) == 0)
                 <h4 class="text-center">{{__('setting.NoRelationshipsAvailable')}}.</h4>
             @else
@@ -83,14 +84,18 @@
                                 <td>{{ $relationship->name }}</td>
                                 <td>{{ $relationship->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_Relationships_Edit')
                                     <a href="{{ route('relationships.relationship.edit', $relationship->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Relationship">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_Relationships_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $relationship->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -100,11 +105,14 @@
                 {{ $relationships->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_Relationships_AddNew')
     <a href="{{ route('relationships.relationship.create') }}" class="btn btn-success" title="Create New Relationship">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

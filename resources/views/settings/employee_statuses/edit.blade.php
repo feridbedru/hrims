@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Employee Status'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_EmployeeStatus_Edit')
             <form method="POST" action="{{ route('employee_statuses.employee_status.update', $employeeStatus->id) }}"
                 id="edit_employee_status_form" name="edit_employee_status_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

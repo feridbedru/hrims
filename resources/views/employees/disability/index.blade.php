@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('disabilities_list')
             @if (count($employeeDisabilities) == 0)
                 <h4 class="text-center">{{(__('employee.No Disability Available'))}}</h4>
             @else
@@ -49,6 +50,7 @@
 
                                 <td>
                                     @if ($employeeDisability->status == 1)
+                                    @permission('disabilities_approve_reject')
                                         <a href="{{ route('employee_disabilities.employee_disability.approve', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Disability">
                                             {{(__('employee.Approve'))}}
@@ -85,7 +87,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endpermission
                                     @elseif($employeeDisability->status == 2)
+                                    @permission('disabilities_delete')
                                         <form method="POST" action="{!! route('employee_disabilities.employee_disability.destroy', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
@@ -94,18 +98,23 @@
                                                 {{(__('setting.delete'))}}
                                             </button>
                                         </form>
+                                        @endpermission
                                     @else
                                         <form method="POST" action="{!! route('employee_disabilities.employee_disability.destroy', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
+                                            @permission('disabilities_edit')
                                             <a href="{{ route('employee_disabilities.employee_disability.edit', ['employee' => $employeeDisability->employees->id, 'employeeDisability' => $employeeDisability->id]) }}"
                                                 class="btn btn-outline-warning mr-2" title="Edit Disability">
                                                 {{(__('setting.edit'))}}
                                             </a>
+                                            @endpermission
+                                            @permission('disabilities_delete')
                                             <button type="submit" class="btn btn-outline-danger" title="Delete Disability"
                                                 onclick="return confirm(&quot;Click Ok to delete Disability.&quot;)">
                                                 {{(__('setting.delete'))}}
                                             </button>
+                                            @endpermission
                                         </form>
                                     @endif
                                 </td>
@@ -117,15 +126,20 @@
                 {{ $employeeDisabilities->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('disabilities_addNew')
     <a href="{{ route('employee_disabilities.employee_disability.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Disability">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeDisabilities) > 0)
+    @permission('disabilities_print')
         <a href="{{ route('employee_disabilities.employee_disability.print', $employee) }}" class="btn btn-primary" title="Print Employee Disability" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

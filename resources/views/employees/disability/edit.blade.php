@@ -14,6 +14,7 @@
             <h3 class="card-title mb-1">{{ __('employee.Edit Disability') }}</h3>
         </div>
         <div class="card-body">
+            @permission('disabilities_edit')
             <form method="POST"
                 action="{{ route('employee_disabilities.employee_disability.update', ['employee' => $employee->id, 'employeeDisability' => $employeeDisability->id]) }}"
                 id="edit_employee_disability_form" name="edit_employee_disability_form" accept-charset="UTF-8"
@@ -34,6 +35,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Job Title Category'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_JobTitleCategory_Edit')
             <form method="POST"
                 action="{{ route('job_title_categories.job_title_category.update', $jobTitleCategory->id) }}"
                 id="edit_job_title_category_form" name="edit_job_title_category_form" accept-charset="UTF-8"
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

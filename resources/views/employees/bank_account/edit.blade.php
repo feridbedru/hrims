@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Bank Account'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('bankAccount_edit')
             <form method="POST"
                 action="{{ route('employee_bank_accounts.employee_bank_account.update', ['employee' => $employee->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                 id="edit_employee_bank_account_form" name="edit_employee_bank_account_form" accept-charset="UTF-8"
@@ -33,6 +34,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

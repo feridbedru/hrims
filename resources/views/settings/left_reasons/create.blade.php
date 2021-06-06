@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewLeaveReason'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_LeaveReasons_AddNew')
             <form method="POST" action="{{ route('left_reasons.left_reason.store') }}" accept-charset="UTF-8"
                 id="create_left_reason_form" name="create_left_reason_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

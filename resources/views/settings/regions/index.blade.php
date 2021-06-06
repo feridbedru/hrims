@@ -64,6 +64,7 @@
             <h3 class="card-title">{{(__('setting.RegionsList'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('regions_list')
             @if (count($regions) == 0)
                 <h4 class="text-center">{{(__('setting.NoRegionsAvailable'))}}.</h4>
             @else
@@ -83,14 +84,18 @@
                                 <td>{{ $region->name }}</td>
                                 <td>{{ $region->code }}</td>
                                 <td class="text-center">
+                                    @permission('setting_Regions_Edit')
                                     <a href="{{ route('regions.region.edit', $region->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Region">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_Regions_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $region->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -100,11 +105,14 @@
                 {{ $regions->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_Regions_AddNew')
     <a href="{{ route('regions.region.create') }}" class="btn btn-success" title="Create New Region">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

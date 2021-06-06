@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_CommitmentFors_Edit')
             <form method="POST" action="{{ route('commitment_fors.commitment_for.update', $commitmentFor->id) }}"
                 id="edit_commitment_for_form" name="edit_commitment_for_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -36,6 +37,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

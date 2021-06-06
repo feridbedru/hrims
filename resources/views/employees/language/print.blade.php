@@ -3,6 +3,7 @@
 {{(__('employee.Languages'))}}
 @endsection
 @section('content')
+@permission('languages_print')
     @if (count($employeeLanguages) == 0)
         <h4 class="text-center">{{(__('employee.No Languages Available'))}}.</h4>
     @else
@@ -33,4 +34,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

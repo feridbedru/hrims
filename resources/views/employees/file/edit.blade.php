@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit File'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('files_edit')
             <form method="POST"
                 action="{{ route('employee_files.employee_file.update', ['employee' => $employee->id, 'employeeFile' => $employeeFile->id]) }}"
                 id="edit_employee_file_form" name="edit_employee_file_form" accept-charset="UTF-8" class="form-horizontal"
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

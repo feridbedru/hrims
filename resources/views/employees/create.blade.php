@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Employee'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('employee_addNew')
             <form method="POST" action="{{ route('employees.employee.store') }}" accept-charset="UTF-8"
                 id="create_employee_form" name="create_employee_form" class="form-horizontal" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

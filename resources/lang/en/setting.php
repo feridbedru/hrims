@@ -428,11 +428,7 @@ return [
     'No Reports Available'=>"No Reports Availabl",
     'Enter Job Title Name Here'=>"Enter Job Title Name Here",
     'Edit Report'=>"Edit Report",
-
-
-
-
-
+    'Roles'=>"Roles",
 
 ];
 ?>

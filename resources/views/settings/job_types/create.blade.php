@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewJobType'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_JobType_AddNew')
             <form method="POST" action="{{ route('job_types.job_type.store') }}" accept-charset="UTF-8"
                 id="create_job_type_form" name="create_job_type_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

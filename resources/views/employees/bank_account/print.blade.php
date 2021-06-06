@@ -3,6 +3,7 @@
 {{(__('employee.Bank Accounts'))}}
 @endsection
 @section('content')
+@permission('bankAccount_print')
     @if (count($employeeBankAccounts) == 0)
         <h4 class="text-center">{{(__('employee.No Bank Accounts Available'))}}.</h4>
     @else
@@ -37,4 +38,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

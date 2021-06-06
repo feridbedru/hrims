@@ -3,6 +3,7 @@
     {{ __('employee.Judiciary Punishments') }}
 @endsection
 @section('content')
+@permission('judiciaryPunishments_print')
     @if (count($employeeJudiciaryPunishments) == 0)
         <h4 class="text-center">{{ __('employee.No Judiciary Punishments Available') }}.</h4>
     @else
@@ -39,4 +40,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

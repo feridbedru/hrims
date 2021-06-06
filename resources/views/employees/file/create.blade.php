@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New File'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('files_addNew')
             <form method="POST" action="{{ route('employee_files.employee_file.store', $employee) }}"
                 accept-charset="UTF-8" id="create_employee_file_form" name="create_employee_file_form"
                 class="form-horizontal" enctype="multipart/form-data">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

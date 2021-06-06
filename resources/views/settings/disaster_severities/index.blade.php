@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('disasterSeverities_list')
             @if (count($disasterSeverities) == 0)
                 <h4 class="text-center">{{(__('setting.NoDisasterSeveritiesAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $disasterSeverity->name }}</td>
                                 <td>{{ $disasterSeverity->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_DisasterSeverities_Edit')
                                     <a href="{{ route('disaster_severities.disaster_severity.edit', $disasterSeverity->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Disaster Severity">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_DisasterSeverities_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $disasterSeverity->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,8 +106,10 @@
                 {{ $disasterSeverities->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_DisasterSeverities_AddNew')
     <a href="{{ route('disaster_severities.disaster_severity.create') }}" class="btn btn-success"
         title="Create New Disaster Severity">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>

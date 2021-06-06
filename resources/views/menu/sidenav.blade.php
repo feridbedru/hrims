@@ -33,6 +33,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar nav-child-indent flex-column" data-widget="treeview" role="menu"
             data-accordion="false">
+            @permission('Structure')
             <li
                 class="nav-item has-treeview {{ request()->is(['organizations*', 'organization_units*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
@@ -43,6 +44,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @permission('organization_list')
                     <li class="nav-item">
                         <a href="{{ route('organizations.organization.index') }}"
                             class="nav-link {{ request()->is('organizations*') ? 'active' : ' ' }}">
@@ -50,6 +52,8 @@
                             <p>{{(__('setting.Organization'))}}</p>
                         </a>
                     </li>
+                    @endpermission
+                    @permission('organizationUnit_list')
                     <li class="nav-item">
                         <a href="{{ route('organization_units.organization_unit.index') }}"
                             class="nav-link {{ request()->is('organization_units*') ? 'active' : ' ' }}">
@@ -57,8 +61,11 @@
                             <p>{{(__('setting.OrganizationUnits'))}}</p>
                         </a>
                     </li>
+                    @endpermission
                 </ul>
             </li>
+            @endpermission
+            @permission('Employees')
             <li class="nav-item has-treeview {{ request()->is(['employees*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-user-tie"></i>
@@ -68,6 +75,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @permission('newEmployees')
                     <li class="nav-item">
                         <a href="{{ route('employees.employee.create') }}"
                             class="nav-link {{ request()->is('employees/create') ? 'active' : ' ' }}">
@@ -75,6 +83,8 @@
                             <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
+                    @endpermission
+                    @permission('employeesList')
                     <li class="nav-item">
                         <a href="{{ route('employees.employee.index') }}"
                             class="nav-link {{ request()->is('employees') ? 'active' : ' ' }}">
@@ -82,8 +92,11 @@
                             <p>{{(__('setting.List'))}}</p>
                         </a>
                     </li>
+                    @endpermission
                 </ul>
             </li>
+            @endpermission
+            @permission('jobs')
             <li
                 class="nav-item has-treeview {{ request()->is(['job_positions/create', 'job_positions', 'job_positions/show/*', 'job_positions/*/edit']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link ">
@@ -94,6 +107,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @permission('newJobs')
                     <li class="nav-item">
                         <a href="{{ route('job_positions.job_position.create') }}"
                             class="nav-link {{ request()->is('job_positions/create') ? 'active' : ' ' }}">
@@ -101,6 +115,8 @@
                             <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
+                    @endpermission
+                    @permission('jobsList')
                     <li class="nav-item">
                         <a href="{{ route('job_positions.job_position.index') }}"
                             class="nav-link {{ request()->is(['job_positions', 'job_positions/show/*', 'job_positions/*/edit']) ? 'active' : ' ' }}">
@@ -108,8 +124,10 @@
                             <p>{{(__('setting.List'))}}</p>
                         </a>
                     </li>
+                    @endpermission
                 </ul>
             </li>
+            @endpermission
             {{-- <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-clipboard-list"></i>
@@ -274,6 +292,7 @@
                         </li>
                     </ul>
                 </li> --}}
+            @permission('Payment')
             <li
                 class="nav-item has-treeview {{ request()->is(['salaries*', 'salary_scales*', 'salary_heights*']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link ">
@@ -284,6 +303,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @permission('salaryScales_list')
                     <li class="nav-item">
                         <a href="{{ route('salary_scales.salary_scale.index') }}"
                             class="nav-link {{ request()->is('salary_scales*') ? 'active' : ' ' }}">
@@ -291,6 +311,8 @@
                             <p>{{(__('setting.SalaryScale'))}}</p>
                         </a>
                     </li>
+                    @endpermission
+                    @permission('salaryHeights_list')
                     <li class="nav-item">
                         <a href="{{ route('salary_heights.salary_height.index') }}"
                             class="nav-link {{ request()->is('salary_heights*') ? 'active' : ' ' }}">
@@ -298,6 +320,7 @@
                             <p>{{(__('setting.SalaryHeight'))}}</p>
                         </a>
                     </li>
+                    @endpermission
                     <li class="nav-item">
                         <a href="{{ url('#') }}" class="nav-link">
                             <i class="fas fa-receipt nav-icon"></i>
@@ -306,6 +329,8 @@
                     </li>
                 </ul>
             </li>
+            @endpermission
+            @permission('Report')
             <li
                 class="nav-item has-treeview {{ request()->is(['reports/create', 'reports', 'reports/show/*', 'reports/*/edit']) ? 'menu-open' : ' ' }}">
                 <a href="#" class="nav-link">
@@ -316,6 +341,7 @@
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
+                    @permission('newReport')
                     <li class="nav-item">
                         <a href="{{ route('reports.report.create') }}"
                             class="nav-link {{ request()->is('reports/create') ? 'active' : ' ' }}">
@@ -323,6 +349,8 @@
                             <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
+                    @endpermission
+                    @permission('ReportList')
                     <li class="nav-item">
                         <a href="{{ route('reports.report.index') }}"
                             class="nav-link {{ request()->is(['reports', 'reports/show/*', 'reports/*/edit']) ? 'active' : ' ' }}">
@@ -330,8 +358,10 @@
                             <p>{{(__('setting.List'))}}</p>
                         </a>
                     </li>
+                    @endpermission
                 </ul>
             </li>
+            @endpermission
 
             <li class="nav-item">
                     <a href="{{ url('#') }}" class="nav-link">
@@ -363,6 +393,7 @@
                     </ul>
                 </li>
 
+                @permission('Setting')
             <li class="nav-item">
                 <a href="{{ route('settings.setting.index') }}"
                     class="nav-link {{ request()->is('settings*') ? 'active' : ' ' }}">
@@ -372,7 +403,8 @@
                     </p>
                 </a>
             </li>
-
+            @endpermission
+            @permission('Help')
             <li class="nav-item">
                 <a href="{{ route('helps.help.index') }}"
                     class="nav-link {{ request()->is('help*') ? 'active' : ' ' }}">
@@ -382,6 +414,7 @@
                     </p>
                 </a>
             </li>
+            @endpermission
         </ul>
     </nav>
 </div>

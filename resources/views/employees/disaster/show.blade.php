@@ -17,20 +17,25 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
+                        @permission('disasters_edit')
                         <a href="{{ route('employee_disasters.employee_disaster.edit', ['employee' => $employeeDisaster->employees->id, 'employeeDisaster' => $employeeDisaster->id]) }}"
                             class="btn btn-warning" title="Edit Employee Disaster">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('disasters_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Employee Disaster"
                             onclick="return confirm(&quot;Click Ok to delete Employee Disaster.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="card-body">
+            @permission('disasters_show')
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
@@ -64,6 +69,7 @@
                 <dt>{{ __('setting.Description') }}</dt>
                 <dd>{{ $employeeDisaster->description }}</dd>
             </dl>
+            @endpermission
         </div>
     </div>
 
@@ -76,6 +82,7 @@
                 </div>
 
                 <div class="card-body">
+                    @permission('disasterWitnesses_list')
                     @if (count($employeeDisasterWitnesses) == 0)
                         <h4 class="text-center">{{ __('employee.No Disaster Witnesses Available') }}.</h4>
                     @else
@@ -96,14 +103,17 @@
                                         <td>{{ $employeeDisasterWitness->name }}</td>
                                         <td>{{ $employeeDisasterWitness->phone }}</td>
                                         <td>
+                                            @permission('disasterWitnesses_show')
                                             @if ($employeeDisasterWitness->file)
                                                 <a href="{{ asset('uploads/disaster/witness/' . $employeeDisasterWitness->file) }}"
                                                     class="btn btn-primary mr-3"
                                                     target="_blank">{{ __('employee.View File') }}</a>
                                             @endif
+                                            @endpermission
                                         </td>
 
                                         <td>
+                                            @permission('disasterWitnesses_edit')
                                             <button type="button" class="btn btn-warning mr-2" data-toggle="modal"
                                                 data-target="#modal-editwitness{{ $employeeDisasterWitness->id }}">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
@@ -146,6 +156,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endpermission
+                                            @permission('disasterWitnesses_delete')
                                             <form class="d-inline" method="POST" action="{!! route('employee_disaster_witnesses.employee_disaster_witness.destroy', ['employee' => $employee->id, 'employeeDisasterWitness' => $employeeDisasterWitness->id]) !!}"
                                                 accept-charset="UTF-8">
                                                 @method('DELETE')
@@ -158,18 +170,21 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                            @endpermission
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     @endif
+                    @endpermission
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-witness">
+            @permission('disasterWitnesses_addNew')
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add-witness">
                 <span class="fa fa-plus" aria-hidden="true"> {{ __('setting.AddNew') }}</span>
             </button>
-            <div class="modal fade" id="modal-witness">
+            <div class="modal fade" id="add-witness">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -202,6 +217,7 @@
                     </div>
                 </div>
             </div>
+            @endpermission
         </div>
         {{-- indeminities div --}}
         <div class="col-md-6">
@@ -211,6 +227,7 @@
                 </div>
 
                 <div class="card-body">
+                    @permission('disasterIndeminities_list')
                     @if (count($employeeDisasterIndeminities) == 0)
                         <h4 class="text-center">{{ __('employee.No Disaster Indeminities Available') }}.</h4>
                     @else
@@ -232,12 +249,15 @@
                                         <td>{{ $employeeDisasterIndeminity->cost }}</td>
                                         <td>
                                             @if ($employeeDisasterIndeminity->file)
+                                            @permission('disasterIndeminities_show')
                                                 <a href="{{ asset('uploads/disaster/indeminity/' . $employeeDisasterIndeminity->file) }}"
                                                     class="btn btn-primary mr-3"
                                                     target="_blank">{{ __('employee.View File') }}</a>
+                                                    @endpermission
                                             @endif
                                         </td>
                                         <td>
+                                            @permission('disasterIndeminities_edit')
                                             <button type="button" class="btn btn-warning mr-2" data-toggle="modal"
                                                 data-target="editindeminity{{ $employeeDisasterIndeminity->id }}">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
@@ -279,6 +299,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @endpermission
+                                            @permission('disasterIndeminities_delete')
                                             <form class="d-inline" method="POST" action="{!! route('employee_disaster_indeminities.employee_disaster_indeminity.destroy', ['employeeDisasterIndeminity' => $employeeDisasterIndeminity->id, 'employee' => $employee->id]) !!}"
                                                 accept-charset="UTF-8">
                                                 @method('DELETE')
@@ -291,14 +313,17 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                            @endpermission
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     @endif
+                    @endpermission
                 </div>
             </div>
+            @permission('disasterIndeminities_addNew')
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addindeminity">
                 <span class="fa fa-plus" aria-hidden="true"> {{ __('setting.AddNew') }}</span>
             </button>
@@ -335,6 +360,7 @@
                     </div>
                 </div>
             </div>
+            @endpermission
         </div>
     </div>
 

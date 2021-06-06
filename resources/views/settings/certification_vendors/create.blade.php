@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewCertificationVendor'))}}</h3>
         </div>
         <div class="card-body">
+          @permission('setting_CertificationVendor_AddNew')
             <form method="POST" action="{{ route('certification_vendors.certification_vendor.store') }}"
                 accept-charset="UTF-8" id="create_certification_vendor_form" name="create_certification_vendor_form"
                 class="form-horizontal">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

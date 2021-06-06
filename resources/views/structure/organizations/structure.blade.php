@@ -15,6 +15,7 @@
             <h4 class="card-title">{{(__('setting.Organization Structure'))}}</h4>
         </div>
         <div class="card-body">
+            @permission('Organization_structure')
             <ol class="organizational-chart">
                 @foreach ($roots as $root)
                     <li>
@@ -57,6 +58,7 @@
                     </li>
                 @endforeach
             </ol>
+            @endpermission
         </div>
     </div>
 @endsection

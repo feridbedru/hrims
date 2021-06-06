@@ -16,6 +16,7 @@
         </div>
 
         <div class="card-body">
+            @permission('administrativePunishments_list')
             @if (count($employeeAdministrativePunishments) == 0)
                 <h4 class="text-center">{{(_('employee.No Administrative Punishments Available'))}}.</h4>
             @else
@@ -59,16 +60,19 @@
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('administrativePunishments_edit')
                                             <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.edit', ['employee' => $employeeAdministrativePunishment->employees->id, 'employeeAdministrativePunishment' => $employeeAdministrativePunishment->id]) }}"
                                                 class="btn btn-warning" title="Edit Employee Administrative Punishment">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
-
+                                            @endpermission
+                                            @permission('administrativePunishments_delete')
                                             <button type="submit" class="btn btn-danger"
                                                 title="Delete Administrative Punishment"
                                                 onclick="return confirm(&quot;Click Ok to delete Administrative Punishment.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -80,15 +84,20 @@
                 {{ $employeeAdministrativePunishments->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('administrativePunishments_AddNew')
     <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.create', $employee) }}"
         class="btn btn-success mr-2" title="Create New Administrative Punishment">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeAdministrativePunishments) > 0)
+    @permission('administrativePunishments_print')
         <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.print', $employee) }}" class="btn btn-primary" title="Print Employee Administrative Punishment" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
     @endif
+    @endpermission
 @endsection

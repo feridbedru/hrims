@@ -64,6 +64,7 @@
             <h3 class="card-title">{{((__('setting.OrganizationLocationList')))}}</h3>
         </div>
         <div class="card-body">
+            @permission('organizationLocation_list')
             @if (count($organizationLocations) == 0)
                 <h4 class="text-center">{{(__('setting.NoOrganizationLocationsAvailable'))}}.</h4>
             @else
@@ -83,14 +84,18 @@
                                 <td>{{ $organizationLocation->name }}</td>
                                 <td>{{ $organizationLocation->address }}</td>
                                 <td class="text-center">
+                                    @permission('setting_OrganizationLocation_Edit')
                                     <a href="{{ route('organization_locations.organization_location.edit', $organizationLocation->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Organization Location">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_OrganizationLocation_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $organizationLocation->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -100,12 +105,15 @@
                 {{ $organizationLocations->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_OrganizationLocation_AddNew')
     <a href="{{ route('organization_locations.organization_location.create') }}" class="btn btn-success"
         title="Create New Organization Location">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

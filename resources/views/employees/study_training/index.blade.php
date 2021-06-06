@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('studyTrainings_list')
             @if (count($employeeStudyTrainings) == 0)
                 <h4 class="text-center">{{(__('employee.No Study Trainings Available'))}}.</h4>
             @else
@@ -42,19 +43,24 @@
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('studyTrainings_show')
                                             <a href="{{ route('employee_study_trainings.employee_study_training.show', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) }}"
                                                 class="btn btn-primary" title="Show Study Training">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
+                                            @endpermission
+                                            @permission('studyTrainings_edit')
                                             <a href="{{ route('employee_study_trainings.employee_study_training.edit', ['employee' => $employeeStudyTraining->employees->id, 'employeeStudyTraining' => $employeeStudyTraining->id]) }}"
                                                 class="btn btn-warning" title="Edit Study Training">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
-
+                                            @endpermission
+                                            @permission('studyTrainings_delete')
                                             <button type="submit" class="btn btn-danger" title="Delete Study Training"
                                                 onclick="return confirm(&quot;Click Ok to delete Study Training.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -66,15 +72,20 @@
                 {{ $employeeStudyTrainings->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('studyTrainings_addNew')
     <a href="{{ route('employee_study_trainings.employee_study_training.create', $employee) }}"
         class="btn btn-success mr-2" title="Create New Study Training">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeStudyTrainings) > 0)
+    @permission('studyTrainings_print')
         <a href="{{ route('employee_study_trainings.employee_study_training.print', $employee) }}" class="btn btn-primary" title="Print Employee Study Training" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

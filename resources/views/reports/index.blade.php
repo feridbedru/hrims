@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('report_list')
             @if (count($reports) == 0)
                 <h4 class="text-center">{{(__('setting.No Reports Available'))}}.</h4>
             @else
@@ -37,18 +38,24 @@
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('setting_Reports_Show')
                                             <a href="{{ route('reports.report.show', $report->id) }}"
                                                 class="btn btn-primary" title="Show Report">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
+                                            @endpermission
+                                            @permission('setting_Reports_Edit')
                                             <a href="{{ route('reports.report.edit', $report->id) }}"
                                                 class="btn btn-warning" title="Edit Report">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
+                                            @endpermission
+                                            @permission('setting_Reports_Delete')
                                             <button type="submit" class="btn btn-danger" title="Delete Report"
                                                 onclick="return confirm(&quot;Click Ok to delete Report.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -60,9 +67,12 @@
                 {{ $reports->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_Reports_AddNew')
         <a href="{{ route('reports.report.create') }}" class="btn btn-success" title="Create New Report">
             <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
         </a>
+        @endpermission
 @endsection

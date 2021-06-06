@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('disabilityType_list')
             @if (count($disabilityTypes) == 0)
                 <h4 class="text-center">{{(__('setting.NoDisabilityTypesAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $disabilityType->name }}</td>
                                 <td>{{ $disabilityType->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_DisabilityType_Edit')
                                     <a href="{{ route('disability_types.disability_type.edit', $disabilityType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Disability Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_DisabilityType_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $disabilityType->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,12 +106,15 @@
                 {{ $disabilityTypes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_DisabilityType_AddNew')
     <a href="{{ route('disability_types.disability_type.create') }}" class="btn btn-success"
         title="Create New Disability Type">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

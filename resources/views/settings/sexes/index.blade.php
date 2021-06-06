@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('sexs_list')
             @if (count($sexes) == 0)
                 <h4 class="text-center">{{(__('setting.NoSexesAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $sex->name }}</td>
                                 <td>{{ $sex->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_Sexes_Edit')
                                     <a href="{{ route('sexes.sex.edit', $sex->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Sex">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_Sexes_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $sex->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,11 +106,14 @@
                 {{ $sexes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_Sexes_AddNew')
     <a href="{{ route('sexes.sex.create') }}" class="btn btn-success" title="Create New Sex">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

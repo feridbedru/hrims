@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('setting.Create New Salary Scale'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('salaryScales_addNew')
             <form method="POST" action="{{ route('salary_scales.salary_scale.store') }}" accept-charset="UTF-8"
                 id="create_salary_scale_form" name="create_salary_scale_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

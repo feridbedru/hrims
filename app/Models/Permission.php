@@ -2,9 +2,46 @@
 
 namespace App\Models;
 
-use Laratrust\Models\LaratrustPermission;
+use Illuminate\Database\Eloquent\Model;
 
-class Permission extends LaratrustPermission
+class Permission extends Model
 {
-    public $guarded = [];
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'permissions';
+
+    /**
+    * The database primary key value.
+    *
+    * @var string
+    */
+    protected $primaryKey = 'id';
+
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+                  'name',
+                  'description',
+                  'display_name'
+              ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [];
 }

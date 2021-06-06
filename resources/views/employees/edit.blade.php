@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{ __('employee.Edit Employee') }}</h3>
         </div>
         <div class="card-body">
+            @permission('employee_edit')
             <form method="POST" action="{{ route('employees.employee.update', $employee->id) }}" id="edit_employee_form"
                 name="edit_employee_form" accept-charset="UTF-8" class="form-horizontal" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

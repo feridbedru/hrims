@@ -11,6 +11,7 @@
             <h3 class="card-title">{{(__('setting.OrganizationList'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('organization_list')
             @if (count($organizations) == 0)
                 <div class="panel-body text-center">
                     <h4>{{__('setting.NoOrganizationLocationsAvailable')}}.</h4>
@@ -37,18 +38,25 @@
                                 <td>{{ $organization->email }}</td>
                                 <td>{{ $organization->phone_number }}</td>
                                 <td>
+                                    @permission('Organization_structure')
                                     <a href="{{ route('organizations.organization.structure') }}"
                                         class="btn btn-outline-primary mr-3" title="Show Organization Structure">
                                         {{(__('setting.Structure'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('Organization_view')
                                     <a href="{{ route('organizations.organization.show', $organization->id) }}"
                                         class="btn btn-outline-info mr-3" title="Show Organization">
                                         {{(__('setting.view'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('Organization_edit')
                                     <a href="{{ route('organizations.organization.edit', $organization->id) }}"
                                         class="btn btn-outline-warning mr-3" title="Edit Organization">
                                         {{(__('setting.edit'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('Organization_delete')
                                     <form method="POST" class="d-inline" action="{!! route('organizations.organization.destroy', $organization->id) !!}"
                                         accept-charset="UTF-8">
                                         @method('DELETE')
@@ -58,6 +66,7 @@
                                             {{(__('setting.delete'))}}
                                         </button>
                                     </form>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -67,12 +76,15 @@
                 {{ $organizations->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
     @if (count($organizations) == 0)
+    @permission('organization_AddNew')
         <a href="{{ route('organizations.organization.create') }}" class="btn btn-success"
             title="Create New Organization">
             <span class="fas fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

@@ -7,6 +7,7 @@
     <li class="breadcrumb-item active">{{(__('employee.Registration Success'))}}</li>
 @endsection
 @section('content')
+@permission('employee_addNew')
     <div class="jumbotron">
         <h3 class="display-4 text-center text-success">{{(__('employee.Successfully Registered'))}}</h3>
         <p class="lead text-center">{{ $employee->en_name }} {{(__('employee.has been successfuly registered on the system. Choose an
@@ -33,4 +34,5 @@
             </ul>
         </div>
     </div>
+    @endpermission
 @endsection

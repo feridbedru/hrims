@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Organization Unit'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('organization_units_edit')
             <form method="POST" action="{{ route('organization_units.organization_unit.update', $organizationUnit->id) }}"
                 id="edit_organization_unit_form" name="edit_organization_unit_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

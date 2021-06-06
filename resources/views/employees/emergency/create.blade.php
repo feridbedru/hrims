@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Emergency'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('emergencies_addNew')
             <form method="POST" action="{{ route('employee_emergencies.employee_emergency.store', $employee) }}"
                 accept-charset="UTF-8" id="create_employee_emergency_form" name="create_employee_emergency_form"
                 class="form-horizontal">
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

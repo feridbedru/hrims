@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewOrganizationLocation'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_OrganizationLocation_AddNew')
             <form method="POST" action="{{ route('organization_locations.organization_location.store') }}"
                 accept-charset="UTF-8" id="create_organization_location_form" name="create_organization_location_form"
                 class="form-horizontal">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('setting.Edit Help'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Helps_Edit')
             <form method="POST" action="{{ route('helps.help.update', $help->id) }}" id="edit_help_form"
                 name="edit_help_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -28,6 +29,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

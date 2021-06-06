@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('setting.Edit Report'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Reports_Edit')
             <form method="POST" action="{{ route('reports.report.update', $report->id) }}" id="edit_report_form"
                 name="edit_report_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

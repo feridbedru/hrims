@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_ExperienceTypes_Edit')
             <form method="POST" action="{{ route('experience_types.experience_type.update', $experienceType->id) }}"
                 id="edit_experience_type_form" name="edit_experience_type_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -35,6 +36,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

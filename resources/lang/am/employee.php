@@ -1,7 +1,6 @@
 <?php
 
 return[
-
     'Additional Infos'=>"ተጨማሪ መረጃ",
     'Additional Infos List'=>"",
     'No Additional Infos Available'=>"ተጨማሪ የመረጃዎች ዝርዝር",
@@ -453,7 +452,6 @@ return[
     'Bank Account Type'=>"የባንክ ሂሳብ ዓይነት",
     'Edit Bank'=>"ባንክ አርትዕ",
     'Bank'=>"ባንክ",
-
     'Edit Award Type'=>"የሽልማት ዓይነትን ያርትዑ",
     'Award Type'=>"የሽልማት ዓይነት",
     'Enter place of birth here'=>"የትውልድ ቦታ እዚህ ይግቡ",
@@ -472,17 +470,14 @@ return[
     'Enter reason here'=>"እዚህ ምክንያት ያስገቡ",
     'Enter start date here'=>"የመነሻ ቀንን እዚህ ያስገቡ",
     'Enter end date here'=>"የማብቂያ ቀንን እዚህ ያስገቡ",
-    ''=>"",
     'Enter organization here'=>"እዚህ ድርጅት ይግቡ",
     'Enter awarded on here'=>"እዚህ ተሸልሟል ያስገቡ",
     'Enter account number here'=>"የመለያ ቁጥሩን እዚህ ያስገቡ",
-    ''=>"",
     'Enter name here'=>"እዚህ ስም ያስገቡ",
     'Enter issued on here'=>"እዚህ የተሰጠ ይግቡ",
     'Enter certification number here'=>"እዚህ የእውቅና ማረጋገጫ ቁጥር ያስገቡ",
     'Enter verification link here'=>"የማረጋገጫ አገናኝ እዚህ ያስገቡ",
     'Enter expires on here'=>"ይግቡ እዚህ ላይ ጊዜው ያበቃል",
-    ''=>"",
     'Enter occured on here'=>"እዚህ ላይ ተከስቷል ይግቡ",
     'Browse'=>"አስስ",
     'Enter gpa here'=>"እዚህ gpa ይግቡ",
@@ -508,7 +503,6 @@ return[
     'Enter issuing organization here'=>"አውጪ ድርጅት እዚህ ያስገቡ",
     'Select job position'=>"የሥራ ቦታን ይምረጡ",
     'Enter employment ID here'=>"የቅጥር መታወቂያ እዚህ ያስገቡ",
-
     'Select nationality'=>"ዜግነት ይምረጡ",
     'Select religion'=>"ሃይማኖት ይምረጡ",
     'Select skill category'=>"የክህሎት ምድብ ይምረጡ",
@@ -522,21 +516,36 @@ return[
     'Enter mission here'=>"ተልእኮን እዚህ ያስገቡ",
     'Enter vision here'=>"ራዕይን እዚህ ያስገቡ",
     'Enter fax number here'=>"የፋክስ ቁጥርን እዚህ ያስገቡ",
-
     'Enter PO Box here'=>"የፖስታ ሣጥን እዚህ ያስገቡ",
     'Edit Salary Height'=>"የደመወዝ ቁመት አርትዕ",
     'Salary Height'=>"የደመወዝ ቁመት",
     'Edit Salary Scale'=>"የደመወዝ መጠንን ያርትዑ",
     'Salary Scale'=>"የደመወዝ መጠን",
     'Edit Report'=>"ሪፖርት አርትዕ",
-    ''=>"",
-    ''=>"",
-
-
-
-
-
-
+    'Personal Information'=>"የግል መረጃ",
+    'Address'=>"አድራሻ",
+    'Bank Accounts'=>"የባንክ ሂሳቦች",
+    'Disability'=>"የአካል ጉዳት",
+    'Education'=>"ትምህርት",
+    'Emeregency'=>"ድንገተኛ አደጋ",
+    'Family'=>"ቤተሰብ",
+    'Language'=>"ቋንቋ",
+    'License'=>"ፈቃድ",
+    'Other Info'=>"ሌላ መረጃ",
+    'Experience'=>"ልምድ",
+    'List'=>"ዝርዝር",
+    'Punishment'=>"ቅጣት",
+    'Administrative'=>"አስተዳደራዊ",
+    'Judiciary'=>"የፍትህ አካላት",
+    'Disaster'=>"አደጋ",
+    'Evaluation'=>"ግምገማ",
+    'Certification'=>"ማረጋገጫ",
+    'Awards'=>"ሽልማቶች",
+    'Attendance'=>"መገኘት",
+    'Study and Training'=>"ጥናት እና ስልጠና",
+    'Files'=>"ፋይሎች",
+    'Termination'=>"ማቋረጥ",
+    'Leave'=>"መተው",
 ]
 
 ?>

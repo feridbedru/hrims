@@ -3,6 +3,7 @@
 {{(__('employee.Print Address'))}}
 @endsection
 @section('content')
+@permission('address_print')
     <div>
         @if (count($employeeAddresses) == 0)
             <h4 class="text-center">{{(__('employee.No Address Available'))}}.</h4>
@@ -52,4 +53,5 @@
             </table>
         @endif
     </div>
+    @endpermission
 @endsection

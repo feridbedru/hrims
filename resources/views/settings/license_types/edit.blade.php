@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_LicenseType_Edit')
             <form method="POST" action="{{ route('license_types.license_type.update', $licenseType->id) }}"
                 id="edit_license_type_form" name="edit_license_type_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -34,6 +35,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

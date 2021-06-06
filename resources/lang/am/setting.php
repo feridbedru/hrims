@@ -422,10 +422,5 @@ return [
     'Reports List'=>"ሪፖርቶች ዝርዝር",
     'No Reports Available'=>"ምንም ሪፖርቶች የሉም",
 
-
-
-
-
-
 ];
 ?>

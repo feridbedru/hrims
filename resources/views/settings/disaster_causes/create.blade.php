@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewDisasterCause'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_DisasterCause_AddNew')
             <form method="POST" action="{{ route('disaster_causes.disaster_cause.store') }}" accept-charset="UTF-8"
                 id="create_disaster_cause_form" name="create_disaster_cause_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

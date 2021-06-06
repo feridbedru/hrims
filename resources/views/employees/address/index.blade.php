@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('address_list')
             @if (count($employeeAddresses) == 0)
                 <h4 class="text-center">{{(__('employee.No Address Available'))}}</h4>
             @else
@@ -98,14 +99,18 @@
                                         <form method="POST" action="{!! route('employee_addresses.employee_address.destroy', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
+                                            @permission('address_edit')
                                             <a href="{{ route('employee_addresses.employee_address.edit', ['employee' => $employeeAddress->employees->id, 'employeeAddress' => $employeeAddress->id]) }}"
                                                 class="btn btn-outline-warning mr-3" title="Edit Address">
                                                 {{__('setting.edit')}}
                                             </a>
+                                            @endpermission
+                                            @permission('address_delete')
                                             <button type="submit" class="btn btn-outline-danger" title="Delete Address"
                                                 onclick="return confirm(&quot;Click Ok to delete Address.&quot;)">
                                                 {{__('setting.delete')}}
                                             </button>
+                                            @endpermission
                                         </form>
                                     @endif
                                 </td>
@@ -117,15 +122,20 @@
                 {{ $employeeAddresses->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('address_addNew')
     <a href="{{ route('employee_addresses.employee_address.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Address">
         <span class="fa fa-plus" aria-hidden="true"> {{__('setting.AddNew')}}</span>
     </a>
+    @endpermission
     @if (count($employeeAddresses) > 0)
+    @permission('address_print')
         <a href="{{ route('employee_addresses.employee_address.print', $employee) }}" class="btn btn-primary" title="Print Employee Address" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Judiciary Punishment'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('judiciaryPunishments_addNew')
             <form method="POST"
                 action="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.store', $employee) }}"
                 accept-charset="UTF-8" id="create_employee_judiciary_punishment_form"
@@ -33,6 +34,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

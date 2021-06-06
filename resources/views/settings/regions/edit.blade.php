@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Region'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Regions_Edit')
             <form method="POST" action="{{ route('regions.region.update', $region->id) }}" id="edit_region_form"
                 name="edit_region_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

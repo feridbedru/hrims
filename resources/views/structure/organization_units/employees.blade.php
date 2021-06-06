@@ -14,6 +14,7 @@
         </div>
 
         <div class="card-body">
+            @permission('organization_units_employes')
             @if (count($employees) == 0)
                 <h4 class="text-center">{{(__('employee.No Employees in this Units'))}}.</h4>
             @else
@@ -43,10 +44,12 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @permission('organization_units_employes')
                                     <a href="{{ route('employees.employee.show', $employee->id) }}"
                                         class="btn btn-primary" title="Show Employee">
                                         {{(__('setting.View Details'))}}
                                     </a>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -56,6 +59,7 @@
                 {{ $employees->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
 

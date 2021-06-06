@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('certifications_list')
             @if (count($employeeCertifications) == 0)
                 <h4 class="text-center">{{__('setting.No Certifications Available')}}.</h4>
             @else
@@ -51,26 +52,33 @@
                                             @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
+                                                @permission('certifications_show')
                                                 <a href="{{ route('employee_certifications.employee_certification.show', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                                                     class="btn btn-primary" title="Show Certification">
                                                     <span class="fa fa-eye" aria-hidden="true"></span>
                                                 </a>
+                                                @permission('certifications_edit')
+                                                @endpermission
                                                 <a href="{{ route('employee_certifications.employee_certification.edit', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                                                     class="btn btn-warning" title="Edit Certification">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
-
+                                                @endpermission
+                                                @permission('certifications_delete')
                                                 <button type="submit" class="btn btn-danger" title="Delete Certification"
                                                     onclick="return confirm(&quot;Click Ok to delete Certification.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
+                                                @endpermission
                                             </div>
                                         </form>
                                     @else
+                                    @permission('certifications_show')
                                         <a href="{{ route('employee_certifications.employee_certification.show', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                                             class="btn btn-primary" title="Show Certification">
                                             <span class="fa fa-eye" aria-hidden="true"></span>
                                         </a>
+                                        @endpermission
                                     @endif
                                 </td>
                             </tr>
@@ -81,15 +89,20 @@
                 {{ $employeeCertifications->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('certifications_addNew')
     <a href="{{ route('employee_certifications.employee_certification.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Certification">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeCertifications) > 0)
+    @permission('certifications_print')
         <a href="{{ route('employee_certifications.employee_certification.print', $employee) }}" class="btn btn-primary" title="Print Employee Certification" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

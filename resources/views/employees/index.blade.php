@@ -6,6 +6,7 @@
     <li class="breadcrumb-item active">{{(__('employee.Employees'))}}</li>
 @endsection
 @section('content')
+@permission('employee_list')
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">{{(__('setting.SearchandFilter'))}}</h3>
@@ -104,14 +105,18 @@
                                 </td>
                                 <td>
                                     <div class="btn-group btn-group-xs pull-right" role="group">
+                                        @permission('employee_show')
                                         <a href="{{ route('employees.employee.show', $employee->id) }}"
                                             class="btn btn-primary" title="Show Employee">
                                             <span class="fa fa-eye" aria-hidden="true"></span>
                                         </a>
+                                        @endpermission
+                                        @permission('employee_edit')
                                         <a href="{{ route('employees.employee.edit', $employee->id) }}"
                                             class="btn btn-warning" title="Edit Employee">
                                             <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                         </a>
+                                        @endpermission
                                     </div>
                                 </td>
                             </tr>
@@ -124,7 +129,11 @@
             @endif
         </div>
     </div>
+    @permission('employee_addNew')
     <a href="{{ route('employees.employee.create') }}" class="btn btn-success" title="Create New Employee">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
+    {{-- not a duplicate do not delete the endpermission below --}}
+    @endpermission
 @endsection

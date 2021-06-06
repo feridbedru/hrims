@@ -14,6 +14,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewEducationalField'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_EducationFields_AddNew')
             <form method="POST" action="{{ route('educational_fields.educational_field.store') }}" accept-charset="UTF-8"
                 id="create_educational_field_form" name="create_educational_field_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

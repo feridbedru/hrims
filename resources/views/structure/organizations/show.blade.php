@@ -9,6 +9,7 @@
 @section('content')
     <div class="card card-primary">
         <div class="card-body">
+            @permission('Organization_view')
             <div class="row">
                 <div class="col-md-4 pr-4 my-auto">
                     <img src="{{ asset('uploads/organization/' . $organization->logo) }}"
@@ -17,10 +18,13 @@
                         <form method="POST" action="{!! route('organizations.organization.destroy', $organization->id) !!}" accept-charset="UTF-8">
                             @method('DELETE')
                             {{ csrf_field() }}
+                            @permission('Organization_edit')
                             <a href="{{ route('organizations.organization.edit', $organization->id) }}"
                                 class="btn btn-warning text-white mr-5" title="Edit Organization">
                                 <span class="fa fa-edit" aria-hidden="true"> Edit</span>
                             </a>
+                            @endpermission
+                            @permission('Organization_delete')
                             <button type="submit" class="btn btn-danger" title="Delete Organization"
                                 onclick="return confirm(&quot;Click Ok to delete Organization.?&quot;)">
                                 <span class="fa fa-trash" aria-hidden="true"> Delete</span>
@@ -98,6 +102,7 @@
                     </dl>
                 </div>
             </div>
+            @endpermission
             <hr>
         </div>
     </div>

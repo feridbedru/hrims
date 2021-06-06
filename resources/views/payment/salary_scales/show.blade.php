@@ -15,20 +15,25 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
+                        @permission('salaryScales_edit')
                         <a href="{{ route('salary_scales.salary_scale.edit', $salaryScale->id) }}" class="btn btn-warning"
                             title="Edit Salary Scale">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('salaryScales_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Salary Scale"
                             onclick="return confirm(&quot;Click Ok to delete Salary Scale.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="card-body">
+            @permission('salaryScales_show')
             <dl class="dl-horizontal">
                 <dt>{{(__('setting.Name'))}}</dt>
                 <dd>{{ $salaryScale->name }}</dd>
@@ -87,6 +92,7 @@
                 </tbody>
             </table>
         </div>
+        @endpermission
     </div>
 
 @endsection

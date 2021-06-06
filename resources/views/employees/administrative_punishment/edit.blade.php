@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Administrative Punishment'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('administrativePunishments_edit')
             <form method="POST"
                 action="{{ route('employee_administrative_punishments.employee_administrative_punishment.update', ['employee' => $employee->id, 'employeeAdministrativePunishment' => $employeeAdministrativePunishment->id]) }}"
                 id="edit_employee_administrative_punishment_form" name="edit_employee_administrative_punishment_form"
@@ -33,6 +34,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Award Type'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_AwardType_Edit')
             <form method="POST" action="{{ route('award_types.award_type.update', $awardType->id) }}"
                 id="edit_award_type_form" name="edit_award_type_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

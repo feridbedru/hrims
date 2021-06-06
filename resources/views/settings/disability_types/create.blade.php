@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.createNewDisabilityType'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_DisabilityType_AddNew')
             <form method="POST" action="{{ route('disability_types.disability_type.store') }}" accept-charset="UTF-8"
                 id="create_disability_type_form" name="create_disability_type_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

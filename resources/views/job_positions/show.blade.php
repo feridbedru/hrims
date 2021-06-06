@@ -16,20 +16,25 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
+                        @permission('jobsPosition_edit')
                         <a href="{{ route('job_positions.job_position.edit', $jobPosition->id) }}"
                             class="btn btn-warning" title="Edit Job Position">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('jobsPosition_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Job Position"
                             onclick="return confirm(&quot;Click Ok to delete Job Position.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="card-body">
+            @permission('jobsPosition_show')
             <dl class="dl-horizontal">
                 <dt>{{(__('employee.Organization Unit'))}}</dt>
                 <dd>{{ $jobPosition->organizationUnits->en_name }}</dd>
@@ -51,6 +56,7 @@
                 <dd>{{ $jobPosition->status ? 'Yes' : 'No' }}</dd>
             </dl>
             <h2> List benefits here </h2>
+            @endpermission
         </div>
     </div>
 @endsection

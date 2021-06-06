@@ -15,6 +15,7 @@
         </div>
 
         <div class="card-body">
+            @permission('experience_show')
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
@@ -61,8 +62,11 @@
                 @if ($employeeExperience->status == 1)
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-12 text-center">
+                            @permission('experience_show')
                             <a href="{{ asset('uploads/experience/' . $employeeExperience->attachment) }}"
                                 class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                                @endpermission
+                                @permission('experience_approve_reject')
                             <a href="{{ route('employee_experiences.employee_experience.approve', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}"
                                 class="btn btn-success mr-3" title="Approve Experience">
                                 {{(__('employee.Approve'))}}
@@ -95,6 +99,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endpermission
                         </div>
                     </div>
                 @else
@@ -102,19 +107,26 @@
                         @method('DELETE')
                         {{ csrf_field() }}
                         <div class="text-center">
+                            @permission('experience_show')
                         <a href="{{ asset('uploads/experience/' . $employeeExperience->attachment) }}"
                             class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                            @endpermission
+                            @permission('experience_edit')
                         <a href="{{ route('employee_experiences.employee_experience.edit', ['employee' => $employeeExperience->employees->id, 'employeeExperience' => $employeeExperience->id]) }}"
                             class="btn btn-warning mr-3" title="Edit Experience">
                             {{(__('setting.edit'))}}
                         </a>
+                        @endpermission
+                        @permission('experience_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Experience"
                             onclick="return confirm(&quot;Click Ok to delete Experience.?&quot;)">
                             {{(__('setting.delete'))}}
                         </button>
+                        @endpermission
                         </div>
                     </form>
                 @endif
+                @endpermission
             </dl>
         </div>
     </div>

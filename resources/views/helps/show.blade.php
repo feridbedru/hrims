@@ -7,6 +7,7 @@
     <li class="breadcrumb-item active">{{(__('setting.view'))}}</li>
 @endsection
 @section('content')
+@permission('setting_Helps_Show')
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">{{ $help->title }}</h3>
@@ -15,16 +16,17 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
-                        <a href="{{ route('helps.help.create') }}" class="btn btn-success" title="Create New Help">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                        </a>
+                        @permission('setting_Helps_Edit')
                         <a href="{{ route('helps.help.edit', $help->id) }}" class="btn btn-warning" title="Edit Help">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('setting_Helps_Delete')
                         <button type="submit" class="btn btn-danger" title="Delete Help"
                             onclick="return confirm(&quot;Click Ok to delete Help.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
                 </button>
@@ -60,4 +62,5 @@
             </dl>
         </div>
     </div>
+    @endpermission
 @endsection

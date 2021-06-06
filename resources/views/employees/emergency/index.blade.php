@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('emergencies_list')
             @if (count($employeeEmergencies) == 0)
                 <h4 class="text-center">{{(__('employee.No Emergencies Available'))}}.</h4>
             @else
@@ -50,6 +51,7 @@
                                 </td>
                                 <td>
                                     @if ($employeeEmergency->status == 1)
+                                    @permission('emergencies_approve_reject')
                                         <a href="{{ route('employee_emergencies.employee_emergency.approve', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Emergency">
                                             {{(__('employee.Approve'))}}
@@ -86,7 +88,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endpermission
                                     @elseif($employeeEmergency->status == 2)
+                                    @permission('emergencies_delete')
                                         <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
@@ -97,20 +101,24 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        @endpermission
                                     @else
                                         <form method="POST" action="{!! route('employee_emergencies.employee_emergency.destroy', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
+                                                @permission('emergencies_edit')
                                                 <a href="{{ route('employee_emergencies.employee_emergency.edit', ['employee' => $employeeEmergency->employees->id, 'employeeEmergency' => $employeeEmergency->id]) }}"
                                                     class="btn btn-warning" title="Edit Emergency">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
-
+                                                @endpermission
+                                                @permission('emergencies_delete')
                                                 <button type="submit" class="btn btn-danger" title="Delete Emergency"
                                                     onclick="return confirm(&quot;Click Ok to delete Emergency.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
+                                                @endpermission
                                             </div>
                                         </form>
                                     @endif
@@ -123,15 +131,20 @@
                 {{ $employeeEmergencies->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('emergencies_addNew')
     <a href="{{ route('employee_emergencies.employee_emergency.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Emergency">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeEmergencies) > 0)
+    @permission('emergencies_print')
         <a href="{{ route('employee_emergencies.employee_emergency.print', $employee) }}" class="btn btn-primary" title="Print Employee Emergency" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

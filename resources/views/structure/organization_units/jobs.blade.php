@@ -14,6 +14,7 @@
             <h3 class="card-title">{{(__('setting.Jobs List'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('organization_units_jobs')
             @if (count($jobs) == 0)
                 <h4 class="text-center">{{(__('setting.No Jobs in this Units'))}}.</h4>
             @else
@@ -50,6 +51,7 @@
                 {{ $jobs->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
 

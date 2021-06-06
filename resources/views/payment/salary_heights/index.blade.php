@@ -16,6 +16,7 @@
         </div>
 
         <div class="card-body">
+            @permission('salaryHeights_list')
             @if (count($salaryHeights) == 0)
                 <h4 class="text-center">{{(__('setting.No Salary Heights Available'))}}.</h4>
             @else
@@ -43,19 +44,24 @@
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('salaryHeights_show')
                                             <a href="{{ route('salary_heights.salary_height.show', $salaryHeight->id) }}"
                                                 class="btn btn-primary" title="Show Salary Height">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
+                                            @endpermission
+                                            @permission('salaryHeights_edit')
                                             <a href="{{ route('salary_heights.salary_height.edit', $salaryHeight->id) }}"
                                                 class="btn btn-warning" title="Edit Salary Height">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
-
+                                            @endpermission
+                                            @permission('salaryHeights_delete')
                                             <button type="submit" class="btn btn-danger" title="Delete Salary Height"
                                                 onclick="return confirm(&quot;Click Ok to delete Salary Height.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -67,9 +73,12 @@
                 {{ $salaryHeights->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('salaryHeights_addNew')
     <a href="{{ route('salary_heights.salary_height.create') }}" class="btn btn-success" title="Create New Salary Height">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection

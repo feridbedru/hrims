@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Language Levels'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_LanguageLevels_Edit')
             <form method="POST" action="{{ route('language_levels.language_level.update', $languageLevel->id) }}"
                 id="edit_language_level_form" name="edit_language_level_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

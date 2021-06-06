@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('bankAccount_list')
             @if (count($employeeBankAccounts) == 0)
                 <h4 class="text-center">{{(__('employee.No Bank Accounts Available'))}}.</h4>
             @else
@@ -50,6 +51,7 @@
                                 </td>
                                 <td>
                                     @if ($employeeBankAccount->status == 1)
+                                    @permission('bankAccount_approve_reject')
                                         <a href="{{ route('employee_bank_accounts.employee_bank_account.approve', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve Bank Account">
                                             {{(__('employee.Approve'))}}
@@ -86,7 +88,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endpermission
                                     @elseif($employeeBankAccount->status == 2)
+                                    @permission('bankAccount_delete')
                                         <form method="POST" action="{!! route('employee_bank_accounts.employee_bank_account.destroy', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
@@ -98,21 +102,25 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        @endpermission
                                     @else
                                         <form method="POST" action="{!! route('employee_bank_accounts.employee_bank_account.destroy', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
+                                            @permission('bankAccount_edit')
                                             <div class="btn-group btn-group-xs pull-right" role="group">
                                                 <a href="{{ route('employee_bank_accounts.employee_bank_account.edit', ['employee' => $employeeBankAccount->employees->id, 'employeeBankAccount' => $employeeBankAccount->id]) }}"
                                                     class="btn btn-outline-warning mr-3" title="Edit Bank Account">
                                                     {{(__('setting.edit'))}}
                                                 </a>
-
+                                                @endpermission
+                                                @permission('bankAccount_delete')
                                                 <button type="submit" class="btn btn-outline-danger"
                                                     title="Delete Bank Account"
                                                     onclick="return confirm(&quot;Click Ok to delete Bank Account.&quot;)">
                                                     {{(__('setting.delete'))}}
                                                 </button>
+                                                @endpermission
                                             </div>
                                         </form>
                                     @endif
@@ -125,15 +133,20 @@
                 {{ $employeeBankAccounts->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('bankAccount_addNew')
     <a href="{{ route('employee_bank_accounts.employee_bank_account.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New Employee Bank Account">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeBankAccounts) > 0)
+    @permission('bankAccount_print')
         <a href="{{ route('employee_bank_accounts.employee_bank_account.print', $employee) }}" class="btn btn-primary" title="Print Employee Bank Account" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

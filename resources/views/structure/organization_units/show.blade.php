@@ -15,24 +15,25 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
-                        <a href="{{ route('organization_units.organization_unit.create') }}" class="btn btn-success"
-                            title="Create New Organization Unit">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                        </a>
+                        @permission('organization_units_edit')
                         <a href="{{ route('organization_units.organization_unit.edit', $organizationUnit->id) }}"
                             class="btn btn-warning" title="Edit Organization Unit">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('organization_units_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Organization Unit"
                             onclick="return confirm(&quot;Click Ok to delete Organization Unit.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="card-body">
+            @permission('organization_units_show')
             <dl class="dl-horizontal">
                 @if (isset($organizationUnit->am_name))
                 <dt>{{(__('setting.AmharicName'))}}</dt>
@@ -77,6 +78,7 @@
                     @endif
                 </div>
             </dl>
+            @endpermission
         </div>
     </div>
 @endsection

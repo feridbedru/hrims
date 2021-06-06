@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Educational Institute'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_EducationalInstitute_Edit')
             <form method="POST"
                 action="{{ route('educational_institutes.educational_institute.update', $educationalInstitute->id) }}"
                 id="edit_educational_institute_form" name="edit_educational_institute_form" accept-charset="UTF-8"
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

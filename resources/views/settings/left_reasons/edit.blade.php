@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Left Reason'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_LeaveReasons_Edit')
             <form method="POST" action="{{ route('left_reasons.left_reason.update', $leftReason->id) }}"
                 id="edit_left_reason_form" name="edit_left_reason_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

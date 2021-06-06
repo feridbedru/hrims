@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_DisabilityType_Edit')
             <form method="POST" action="{{ route('disability_types.disability_type.update', $disabilityType->id) }}"
                 id="edit_disability_type_form" name="edit_disability_type_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -36,6 +37,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

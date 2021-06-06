@@ -74,7 +74,7 @@
         </li>
         <li class="nav-item dropdown mr-3">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-user"></i>
+                {{-- <i class="far fa-user"></i>{{ auth()->user()->name}} --}}
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <a href="#" class="dropdown-item">

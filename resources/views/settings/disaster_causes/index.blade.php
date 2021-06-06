@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('disasterCause_list')
             @if (count($disasterCauses) == 0)
                 <h4 class="text-center">{{(__('setting.NoDisasterCausesAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $disasterCause->name }}</td>
                                 <td>{{ $disasterCause->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_DisasterCause_Edit')
                                     <a href="{{ route('disaster_causes.disaster_cause.edit', $disasterCause->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Disaster Cause">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_DisasterCause_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $disasterCause->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,12 +106,15 @@
                 {{ $disasterCauses->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_DisasterCause_AddNew')
     <a href="{{ route('disaster_causes.disaster_cause.create') }}" class="btn btn-success"
         title="Create New Disaster Cause">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Relationship'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Relationships_Edit')
             <form method="POST" action="{{ route('relationships.relationship.update', $relationship->id) }}"
                 id="edit_relationship_form" name="edit_relationship_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

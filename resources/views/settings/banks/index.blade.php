@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('bank_list')
             @if (count($banks) == 0)
                 <h4 class="text-center">{{(__('setting.NoBanksAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $bank->name }}</td>
                                 <td>{{ $bank->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_Banks_Edit')
                                     <a href="{{ route('banks.bank.edit', $bank->id) }}" class="btn btn-warning mr-4"
                                         title="Edit Bank">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_Banks_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $bank->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,11 +106,14 @@
                 {{ $banks->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_Banks_AddNew')
     <a href="{{ route('banks.bank.create') }}" class="btn btn-success" title="Create New Bank">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

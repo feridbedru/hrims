@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewCommitmentFor'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_CommitmentFors_AddNew')
             <form method="POST" action="{{ route('commitment_fors.commitment_for.store') }}" accept-charset="UTF-8"
                 id="create_commitment_for_form" name="create_commitment_for_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

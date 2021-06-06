@@ -14,6 +14,7 @@
         </div>
 
         <div class="card-body">
+            @permission('certifications_show')
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
@@ -60,6 +61,7 @@
                         <div class="col-md-offset-2 col-md-12 text-center">
                             <a href="{{ asset('uploads/certification/' . $employeeCertification->file) }}"
                                 class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                                @permission('certifications_approve_reject')
                             <a href="{{ route('employee_certifications.employee_certification.approve', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                                 class="btn btn-success mr-3" title="Approve Certification">
                                 {{(__('employee.Approve'))}}
@@ -92,6 +94,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endpermission
                         </div>
                     </div>
                 @else
@@ -101,19 +104,24 @@
                         <div class="text-center">
                         <a href="{{ asset('uploads/certification/' . $employeeCertification->file) }}"
                             class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                            @permission('certifications_edit')
                         <a href="{{ route('employee_certifications.employee_certification.edit', ['employee' => $employeeCertification->employees->id, 'employeeCertification' => $employeeCertification->id]) }}"
                             class="btn btn-warning mr-3" title="Edit Employee Certification">
                             {{(__('setting.edit'))}}
                         </a>
+                        @endpermission
+                        @permission('certifications_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Employee Certification"
                             onclick="return confirm(&quot;Click Ok to delete Employee Certification.?&quot;)">
                             {{(__('setting.delete'))}}
                         </button>
+                        @endpermission
                     </div>
                     </form>
                 @endif
             </dl>
         </div>
+        @endpermission
     </div>
 
 @endsection

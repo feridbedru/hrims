@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('gpaScales_list')
             @if (count($gPAScales) == 0)
                 <h4 class="text-center">{{(__('setting.NoGPAScalesAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $gPAScale->name }}</td>
                                 <td>{{ $gPAScale->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_GPAScales_Edit')
                                     <a href="{{ route('gpa_scales.gpa_scale.edit', $gPAScale->id) }}"
                                         class="btn btn-warning mr-4" title="Edit GPA Scale">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_GPAScales_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $gPAScale->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,11 +106,14 @@
                 {{ $gPAScales->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_GPAScales_AddNew')
     <a href="{{ route('gpa_scales.gpa_scale.create') }}" class="btn btn-success" title="Create New GPA Scale">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

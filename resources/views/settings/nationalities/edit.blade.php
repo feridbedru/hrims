@@ -17,6 +17,7 @@
             </div>
         </div>
         <div class="card-body">
+            @permission('setting_Nationality_Edit')
             <form method="POST" action="{{ route('nationalities.nationality.update', $nationality->id) }}"
                 id="edit_nationality_form" name="edit_nationality_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -35,6 +36,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

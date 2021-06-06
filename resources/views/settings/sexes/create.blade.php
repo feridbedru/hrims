@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewSex'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Sexes_AddNew')
             <form method="POST" action="{{ route('sexes.sex.store') }}" accept-charset="UTF-8" id="create_sex_form"
                 name="create_sex_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

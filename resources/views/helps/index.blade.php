@@ -6,6 +6,7 @@
     <li class="breadcrumb-item active">{{__('setting.Helps')}}</li>
 @endsection
 @section('content')
+@permission('help_list')
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">{{__('setting.SearchandFilter')}}</h3>
@@ -88,19 +89,24 @@
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
+                                            @permission('setting_Helps_Show')
                                             <a href="{{ route('helps.help.show', $help->id) }}" class="btn btn-primary"
                                                 title="Show Help">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
+                                            @endpermission
+                                            @permission('setting_Helps_Edit')
                                             <a href="{{ route('helps.help.edit', $help->id) }}" class="btn btn-warning"
                                                 title="Edit Help">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
-
+                                            @endpermission
+                                            @permission('setting_Helps_Delete')
                                             <button type="submit" class="btn btn-danger" title="Delete Help"
                                                 onclick="return confirm(&quot;Click Ok to delete Help.&quot;)">
                                                 <span class="fa fa-trash" aria-hidden="true"></span>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </form>
                                 </td>
@@ -114,7 +120,11 @@
             @endif
         </div>
     </div>
+    @permission('setting_Helps_Create')
     <a href="{{ route('helps.help.create') }}" class="btn btn-success" title="Create New Help">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
+    {{-- do not delete the line beow as it is not a duplicate --}}
+    @endpermission
 @endsection

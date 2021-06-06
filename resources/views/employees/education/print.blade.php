@@ -3,6 +3,7 @@
 {{(__('employee.Educations'))}}
 @endsection
 @section('content')
+@permission('educations_print')
     @if (count($employeeEducations) == 0)
         <h4 class="text-center">{{(__('employee.No Educations Available'))}}.</h4>
     @else
@@ -45,4 +46,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

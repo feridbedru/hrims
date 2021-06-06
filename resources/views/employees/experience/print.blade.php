@@ -3,6 +3,7 @@
 {{(__('employee.Experience'))}}
 @endsection
 @section('content')
+@permission('experience_print')
     @if (count($employeeExperiences) == 0)
         <h4 class="text-center">{{(__('employee.No Experiences Available'))}}.</h4>
     @else
@@ -45,4 +46,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

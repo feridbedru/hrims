@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Language'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('languages_addNew')
             <form method="POST" action="{{ route('employee_languages.employee_language.store', $employee) }}"
                 accept-charset="UTF-8" id="create_employee_language_form" name="create_employee_language_form"
                 class="form-horizontal">
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

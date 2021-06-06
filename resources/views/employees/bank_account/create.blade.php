@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Bank Account'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('bankAccount_addNew')
             <form method="POST" action="{{ route('employee_bank_accounts.employee_bank_account.store', $employee) }}"
                 accept-charset="UTF-8" id="create_employee_bank_account_form" name="create_employee_bank_account_form"
                 class="form-horizontal" enctype="multipart/form-data">
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

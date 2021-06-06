@@ -3,6 +3,7 @@
     {{ __('employee.Families') }}
 @endsection
 @section('content')
+@permission('families_print')
     @if (count($employeeFamilies) == 0)
         <h4 class="text-center">{{ __('employee.No Families Available') }}.</h4>
     @else
@@ -39,4 +40,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

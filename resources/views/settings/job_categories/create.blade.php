@@ -14,6 +14,7 @@
         </div>
 
         <div class="card-body">
+            @permission('setting_JobCategory_AddNew')
             <form method="POST" action="{{ route('job_categories.job_category.store') }}" accept-charset="UTF-8"
                 id="create_job_category_form" name="create_job_category_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

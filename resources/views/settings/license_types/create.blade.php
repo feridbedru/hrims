@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewLicenseType'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_LicenseType_AddNew')
             <form method="POST" action="{{ route('license_types.license_type.store') }}" accept-charset="UTF-8"
                 id="create_license_type_form" name="create_license_type_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

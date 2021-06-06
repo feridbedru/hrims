@@ -14,6 +14,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewDisasterSeverity'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_DisasterSeverities_AddNew')
             <form method="POST" action="{{ route('disaster_severities.disaster_severity.store') }}" accept-charset="UTF-8"
                 id="create_disaster_severity_form" name="create_disaster_severity_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

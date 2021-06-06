@@ -3,6 +3,7 @@
 {{(__('employee.Awards'))}}
 @endsection
 @section('content')
+@permission('awards_print')
     @if (count($employeeAwards) == 0)
         <h4 class="text-center">{{(__('employee.No Awards Available'))}}.</h4>
     @else
@@ -39,4 +40,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

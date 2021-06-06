@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('setting.EditSalaryHeight'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('salaryHeights_edit')
             <form method="POST" action="{{ route('salary_heights.salary_height.update', $salaryHeight->id) }}"
                 id="edit_salary_height_form" name="edit_salary_height_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

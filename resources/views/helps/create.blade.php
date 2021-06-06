@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewHelp'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Helps_Create')
             <form method="POST" action="{{ route('helps.help.store') }}" accept-charset="UTF-8" id="create_help_form"
                 name="create_help_form" class="form-horizontal" enctype="multipart/form-data">
                 {{ csrf_field() }}
@@ -28,6 +29,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

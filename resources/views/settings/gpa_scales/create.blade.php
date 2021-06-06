@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewGPAScale'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_GPAScales_AddNew')
             <form method="POST" action="{{ route('gpa_scales.gpa_scale.store') }}" accept-charset="UTF-8"
                 id="create_gpa_scale_form" name="create_gpa_scale_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

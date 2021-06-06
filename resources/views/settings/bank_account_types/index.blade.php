@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('bankAccountType_list')
             @if (count($bankAccountTypes) == 0)
                 <h4 class="text-center">{{(__('setting.NoBankAccountTypesAvailable'))}}.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $bankAccountType->name }}</td>
                                 <td>{{ $bankAccountType->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_BankAccountTypes_Edit')
                                     <a href="{{ route('bank_account_types.bank_account_type.edit', $bankAccountType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Bank Account Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_BankAccountTypes_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $bankAccountType->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,12 +106,15 @@
                 {{ $bankAccountTypes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_BankAccountTypes_AddNew')
     <a href="{{ route('bank_account_types.bank_account_type.create') }}" class="btn btn-success"
         title="Create New Bank Account Type">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

@@ -12,6 +12,7 @@
         </div>
 
         <div class="card-body">
+            @permission('licenses_list')
             @if (count($employeeLicenses) == 0)
                 <h4 class="text-center">{{(__('employee.No Licenses Available'))}}.</h4>
             @else
@@ -37,10 +38,12 @@
                                 <td>{{ $employeeLicense->issuing_organization }}</td>
                                 <td>{{ $employeeLicense->expiry_date }}</td>
                                 <td>
+                                    @permission('licenses_show')
                                     @if (isset($employeeLicense->file))
                                         <a href="{{ asset('uploads/license/' . $employeeLicense->file) }}"
                                             class="btn btn-outline-primary" target="_blank">{{(__('employee.View File'))}}</a>
                                     @endif
+                                    @endpermission
                                 </td>
                                 <td>
                                     @if ($employeeLicense->status == 1)
@@ -53,6 +56,7 @@
                                 </td>
 
                                 <td>
+                                    @permission('licenses_approve_reject')
                                     @if ($employeeLicense->status == 1)
                                         <a href="{{ route('employee_licenses.employee_license.approve', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) }}"
                                             class="btn btn-outline-success mr-3" title="Approve License">
@@ -90,7 +94,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        @endpermission
                                     @elseif($employeeLicense->status == 2)
+                                    @permission('licenses_delete')
                                         <form method="POST" action="{!! route('employee_licenses.employee_license.destroy', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
@@ -101,20 +107,24 @@
                                                 </button>
                                             </div>
                                         </form>
+                                        @endpermission
                                     @else
                                         <form method="POST" action="{!! route('employee_licenses.employee_license.destroy', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) !!}" accept-charset="UTF-8">
                                             @method('DELETE')
                                             {{ csrf_field() }}
                                             <div class="btn-group btn-group-xs pull-right" role="group">
+                                                @permission('licenses_edit')
                                                 <a href="{{ route('employee_licenses.employee_license.edit', ['employee' => $employeeLicense->employees->id, 'employeeLicense' => $employeeLicense->id]) }}"
                                                     class="btn btn-warning" title="Edit License">
                                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                                 </a>
-
+                                                @endpermission
+                                                @permission('licenses_delete')
                                                 <button type="submit" class="btn btn-danger" title="Delete License"
                                                     onclick="return confirm(&quot;Click Ok to delete License.&quot;)">
                                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                                 </button>
+                                                @endpermission
                                             </div>
                                         </form>
                                     @endif
@@ -127,15 +137,20 @@
                 {{ $employeeLicenses->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('licenses_addNew')
     <a href="{{ route('employee_licenses.employee_license.create', $employee) }}" class="btn btn-success mr-2"
         title="Create New License">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
     @if (count($employeeLicenses) > 0)
+    @permission('licenses_print')
         <a href="{{ route('employee_licenses.employee_license.print', $employee) }}" class="btn btn-primary" title="Print Employee License" target="_blank">
             <span class="fa fa-print" aria-hidden="true"> {{(__('employee.Print'))}}</span>
         </a>
+        @endpermission
     @endif
 @endsection

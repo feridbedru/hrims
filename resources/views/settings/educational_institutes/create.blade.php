@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewEducationalInstitute'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_EducationalInstitute_AddNew')
             <form method="POST" action="{{ route('educational_institutes.educational_institute.store') }}"
                 accept-charset="UTF-8" id="create_educational_institute_form" name="create_educational_institute_form"
                 class="form-horizontal">
@@ -31,6 +32,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

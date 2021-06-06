@@ -64,6 +64,7 @@
             <h3 class="card-title">{{(__('setting.LanguageList'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('language_list')
             @if (count($languages) == 0)
                 <h4 class="text-center">{{(__('setting.NoLanguagesAvailable'))}}.</h4>
             @else
@@ -85,14 +86,18 @@
                                 <td>{{ $language->code }}</td>
                                 <td>{{ $language->is_default ? 'Yes' : 'No' }}</td>
                                 <td class="text-center">
+                                    @permission('setting_Language_Edit')
                                     <a href="{{ route('languages.language.edit', $language->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Language">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_Language_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $language->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -102,11 +107,14 @@
                 {{ $languages->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_Language_AddNew')
     <a href="{{ route('languages.language.create') }}" class="btn btn-success" title="Create New Language">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

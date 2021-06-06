@@ -3,6 +3,7 @@
 {{(__('employee.Files'))}}
 @endsection
 @section('content')
+@permission('files_print')
     @if (count($employeeFiles) == 0)
         <h4 class="text-center">{{(__('employee.No Files Available'))}}.</h4>
     @else
@@ -25,4 +26,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

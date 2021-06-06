@@ -18,29 +18,33 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
-                        <a href="{{ route('reports.report.create') }}" class="btn btn-success" title="Create New Report">
-                            <span class="fa fa-plus" aria-hidden="true"></span>
-                        </a>
+                        @permission('setting_Reports_Edit')
                         <a href="{{ route('reports.report.edit', $report->id) }}" class="btn btn-warning"
                             title="Edit Report">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('setting_Reports_Delete')
                         <button type="submit" class="btn btn-danger" title="Delete Report"
                             onclick="return confirm(&quot;Click Ok to delete Report.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
         </div>
+        @permission('setting_Reports_Show')
         <div class="card-body">
             <dl class="dl-horizontal">
                 <dt>{{(__('setting.Name'))}}</dt>
                 <dd>{{ $report->name }}</dd>
                 <dt>{{(__('setting.Description'))}}</dt>
                 <dd>{{ $report->description }}</dd>
+                @permission('Reports_view_query')
                 <dt>{{(__('setting.Query'))}}</dt>
                 <dd>{{ $report->query }}</dd>
+                @endpermission
                 <dt>{{(__('setting.Is Active'))}}</dt>
                 <dd>{{ $report->is_active ? 'Yes' : 'No' }}</dd>
             </dl>
@@ -72,6 +76,7 @@
             </table>
         </div>
     </div>
+    @endpermission
 @endsection
 
 @section('javascripts')

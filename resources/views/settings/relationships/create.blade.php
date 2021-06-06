@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('setting.CreateNewRelationship'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Relationships_AddNew')
             <form method="POST" action="{{ route('relationships.relationship.store') }}" accept-charset="UTF-8"
                 id="create_relationship_form" name="create_relationship_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

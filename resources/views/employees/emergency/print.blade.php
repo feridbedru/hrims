@@ -3,6 +3,7 @@
     {{ __('employee.Emergencies') }}
 @endsection
 @section('content')
+@permission('emergencies_print')
     @if (count($employeeEmergencies) == 0)
         <h4 class="text-center">{{ __('employee.No Emergencies Available') }}.</h4>
     @else
@@ -43,4 +44,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

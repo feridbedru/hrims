@@ -64,6 +64,7 @@
             <h3 class="card-title">{{(__('setting.AddressTypeList'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('addressType_list')
             @if (count($addressTypes) == 0)
                 <h4 class="text-center">No Address Types Available.</h4>
             @else
@@ -83,14 +84,18 @@
                                 <td>{{ $addressType->name }}</td>
                                 <td>{{ $addressType->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_AddressType_Edit')
                                     <a href="{{ route('address_types.address_type.edit', $addressType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Address Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_AddressType_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $addressType->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -100,11 +105,14 @@
                 {{ $addressTypes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_AddressType_AddNew')
     <a href="{{ route('address_types.address_type.create') }}" class="btn btn-success" title="Create New Address Type">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

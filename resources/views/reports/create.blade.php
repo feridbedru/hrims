@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('setting.Create New Report'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_Reports_AddNew')
             <form method="POST" action="{{ route('reports.report.store') }}" accept-charset="UTF-8"
                 id="create_report_form" name="create_report_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

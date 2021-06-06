@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Family'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('families_edit')
             <form method="POST"
                 action="{{ route('employee_families.employee_family.update', ['employee' => $employee->id, 'employeeFamily' => $employeeFamily->id]) }}"
                 id="edit_employee_family_form" name="edit_employee_family_form" accept-charset="UTF-8"
@@ -33,6 +34,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

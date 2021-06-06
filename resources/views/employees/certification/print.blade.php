@@ -3,6 +3,7 @@
     {{ __('employee.Certifications') }}
 @endsection
 @section('content')
+@permission('certifications_print')
     @if (count($employeeCertifications) == 0)
         <h4 class="text-center">{{ __('setting.No Certifications Available') }}.</h4>
     @else
@@ -43,4 +44,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

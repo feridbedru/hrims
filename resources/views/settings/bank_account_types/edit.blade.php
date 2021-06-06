@@ -14,6 +14,7 @@
             <h3 class="card-title mb-1"> {{(__('employee.Edit Bank Account Type'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_BankAccountTypes_Edit')
             <form method="POST" action="{{ route('bank_account_types.bank_account_type.update', $bankAccountType->id) }}"
                 id="edit_bank_account_type_form" name="edit_bank_account_type_form" accept-charset="UTF-8"
                 class="form-horizontal">
@@ -33,6 +34,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

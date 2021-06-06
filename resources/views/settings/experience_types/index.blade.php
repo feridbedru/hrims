@@ -64,6 +64,7 @@
             <h3 class="card-title">{{(__('setting.ExperienceTypesList'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('experienceTypes_list')
             @if (count($experienceTypes) == 0)
                 <h4 class="text-center">{{(__('setting.NoExperienceTypesAvailable'))}}.</h4>
             @else
@@ -83,14 +84,18 @@
                                 <td>{{ $experienceType->name }}</td>
                                 <td>{{ $experienceType->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_ExperienceTypes_Edit')
                                     <a href="{{ route('experience_types.experience_type.edit', $experienceType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Experience Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_ExperienceTypes_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $experienceType->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -100,12 +105,15 @@
                 {{ $experienceTypes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_ExperienceTypes_AddNew')
     <a href="{{ route('experience_types.experience_type.create') }}" class="btn btn-success"
         title="Create New Experience Type">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

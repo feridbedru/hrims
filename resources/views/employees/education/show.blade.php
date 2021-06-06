@@ -14,6 +14,7 @@
         </div>
 
         <div class="card-body">
+            @permission('educations_show_view')
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
@@ -68,8 +69,11 @@
                 @if ($employeeEducation->status == 1)
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-12 text-center">
+                            @permission('educations_show')
                             <a href="{{ asset('uploads/education/' . $employeeEducation->file) }}"
                                 class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                                @endpermission
+                                @permission('educations_approve_reject')
                             <a href="{{ route('employee_educations.employee_education.approve', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
                                 class="btn btn-success mr-3" title="Approve Education">
                                 {{(__('employee.Approve'))}}
@@ -103,6 +107,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @endpermission
                         </div>
                     </div>
                 @else
@@ -111,21 +116,28 @@
                             <form method="POST" action="{!! route('employee_educations.employee_education.destroy', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) !!}" accept-charset="UTF-8">
                                 @method('DELETE')
                                 {{ csrf_field() }}
+                                @permission('educations_show')
                             <a href="{{ asset('uploads/education/' . $employeeEducation->file) }}"
                                 class="btn btn-primary mr-3" target="_blank">{{(__('employee.View File'))}}</a>
+                                @endpermission
+                                @permission('educations_edit')
                                     <a href="{{ route('employee_educations.employee_education.edit', ['employee' => $employeeEducation->employees->id, 'employeeEducation' => $employeeEducation->id]) }}"
                                         class="btn btn-warning mr-3" title="Edit Employee Education">
                                         {{(__('setting.edit'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('educations_delete')
                                     <button type="submit" class="btn btn-danger" title="Delete Employee Education"
                                         onclick="return confirm(&quot;Click Ok to delete Employee Education.?&quot;)">
                                         {{(__('setting.delete'))}}
                                     </button>
+                                    @endpermission
                             </form>
                         </div>
                     </div>
                 @endif
             </dl>
+            @endpermission
         </div>
     </div>
 

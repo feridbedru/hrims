@@ -16,14 +16,18 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
+                        @permission('salaryHeights_edit')
                         <a href="{{ route('salary_heights.salary_height.edit', $salaryHeight->id) }}"
                             class="btn btn-warning" title="Edit Salary Height">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('salaryHeights_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Salary Height"
                             onclick="return confirm(&quot;Click Ok to delete Salary Height.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
@@ -60,9 +64,7 @@
                 </tbody>
             </table>
             <div class="text-center mt-4">
-                <button type="button" class="btn btn-warning mr-5" data-toggle="modal" data-target="#edit_salary_modal">
-                    <span class="fa fa-edit text-white"> {{(__('setting.Edit'))}}</span>
-                </button>
+                @permission('salary_delete')
                 <form class="d-inline" method="POST" action="{!! route('salary_heights.salary_height.deletesalary', $salaryHeight->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
                     {{ csrf_field() }}
@@ -71,6 +73,11 @@
                             <span class="fa fa-trash" aria-hidden="true"> {{(__('setting.Delete'))}}</span>
                         </button>
                 </form>
+                @endpermission
+                @permission('salary_edit')
+                <button type="button" class="btn btn-warning mr-5" data-toggle="modal" data-target="#edit_salary_modal">
+                    <span class="fa fa-edit text-white"> {{(__('setting.Edit'))}}</span>
+                </button>
                 <div class="modal fade" id="edit_salary_modal">
                     <div class="modal-dialog modal-xl">
                         <div class="modal-content">
@@ -133,9 +140,11 @@
                         </div>
                     </div>
                 </div>
+                @endpermission
             </div>
 
         @else
+        @permission('salary_add')
             <form method="POST" action="{{ route('salary_heights.salary_height.addsalary') }}" accept-charset="UTF-8"
                 id="create_salary_form" name="create_salary_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -163,6 +172,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
             @endif
         </div>
     </div>

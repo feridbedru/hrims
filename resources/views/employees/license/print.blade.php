@@ -3,6 +3,7 @@
     {{ __('employee.Licenses') }}
 @endsection
 @section('content')
+@permission('licenses_print')
     @if (count($employeeLicenses) == 0)
         <h4 class="text-center">{{ __('employee.No Licenses Available') }}.</h4>
     @else
@@ -39,4 +40,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

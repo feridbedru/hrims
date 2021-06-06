@@ -7,6 +7,7 @@
     <li class="breadcrumb-item active">{{(__('setting.units'))}}</li>
 @endsection
 @section('content')
+@permission('organizationLocation_list')
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">{{(__('setting.SearchandFilter'))}}</h3>
@@ -87,22 +88,30 @@
                                 <td>{{ optional($organizationUnit->locations)->name }}</td>
                                 <td>
                                     <div class="d-flex justify-content-between">
+                                        @permission('organization_units_offices')
                                     <a href="{{ route('organization_units.organization_unit.offices', $organizationUnit->id) }}"
                                         class="btn btn-outline-danger btn-sm" title="Show Sub Offices">
                                         {{(__('setting.Offices'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('organization_units_employes')
                                     <a href="{{ route('organization_units.organization_unit.employee', $organizationUnit->id) }}"
                                         class="btn btn-outline-primary btn-sm" title="Show Employees">
                                         {{(__('setting.Employees'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('organization_units_jobs')
                                     <a href="{{ route('organization_units.organization_unit.jobs', $organizationUnit->id) }}"
                                         class="btn btn-outline-success btn-sm" title="Show Jobs">
                                         {{(__('setting.Jobs'))}}
                                     </a>
+                                    @endpermission
+                                    @permission('organization_units_details')
                                     <a href="{{ route('organization_units.organization_unit.show', $organizationUnit->id) }}"
                                         class="btn btn-outline-warning btn-sm" title="Show Organization Unit">
                                         {{(__('setting.Details'))}}
                                     </a>
+                                    @endpermission
                                 </div>
                                 </td>
                             </tr>
@@ -113,12 +122,17 @@
                 {{ $organizationUnits->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
     @if (count($organizations) > 0)
+    @permission('organization_units_AddNew')
         <a href="{{ route('organization_units.organization_unit.create') }}" class="btn btn-success"
             title="Create New Organization Unit">
             <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
         </a>
         @endif
+        @endpermission
+        {{-- do not delete the line below --}}
+        @endpermission
 @endsection

@@ -3,6 +3,7 @@
     {{ __('emplyee.Employee All Information') }}
 @endsection
 @section('content')
+@permission('employee_printall')
     @if (count($employeeAdditionalInfos) == 0)
         <h4 class="text-center">{{ __('employee.No Additional Infos Available') }}.</h4>
     @else
@@ -628,4 +629,5 @@
             </tbody>
         </table>
     @endif
+    @endpermission
 @endsection

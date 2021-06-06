@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Job Type'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_JobType_Edit')
             <form method="POST" action="{{ route('job_types.job_type.update', $jobType->id) }}" id="edit_job_type_form"
                 name="edit_job_type_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

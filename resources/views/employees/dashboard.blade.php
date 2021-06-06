@@ -14,20 +14,25 @@
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
+                        @permission('employee_edit')
                         <a href="{{ route('employees.employee.edit', $employee->id) }}" class="btn btn-warning"
                             title="Edit Employee">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
+                        @endpermission
+                        @permission('employee_delete')
                         <button type="submit" class="btn btn-danger" title="Delete Employee"
                             onclick="return confirm(&quot;Click Ok to delete Employee.?&quot;)">
                             <span class="fa fa-trash" aria-hidden="true"></span>
                         </button>
+                        @endpermission
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="card-body">
+            @permission('employee_show')
             <dl class="dl-horizontal">
                 <div class="row">
                     <div class="col-md-4">
@@ -78,6 +83,7 @@
                     </div>
                 </div>
             </dl>
+            @endpermission
         </div>
     </div>
 @endsection

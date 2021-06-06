@@ -57,13 +57,14 @@ use App\Http\Controllers\Employee\EmployeeLanguagesController;
 use App\Http\Controllers\Employee\EmployeeLicensesController;
 use App\Http\Controllers\Employee\EmployeeExperiencesController;
 use App\Http\Controllers\Employee\EmployeeDisastersController;
-use App\Http\Controllers\Employee\EmployeeDisasterIndeminitiesController;
 use App\Http\Controllers\Employee\EmployeeCertificationsController;
 use App\Http\Controllers\Employee\EmployeeAwardsController;
 use App\Http\Controllers\Employee\EmployeeStudyTrainingsController;
 use App\Http\Controllers\Employee\EmployeeFilesController;
 use App\Http\Controllers\Report\ReportsController;
 use App\Http\Controllers\SystemExceptionsController;
+use App\Http\Controllers\User\PermissionsController;
+use App\Http\Controllers\User\RolesController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -139,7 +140,6 @@ Route::group([
     Route::get('/create',[LanguagesController::class, 'create'])->name('languages.language.create');
     Route::get('/{language}/edit',[LanguagesController::class, 'edit'])->name('languages.language.edit')->whereNumber('id');
     Route::post('/', [LanguagesController::class, 'store'])->name('languages.language.store');
-    Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');
     Route::put('language/{language}', [LanguagesController::class, 'update'])->name('languages.language.update')->whereNumber('id');
     Route::post('/delete/{language}',[LanguagesController::class, 'destroy'])->name('languages.language.destroy')->whereNumber('id');
 });
@@ -821,4 +821,28 @@ Route::group([
     Route::delete('/system_exception/{systemException}',[SystemExceptionsController::class, 'destroy'])->name('system_exceptions.system_exception.destroy')->whereNumber('id');
 });
 
-// Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');
+Route::get('/locale/{locale}', [LanguagesController::class, 'switch'])->name('languages.language.switch');
+
+Route::group([
+    'prefix' => 'permissions',
+], function () {
+    Route::get('/', [PermissionsController::class, 'index'])->name('permissions.permissions.index');
+    Route::get('/create',[PermissionsController::class, 'create'])->name('permissions.permissions.create');
+    Route::get('/show/{permissions}',[PermissionsController::class, 'show'])->name('permissions.permissions.show')->whereNumber('id');
+    Route::get('/{permissions}/edit',[PermissionsController::class, 'edit'])->name('permissions.permissions.edit')->whereNumber('id');
+    Route::post('/', [PermissionsController::class, 'store'])->name('permissions.permissions.store');
+    Route::put('permissions/{permissions}', [PermissionsController::class, 'update'])->name('permissions.permissions.update')->whereNumber('id');
+    Route::delete('/permissions/{permissions}',[PermissionsController::class, 'destroy'])->name('permissions.permissions.destroy')->whereNumber('id');
+});
+
+Route::group([
+    'prefix' => 'roles',
+], function () {
+    Route::get('/', [RolesController::class, 'index'])->name('roles.roles.index');
+    Route::get('/create',[RolesController::class, 'create'])->name('roles.roles.create');
+    Route::get('/show/{roles}',[RolesController::class, 'show'])->name('roles.roles.show')->whereNumber('id');
+    Route::get('/{roles}/edit',[RolesController::class, 'edit'])->name('roles.roles.edit')->whereNumber('id');
+    Route::post('/', [RolesController::class, 'store'])->name('roles.roles.store');
+    Route::put('roles/{roles}', [RolesController::class, 'update'])->name('roles.roles.update')->whereNumber('id');
+    Route::delete('/roles/{roles}',[RolesController::class, 'destroy'])->name('roles.roles.destroy')->whereNumber('id');
+});

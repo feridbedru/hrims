@@ -65,6 +65,7 @@
         </div>
 
         <div class="card-body">
+            @permission('awardType_list')
             @if (count($awardTypes) == 0)
                 <h4 class="text-center">No Award Types Available.</h4>
             @else
@@ -84,14 +85,18 @@
                                 <td>{{ $awardType->name }}</td>
                                 <td>{{ $awardType->description }}</td>
                                 <td class="text-center">
+                                    @permission('setting_AwardType_Edit')
                                     <a href="{{ route('award_types.award_type.edit', $awardType->id) }}"
                                         class="btn btn-warning mr-4" title="Edit Award Type">
                                         <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                     </a>
+                                    @endpermission
+                                    @permission('setting_AwardType_Delete')
                                     <button class="btn btn-danger remove-data"
                                         onclick="deleteConfirmation({{ $awardType->id }})">
                                         <span class="fa fa-trash" aria-hidden="true"></span>
                                     </button>
+                                    @endpermission
                                 </td>
                             </tr>
                         @endforeach
@@ -101,11 +106,14 @@
                 {{ $awardTypes->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
+    @permission('setting_AwardType_AddNew')
     <a href="{{ route('award_types.award_type.create') }}" class="btn btn-success" title="Create New Award Type">
         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
     </a>
+    @endpermission
 @endsection
 @section('javascripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>

@@ -14,6 +14,7 @@
                 <h3 class="card-title mb-1">{{(__('setting.CreateNewOrganizationUnit'))}}</h3>
             </div>
             <div class="card-body">
+                @permission('organization_units_AddNew')
                 <form method="POST" action="{{ route('organization_units.organization_unit.store') }}"
                     accept-charset="UTF-8" id="create_organization_unit_form" name="create_organization_unit_form"
                     class="form-horizontal">
@@ -33,6 +34,7 @@
                         </div>
                     </div>
                 </form>
+                @endpermission
             </div>
         </div>
     @else
@@ -45,10 +47,12 @@
             <hr class="my-4">
             <div class="text-center">
                 <p class="lead">
+                    @permission('organization_AddNew')
                     <a href="{{ route('organizations.organization.create') }}" class="btn btn-success"
                         title="Create New Organization">
                         <span class="fa fa-plus" aria-hidden="true"> {{(__('setting.AddNew'))}}</span>
                     </a>
+                    @endpermission
                 </p>
             </div>
         </div>

@@ -13,6 +13,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit GPA Scale'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('setting_GPAScales_Edit')
             <form method="POST" action="{{ route('gpa_scales.gpa_scale.update', $gPAScale->id) }}"
                 id="edit_gpa_scale_form" name="edit_gpa_scale_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
@@ -30,6 +31,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection

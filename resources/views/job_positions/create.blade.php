@@ -12,6 +12,7 @@
             <h3 class="card-title mb-1">{{(__('employee.CreateNewJobPosition'))}}</h3>
         </div>
         <div class="card-body">
+            @permission('jobsPosition_AddNew')
             <form method="POST" action="{{ route('job_positions.job_position.store') }}" accept-charset="UTF-8"
                 id="create_job_position_form" name="create_job_position_form" class="form-horizontal">
                 {{ csrf_field() }}
@@ -29,6 +30,7 @@
                     </div>
                 </div>
             </form>
+            @endpermission
         </div>
     </div>
 @endsection
