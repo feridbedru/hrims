@@ -60,7 +60,7 @@ class EmployeeDisastersController extends Controller
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
             $data['status'] = 1;
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['employee'] = $id;
             EmployeeDisaster::create($data);
 
@@ -254,7 +254,7 @@ class EmployeeDisastersController extends Controller
         try {
 
             $data = $this->getWitnessData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
 
             EmployeeDisasterWitness::create($data);
 
@@ -392,7 +392,7 @@ class EmployeeDisastersController extends Controller
         try {
 
             $data = $this->getIndeminityData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             EmployeeDisasterIndeminity::create($data);
 
             return back()

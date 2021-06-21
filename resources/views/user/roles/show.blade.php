@@ -11,14 +11,14 @@
 @permission('roles_show')
     <div class="card card-primary">
         <div class="card-header">
-            <h4 class="mt-5 mb-5">{{ isset($roles->name) ? $roles->name : 'Roles' }}</h4>
+            <h4 class="mt-5 mb-5">{{ __('setting.Role') }}</h4>
             <div class="card-tools">
-                <form method="POST" action="{!! route('roles.roles.destroy', $roles->id) !!}" accept-charset="UTF-8">
+                <form method="POST" action="{!! route('roles.role.destroy', $roles->id) !!}" accept-charset="UTF-8">
                     @method('DELETE')
                     {{ csrf_field() }}
                     <div class="btn-group btn-group-sm" role="group">
                         @permission('roles_edit')
-                        <a href="{{ route('roles.roles.edit', $roles->id) }}" class="btn btn-warning" title="Edit Roles">
+                        <a href="{{ route('roles.role.edit', $roles->id) }}" class="btn btn-warning" title="Edit Roles">
                             <span class="fa fa-edit" aria-hidden="true"></span>
                         </a>
                         @endpermission

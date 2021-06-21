@@ -38,11 +38,15 @@ use App\Models\Title;
 use App\Models\Woreda;
 use App\Models\Zone;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SettingsController extends Controller
 {
     public function index()
     {
+        if (!Auth::user()->hasPermission('Setting')) {
+            return abort(403);
+        }
         $addressTypes = AddressType::count();
         $awardType = AwardType::count();
         $bank = Bank::count();

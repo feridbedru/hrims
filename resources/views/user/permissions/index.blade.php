@@ -16,7 +16,7 @@
             @if (count($permissionsObjects) == 0)
                 <h4 class="text-center">{{ __('setting.No Permissions Available') }}.</h4>
             @else
-                <table class="table table-striped ">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>{{ __('setting.Number') }}</th>
@@ -32,18 +32,18 @@
                                 <td>{{ $permissions->name }}</td>
                                 <td>{{ $permissions->display_name }}</td>
                                 <td>
-                                    <form method="POST" action="{!! route('permissions.permissions.destroy', $permissions->id) !!}" accept-charset="UTF-8">
+                                    <form method="POST" action="{!! route('permissions.permission.destroy', $permissions->id) !!}" accept-charset="UTF-8">
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
                                             @permission('permissions_show')
-                                            <a href="{{ route('permissions.permissions.show', $permissions->id) }}"
+                                            <a href="{{ route('permissions.permission.show', $permissions->id) }}"
                                                 class="btn btn-primary ml-2" title="Show permissions">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
                                             @endpermission
                                             @permission('permissions_edit')
-                                            <a href="{{ route('permissions.permissions.edit', $permissions->id) }}"
+                                            <a href="{{ route('permissions.permission.edit', $permissions->id) }}"
                                                 class="btn btn-warning ml-2" title="Edit permissions">
                                                 <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
@@ -68,9 +68,9 @@
         @endif
         @endpermission
     </div>
-
+</div>
     @permission('permissions_addNew')
-    <a href="{{ route('permissions.permissions.create') }}" class="btn btn-success" title="Create New Permissions">
+    <a href="{{ route('permissions.permission.create') }}" class="btn btn-success" title="Create New Permissions">
         <span class="fa fa-plus" aria-hidden="true"> {{ __('setting.AddNew') }}</span>
     </a>
     @endpermission

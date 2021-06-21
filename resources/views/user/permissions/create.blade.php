@@ -15,16 +15,16 @@
 
         <div class="card-body">
             @permission('permissions_addNew')
-            <form method="POST" action="{{ route('permissions.permissions.store') }}" accept-charset="UTF-8"
+            <form method="POST" action="{{ route('permissions.permission.store') }}" accept-charset="UTF-8"
                 id="create_permissions_form" name="create_permissions_form" class="form-horizontal">
                 {{ csrf_field() }}
-                @include ('permissions.form', [
+                @include ('user.permissions.form', [
                 'permissions' => null,
                 ])
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                    <div class="col-md-offset-2 col-md-12 text-center">
                         <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.save'))}}">
-                        <a href="{{ route('permissions.permissions.index') }}" class="btn btn-warning mr-5"
+                        <a href="{{ route('permissions.permission.index') }}" class="btn btn-warning mr-5"
                         title="Show All Permissions">
                         {{(__('setting.cancel'))}}
                     </a>

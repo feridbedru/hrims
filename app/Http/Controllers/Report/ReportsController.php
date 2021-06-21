@@ -48,7 +48,7 @@ class ReportsController extends Controller
         try {
 
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             Report::create($data);
 
             return redirect()->route('reports.report.index')

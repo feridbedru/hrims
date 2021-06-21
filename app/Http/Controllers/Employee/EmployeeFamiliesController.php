@@ -56,7 +56,7 @@ class EmployeeFamiliesController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['status'] = 1;
             $data['employee'] = $id;
             if ('thisUserIsASuperAdmin') {

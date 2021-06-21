@@ -1,8 +1,7 @@
 <div class="row">
-    <div class="form-group col-md-6 {{ $errors->has('name') ? 'has-error' : '' }}">
         <div class="col-md-12">
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name" class="col-md-2 control-label">{{ __('setting.Name') }}</label>
+                <label for="name" class="col-md-12 control-label">{{ __('setting.Name') }}</label>
                 <input class="form-control" name="name" type="text" id="name"
                     value="{{ old('name', optional($roles)->name) }}" minlength="1" maxlength="255"
                     placeholder="Enter name here...">

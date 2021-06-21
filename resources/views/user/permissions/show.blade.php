@@ -13,12 +13,12 @@
     <div class="card-header">
         <h3 class="card-title mb-1">{{ __('setting.Show Permission') }}</h3>
         <div class="card-tools">
-            <form method="POST" action="{!! route('permissions.permissions.destroy', $permissions->id) !!}" accept-charset="UTF-8">
+            <form method="POST" action="{!! route('permissions.permission.destroy', $permissions->id) !!}" accept-charset="UTF-8">
                 @method('DELETE')
                 {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
                     @permission('permissions_edit')
-                    <a href="{{ route('permissions.permissions.edit', $permissions->id ) }}" class="btn btn-warning" title="Edit Permissions">
+                    <a href="{{ route('permissions.permission.edit', $permissions->id ) }}" class="btn btn-warning" title="Edit Permissions">
                         <span class="fa fa-edit" aria-hidden="true"></span>
                     </a>
                     @permission('permissions_delete')

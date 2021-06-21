@@ -1,5 +1,10 @@
 @extends('layouts.login')
-
+@section('pagetitle')
+    {{ __('setting.Login') }}
+@endsection
+@section('breadcrumb')
+    <li class="breadcrumb-item active">{{ __('setting.Login') }}</li>
+@endsection
 @section('content')
     <div class="container" style="margin-top: 10%">
         <div class="row justify-content-center">

@@ -14,18 +14,18 @@
         </div>
         <div class="card-body">
             @permission('permissions_edit')
-            <form method="POST" action="{{ route('roles.roles.update', $roles->id) }}" id="edit_roles_form"
+            <form method="POST" action="{{ route('roles.role.update', $roles->id) }}" id="edit_roles_form"
                 name="edit_roles_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
                 <input name="_method" type="hidden" value="PUT">
-                @include ('roles.edit_role', [
+                @include ('user.roles.edit_role', [
                 'roles' => $roles,
                 ])
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
+                <div class="form-group mt-5">
+                    <div class="col-md-offset-2 col-md-12 text-center">
                         <input class="btn btn-primary mr-5" type="submit" value="{{ __('setting.update') }}">
-                        <a href="{{ route('roles.roles.index') }}" class="btn btn-warning mr-5" title="Show All Roles">
+                        <a href="{{ route('roles.role.index') }}" class="btn btn-warning mr-5" title="Show All Roles">
                             {{ __('setting.cancel') }}
                         </a>
                     </div>

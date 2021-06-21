@@ -60,7 +60,7 @@ class EmployeeStudyTrainingsController extends Controller
         try {
             $employee = Employee::findOrFail($id);
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             $data['employee'] = $id;
             EmployeeStudyTraining::create($data);
 

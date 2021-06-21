@@ -122,7 +122,7 @@ class RolesController extends Controller
             $role->attachPermission($value);
         }
 
-        return redirect()->route('roles.roles.index')
+        return redirect()->route('roles.role.index')
             ->with('success_message', 'Roles was successfully updated.');
     }
 
@@ -139,7 +139,7 @@ class RolesController extends Controller
             $roles = Role::findOrFail($id);
             $roles->delete();
 
-            return redirect()->route('roles.roles.index')
+            return redirect()->route('roles.role.index')
                 ->with('success_message', 'Roles was successfully deleted.');
         } catch (Exception $exception) {
 

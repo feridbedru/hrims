@@ -75,7 +75,7 @@
                             <th>{{ __('setting.Number') }}</th>
                             <th>{{ __('setting.Name') }}</th>
                             <th>{{ __('setting.Display Name') }}</th>
-                            <th>{{ __('setting.Permission Name') }}</th>
+                            <th>{{ __('setting.Permission Count') }}</th>
                             <th>{{ __('setting.Actions') }}</th>
                         </tr>
                     </thead>
@@ -86,26 +86,22 @@
                                 <td>{{ $roles->name }}</td>
                                 <td>{{ $roles->display_name }}</td>
                                 <td>
-                                    @if ($roles->permissions())
-                                        @foreach ($roles->permissions()->get() as $permission)
-                                            {{ $permission->name }} ,
-                                        @endforeach
-                                    @endif
+                                    
                                 </td>
                                 <td>
-                                    <form method="POST" action="{!! route('roles.roles.destroy', $roles->id) !!}" accept-charset="UTF-8">
+                                    <form method="POST" action="{!! route('roles.role.destroy', $roles->id) !!}" accept-charset="UTF-8">
                                         @method('DELETE')
                                         {{ csrf_field() }}
                                         <div class="btn-group btn-group-xs pull-right" role="group">
                                             @permission('roles_show')
-                                            <a href="{{ route('roles.roles.show', $roles->id) }}"
+                                            <a href="{{ route('roles.role.show', $roles->id) }}"
                                                 class="btn btn-primary ml-2" title="Show roles">
                                                 <span class="fa fa-eye" aria-hidden="true"></span>
                                             </a>
                                             @endpermission
                                             @permission('roles_edit')
-                                            <a href="{{ route('roles.roles.edit', $roles->id) }}" title="Edit Roles">
-                                                <span class="fa fa-edit" aria-hidden="true"></span>
+                                            <a href="{{ route('roles.role.edit', $roles->id) }}" title="Edit Roles" class="btn btn-warning">
+                                                <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                             </a>
                                             @endpermission
                                             @permission('roles_delete')
@@ -128,7 +124,7 @@
         @endpermission
     </div>
     @permission('roles_addNew')
-        <a href="{{ route('roles.roles.create') }}" class="btn btn-success" title="Create New Roles">
+        <a href="{{ route('roles.role.create') }}" class="btn btn-success" title="Create New Roles">
             <span class="fa fa-plus" aria-hidden="true"> {{ __('setting.AddNew') }}</span>
         </a>
         @endpermission

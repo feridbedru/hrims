@@ -17,17 +17,17 @@
 
         <div class="card-body">
             @permission('permissions_edit')
-            <form method="POST" action="{{ route('permissions.permissions.update', $permissions->id) }}"
+            <form method="POST" action="{{ route('permissions.permission.update', $permissions->id) }}"
                 id="edit_permissions_form" name="edit_permissions_form" accept-charset="UTF-8" class="form-horizontal">
                 {{ csrf_field() }}
                 <input name="_method" type="hidden" value="PUT">
-                @include ('permissions.form', [
+                @include ('user.permissions.form', [
                 'permissions' => $permissions,
                 ])
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <input class="btn btn-primary mr-5" type="submit" value="{{(__('setting.update'))}}">
-                        <a href="{{ route('permissions.permissions.index') }}" class="btn btn-warning mr-5"
+                        <a href="{{ route('permissions.permission.index') }}" class="btn btn-warning mr-5"
                             title="Show All Permissions">
                             {{(__('setting.cancel'))}}
                         </a>

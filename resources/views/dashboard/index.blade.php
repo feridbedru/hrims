@@ -6,5 +6,5 @@
     <li class="breadcrumb-item active">{{__('setting.Home')}}</li>
 @endsection
 @section('content')
-
+{{ Auth::user()->email }}
 @endsection

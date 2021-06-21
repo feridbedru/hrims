@@ -109,7 +109,7 @@ class HelpsController extends Controller
         try {
 
             $data = $this->getData($request);
-            $data['created_by'] = 1;
+            $data['created_by'] = Auth::Id();
             Help::create($data);
 
             return redirect()->route('helps.help.index')
