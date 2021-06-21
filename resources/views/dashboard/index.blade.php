@@ -3,8 +3,8 @@
 {{__('setting.Dashboard')}}
 @endsection
 @section('breadcrumb')
-    <li class="breadcrumb-item active">{{__('setting.Home')}}</li>
+    <li class="breadcrumb-item active">{{__('setting.Dashboard')}}</li>
 @endsection
 @section('content')
-{{ Auth::user()->email }}
+<h2> Welcome {{ Auth::user()->email }} </h2>
 @endsection

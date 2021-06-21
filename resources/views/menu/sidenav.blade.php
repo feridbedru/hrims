@@ -363,37 +363,45 @@
             </li>
             @endpermission
 
+            @permission('User')
             <li class="nav-item">
-                    <a href="{{ url('#') }}" class="nav-link">
-                        <i class="nav-icon fa fa-users"></i>
-                        <p>
-                            User
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Dashboard</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Permission</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ url('#') }}" class="nav-link">
-                                <i class="fas fa-circle nav-icon"></i>
-                                <p>Role</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <a href="{{ url('#') }}" class="nav-link">
+                    <i class="nav-icon fa fa-users"></i>
+                    <p>
+                        {{(__('employee.Users'))}}
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    @permission('User')
+                    <li class="nav-item">
+                        <a href="{{ url('#') }}" class="nav-link">
+                            <i class="fas fa-circle nav-icon"></i>
+                            <p>{{(__('employee.Users'))}}</p>
+                        </a>
+                    </li>
+                    @endpermission
+                    @permission('Permission')
+                    <li class="nav-item">
+                        <a href="{{ route('permissions.permission.index') }}" class="nav-link">
+                            <i class="fas fa-circle nav-icon"></i>
+                            <p>{{(__('employee.Permissions'))}}</p>
+                        </a>
+                    </li>
+                    @endpermission
+                    @permission('Role')
+                    <li class="nav-item">
+                        <a href="{{ path('roles.role.index') }}" class="nav-link">
+                            <i class="fas fa-circle nav-icon"></i>
+                            <p>{{(__('employee.Roles'))}}</p>
+                        </a>
+                    </li>
+                    @endpermission
+                </ul>
+            </li>
+            @endpermission
 
-                @permission('Setting')
+            @permission('Setting')
             <li class="nav-item">
                 <a href="{{ route('settings.setting.index') }}"
                     class="nav-link {{ request()->is('settings*') ? 'active' : ' ' }}">

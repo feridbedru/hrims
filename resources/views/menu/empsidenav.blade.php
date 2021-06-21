@@ -35,7 +35,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-sitemap"></i>
                     <p>
-                        Personal Information
+                        {{(__('employee.Personal Information'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -44,7 +44,7 @@
                         <a href="{{ route('employee_addresses.employee_address.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/address*') ? 'active' : ' ' }}">
                             <i class="fas fa-address-card nav-icon"></i>
-                            <p>Address</p>
+                            <p>{{(__('employee.Address'))}}</p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -52,7 +52,7 @@
                         <a href="{{ route('employee_bank_accounts.employee_bank_account.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/bank_account*') ? 'active' : ' ' }}">
                             <i class="fas fa-piggy-bank nav-icon"></i>
-                            <p>Bank Accounts</p>
+                            <p>{{(__('employee.Bank Accounts'))}}</p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -60,7 +60,7 @@
                         <a href="{{ route('employee_disabilities.employee_disability.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/disability*') ? 'active' : ' ' }}">
                             <i class="fas fa-blind nav-icon"></i>
-                            <p>Disability </p>
+                            <p>{{(__('employee.Disability'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -68,7 +68,7 @@
                         <a href="{{ route('employee_educations.employee_education.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/education*') ? 'active' : ' ' }}">
                             <i class="fas fa-school nav-icon"></i>
-                            <p>Education </p>
+                            <p>{{(__('employee.Education'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -76,7 +76,7 @@
                         <a href="{{ route('employee_emergencies.employee_emergency.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/emergency*') ? 'active' : ' ' }}">
                             <i class="fas fa-ambulance nav-icon"></i>
-                            <p>Emeregency </p>
+                            <p>{{(__('employee.Emeregency'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -84,7 +84,7 @@
                         <a href="{{ route('employee_families.employee_family.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/family*') ? 'active' : ' ' }}">
                             <i class="fas fa-users nav-icon"></i>
-                            <p>Family </p>
+                            <p>{{(__('employee.Family'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -92,7 +92,7 @@
                         <a href="{{ route('employee_languages.employee_language.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/language*') ? 'active' : ' ' }}">
                             <i class="fas fa-language nav-icon"></i>
-                            <p>Language </p>
+                            <p>{{(__('employee.Language'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -100,7 +100,7 @@
                         <a href="{{ route('employee_licenses.employee_license.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/license*') ? 'active' : ' ' }}">
                             <i class="fas fa-certificate nav-icon"></i>
-                            <p>License </p>
+                            <p>{{(__('employee.License'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -108,7 +108,7 @@
                         <a href="{{ route('employee_additional_infos.employee_additional_info.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/additional_info*') ? 'active' : ' ' }}">
                             <i class="fas fa-certificate nav-icon"></i>
-                            <p>Other Info </p>
+                            <p>{{(__('employee.Other Info'))}} </p>
                             <span class="badge badge-pill badge-primary"></span>
                         </a>
                     </li>
@@ -118,7 +118,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-briefcase"></i>
                     <p>
-                        Experience
+                        {{(__('employee.Experience'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -127,14 +127,14 @@
                         <a href="{{ route('employee_experiences.employee_experience.create', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/experience/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_experiences.employee_experience.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/experience','employees/*/experience/show*','employees/*/experience/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('employee.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -144,7 +144,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-gavel"></i>
                     <p>
-                        Punishment
+                        {{(__('employee.Punishment'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -153,14 +153,14 @@
                         <a href="{{ route('employee_administrative_punishments.employee_administrative_punishment.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/administrative*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>Administrative</p>
+                            <p>{{(__('employee.Administrative'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_judiciary_punishments.employee_judiciary_punishment.index', ['employee' => $employee]) }}"
                             class="nav-link  {{ request()->is('employees/*/judiciary*') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>Judiciary</p>
+                            <p>{{(__('employee.Judiciary'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -169,7 +169,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-car-crash"></i>
                     <p>
-                        Disaster
+                        {{(__('employee.Disaster'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -178,14 +178,14 @@
                         <a href="{{ route('employee_disasters.employee_disaster.create', ['employee' => $employee]) }}"
                             class="nav-link  {{ request()->is('employees/*/disaster/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_disasters.employee_disaster.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/disaster','employees/*/disaster/show*','employees/*/disaster/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('employee.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -202,7 +202,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -218,7 +218,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-certificate"></i>
                     <p>
-                        Certification
+                        {{(__('employee.Certification'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -227,14 +227,14 @@
                         <a href="{{ route('employee_certifications.employee_certification.create', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/certification/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_certifications.employee_certification.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/certification', 'employees/*/certification/show*', 'employees/*/certification/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('employee.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -251,7 +251,7 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -266,7 +266,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-award"></i>
                     <p>
-                        Awards
+                        {{(__('employee.Awards'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -275,14 +275,14 @@
                         <a href="{{ route('employee_awards.employee_award.create', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/award/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_awards.employee_award.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/award', 'employees/*/award/show*', 'employees/*/award/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('employee.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -300,7 +300,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-graduation-cap"></i>
                     <p>
-                        Study & Training
+                        {{(__('employee.Study and Training'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -309,14 +309,14 @@
                         <a href="{{ route('employee_study_trainings.employee_study_training.create', ['employee' => $employee]) }}"
                             class="nav-link  {{ request()->is('employees/*/studytraining/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_study_trainings.employee_study_training.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/studytraining', 'employees/*/studytraining/show*', 'employees/*/studytraining/edit*') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('employee.List'))}}</p>
                         </a>
                     </li>
                 </ul>
@@ -325,7 +325,7 @@
                 <a href="#" class="nav-link">
                     <i class="nav-icon fas fa-folder-open"></i>
                     <p>
-                        Files
+                        {{(__('employee.Files'))}}
                         <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
@@ -334,14 +334,14 @@
                         <a href="{{ route('employee_files.employee_file.index', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/file') ? 'active' : ' ' }}">
                             <i class="fas fa-list-alt nav-icon"></i>
-                            <p>List</p>
+                            <p>{{(__('setting.New'))}}</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('employee_files.employee_file.create', ['employee' => $employee]) }}"
                             class="nav-link {{ request()->is('employees/*/file/create') ? 'active' : ' ' }}">
                             <i class="fas fa-plus-circle nav-icon"></i>
-                            <p>New</p>
+                            <p>{{(__('employee.List'))}}</p>
                         </a>
                     </li>
                 </ul>

@@ -65,6 +65,7 @@ use App\Http\Controllers\Report\ReportsController;
 use App\Http\Controllers\SystemExceptionsController;
 use App\Http\Controllers\User\PermissionsController;
 use App\Http\Controllers\User\RolesController;
+use App\Http\Controllers\Leave\LeaveTypesController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -851,5 +852,17 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('dashboard', function () {
         return view('dashboard/index');
+    });
+
+    Route::group([
+        'prefix' => 'leave_types',
+    ], function () {
+        Route::get('/', [LeaveTypesController::class, 'index'])->name('leave_types.leave_type.index');
+        Route::get('/create',[LeaveTypesController::class, 'create'])->name('leave_types.leave_type.create');
+        Route::get('/show/{leaveType}',[LeaveTypesController::class, 'show'])->name('leave_types.leave_type.show')->whereNumber('id');
+        Route::get('/{leaveType}/edit',[LeaveTypesController::class, 'edit'])->name('leave_types.leave_type.edit')->whereNumber('id');
+        Route::post('/', [LeaveTypesController::class, 'store'])->name('leave_types.leave_type.store');
+        Route::put('/update/{leaveType}', [LeaveTypesController::class, 'update'])->name('leave_types.leave_type.update')->whereNumber('id');
+        Route::delete('/delete/{leaveType}',[LeaveTypesController::class, 'destroy'])->name('leave_types.leave_type.destroy')->whereNumber('id'); 
     });
 });

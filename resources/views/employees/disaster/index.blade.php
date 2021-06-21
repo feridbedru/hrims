@@ -25,7 +25,7 @@
                             <th>{{(__('employee.Disaster Severity'))}}</th>
                             <th>{{(__('setting.Description'))}}</th>
                             <th>{{(__('employee.Status'))}}</th>
-                            <th>{{(__('setting.Actions'))}}</th>
+                            <th>{{(__('setting.Actions'))}}</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -72,6 +72,7 @@
                 {{ $employeeDisasters->links() }}
                 </div>
             @endif
+            @endpermission
         </div>
     </div>
     @permission('disasters_addNew')
