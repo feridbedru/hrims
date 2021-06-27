@@ -66,6 +66,9 @@ use App\Http\Controllers\SystemExceptionsController;
 use App\Http\Controllers\User\PermissionsController;
 use App\Http\Controllers\User\RolesController;
 use App\Http\Controllers\Leave\LeaveTypesController;
+use App\Http\Controllers\Evaluation\EvaluationTypesController;
+use App\Http\Controllers\Evaluation\EvaluationsController;
+use App\Http\Controllers\Evaluation\EvaluationQuestionsController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -864,5 +867,41 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/', [LeaveTypesController::class, 'store'])->name('leave_types.leave_type.store');
         Route::put('/update/{leaveType}', [LeaveTypesController::class, 'update'])->name('leave_types.leave_type.update')->whereNumber('id');
         Route::delete('/delete/{leaveType}',[LeaveTypesController::class, 'destroy'])->name('leave_types.leave_type.destroy')->whereNumber('id'); 
+    });
+
+    Route::group([
+        'prefix' => 'evaluation_types',
+    ], function () {
+        Route::get('/', [EvaluationTypesController::class, 'index'])->name('evaluation_types.evaluation_type.index');
+        Route::get('/create',[EvaluationTypesController::class, 'create'])->name('evaluation_types.evaluation_type.create');
+        Route::get('/show/{evaluationType}',[EvaluationTypesController::class, 'show'])->name('evaluation_types.evaluation_type.show')->whereNumber('id');
+        Route::get('/{evaluationType}/edit',[EvaluationTypesController::class, 'edit'])->name('evaluation_types.evaluation_type.edit')->whereNumber('id');
+        Route::post('/', [EvaluationTypesController::class, 'store'])->name('evaluation_types.evaluation_type.store');
+        Route::put('/update/{evaluationType}', [EvaluationTypesController::class, 'update'])->name('evaluation_types.evaluation_type.update')->whereNumber('id');
+        Route::delete('/delete/{evaluationType}',[EvaluationTypesController::class, 'destroy'])->name('evaluation_types.evaluation_type.destroy')->whereNumber('id'); 
+    });
+
+    Route::group([
+        'prefix' => 'evaluations',
+    ], function () {
+        Route::get('/', [EvaluationsController::class, 'index'])->name('evaluations.evaluation.index');
+        Route::get('/create',[EvaluationsController::class, 'create'])->name('evaluations.evaluation.create');
+        Route::get('/show/{evaluation}',[EvaluationsController::class, 'show'])->name('evaluations.evaluation.show')->whereNumber('id');
+        Route::get('/{evaluation}/edit',[EvaluationsController::class, 'edit'])->name('evaluations.evaluation.edit')->whereNumber('id');
+        Route::post('/', [EvaluationsController::class, 'store'])->name('evaluations.evaluation.store');
+        Route::put('/update/{evaluation}', [EvaluationsController::class, 'update'])->name('evaluations.evaluation.update')->whereNumber('id');
+        Route::delete('/delete/{evaluation}',[EvaluationsController::class, 'destroy'])->name('evaluations.evaluation.destroy')->whereNumber('id'); 
+    });
+
+    Route::group([
+        'prefix' => 'evaluation_questions',
+    ], function () {
+        Route::get('/', [EvaluationQuestionsController::class, 'index'])->name('evaluation_questions.evaluation_question.index');
+        Route::get('/create',[EvaluationQuestionsController::class, 'create'])->name('evaluation_questions.evaluation_question.create');
+        Route::get('/show/{evaluationQuestion}',[EvaluationQuestionsController::class, 'show'])->name('evaluation_questions.evaluation_question.show')->whereNumber('id');
+        Route::get('/{evaluationQuestion}/edit',[EvaluationQuestionsController::class, 'edit'])->name('evaluation_questions.evaluation_question.edit')->whereNumber('id');
+        Route::post('/', [EvaluationQuestionsController::class, 'store'])->name('evaluation_questions.evaluation_question.store');
+        Route::put('/update/{evaluationQuestion}', [EvaluationQuestionsController::class, 'update'])->name('evaluation_questions.evaluation_question.update')->whereNumber('id');
+        Route::delete('/delete/{evaluationQuestion}',[EvaluationQuestionsController::class, 'destroy'])->name('evaluation_questions.evaluation_question.destroy')->whereNumber('id'); 
     });
 });
