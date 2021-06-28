@@ -15,7 +15,6 @@
             @permission('evaluation_type_edit')
             <form method="POST" action="{{ route('evaluation_types.evaluation_type.update', $evaluationType->id) }}" id="edit_evaluation_type_form" name="edit_evaluation_type_form" accept-charset="UTF-8" class="form-horizontal">
             {{ csrf_field() }}
-            @method('DELETE')
             @include ('evaluation_types.form', [
                 'evaluation.evaluationType' => $evaluationType,
             ])

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Evaluation;
 
 use App\Http\Controllers\Controller;
 use App\Models\Evaluation;
+use App\Models\EvaluationQuestion;
 use App\Models\EvaluationType;
 use App\Models\JobCategory;
 use App\Models\OrganizationUnit;
@@ -20,7 +21,7 @@ class EvaluationsController extends Controller
      */
     public function index()
     {
-        $evaluations = Evaluation::with('evaluationtype','jobcategory','organizationunit')->paginate(25);
+        $evaluations = Evaluation::with('evaluationType','jobCategory','organizationUnit')->paginate(25);
 
         return view('evaluation.evaluations.index', compact('evaluations'));
     }
@@ -63,6 +64,10 @@ class EvaluationsController extends Controller
         }
     }
 
+    public function evaluate (Request $request){
+ return true;
+    }
+
     /**
      * Display the specified evaluation.
      *
@@ -72,9 +77,10 @@ class EvaluationsController extends Controller
      */
     public function show($id)
     {
-        $evaluation = Evaluation::with('evaluationtype','jobcategory','organizationunit')->findOrFail($id);
-
-        return view('evaluation.evaluations.show', compact('evaluation'));
+        $evaluation = Evaluation::with('evaluationType','jobCategory','organizationUnit')->findOrFail($id);
+        $evaluationQuestions = EvaluationQuestion::where('evaluation_id', $evaluation->id)->get();
+// dd($evaluationQuestions);
+        return view('evaluation.evaluations.show', compact('evaluation','evaluationQuestions'));
     }
 
     /**

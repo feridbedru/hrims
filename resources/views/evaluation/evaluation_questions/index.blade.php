@@ -12,7 +12,7 @@
         </div>
 
         <div class="card-body"> 
-            @permission('evaluation_question_list') 
+            {{-- @permission('evaluation_question_list')  --}}
         @if(count($evaluationQuestions) == 0)
                 <h4 class="text-center">{{(__('employee.No Evaluation Questions Available.'))}}</h4>
         @else
@@ -36,27 +36,27 @@
                     <td>{{ $evaluationQuestion->criteria }}</td>
                     <td>{{ $evaluationQuestion->weight }}</td>
                     <td>{{ $evaluationQuestion->order }}</td>
-                    <td>{{ $evaluationQuestion->status }}</td>
+                    <td>{{ $evaluationQuestion->status ? 'Active' : 'Closed' }}</td>
                     <td>
                         <form method="POST" action="{!! route('evaluation_questions.evaluation_question.destroy', $evaluationQuestion->id) !!}" accept-charset="UTF-8">
                             @method('DELETE')
                             {{ csrf_field() }}
                             <div class="btn-group btn-group-xs pull-right" role="group">
-                                @permission('evaluation_question_show')
+                                {{-- @permission('evaluation_question_show') --}}
                                 <a href="{{ route('evaluation_questions.evaluation_question.show', $evaluationQuestion->id ) }}" class="btn btn-primary" title="Show Evaluation Question">
                                     <span class="fa fa-eye" aria-hidden="true"></span>
                                 </a>
-                                @endpermission
-                                @permission('evaluation_question_edit')
+                                {{-- @endpermission --}}
+                                {{-- @permission('evaluation_question_edit') --}}
                                 <a href="{{ route('evaluation_questions.evaluation_question.edit', $evaluationQuestion->id ) }}" class="btn btn-warning" title="Edit Evaluation Question">
                                     <span class="fa fa-edit text-white" aria-hidden="true"></span>
                                 </a>
-                                @endpermission
-                                @permission('evaluation_question_delete')
+                                {{-- @endpermission --}}
+                                {{-- @permission('evaluation_question_delete') --}}
                                 <button type="submit" class="btn btn-danger" title="Delete Evaluation Question" onclick="return confirm(&quot;Click Ok to delete Evaluation Question.&quot;)">
                                     <span class="fa fa-trash" aria-hidden="true"></span>
                                 </button>
-                                @endpermission
+                                {{-- @endpermission --}}
                             </div>
                         </form>
                     </td>
@@ -68,12 +68,12 @@
             {!! $evaluationQuestions->links() !!}
         </div>
     @endif
-    @endpermission
+    {{-- @endpermission --}}
     </div>
 </div>
-@permission('evaluationQuestions_new')
+{{-- @permission('evaluation_question_new') --}}
     <a href="{{ route('evaluation_questions.evaluation_question.create') }}" class="btn btn-success mr-2" title="Create New Evaluation Question">
     <span class="fa fa-plus" aria-hidden="true">  {{(__('setting.AddNew'))}}</span>
     </a>
-@endpermission
+{{-- @endpermission --}}
 @endsection

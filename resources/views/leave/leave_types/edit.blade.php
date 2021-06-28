@@ -15,7 +15,6 @@
             @permission('leave_types_edit')
             <form method="POST" action="{{ route('leave_types.leave_type.update', $leaveType->id) }}" id="edit_leave_type_form" name="edit_leave_type_form" accept-charset="UTF-8" class="form-horizontal">
             {{ csrf_field() }}
-            @method('DELETE')
             @include ('leave.leave_types.form', [
                 'leaveType' => $leaveType,
             ])

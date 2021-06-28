@@ -887,6 +887,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [EvaluationsController::class, 'index'])->name('evaluations.evaluation.index');
         Route::get('/create',[EvaluationsController::class, 'create'])->name('evaluations.evaluation.create');
         Route::get('/show/{evaluation}',[EvaluationsController::class, 'show'])->name('evaluations.evaluation.show')->whereNumber('id');
+        Route::post('/show/{evaluation}',[EvaluationsController::class, 'evaluate'])->name('evaluations.evaluation.evaluate')->whereNumber('id');
         Route::get('/{evaluation}/edit',[EvaluationsController::class, 'edit'])->name('evaluations.evaluation.edit')->whereNumber('id');
         Route::post('/', [EvaluationsController::class, 'store'])->name('evaluations.evaluation.store');
         Route::put('/update/{evaluation}', [EvaluationsController::class, 'update'])->name('evaluations.evaluation.update')->whereNumber('id');
@@ -905,3 +906,4 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/delete/{evaluationQuestion}',[EvaluationQuestionsController::class, 'destroy'])->name('evaluation_questions.evaluation_question.destroy')->whereNumber('id'); 
     });
 });
+

@@ -17,7 +17,7 @@
                 {{ csrf_field() }}
                 <div class="btn-group btn-group-sm" role="group">
                     @permission('evaluation_type_edit')
-                    <a href="{{ route('evaluation_types.evaluation_type.edit', $evaluationType->id ) }}" class="btn btn-primary" title="Edit Evaluation Type">
+                    <a href="{{ route('evaluation_types.evaluation_type.edit', $evaluationType->id ) }}" class="btn btn-warning" title="Edit Evaluation Type">
                         <span class="fa fa-edit" aria-hidden="true"></span>
                     </a>
                     @endpermission

@@ -12,10 +12,9 @@
             <h3 class="card-title mb-1">{{(__('employee.Edit Evaluation'))}}</h3>
         </div>
         <div class="card-body">
-            @permission('evaluation_edit')
+            {{-- @permission('evaluation_edit') --}}
             <form method="POST" action="{{ route('evaluations.evaluation.update', $evaluation->id) }}" id="edit_evaluation_form" name="edit_evaluation_form" accept-charset="UTF-8" class="form-horizontal">
             {{ csrf_field() }}
-            @method('DELETE')
             @include ('evaluation.evaluations.form', [
                 'evaluation' => $evaluation,
             ])
@@ -29,7 +28,7 @@
                     </div>
                 </div>
             </form>
-            @endpermission
+            {{-- @endpermission --}}
         </div>
     </div>
 @endsection

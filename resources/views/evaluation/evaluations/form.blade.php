@@ -139,11 +139,15 @@
     </div>
 </div>
 
-<div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
+<div class="form-group col-md-8 {{ $errors->has('status') ? 'has-error' : '' }}">
     <label for="status" class="col-md-12 control-label">{{ __('employee.Status') }}</label>
     <div class="col-md-12">
-        <input class="form-control" name="status" type="number" id="status"
-            value="{{ old('status', optional($evaluation)->status) }}" min="1" max="100" required="true"
-            placeholder="Enter status here...">
+        <select class="form-control" id="status" name="status" required="true">
+            <option value="" style="display: none;"
+                {{ old('status', optional($evaluation)->status ?: '') == '' ? 'selected' : '' }}
+                disabled selected>Select Status</option>
+            <option value="1"> Active </option>
+            <option value="2"> Closed </option>
+        </select>
     </div>
 </div>

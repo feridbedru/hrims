@@ -64,7 +64,7 @@ class Evaluation extends Model
      */
     public function evaluationType()
     {
-        return $this->belongsTo(EvaluationType::class,'evaluation_type');
+        return $this->belongsTo(EvaluationType::class,'evaluation_type_id');
     }
 
     /**
@@ -74,7 +74,7 @@ class Evaluation extends Model
      */
     public function jobCategory()
     {
-        return $this->belongsTo(JobCategory::class,'job_category');
+        return $this->belongsTo(JobCategory::class,'job_category_id');
     }
 
     /**

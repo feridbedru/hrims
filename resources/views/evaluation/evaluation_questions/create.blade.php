@@ -12,7 +12,7 @@
             <h3 class="card-title mb-1">{{(__('employee.Create New Evaluation Question'))}}</h3>
         </div>
         <div class="card-body">
-            @permission('evaluation_question_new')
+            {{-- @permission('evaluation_question_new') --}}
             <form method="POST" action="{{ route('evaluation_questions.evaluation_question.store') }}" accept-charset="UTF-8" id="create_evaluation_question_form"
                 name="create_evaluation_question_form" class="form-horizontal" >
                 {{ csrf_field() }}
@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </form>
-            @endpermission
+            {{-- @endpermission --}}
         </div>
     </div>
 @endsection
